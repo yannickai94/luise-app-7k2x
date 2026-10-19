@@ -323,6 +323,58 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .scanpg{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px}
 .scanpg img{width:100%;height:150px;object-fit:contain;background:#fff;border-radius:6px}
 .scanpg small{color:var(--mute)}
+
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+.wg{grid-column:span 2;position:relative;min-width:0}
+.wg.half{grid-column:span 1}
+.wg>.card,.wg>.hero2,.wg>.stack,.wg>.tiles,.wg>.weekcard{height:100%}
+.wg>.stack{height:auto}
+.wgrid.editing .wg{outline:2px dashed var(--accent);outline-offset:3px;border-radius:20px;padding-top:0}
+.wgrid.editing .wg>*:not(.wgctl){pointer-events:none}
+.wgctl{position:absolute;top:-14px;right:6px;z-index:5;display:flex;gap:6px;align-items:center}
+.wgrip,.wgbtn{border:0;background:var(--accent);color:#fff;border-radius:999px;min-width:36px;height:30px;padding:0 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;display:grid;place-items:center;box-shadow:var(--shadow)}
+.wgrip{touch-action:none;cursor:grab}.wgrip svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round}
+.wg.dragging{opacity:.92;box-shadow:0 14px 40px rgba(0,0,0,.28);transform:scale(1.02);border-radius:20px;background:var(--bg)}
+.wph{border:2px dashed var(--accent);border-radius:20px;background:var(--accent-bg);opacity:.6}
+.wedit-bar{display:flex;flex-direction:column;gap:8px}
+.wgempty{display:flex;flex-direction:column;gap:2px;opacity:.7}
+.card.mini{display:flex;flex-direction:column;gap:3px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;width:100%;min-height:112px;justify-content:flex-start}
+.wk{color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.wv{font-size:20px;line-height:1.2;overflow-wrap:anywhere}.ws{color:var(--mute);font-size:13px}
+.wphoto{padding:0;overflow:hidden;position:relative;min-height:150px}.wphoto img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.wcap{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.62));display:flex;flex-direction:column;font-size:13px}.wcap small{font-size:11px;text-transform:uppercase;letter-spacing:.05em;opacity:.9}
+.clockw{display:flex;flex-direction:column;gap:6px;text-align:center;background:linear-gradient(135deg,var(--g1),var(--g2) 58%,var(--g3));color:#fff;border:0}
+.clockw .wk{color:rgba(255,255,255,.85)}
+.ck-main{font-size:19px;font-weight:600}.ck-main b{font-size:30px;font-variant-numeric:tabular-nums}.ck-main span{opacity:.9}
+.ck-time{display:flex;justify-content:center;align-items:baseline;gap:2px;font-variant-numeric:tabular-nums}.ck-time .big{font-size:42px;font-weight:700;letter-spacing:.02em}.ck-time .sec{opacity:.75}.ck-time i{font-style:normal;font-size:36px;opacity:.7}
+.ck-lab{display:flex;justify-content:center;gap:34px;font-size:11px;opacity:.8;text-transform:uppercase;letter-spacing:.06em}
+.ck-tot{font-size:12px;opacity:.85}
+.clockw .linkbtn{color:#fff;text-decoration:underline;font-size:13px}
+.clockw.small .ck-main{font-size:13px}.clockw.small .ck-main b{font-size:20px}.clockw.small .ck-time .big{font-size:28px}.clockw.small .ck-time i{font-size:24px}
+.tl{position:relative;padding-left:22px;display:flex;flex-direction:column;gap:12px}
+.tl::before{content:"";position:absolute;left:19px;top:6px;bottom:6px;width:3px;border-radius:2px;background:linear-gradient(var(--accent),var(--line))}
+.tl-year{margin:6px 0 0 34px;font-weight:700;font-size:18px;color:var(--accent)}
+.tl-item{position:relative;display:flex;gap:12px}
+.tl-dot{position:absolute;left:-22px;top:6px;width:42px;height:42px;border-radius:50%;background:var(--card);border:3px solid var(--accent);display:grid;place-items:center;font-size:20px;z-index:1}
+.tl-item.auto .tl-dot{border-color:var(--line);font-size:17px;opacity:.9}
+.tl-card{margin-left:34px;flex:1;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);cursor:pointer;display:flex;flex-direction:column;gap:3px}
+.tl-item.auto .tl-card{box-shadow:none;background:transparent}
+.tl-date{color:var(--mute);font-size:12px}.tl-card p{margin:0;color:var(--ink);font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.tl-ph{display:flex;gap:6px;margin-top:6px}.tl-th{border:0;padding:0;border-radius:10px;overflow:hidden;width:64px;height:64px;background:var(--line);cursor:pointer}.tl-th img{width:100%;height:100%;object-fit:cover;display:block}
+.tl-more{align-self:center;color:var(--mute);font-size:14px}
+.hubico.emo{font-size:20px}
+.ftwrap{display:flex;flex-direction:column;gap:10px}
+.ft-legend{display:flex;gap:14px;font-size:12px;color:var(--mute)}.ft-legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.dot.m{background:#e0719b}.dot.v{background:#4f8fdc}
+.ftree{display:flex;flex-direction:column;gap:6px}
+.ft-row{position:relative;display:flex;flex-direction:column;gap:6px;padding-top:12px}
+.ft-row+.ft-row::before{content:"";position:absolute;top:-6px;left:50%;height:18px;width:2px;background:var(--line)}
+.ft-label{text-align:center;color:var(--mute);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.ft-nodes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.ft-node{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;border-radius:14px;padding:8px 10px;min-width:92px;max-width:130px;cursor:pointer;text-align:center}
+.ft-node b{font-size:14px;overflow-wrap:anywhere}.ft-node small{color:var(--mute);font-size:11px}.ft-node.gone{opacity:.7}
+.ft-node.me{border:2px solid var(--accent);background:var(--accent-bg);cursor:default}
+.ft-node.sm{border-top:4px solid #e0719b}.ft-node.sv{border-top:4px solid #4f8fdc}
+.ft-g{font-style:normal;font-size:10px;color:var(--accent);font-weight:600}
 </style>
 </head>
 <body>
@@ -495,7 +547,7 @@ async function loadState() {
   const [profile, health, school, docs, photos] = await Promise.all([kvGet(ckey('profile')), kvGet(ckey('health')), kvGet(ckey('school')), docsAll(), photosAll()]);
   const mine = x => (x.cid || 'main') === CID;
   S = {
-    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [] }, profile || {}),
+    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [], journey: [], familie: [] }, profile || {}),
     health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [], meds: [] }, health || {}),
     school: Object.assign({ abholer: [], termine: [], hiddenAuto: [] }, school || {}),
     docs: (docs || []).filter(mine),
@@ -507,6 +559,11 @@ const persist = async k => {
   if (k === 'profile') { const c = CH.find(x => x.id === CID), n = S.profile.vorname || ''; if (c && n && c.name !== n) { c.name = n; await kvSet('children', CH); } }
 };
 
+Object.assign(ICON, {
+  journey: '<svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M14.4 7H20M9.6 17H4"/></svg>',
+  tree: '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M12 7.2V12M6 16.8V12h12v4.8"/></svg>',
+  grip: '<svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14"/></svg>'
+});
 /* ============ Sperre ============ */
 ICON.faceid = '<svg viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 9.5v1.5M15 9.5v1.5M12 9.5v3.5h-1M9 16c1.7 1.3 4.3 1.3 6 0"/></svg>';
 Object.assign(ICON, {
@@ -795,7 +852,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
     }
     else if (f.type === 'checkbox') { inp = h('input', { type: 'checkbox' }); inp.checked = !!val; }
     else if (f.type === 'file') {
-      inp = h('input', { type: 'file', accept: f.accept || '' });
+      inp = h('input', { type: 'file', accept: f.accept || '', multiple: f.multiple ? true : null });
       inp.addEventListener('click', () => { suppressLockUntil = Date.now() + 180000; });
       if (f.crop) inp.addEventListener('change', async () => {
         const file = inp.files && inp.files[0];
@@ -835,7 +892,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
     const out = {};
     for (const f of fields) {
       const i = inputs[f.key]; if (!i) continue;
-      out[f.key] = f.type === 'file' ? (i._blob || (i.files && i.files[0]) || null) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
+      out[f.key] = f.type === 'file' ? (f.multiple ? Array.from(i.files || []) : (i._blob || (i.files && i.files[0]) || null)) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
     }
     try { const r = await onSave(out); if (r !== false) close(); }
     catch (err) { console.error(err); toast('Fehler: ' + (err.message || err)); }
@@ -1094,52 +1151,464 @@ function openEmergency() {
       h('button', { class: 'btn ghost wide', onclick: () => shareText('Notfallinfos ' + name, emergencyText()) }, 'Als Text teilen'))
   });
 }
-function viewHome() {
-  const p = S.profile, wrap = h('div', { class: 'stack' });
-  const name = [p.vorname, p.nachname].filter(Boolean).join(' ');
-  const nextT = nextTerminObj();
-  wrap.append(kidSwitcher());
-  wrap.append(h('div', { class: 'hero2' },
+/* ============ Alters-Uhr ============ */
+function birthDateTime() {
+  const p = S.profile; if (!p.geburtsdatum) return null;
+  const [y, m, d] = p.geburtsdatum.split('-').map(Number), [hh, mm] = (p.geburtszeit || '00:00').split(':').map(Number);
+  return new Date(y, m - 1, d, hh || 0, mm || 0);
+}
+function addMonthsDT(dt, n) {
+  const r = new Date(dt.getFullYear(), dt.getMonth() + n, 1, dt.getHours(), dt.getMinutes());
+  r.setDate(Math.min(dt.getDate(), new Date(r.getFullYear(), r.getMonth() + 1, 0).getDate()));
+  return r;
+}
+function exactAge(b, now) {
+  let M = (now.getFullYear() - b.getFullYear()) * 12 + now.getMonth() - b.getMonth();
+  if (now < b) return null;
+  while (M > 0 && addMonthsDT(b, M) > now) M--;
+  const ms = now - addMonthsDT(b, M), tot = now - b;
+  return { y: Math.floor(M / 12), mo: M % 12, d: Math.floor(ms / 864e5), h: Math.floor(ms % 864e5 / 36e5), mi: Math.floor(ms % 36e5 / 6e4), s: Math.floor(ms % 6e4 / 1e3),
+    tDays: Math.floor(tot / 864e5), tHours: Math.floor(tot / 36e5), tMin: Math.floor(tot / 6e4) };
+}
+const nf = n => n.toLocaleString('de-DE');
+function clockWidget(w) {
+  const b = birthDateTime(), p = S.profile;
+  if (!b) return h('div', { class: 'card stack' }, h('h2', null, 'Alters-Uhr'), h('p', { class: 'empty' }, 'Trage das Geburtsdatum ein, dann zeigt die Uhr das Alter bis auf die Sekunde.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten'));
+  const small = w === 1, name = p.vorname || 'Dein Kind';
+  const S_ = {}, sp = (k, cls) => (S_[k] = h('b', { class: cls || '' }, '0'));
+  const root = h('div', { class: 'card clockw' + (small ? ' small' : ''), role: 'timer', 'aria-label': 'Alter in Jahren, Monaten, Tagen, Stunden und Minuten' },
+    h('small', { class: 'wk' }, small ? 'Alter genau' : `${name} ist genau`),
+    small
+      ? h('div', { class: 'ck-main' }, sp('y'), ' J ', sp('mo'), ' M ', sp('d'), ' T')
+      : h('div', { class: 'ck-main' }, sp('y'), h('span', null, ' Jahre '), sp('mo'), h('span', null, ' Monate '), sp('d'), h('span', null, ' Tage')),
+    h('div', { class: 'ck-time' }, sp('h', 'big'), h('i', null, ':'), sp('mi', 'big'), h('i', null, ':'), sp('s', 'big sec')),
+    small ? null : h('div', { class: 'ck-lab' }, h('span', null, 'Stunden'), h('span', null, 'Minuten'), h('span', null, 'Sekunden')),
+    small ? null : h('div', { class: 'ck-tot' }, S_.tot = h('span', null, '')),
+    (small || p.geburtszeit) ? null : h('button', { class: 'linkbtn', type: 'button', onclick: editProfile }, 'Geburtszeit eintragen für die minutengenaue Uhr'));
+  const tick = () => {
+    if (!root.isConnected && root._ready) { clearInterval(root._t); return; }
+    const a = exactAge(b, new Date()); if (!a) return;
+    S_.y.textContent = a.y; S_.mo.textContent = a.mo; S_.d.textContent = a.d;
+    S_.h.textContent = pad2(a.h); S_.mi.textContent = pad2(a.mi); S_.s.textContent = pad2(a.s);
+    if (S_.tot) S_.tot.textContent = `${nf(a.tDays)} Tage · ${nf(a.tHours)} Stunden · ${nf(a.tMin)} Minuten`;
+    if (root.isConnected) root._ready = true;
+  };
+  tick(); root._t = setInterval(tick, 1000);
+  return root;
+}
+
+/* ============ Mini-Karten & Widgets ============ */
+const miniCard = (kick, big, sub, fn, extra) => h('button', { class: 'card mini', type: 'button', onclick: fn }, h('small', { class: 'wk' }, kick), h('b', { class: 'wv' }, big), sub ? h('span', { class: 'ws' }, sub) : null, extra || null);
+function nextBirthday() {
+  const g = S.profile.geburtsdatum; if (!g) return null;
+  const b = parseD(g), n0 = today0();
+  let nb = new Date(n0.getFullYear(), b.getMonth(), b.getDate()); if (nb < n0) nb = new Date(n0.getFullYear() + 1, b.getMonth(), b.getDate());
+  return { iso: isoOf(nb), age: nb.getFullYear() - b.getFullYear() };
+}
+function wHero() {
+  const p = S.profile, name = [p.vorname, p.nachname].filter(Boolean).join(' '), nextT = nextTerminObj();
+  return h('div', { class: 'hero2' },
     h('button', { class: 'editbtn', 'aria-label': 'Profil bearbeiten', onclick: editProfile, html: ICON.edit }),
     h('div', { class: 'top' }, avatar(p, 76), h('div', null, h('h1', null, name || 'Neues Profil'),
       p.geburtsdatum ? h('p', null, `${ageText(p.geburtsdatum)} · geb. ${fmtD(p.geburtsdatum)}`) : h('p', null, name ? 'Geburtsdatum fehlt noch' : 'Tippe auf den Stift, um das Profil anzulegen'))),
     h('div', { class: 'stats' },
       h('div', { class: 'stat' }, h('b', null, S.docs.length), 'Dokumente'),
       h('div', { class: 'stat' }, h('b', null, S.photos.length), 'Fotos'),
-      nextT ? h('div', { class: 'stat' }, h('b', null, rel(nextT.datum)), nextT.titel) : null)));
-  wrap.append(h('div', { class: 'tiles' },
+      nextT ? h('div', { class: 'stat' }, h('b', null, rel(nextT.datum)), nextT.titel) : null));
+}
+function wQuick() {
+  const nextT = nextTerminObj();
+  return h('div', { class: 'tiles' },
     tile('sos', ICON.cross, 'Notfallkarte', 'Alles Wichtige sofort', openEmergency),
     tile('', ICON.smile, 'Betreuungs-Zettel', 'Für Oma, Babysitter, Kita', openCare),
     tile('gold', ICON.trophy, 'Abzeichen', badgeSub(), () => go('badges')),
     tile('violet', ICON.moon, 'Spirituelles', spiritSub(), () => go('spirit')),
     tile('', ICON.docs, 'Dokument ablegen', 'Foto, Scan oder PDF', () => editDoc()),
-    tile('', ICON.cal, 'Termine', nextT ? nextT.titel + ' · ' + rel(nextT.datum) : 'Mit Ort, Route, Erinnerung', () => go('dates'))));
-  if (p.geburtsdatum && curWeek(p.geburtsdatum) >= 1 && curWeek(p.geburtsdatum) <= 940) {
-    const wn = curWeek(p.geburtsdatum), wi = weekInfo(wn);
-    wrap.append(h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text)));
-  }
+    tile('', ICON.cal, 'Termine', nextT ? nextT.titel + ' · ' + rel(nextT.datum) : 'Mit Ort, Route, Erinnerung', () => go('dates')));
+}
+function wWeek() {
+  const p = S.profile;
+  if (!(p.geburtsdatum && curWeek(p.geburtsdatum) >= 1 && curWeek(p.geburtsdatum) <= 940)) return null;
+  const wn = curWeek(p.geburtsdatum), wi = weekInfo(wn);
+  return h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text));
+}
+function wInstall() {
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
-  if (!standalone && !ls.get('luise_hint_off')) wrap.append(h('div', { class: 'card hint' },
-    h('b', null, 'Als App installieren'),
+  if (standalone || ls.get('luise_hint_off')) return null;
+  return h('div', { class: 'card hint' }, h('b', null, 'Als App installieren'),
     h('p', null, 'In Safari auf „Teilen“ tippen, dann „Zum Home-Bildschirm“. Das am besten zuerst tun und erst danach Daten eingeben: Die installierte App hat einen eigenen Speicher.'),
-    ghostBtn('Ausblenden', () => { ls.set('luise_hint_off', '1'); render(); })));
-  const alerts = computeAlerts();
-  if (alerts.length) {
-    wrap.append(sectionHead('Hinweise'));
-    alerts.forEach(a => wrap.append(h('button', { class: 'alert ' + a.lvl, onclick: () => { if (a.seg) healthSeg = a.seg; go(a.tab); } }, h('span', { class: 'dot' }), h('span', null, h('b', null, a.text), h('small', null, a.sub)))));
-  }
-  wrap.append(sectionHead('Stammdaten', addBtn('Angabe', () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true, ph: 'z. B. Reisepassnummer' }, { key: 'value', label: 'Wert', required: true }] }))));
-  const rows = [
-    ...PROFILE_FIELDS.map(f => kv(f.label, p[f.key])),
-    ...p.extras.map(x => kv(x.label, x.value, { onclick: () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true }, { key: 'value', label: 'Wert', required: true }], item: x }) }))
-  ].filter(Boolean);
-  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben. Tippe auf „Profil bearbeiten“ oder füge eigene Angaben hinzu. Ein Tipp auf eine Zeile kopiert den Wert.')));
-  wrap.append(sectionHead('Kontakte', addBtn('Kontakt', () => editContact())));
-  wrap.append(h('div', { class: 'card' }, p.kontakte.length
-    ? p.kontakte.map(c => li(() => editContact(c), '', contactAv(c), liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev()))
-    : h('p', { class: 'empty' }, 'Noch keine Kontakte.')));
+    ghostBtn('Ausblenden', () => { ls.set('luise_hint_off', '1'); render(); }));
+}
+function wAlerts() {
+  const alerts = computeAlerts(); if (!alerts.length) return null;
+  return h('div', { class: 'stack' }, sectionHead('Hinweise'), alerts.map(a => h('button', { class: 'alert ' + a.lvl, onclick: () => { if (a.seg) healthSeg = a.seg; go(a.tab); } }, h('span', { class: 'dot' }), h('span', null, h('b', null, a.text), h('small', null, a.sub)))));
+}
+function wStamm() {
+  const p = S.profile, fields = [{ key: 'label', label: 'Bezeichnung', required: true, ph: 'z. B. Reisepassnummer' }, { key: 'value', label: 'Wert', required: true }];
+  const rows = [...PROFILE_FIELDS.map(f => kv(f.label, p[f.key])), ...p.extras.map(x => kv(x.label, x.value, { onclick: () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields, item: x }) }))].filter(Boolean);
+  return h('div', { class: 'stack' }, sectionHead('Stammdaten', addBtn('Angabe', () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields }))),
+    h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben. Tippe auf „Profil bearbeiten“ oder füge eigene Angaben hinzu. Ein Tipp auf eine Zeile kopiert den Wert.')));
+}
+function wKontakte() {
+  const p = S.profile;
+  return h('div', { class: 'stack' }, sectionHead('Kontakte', addBtn('Kontakt', () => editContact())),
+    h('div', { class: 'card' }, p.kontakte.length ? p.kontakte.map(c => li(() => editContact(c), '', contactAv(c), liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev())) : h('p', { class: 'empty' }, 'Noch keine Kontakte.')));
+}
+function wTermine() {
+  const up = S.school.termine.map(t => ({ t, d: nextOcc(t) })).filter(x => x.d && daysTo(x.d) >= 0).sort((a, b) => (a.d + (a.t.zeit || '')).localeCompare(b.d + (b.t.zeit || ''))).slice(0, 3);
+  return h('div', { class: 'stack' }, sectionHead('Nächste Termine', addBtn('Termin', () => editTermin())),
+    h('div', { class: 'card' }, up.length ? up.map(x => terminRow(x.t, false)) : h('p', { class: 'empty' }, 'Keine anstehenden Termine.')),
+    h('button', { class: 'linkbtn', onclick: () => go('dates') }, 'Alle Termine und Fristen'));
+}
+function wFristen() {
+  const a = autoDeadlines().slice(0, 3);
+  return h('div', { class: 'stack' }, sectionHead('Fristen'), h('div', { class: 'card' }, a.length ? a.map(frisRow) : h('p', { class: 'empty' }, S.profile.geburtsdatum ? 'Gerade ist nichts fällig.' : 'Trage zuerst das Geburtsdatum ein.')));
+}
+function wHD() {
+  const p = S.profile;
+  if (!p.geburtsdatum || !p.geburtszeit) return miniCard('Human Design', 'Angaben fehlen', 'Geburtszeit eintragen', () => go('hd'));
+  const r = hdResult(); if (!r) return miniCard('Human Design', 'Nicht berechenbar', 'Angaben prüfen', () => go('hd'));
+  return miniCard('Human Design', r.typ, `Profil ${r.profil} · ${r.auth}`, () => go('hd'));
+}
+function wZodiac() {
+  const g = S.profile.geburtsdatum; if (!g) return miniCard('Sternzeichen', 'Unbekannt', 'Geburtsdatum fehlt', editProfile);
+  const z = zodiacOf(g), c = chineseOf(g);
+  return miniCard('Sternzeichen', `${z.e || ''} ${z.n}`, `${c.emoji} ${c.animal} · ${moonPhase(g).emoji} ${moonPhase(g).name}`, () => go('spirit'));
+}
+function wGrowth() {
+  const ent = S.health.wachstum.filter(e => e.datum && (num(e.groesse) != null || num(e.gewicht) != null)).sort((a, b) => a.datum.localeCompare(b.datum)), l = ent[ent.length - 1];
+  if (!l) return miniCard('Wachstum', 'Keine Messung', 'Größe & Gewicht eintragen', () => { healthSeg = 'entwicklung'; go('health'); });
+  const sx = sexKey(), pn = sx && S.profile.geburtsdatum && num(l.groesse) != null ? pctNote(sx, 'h', S.profile.geburtsdatum, ent, 'groesse') : '';
+  return miniCard('Wachstum', [l.groesse && l.groesse + ' cm', l.gewicht && l.gewicht + ' kg'].filter(Boolean).join(' · '), [fmtD(l.datum), pn && 'Größe ' + pn].filter(Boolean).join(' · '), () => { healthSeg = 'entwicklung'; go('health'); });
+}
+function wInvest() {
+  const arr = S.profile.invest, total = arr.reduce((s, it) => s + (eur2num(it.wert) || 0), 0), m = monthsTo18(), proj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null;
+  if (!arr.length) return miniCard('Investments', 'Noch leer', 'Anlage erfassen', () => go('invest'));
+  return miniCard('Investments', fmtEur(total), proj != null ? 'Mit 18: ' + fmtEur(proj) : plural(arr.length, 'Anlage', 'Anlagen'), () => go('invest'));
+}
+function wBadges() {
+  const a = evalBadges(), st = badgeStats(a);
+  return miniCard('Abzeichen', 'Level ' + st.lvl, `${st.got.length} von ${a.length}`, () => go('badges'), h('div', { class: 'bar dark' }, h('i', { style: `width:${st.pct}%` })));
+}
+function wFamily() {
+  const f = S.profile.familie, nb = autoDeadlines().find(x => x.id.startsWith('fbday:'));
+  return miniCard('Stammbuch', f.length ? plural(f.length, 'Person', 'Personen') : 'Noch leer', nb ? nb.title + ' ' + nb.status : 'Familie eintragen', () => go('family'));
+}
+function wBday() {
+  const nb = nextBirthday(); if (!nb) return miniCard('Geburtstag', 'Unbekannt', 'Geburtsdatum fehlt', editProfile);
+  const d = daysTo(nb.iso);
+  return miniCard('Nächster Geburtstag', d === 0 ? 'Heute! 🎉' : 'in ' + plural(d, 'Tag', 'Tagen'), `${nb.age}. Geburtstag · ${wd(nb.iso)}`, () => go('dates'));
+}
+function wPhoto() {
+  if (!S.photos.length) return miniCard('Foto des Tages', 'Noch keine Fotos', 'Zur Galerie', () => go('photos'));
+  const key = isoToday().replace(/-/g, ''), idx = (+key) % S.photos.length, m = S.photos[idx];
+  return h('button', { class: 'card mini wphoto', type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, h('img', { src: m.thumb, alt: '' }), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
+}
+function wSpot() {
+  if (nowPlaying) return playerCard();
+  const p = S.profile, songs = p.lieder.filter(x => embedUrl(x.link)).slice(0, 3);
+  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'Musik'), ghostBtn('Alle Lieder', () => go('songs'))),
+    p.playlist && embedUrl(p.playlist) ? h('button', { class: 'btn spot wide', type: 'button', onclick: () => playInApp(p.playlist, 'Playlist') }, h('span', { html: ICON.play }), 'Luises Playlist abspielen') : null,
+    songs.length ? h('div', null, songs.map(x => li(() => playInApp(x.link, x.titel), '', h('span', { class: 'hubico', html: ICON.note }), liTxt(x.titel, x.interpret), h('span', { class: 'spotbtn', html: ICON.play })))) : (!p.playlist ? h('p', { class: 'empty' }, 'Noch keine Lieder mit Spotify-Link.') : null),
+    (!p.playlist && !songs.length) ? h('button', { class: 'btn wide', onclick: () => go('songs') }, 'Lieder hinzufügen') : null);
+}
+function wRouten() {
+  const items = S.profile.adressen.filter(a => addrText(a)).slice(0, 3);
+  return h('div', { class: 'stack' }, sectionHead('Routen', addBtn('Adresse', () => editAddress())),
+    h('div', { class: 'card' }, items.length ? items.map(a => li(() => go('addr'), '', h('span', { class: 'hubico', html: ICON.pin }), liTxt(a.label, addrText(a)), routeBtn(a.label, addrText(a)))) : h('p', { class: 'empty' }, 'Noch keine Adressen. Lege Zuhause, Kita und Co. an, dann startet die Route mit einem Tipp.')));
+}
+const WIDGETS = {
+  hero: { name: 'Profilkarte', desc: 'Foto, Alter und Zähler', render: wHero },
+  clock: { name: 'Alters-Uhr', desc: 'Alter in Jahren, Monaten, Tagen, Stunden, Minuten und Sekunden', half: true, render: clockWidget },
+  quick: { name: 'Schnellzugriff', desc: 'Notfallkarte, Betreuungs-Zettel, Abzeichen und mehr', render: wQuick },
+  termine: { name: 'Nächste Termine', desc: 'Die nächsten drei Termine mit Route', render: wTermine },
+  fristen: { name: 'Fristen', desc: 'Vorsorge, Impfungen und Ablaufdaten', render: wFristen },
+  alerts: { name: 'Hinweise', desc: 'Was gerade wichtig ist', render: wAlerts },
+  week: { name: 'Lebenswoche', desc: 'Die Info zur aktuellen Woche', render: wWeek },
+  hd: { name: 'Human Design', desc: 'Typ, Profil und Autorität', half: true, render: wHD },
+  zodiac: { name: 'Sternzeichen', desc: 'Sternzeichen, Tierzeichen und Mond', half: true, render: wZodiac },
+  spot: { name: 'Spotify-Player', desc: 'Playlist und Lieblingslieder direkt abspielen', render: wSpot },
+  photo: { name: 'Foto des Tages', desc: 'Jeden Tag ein anderes Foto aus der Galerie', half: true, render: wPhoto },
+  journey: { name: 'Journey', desc: 'Die letzten Momente und ein neuer Moment', render: () => wJourney() },
+  growth: { name: 'Wachstum', desc: 'Letzte Größe und letztes Gewicht', half: true, render: wGrowth },
+  invest: { name: 'Investments', desc: 'Gesamtwert und Prognose mit 18', half: true, render: wInvest },
+  badges: { name: 'Abzeichen', desc: 'Level und Fortschritt', half: true, render: wBadges },
+  family: { name: 'Stammbuch', desc: 'Familienmitglieder und nächster Geburtstag', half: true, render: wFamily },
+  bday: { name: 'Geburtstags-Countdown', desc: 'Tage bis zum nächsten Geburtstag', half: true, render: wBday },
+  routen: { name: 'Routen', desc: 'Schnell zur Kita, zu Oma und zurück', render: wRouten },
+  stamm: { name: 'Stammdaten', desc: 'Alle Angaben auf einen Blick', render: wStamm },
+  kontakte: { name: 'Kontakte', desc: 'Wichtige Personen mit Anruf-Knopf', render: wKontakte },
+  install: { name: 'Installations-Hinweis', desc: 'Nur im Browser sichtbar', render: wInstall }
+};
+const HOME_DEFAULT = [['hero', 2], ['clock', 2], ['quick', 2], ['week', 2], ['alerts', 2], ['stamm', 2], ['kontakte', 2], ['install', 2]].map(([id, w]) => ({ id, w }));
+function homeLayout() {
+  try {
+    const l = JSON.parse(ls.get('luise_home_v2') || 'null');
+    if (Array.isArray(l)) { const out = l.filter(x => x && WIDGETS[x.id]).map(x => ({ id: x.id, w: x.w === 1 && WIDGETS[x.id].half ? 1 : 2 })); return out; }
+  } catch (e) {}
+  return HOME_DEFAULT.map(x => Object.assign({}, x));
+}
+const saveLayout = l => ls.set('luise_home_v2', JSON.stringify(l));
+let homeEdit = false;
+function layoutFromDom(grid) {
+  const cur = homeLayout();
+  return Array.from(grid.querySelectorAll(':scope > .wg')).map(el => cur.find(x => x.id === el.dataset.id)).filter(Boolean);
+}
+function moveWidget(id, dir) {
+  const l = homeLayout(), i = l.findIndex(x => x.id === id), j = i + dir;
+  if (i < 0 || j < 0 || j >= l.length) return;
+  [l[i], l[j]] = [l[j], l[i]]; saveLayout(l); render();
+}
+function startDrag(e, el, grid) {
+  e.preventDefault();
+  const r = el.getBoundingClientRect(), ph = h('div', { class: 'wph' }), view = $('#view');
+  ph.style.height = r.height + 'px'; ph.style.gridColumn = el.classList.contains('half') ? 'span 1' : 'span 2';
+  const offX = e.clientX - r.left, offY = e.clientY - r.top; let px = e.clientX, py = e.clientY;
+  el.after(ph);
+  el.classList.add('dragging'); Object.assign(el.style, { position: 'fixed', width: r.width + 'px', left: r.left + 'px', top: r.top + 'px', zIndex: 60, pointerEvents: 'none', margin: 0 });
+  const place = () => {
+    el.style.left = (px - offX) + 'px'; el.style.top = (py - offY) + 'px';
+    const sibs = Array.from(grid.children).filter(c => c !== el && c !== ph && c.classList.contains('wg'));
+    const t = sibs.find(s => { const b = s.getBoundingClientRect(); return px >= b.left && px <= b.right && py >= b.top && py <= b.bottom; });
+    if (t) {
+      const b = t.getBoundingClientRect(), sameRow = t.classList.contains('half') && el.classList.contains('half');
+      const before = sameRow ? px < b.left + b.width / 2 : py < b.top + b.height / 2;
+      const cur = before ? t : t.nextSibling;
+      if (cur !== ph) grid.insertBefore(ph, cur);
+    }
+  };
+  const move = ev => { px = ev.clientX; py = ev.clientY; place(); };
+  const auto = setInterval(() => { const vr = view.getBoundingClientRect(); if (py < vr.top + 80) { view.scrollTop -= 12; place(); } else if (py > vr.bottom - 100) { view.scrollTop += 12; place(); } }, 30);
+  const up = () => {
+    clearInterval(auto); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+    grid.insertBefore(el, ph); ph.remove(); el.classList.remove('dragging'); el.removeAttribute('style');
+    saveLayout(layoutFromDom(grid)); render();
+  };
+  window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+}
+function addWidgetSheet() {
+  const used = new Set(homeLayout().map(x => x.id)), free = Object.keys(WIDGETS).filter(k => !used.has(k));
+  if (!free.length) { toast('Alle Widgets sind schon auf der Startseite'); return; }
+  actionSheet('Widget hinzufügen', 'Das Widget erscheint ganz unten. Ziehe es danach an die gewünschte Stelle.', free.map(k => ({ label: WIDGETS[k].name + ' · ' + WIDGETS[k].desc, ghost: true, onclick: () => { const l = homeLayout(); l.push({ id: k, w: WIDGETS[k].half ? 1 : 2 }); saveLayout(l); render(); setTimeout(() => { const v = $('#view'); v.scrollTop = v.scrollHeight; }, 50); } })));
+}
+function viewHome() {
+  const wrap = h('div', { class: 'stack' }), ks = kidSwitcher();
+  if (ks) wrap.append(ks);
+  if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
+    h('b', null, 'Startseite anpassen'),
+    h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit „Voll/Halb“ änderst du die Breite, mit − entfernst du es.'),
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
+  const grid = h('div', { class: 'wgrid' + (homeEdit ? ' editing' : '') });
+  homeLayout().forEach((item, i, arr) => {
+    const def = WIDGETS[item.id];
+    let el = null;
+    try { el = def.render(item.w); } catch (e) { console.error(e); el = h('div', { class: 'card' }, 'Widget-Fehler: ' + e.message); }
+    if (!el && !homeEdit) return;
+    const wg = h('div', { class: 'wg' + (item.w === 1 ? ' half' : ''), 'data-id': item.id }, el || h('div', { class: 'card wgempty' }, h('b', null, def.name), h('small', { class: 'mute' }, 'Gerade nichts anzuzeigen')));
+    if (homeEdit) {
+      const grip = h('button', { class: 'wgrip', type: 'button', 'aria-label': def.name + ' verschieben', html: ICON.grip,
+        onpointerdown: ev => startDrag(ev, wg, grid),
+        onkeydown: ev => { if (ev.key === 'ArrowUp') { ev.preventDefault(); moveWidget(item.id, -1); } else if (ev.key === 'ArrowDown') { ev.preventDefault(); moveWidget(item.id, 1); } } });
+      wg.append(h('div', { class: 'wgctl' }, grip,
+        def.half ? h('button', { class: 'wgbtn', type: 'button', onclick: () => { const l = homeLayout(), x = l.find(y => y.id === item.id); x.w = x.w === 1 ? 2 : 1; saveLayout(l); render(); } }, item.w === 1 ? 'Halb' : 'Voll') : null,
+        h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' entfernen', onclick: () => { saveLayout(homeLayout().filter(y => y.id !== item.id)); render(); } }, '−')));
+    }
+    grid.append(wg);
+  });
+  wrap.append(grid);
+  if (!homeEdit) wrap.append(h('button', { class: 'btn ghost wide', onclick: () => { homeEdit = true; render(); } }, 'Startseite anpassen'));
   return wrap;
 }
+
+/* ============ Journey ============ */
+const J_EMOJI = ['⭐', '👶', '🍼', '👣', '🦷', '🗣️', '🎂', '🎉', '🏖️', '🎄', '🏥', '🐣', '🎒', '❤️', '📸', '🚗', '✈️'];
+let journeyAuto = ls.get('luise_j_auto') !== '0';
+function journeyFeed(withAuto) {
+  const p = S.profile, out = [], photoOf = ids => (ids || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean);
+  (p.journey || []).forEach(m => out.push({ key: m.id, datum: m.datum || '', titel: m.titel || 'Moment', text: m.text || '', emoji: m.emoji || '⭐', fotos: photoOf(m.fotos), auto: false, open: () => editMoment(m) }));
+  if (withAuto) {
+    if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, open: editProfile });
+    S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
+    Object.entries(S.health.u).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
+    if (showImpf()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
+  }
+  return out.sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
+}
+function editMoment(item) {
+  const isNew = !item, arr = S.profile.journey = S.profile.journey || [];
+  openSheet({
+    title: isNew ? 'Moment hinzufügen' : 'Moment', saveLabel: 'Sichern', values: item || { datum: isoToday(), emoji: '⭐' },
+    fields: [
+      { key: 'titel', label: 'Titel', required: true, ph: 'z. B. Erster Zahn, Urlaub an der Ostsee' },
+      { key: 'datum', label: 'Datum', type: 'date', required: true },
+      { key: 'emoji', label: 'Symbol', type: 'select', options: J_EMOJI },
+      { key: 'text', label: 'Geschichte', type: 'textarea', ph: 'Was ist passiert?' },
+      { key: 'neu', label: 'Fotos hinzufügen', type: 'file', accept: 'image/*', multiple: true, hint: 'Die Fotos landen auch im Album „Journey“ der Galerie.' },
+      { key: 'lose', label: 'Alle Fotos von diesem Moment lösen (bleiben in der Galerie)', type: 'checkbox', showIf: v => !!(v.fotos && v.fotos.length) }
+    ],
+    onSave: async v => {
+      const { neu, lose, ...rest } = v;
+      const ids = neu && neu.length ? await addPhotos(neu, { album: 'Journey', datum: rest.datum, silent: true }) : [];
+      const t = isNew ? { id: uid(), fotos: [] } : item;
+      Object.assign(t, rest); t.fotos = (lose ? [] : (t.fotos || [])).concat(ids);
+      if (isNew) arr.push(t);
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+function momentCard(e, p) {
+  const ph = e.fotos, shown = ph.slice(0, 4), more = ph.length - shown.length, a = ageAt(p, e.datum);
+  return h('div', { class: 'tl-item' + (e.auto ? ' auto' : '') },
+    h('div', { class: 'tl-dot', 'aria-hidden': 'true' }, e.emoji),
+    h('div', { class: 'tl-card', role: 'button', tabindex: '0', onclick: () => e.open() },
+      h('small', { class: 'tl-date' }, [e.datum ? fmtD(e.datum) : '', a].filter(Boolean).join(' · ')),
+      h('b', null, e.titel),
+      e.text ? h('p', null, e.text) : null,
+      shown.length ? h('div', { class: 'tl-ph' }, shown.map((m, i) => h('button', { class: 'tl-th', type: 'button', 'aria-label': 'Foto ansehen', onclick: ev => { ev.stopPropagation(); openPhotoViewer(ph, i); } }, h('img', { src: m.thumb, alt: '' }))), more > 0 ? h('span', { class: 'tl-more' }, '+' + more) : null) : null));
+}
+function viewJourney() {
+  const p = S.profile, wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Journey', addBtn('Moment', () => editMoment())));
+  wrap.append(h('div', { class: 'chips' },
+    h('button', { class: 'fchip' + (journeyAuto ? ' on' : ''), type: 'button', onclick: () => { journeyAuto = !journeyAuto; ls.set('luise_j_auto', journeyAuto ? '1' : '0'); render(); } }, journeyAuto ? 'Automatische Einträge: an' : 'Automatische Einträge: aus')));
+  const feed = journeyFeed(journeyAuto);
+  if (!feed.length) { wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Noch keine Momente. Halte den ersten Zahn, den ersten Urlaub oder den ersten Schultag fest, mit Foto und Geschichte.'), h('button', { class: 'btn wide', onclick: () => editMoment() }, 'Ersten Moment hinzufügen'))); return wrap; }
+  const tl = h('div', { class: 'tl' });
+  let year = null;
+  feed.forEach(e => {
+    const y = (e.datum || '').slice(0, 4);
+    if (y !== year) { year = y; tl.append(h('div', { class: 'tl-year' }, y || 'Ohne Datum')); }
+    tl.append(momentCard(e, p));
+  });
+  wrap.append(tl);
+  return wrap;
+}
+function wJourney() {
+  const items = journeyFeed(true).slice(0, 3);
+  return h('div', { class: 'stack' }, sectionHead('Journey', addBtn('Moment', () => editMoment())),
+    h('div', { class: 'card' }, items.length ? items.map(e => li(() => e.open(), '', h('span', { class: 'hubico emo' }, e.emoji), liTxt(e.titel, [e.datum ? fmtD(e.datum) : '', e.fotos.length ? plural(e.fotos.length, 'Foto', 'Fotos') : ''].filter(Boolean).join(' · ')), chev())) : h('p', { class: 'empty' }, 'Noch keine Momente.')),
+    h('button', { class: 'linkbtn', onclick: () => go('journey') }, 'Ganze Journey öffnen'));
+}
+
+/* ============ Stammbuch ============ */
+const FAM_ROLES = [
+  { r: 'Mutter', gen: -1, g: 1, t: '1. Grad, gerade Linie', s: 'Mutterseite' },
+  { r: 'Vater', gen: -1, g: 1, t: '1. Grad, gerade Linie', s: 'Vaterseite' },
+  { r: 'Stiefmutter', gen: -1, g: 1, t: '1. Grad, verschwägert' },
+  { r: 'Stiefvater', gen: -1, g: 1, t: '1. Grad, verschwägert' },
+  { r: 'Schwester', gen: 0, g: 2, t: '2. Grad, Seitenlinie' },
+  { r: 'Bruder', gen: 0, g: 2, t: '2. Grad, Seitenlinie' },
+  { r: 'Halbschwester', gen: 0, g: 2, t: '2. Grad, Seitenlinie (halbbürtig)' },
+  { r: 'Halbbruder', gen: 0, g: 2, t: '2. Grad, Seitenlinie (halbbürtig)' },
+  { r: 'Großmutter', gen: -2, g: 2, t: '2. Grad, gerade Linie', side: 1 },
+  { r: 'Großvater', gen: -2, g: 2, t: '2. Grad, gerade Linie', side: 1 },
+  { r: 'Urgroßmutter', gen: -3, g: 3, t: '3. Grad, gerade Linie', side: 1 },
+  { r: 'Urgroßvater', gen: -3, g: 3, t: '3. Grad, gerade Linie', side: 1 },
+  { r: 'Tante', gen: -1, g: 3, t: '3. Grad, Seitenlinie', side: 1 },
+  { r: 'Onkel', gen: -1, g: 3, t: '3. Grad, Seitenlinie', side: 1 },
+  { r: 'Tante (angeheiratet)', gen: -1, g: 3, t: '3. Grad, verschwägert', side: 1 },
+  { r: 'Onkel (angeheiratet)', gen: -1, g: 3, t: '3. Grad, verschwägert', side: 1 },
+  { r: 'Cousine', gen: 0, g: 4, t: '4. Grad, Seitenlinie', side: 1 },
+  { r: 'Cousin', gen: 0, g: 4, t: '4. Grad, Seitenlinie', side: 1 },
+  { r: 'Großtante', gen: -2, g: 4, t: '4. Grad, Seitenlinie', side: 1 },
+  { r: 'Großonkel', gen: -2, g: 4, t: '4. Grad, Seitenlinie', side: 1 },
+  { r: 'Stiefschwester', gen: 0, g: 9, t: 'Nicht verwandt (Stiefgeschwister)' },
+  { r: 'Stiefbruder', gen: 0, g: 9, t: 'Nicht verwandt (Stiefgeschwister)' },
+  { r: 'Patentante', gen: -1, g: 9, t: 'Nicht verwandt' },
+  { r: 'Patenonkel', gen: -1, g: 9, t: 'Nicht verwandt' },
+  { r: 'Freund der Familie', gen: null, g: 9, t: 'Nicht verwandt' },
+  { r: 'Sonstige', gen: null, g: 9, t: 'Nicht verwandt' }
+];
+const famRole = r => FAM_ROLES.find(x => x.r === r) || FAM_ROLES[FAM_ROLES.length - 1];
+const famSide = m => m.seite || (m.rolle === 'Mutter' ? 'Mutterseite' : m.rolle === 'Vater' ? 'Vaterseite' : '');
+function nextAnnual(iso) {
+  const b = parseD(iso), n0 = today0();
+  let nb = new Date(n0.getFullYear(), b.getMonth(), b.getDate()); if (nb < n0) nb = new Date(n0.getFullYear() + 1, b.getMonth(), b.getDate());
+  return { iso: isoOf(nb), age: nb.getFullYear() - b.getFullYear() };
+}
+function editMember(item, preset) {
+  const isNew = !item, arr = S.profile.familie = S.profile.familie || [];
+  const base = item || Object.assign({ rolle: 'Mutter' }, preset || {});
+  openSheet({
+    title: isNew ? 'Person hinzufügen' : 'Person', values: base,
+    fields: [
+      { key: 'name', label: 'Name', required: true },
+      { key: 'rolle', label: 'Verwandtschaft zu ' + (S.profile.vorname || 'dem Kind'), type: 'select', options: FAM_ROLES.map(x => x.r) },
+      { key: 'seite', label: 'Familienseite', type: 'select', options: ['', 'Mutterseite', 'Vaterseite'], hint: 'Für Großeltern, Tanten, Onkel und Cousins. Sortiert den Stammbaum.' },
+      { key: 'geb', label: 'Geburtstag', type: 'date' },
+      { key: 'gest', label: 'Verstorben am', type: 'date' },
+      { key: 'ort', label: 'Wohnort' },
+      { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' },
+      { key: 'notiz', label: 'Notiz', type: 'textarea' },
+      { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*', crop: 'square' },
+      { key: 'fotoRemove', label: 'Foto entfernen', type: 'checkbox', showIf: v => !!v.foto }
+    ],
+    onSave: async v => {
+      const { foto, fotoRemove, ...rest } = v;
+      const t = isNew ? { id: uid() } : item;
+      Object.assign(t, rest);
+      if (fotoRemove) delete t.foto;
+      if (foto) t.foto = await blobToDataURL(await imageToJpeg(foto, 240, 0.8));
+      if (isNew) arr.push(t);
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+const famAv = m => avatar({ vorname: m.name || '?', foto: m.foto }, 44);
+function famNode(m) {
+  const role = famRole(m.rolle);
+  return h('button', { class: 'ft-node' + (m.gest ? ' gone' : '') + (famSide(m) === 'Mutterseite' ? ' sm' : famSide(m) === 'Vaterseite' ? ' sv' : ''), type: 'button', onclick: () => editMember(m), 'aria-label': `${m.name}, ${m.rolle}` },
+    famAv(m), h('b', null, m.name), h('small', null, m.rolle + (m.gest ? ' †' : '')), role.g < 9 ? h('i', { class: 'ft-g' }, role.g + '. Grad') : null);
+}
+function famTree(fam) {
+  const p = S.profile, rows = [[-3, 'Urgroßeltern'], [-2, 'Großeltern'], [-1, 'Eltern, Tanten & Onkel'], [0, 'Luise & Geschwister']];
+  const tree = h('div', { class: 'ftree' });
+  rows.forEach(([gen, label]) => {
+    const list = fam.filter(m => famRole(m.rolle).gen === gen);
+    const self = gen === 0;
+    if (!list.length && !self) return;
+    const key = m => { const s = famSide(m); return s === 'Mutterseite' ? 0 : s === 'Vaterseite' ? 2 : 1; };
+    list.sort((a, b) => key(a) - key(b) || FAM_ROLES.indexOf(famRole(a.rolle)) - FAM_ROLES.indexOf(famRole(b.rolle)));
+    const nodes = list.map(famNode);
+    if (self) {
+      const me = h('div', { class: 'ft-node me' }, avatar(p, 52), h('b', null, p.vorname || 'Ich'), h('small', null, 'Das bin ich'));
+      const sibs = nodes.filter((_, i) => famRole(list[i].rolle).g === 2 || famRole(list[i].rolle).r.startsWith('Stief')), rest = nodes.filter(n => !sibs.includes(n));
+      tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, me, sibs)), rest.length ? h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Cousins'), h('div', { class: 'ft-nodes' }, rest)) : null);
+    } else tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, nodes)));
+  });
+  const other = fam.filter(m => famRole(m.rolle).gen == null);
+  if (other.length) tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Weitere'), h('div', { class: 'ft-nodes' }, other.map(famNode))));
+  return h('div', { class: 'card ftwrap' }, h('div', { class: 'ft-legend' }, h('span', null, h('i', { class: 'dot m' }), 'Mutterseite'), h('span', null, h('i', { class: 'dot v' }), 'Vaterseite')), tree);
+}
+let famView = 'tree';
+function viewFamily() {
+  const p = S.profile, fam = p.familie = p.familie || [], wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Stammbuch', addBtn('Person', () => editMember())));
+  if (!fam.length) {
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage Eltern, Großeltern, Geschwister und alle weiteren Familienmitglieder ein. Das Stammbuch zeigt den Stammbaum und den Verwandtschaftsgrad.'),
+      h('div', { class: 'chips' }, [['Mutter', 'Mutterseite'], ['Vater', 'Vaterseite'], ['Großmutter', 'Mutterseite'], ['Großvater', 'Mutterseite'], ['Großmutter', 'Vaterseite'], ['Großvater', 'Vaterseite'], ['Schwester', ''], ['Bruder', '']].map(([r, s]) => h('button', { class: 'fchip', type: 'button', onclick: () => editMember(null, { rolle: r, seite: s }) }, r + (s && r.startsWith('Groß') ? ' (' + s.replace('seite', '') + ')' : ''))))));
+  } else {
+    wrap.append(seg([['tree', 'Stammbaum'], ['list', 'Verwandtschaftsgrad']], famView, v => { famView = v; render(); }));
+    if (famView === 'tree') wrap.append(famTree(fam));
+    else {
+      const groups = [[1, '1. Grad'], [2, '2. Grad'], [3, '3. Grad'], [4, '4. Grad'], [9, 'Nicht verwandt']];
+      groups.forEach(([g, title]) => {
+        const l = fam.filter(m => famRole(m.rolle).g === g).sort((a, b) => a.name.localeCompare(b.name, 'de'));
+        if (!l.length) return;
+        wrap.append(sectionHead(title), h('div', { class: 'card' }, l.map(m => {
+          const role = famRole(m.rolle), na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
+          return li(() => editMember(m), '', famAv(m), liTxt(m.name, [m.rolle + (famSide(m) && role.side ? ' · ' + famSide(m) : ''), role.t].join(' · ')),
+            h('span', { class: 'mute', style: 'font-size:13px;text-align:right' }, m.gest ? '† ' + fmtD(m.gest) : na ? `wird ${na.age} · ${rel(na.iso)}` : ''), chev());
+        })));
+      });
+    }
+    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'So wird der Grad gezählt'), h('p', { class: 'mute' }, 'Nach § 1589 BGB zählt jede Geburt auf dem Weg zur Person als ein Grad. Eltern und Kinder sind im 1. Grad verwandt, Großeltern und Geschwister im 2., Tanten, Onkel und Urgroßeltern im 3., Cousins im 4. Grad. Stiefeltern und angeheiratete Verwandte sind verschwägert, Paten und Stiefgeschwister nicht verwandt.')));
+  }
+  return wrap;
+}
+
 
 /* ============ Ansicht: Dokumente ============ */
 const DOC_CATS = ['Urkunden', 'Ausweis & Reise', 'Gesundheit', 'Versicherung', 'Kita & Schule', 'Sonstiges'];
@@ -1426,21 +1895,22 @@ function viewPhotos() {
   });
   return wrap;
 }
-async function addPhotos(files) {
-  let ok = 0;
+async function addPhotos(files, opt = {}) {
+  let ok = 0; const ids = [];
   for (let i = 0; i < files.length; i++) {
-    toast(`Foto ${i + 1} von ${files.length} …`);
+    if (!opt.silent || files.length > 1) toast(`Foto ${i + 1} von ${files.length} …`);
     try {
       const f = files[i];
       const big = await imageToJpeg(f, 2000, 0.85), th = await imageToJpeg(f, 360, 0.75);
       const id = uid(), dt = f.lastModified ? new Date(f.lastModified) : new Date();
-      const meta = { id, datum: `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`, titel: '', album: (photoAlbum !== 'Alle' && photoAlbum !== FAV) ? photoAlbum : '', fav: false, cid: CID, thumb: await blobToDataURL(th), size: big.size, created: Date.now() };
+      const meta = { id, datum: opt.datum || `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`, titel: '', album: opt.album != null ? opt.album : ((photoAlbum !== 'Alle' && photoAlbum !== FAV) ? photoAlbum : ''), fav: false, cid: CID, thumb: await blobToDataURL(th), size: big.size, created: Date.now() };
       await pfilePut({ id, data: await big.arrayBuffer() });
-      await photoPut(meta); S.photos.push(meta); ok++;
+      await photoPut(meta); S.photos.push(meta); ids.push(id); ok++;
     } catch (e) { console.error(e); }
   }
-  render();
+  if (!opt.silent) render();
   toast(ok === files.length ? `${ok} ${ok === 1 ? 'Foto' : 'Fotos'} hinzugefügt` : `${ok} von ${files.length} hinzugefügt`);
+  return ids;
 }
 async function openPhotoViewer(list, start) {
   let i = start, url = null, blob = null;
@@ -3053,6 +3523,8 @@ function viewMore() {
   const wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Mehr'));
   wrap.append(h('div', { class: 'card' },
+    hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
+    hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Termine & Fristen', 'Termine, Vorsorge, Impfungen, Ablaufdaten', 'dates'),
     hubRow(ICON.pin, 'Adressen', 'Mit Route in Karten', 'addr'),
     hubRow(ICON.coins, 'Investments', 'Sparen, Anlagen und Hochrechnung', 'invest'),
@@ -3111,7 +3583,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 7'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 8'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -3372,6 +3844,10 @@ function autoDeadlines() {
     let nb = new Date(n0.getFullYear(), b.getMonth(), b.getDate()); if (nb < n0) nb = new Date(n0.getFullYear() + 1, b.getMonth(), b.getDate());
     const nbIso = isoOf(nb), age = nb.getFullYear() - b.getFullYear();
     if (daysTo(nbIso) <= 60) push({ id: 'bday:' + nb.getFullYear(), kind: 'Geburtstag', title: `${age}. Geburtstag`, sub: wd(nbIso), date: nbIso, lvl: 'info', status: rel(nbIso), tab: 'home', cal: { titel: `${age}. Geburtstag von ${p.vorname || 'Luise'}`, datum: nbIso, kategorie: 'Geburtstag' } });
+  }
+  for (const m of (p.familie || [])) if (m.geb && !m.gest) {
+    const na = nextAnnual(m.geb);
+    if (daysTo(na.iso) <= 30) push({ id: 'fbday:' + m.id + ':' + na.iso.slice(0, 4), kind: 'Geburtstag', title: `${m.name}: ${na.age}. Geburtstag`, sub: wd(na.iso) + ' · ' + m.rolle, date: na.iso, lvl: 'info', status: rel(na.iso), tab: 'family', cal: { titel: `${m.name} hat Geburtstag`, datum: na.iso, kategorie: 'Geburtstag' } });
   }
   for (const d of S.docs) if (d.ablauf) {
     const n = daysTo(d.ablauf);
@@ -3701,7 +4177,7 @@ function scanFlow() {
 }
 
 /* ============ Datenblatt (PDF) ============ */
-const SHEET_SECS = [['stamm', 'Stammdaten'], ['vers', 'Krankenkasse und Versichertennummer'], ['steuer', 'Steuer-ID'], ['gesund', 'Gesundheit und Notfall'], ['kontakte', 'Kontakte'], ['kita', 'Kita / Schule und Abholberechtigte'], ['betreuung', 'Betreuungs-Infos'], ['adressen', 'Adressen']];
+const SHEET_SECS = [['stamm', 'Stammdaten'], ['vers', 'Krankenkasse und Versichertennummer'], ['steuer', 'Steuer-ID'], ['gesund', 'Gesundheit und Notfall'], ['kontakte', 'Kontakte'], ['kita', 'Kita / Schule und Abholberechtigte'], ['betreuung', 'Betreuungs-Infos'], ['adressen', 'Adressen'], ['familie', 'Familie (Stammbuch)']];
 async function buildDatasheet(sel) {
   const p = S.profile, hl = S.health, sc = S.school, c = p.care || {};
   const W = 1240, H = 1754, M = 90, FONT = '-apple-system, "Helvetica Neue", Arial, sans-serif', pages = [];
@@ -3739,6 +4215,7 @@ async function buildDatasheet(sel) {
   if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name + (k.rolle ? ' (' + k.rolle + ')' : ''), k.tel || '–']));
   if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
   if (sel.betreuung) { const any = CARE_FIELDS.some(f => c[f.key]); if (any) { section('Betreuungs-Infos'); CARE_FIELDS.forEach(f => para(f.label, c[f.key])); } }
+  if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
   if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
   if (y < M + 260) { cx.fillStyle = '#6b6b6b'; cx.font = `400 28px ${FONT}`; cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, y + 50); }
   pages.forEach((pg, i) => { const x = pg.getContext('2d'); x.fillStyle = '#9a9a9a'; x.font = `400 22px ${FONT}`; x.fillText(`Stand ${fmtD(isoToday())} · Luises Identität`, M, H - 50); x.textAlign = 'right'; x.fillText(`Seite ${i + 1} von ${pages.length}`, W - M, H - 50); x.textAlign = 'left'; });
@@ -3746,7 +4223,7 @@ async function buildDatasheet(sel) {
   return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
 }
 function datasheetFlow() {
-  const vals = { stamm: true, vers: false, steuer: false, gesund: true, kontakte: true, kita: true, betreuung: true, adressen: false };
+  const vals = { stamm: true, vers: false, steuer: false, gesund: true, kontakte: true, kita: true, betreuung: true, adressen: false, familie: false };
   openSheet({
     title: 'Datenblatt erstellen', saveLabel: 'Erstellen', values: vals,
     fields: SHEET_SECS.map(([k, l]) => ({ key: k, label: l, type: 'checkbox' })),
@@ -3779,13 +4256,13 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids'];
+const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const views = {
   home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
-  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids())
+  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily())
 };
 let tab = 'home', lastTab = null;
 function go(id) { tab = id; render(); }
@@ -3837,7 +4314,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { get state() { return S; }, go, render, buildBackup };
+window.__luise = { exactAge, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
