@@ -235,6 +235,19 @@ button.callbtn{border:0;cursor:pointer;padding:0}
 .confetti span{position:absolute;top:-40px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
 .fine{color:var(--mute);font-size:12px;text-align:center}
+
+.weekcard{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:0;background:linear-gradient(135deg,#2b1f63,#5b3fb0 60%,#8c68d8);color:#fff;border-radius:20px;padding:16px 18px;box-shadow:0 6px 18px rgba(60,40,140,.25)}
+.weekcard small{opacity:.8;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.weekcard b{display:block;font-size:19px;margin:4px 0}
+.weekcard p{margin:0;opacity:.92;font-size:14px;line-height:1.35}
+.wk-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.wk-nav .pill[disabled]{opacity:.35}
+.bar.dark{background:var(--line)}.bar.dark>i{background:var(--accent)}
+.seg button{white-space:nowrap;padding-left:4px;padding-right:4px;font-size:13px}
+.hdgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:6px 8px;font-size:15px;margin-top:6px}
+.hdgrid b{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.hdgrid .red{color:#d2453d}
+.hdgrid span:nth-child(3n+1){font-weight:600}
 </style>
 </head>
 <body>
@@ -342,7 +355,9 @@ const ICON = {
   smile: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2M9 9.5h.01M15 9.5h.01"/></svg>',
   photo: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10.5" r="1.8"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg>',
   trophy: '<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5v1.5A3 3 0 0 0 8 10.5M16 6h3v1.5a3 3 0 0 1-3 3M12 13v4M9 20h6M10 17h4"/></svg>',
-  moon: '<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><path d="M17 4v3M15.5 5.5h3"/></svg>'
+  moon: '<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><path d="M17 4v3M15.5 5.5h3"/></svg>',
+  tag: '<svg viewBox="0 0 24 24"><path d="M3 12V4h8l9 9-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></svg>',
+  star: '<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>'
 };
 
 /* ============ Datenbank (IndexedDB) ============ */
@@ -396,8 +411,8 @@ let S = null;
 async function loadState() {
   const [profile, health, school, docs, photos] = await Promise.all([kvGet('profile'), kvGet('health'), kvGet('school'), docsAll(), photosAll()]);
   S = {
-    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {} }, profile || {}),
-    health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [] }, health || {}),
+    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [] }, profile || {}),
+    health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [], meds: [] }, health || {}),
     school: Object.assign({ abholer: [], termine: [] }, school || {}),
     docs: docs || [],
     photos: photos || []
@@ -774,6 +789,7 @@ function editListItem({ arr, key, title, fields, item, defaults }) {
 
 /* ============ Ansicht: Übersicht ============ */
 const PROFILE_FIELDS = [
+  { key: 'geburtszeit', label: 'Geburtszeit', type: 'time', hint: 'Optional. Wird für Human Design und das Mondzeichen gebraucht.' },
   { key: 'geburtsort', label: 'Geburtsort' },
   { key: 'staatsangehoerigkeit', label: 'Staatsangehörigkeit' },
   { key: 'groesse', label: 'Größe', ph: 'z. B. 98 cm' },
@@ -785,7 +801,9 @@ const PROFILE_FIELDS = [
 const CONTACT_FIELDS = [
   { key: 'name', label: 'Name', required: true },
   { key: 'rolle', label: 'Beziehung', ph: 'z. B. Mama, Oma, Notfallkontakt' },
-  { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' }
+  { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' },
+  { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*' },
+  { key: 'fotoRemove', label: 'Foto entfernen', type: 'checkbox', showIf: v => !!v.foto }
 ];
 function computeAlerts() {
   const a = [];
@@ -800,6 +818,15 @@ function computeAlerts() {
     const n = daysTo(v.naechste);
     if (n < 0) a.push({ lvl: 'bad', o: 0, text: `${v.name}: Auffrischung überfällig`, sub: 'Fällig seit ' + fmtD(v.naechste), tab: 'health' });
     else if (n <= 30) a.push({ lvl: 'warn', o: 1, text: `${v.name}: Auffrischung ${rel(v.naechste)}`, sub: fmtD(v.naechste), tab: 'health' });
+  }
+  if (S.profile.geburtsdatum) {
+    for (const d of U_DEF) {
+      if (S.health.u[d[0]]) continue;
+      const days = lifeDays(S.profile.geburtsdatum);
+      const we = addDaysIso(S.profile.geburtsdatum, d[3]);
+      if (days >= d[2] && days <= d[3] && d[0] !== 'U1') a.push({ lvl: 'warn', o: 1, text: `${d[0]} ist jetzt fällig`, sub: `Zeitfenster bis ${fmtD(we)}`, tab: 'health', seg: 'uheft' });
+      else if (days < d[2] && d[2] - days <= 21) a.push({ lvl: 'info', o: 2, text: `${d[0]} beginnt ${rel(addDaysIso(S.profile.geburtsdatum, d[2]))}`, sub: d[1], tab: 'health', seg: 'uheft' });
+    }
   }
   for (const t of S.school.termine) {
     if (!t.datum) continue;
@@ -840,13 +867,13 @@ function openEmergency() {
   const calls = [];
   S.profile.kontakte.filter(c => c.tel).forEach(c => calls.push(h('a', { class: 'call', href: telHref(c.tel) }, h('span', null, c.name, h('br'), h('small', null, c.rolle || 'Kontakt')), h('span', null, c.tel))));
   if (hl.kinderarzt_tel) calls.push(h('a', { class: 'call', href: telHref(hl.kinderarzt_tel) }, h('span', null, hl.kinderarzt || 'Kinderarzt', h('br'), h('small', null, 'Kinderarzt')), h('span', null, hl.kinderarzt_tel)));
-  const filled = [hl.blutgruppe, hl.allergien, hl.medikamente, hl.hinweise, p.krankenkasse, p.versnr].some(Boolean) || calls.length;
+  const filled = [hl.blutgruppe, hl.allergien, hl.medikamente, medsText(), hl.hinweise, p.krankenkasse, p.versnr].some(Boolean) || calls.length;
   openFull({
     title: 'Notfallkarte', tone: 'sos',
     body: h('div', { class: 'stack' },
       h('div', { class: 'card hero' }, avatar(p, 64), h('div', null, h('h1', null, name), p.geburtsdatum ? h('p', null, `geb. ${fmtD(p.geburtsdatum)} · ${ageText(p.geburtsdatum)}`) : null)),
       em('Blutgruppe', hl.blutgruppe), em('Allergien / Unverträglichkeiten', hl.allergien),
-      em('Dauermedikation', hl.medikamente), em('Wichtige Hinweise', hl.hinweise),
+      em('Dauermedikation', hl.medikamente), em('Aktuelle Medikamente', medsText()), em('Wichtige Hinweise', hl.hinweise),
       em('Krankenkasse', p.krankenkasse), em('Versichertennummer', p.versnr),
       calls.length ? sectionHead('Anrufen') : null, ...calls,
       filled ? null : h('p', { class: 'empty' }, 'Noch keine Notfalldaten. Trage sie im Tab „Gesundheit“ und bei den Kontakten ein.'),
@@ -872,6 +899,10 @@ function viewHome() {
     tile('violet', ICON.moon, 'Spirituelles', spiritSub(), () => go('spirit')),
     tile('', ICON.docs, 'Dokument ablegen', 'Foto, Scan oder PDF', () => editDoc()),
     tile('', ICON.cal, 'Termin eintragen', 'Mit Kalender-Erinnerung', () => editListItem({ arr: S.school.termine, key: 'school', title: 'Termin', fields: TERMIN_FIELDS }))));
+  if (p.geburtsdatum && curWeek(p.geburtsdatum) >= 1 && curWeek(p.geburtsdatum) <= 940) {
+    const wn = curWeek(p.geburtsdatum), wi = weekInfo(wn);
+    wrap.append(h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text)));
+  }
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
   if (!standalone && !ls.get('luise_hint_off')) wrap.append(h('div', { class: 'card hint' },
     h('b', null, 'Als App installieren'),
@@ -880,7 +911,7 @@ function viewHome() {
   const alerts = computeAlerts();
   if (alerts.length) {
     wrap.append(sectionHead('Hinweise'));
-    alerts.forEach(a => wrap.append(h('button', { class: 'alert ' + a.lvl, onclick: () => go(a.tab) }, h('span', { class: 'dot' }), h('span', null, h('b', null, a.text), h('small', null, a.sub)))));
+    alerts.forEach(a => wrap.append(h('button', { class: 'alert ' + a.lvl, onclick: () => { if (a.seg) healthSeg = a.seg; go(a.tab); } }, h('span', { class: 'dot' }), h('span', null, h('b', null, a.text), h('small', null, a.sub)))));
   }
   wrap.append(sectionHead('Stammdaten', addBtn('Angabe', () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true, ph: 'z. B. Reisepassnummer' }, { key: 'value', label: 'Wert', required: true }] }))));
   const rows = [
@@ -888,9 +919,9 @@ function viewHome() {
     ...p.extras.map(x => kv(x.label, x.value, { onclick: () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true }, { key: 'value', label: 'Wert', required: true }], item: x }) }))
   ].filter(Boolean);
   wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben. Tippe auf „Profil bearbeiten“ oder füge eigene Angaben hinzu. Ein Tipp auf eine Zeile kopiert den Wert.')));
-  wrap.append(sectionHead('Kontakte', addBtn('Kontakt', () => editListItem({ arr: p.kontakte, key: 'profile', title: 'Kontakt', fields: CONTACT_FIELDS }))));
+  wrap.append(sectionHead('Kontakte', addBtn('Kontakt', () => editContact())));
   wrap.append(h('div', { class: 'card' }, p.kontakte.length
-    ? p.kontakte.map(c => li(() => editListItem({ arr: p.kontakte, key: 'profile', title: 'Kontakt', fields: CONTACT_FIELDS, item: c }), '', liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev()))
+    ? p.kontakte.map(c => li(() => editContact(c), '', contactAv(c), liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev()))
     : h('p', { class: 'empty' }, 'Noch keine Kontakte.')));
   return wrap;
 }
@@ -1016,25 +1047,12 @@ function editHealth() {
     onSave: async v => { Object.assign(S.health, v); await persist('health'); render(); }
   });
 }
-function editU(code, label) {
-  const cur = S.health.u[code] || {};
-  openSheet({
-    title: `${code} · ${label}`, values: cur,
-    fields: [{ key: 'datum', label: 'Durchgeführt am', type: 'date' }, { key: 'notiz', label: 'Notiz', type: 'textarea' }],
-    onSave: async v => {
-      if (!v.datum && !v.notiz) delete S.health.u[code]; else S.health.u[code] = v;
-      await persist('health'); render();
-    },
-    onDelete: S.health.u[code] ? async () => { delete S.health.u[code]; await persist('health'); render(); } : null,
-    deleteLabel: 'Zurücksetzen'
-  });
-}
 let healthSeg = 'gesundheit';
 function seg(items, cur, on) { return h('div', { class: 'seg' }, items.map(([id, label]) => h('button', { class: id === cur ? 'on' : '', onclick: () => on(id) }, label))); }
 function viewHealth() {
   const wrap = h('div', { class: 'stack' });
-  wrap.append(seg([['gesundheit', 'Gesundheit'], ['entwicklung', 'Entwicklung']], healthSeg, id => { healthSeg = id; render(); }));
-  wrap.append(healthSeg === 'gesundheit' ? viewHealthMain() : viewGrowth());
+  wrap.append(seg([['gesundheit', 'Gesundheit'], ['uheft', 'U-Heft'], ['entwicklung', 'Wachstum'], ['medikamente', 'Medikamente']], healthSeg, id => { healthSeg = id; render(); }));
+  wrap.append(healthSeg === 'uheft' ? viewUHeft() : healthSeg === 'entwicklung' ? viewGrowth() : healthSeg === 'medikamente' ? viewMeds() : viewHealthMain());
   return wrap;
 }
 function viewHealthMain() {
@@ -1049,11 +1067,6 @@ function viewHealthMain() {
     const chip = n == null ? null : h('span', { class: 'chip ' + (n < 0 ? 'bad' : n <= 30 ? 'warn' : 'ok') }, (n < 0 ? 'Überfällig seit ' : 'Auffrischung ') + fmtD(v.naechste));
     return li(() => editListItem({ arr: hl.impfungen, key: 'health', title: 'Impfung', fields: IMPF_FIELDS, item: v }), '', liTxt(v.name, v.datum ? fmtD(v.datum) : 'Datum offen', chip), v.naechste ? calBtn('Impfung: ' + v.name, v.naechste, v.notiz, 7) : null, chev());
   }) : h('p', { class: 'empty' }, 'Noch keine Impfungen eingetragen.')));
-  wrap.append(sectionHead('Vorsorge (U-Untersuchungen)'));
-  wrap.append(h('div', { class: 'card' }, U_LIST.map(([code, label]) => {
-    const e = hl.u[code];
-    return li(() => editU(code, label), '', h('span', { class: 'badge' + (e ? ' done' : '') }, code), liTxt(e && e.datum ? 'Durchgeführt am ' + fmtD(e.datum) : e ? 'Durchgeführt' : 'Offen', label + (e && e.notiz ? ' · ' + e.notiz : '')), chev());
-  })));
   return wrap;
 }
 
@@ -1148,7 +1161,7 @@ function emergencyText() {
   const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Kind';
   const L = ['Notfallinfos: ' + name + (p.geburtsdatum ? ', geb. ' + fmtD(p.geburtsdatum) : '')];
   const add = (t, v) => { if (v) L.push(t + ': ' + v); };
-  add('Blutgruppe', hl.blutgruppe); add('Allergien', hl.allergien); add('Medikamente', hl.medikamente); add('Hinweise', hl.hinweise);
+  add('Blutgruppe', hl.blutgruppe); add('Allergien', hl.allergien); add('Medikamente', hl.medikamente); add('Aktuelle Medikamente', medsText()); add('Hinweise', hl.hinweise);
   add('Krankenkasse', p.krankenkasse); add('Versichertennummer', p.versnr);
   p.kontakte.filter(k => k.tel).forEach(k => L.push(`${k.name}${k.rolle ? ' (' + k.rolle + ')' : ''}: ${k.tel}`));
   if (hl.kinderarzt) L.push('Kinderarzt: ' + hl.kinderarzt + (hl.kinderarzt_tel ? ', ' + hl.kinderarzt_tel : ''));
@@ -1323,7 +1336,11 @@ function evalBadges() {
   add('c_cal', '🗓️', 'Termin-Meister', '5 Termine eingetragen', 'Trage 5 Termine ein.', S.school.termine.length >= 5);
   add('c_backup', '💾', 'Sicher gesichert', 'Eine Datensicherung erstellt', 'Erstelle unter „Mehr“ eine Sicherung.', !!ls.get('luise_lastbackup'));
   const sp = p.spirit || {};
-  add('c_spirit', '🔮', 'Sternengucker', 'Spirituelles Profil ergänzt', 'Ergänze Angaben unter Spirituelles.', sp.hd_typ || sp.aszendent || sp.mond || sp.geburtszeit || sp.numname);
+  add('c_spirit', '🔮', 'Sternengucker', 'Spirituelles Profil ergänzt', 'Ergänze Angaben unter Spirituelles.', sp.hd_typ || sp.aszendent || sp.mond || sp.geburtszeit || sp.numname || p.geburtszeit);
+  add('c_uh', '📒', 'Vorsorge-Profi', '3 U-Untersuchungen eingetragen', 'Trage im U-Heft 3 Untersuchungen ein.', Object.keys(hl.u).length >= 3);
+  add('c_brand', '🏷️', 'Marken-Kenner', '5 Produkte erfasst', 'Erfasse 5 Marken oder Produkte.', p.produkte.length >= 5);
+  add('c_hd', '🧬', 'Design-Entdecker', 'Human Design berechnet', 'Trage die Geburtszeit ein und öffne Human Design.', !!(p.geburtszeit && p.hd && p.hd.tz));
+  add('c_med', '💊', 'Medikamenten-Überblick', 'Medikamentenplan angelegt', 'Lege ein Medikament an.', hl.meds.length >= 1);
   const yrs = p.geburtsdatum ? ageYears(p.geburtsdatum) : -1;
   AGE_B.forEach(([n, emoji]) => {
     let date = null;
@@ -1489,15 +1506,9 @@ function editSpirit() {
   const zn = [''].concat(Object.keys(ZOD));
   openSheet({ title: 'Spirituelles', values: S.profile.spirit || {},
     fields: [
-      { key: 'geburtszeit', label: 'Geburtszeit', type: 'time', hint: 'Für Aszendent und Human Design nötig.' },
-      { key: 'geburtsort', label: 'Geburtsort' },
       { key: 'numname', label: 'Name für die Numerologie', ph: 'Vollständiger Geburtsname', hint: 'Leer lassen, dann wird der Profilname verwendet.' },
       { key: 'aszendent', label: 'Aszendent', type: 'select', options: zn },
       { key: 'mond', label: 'Mondzeichen', type: 'select', options: zn },
-      { key: 'hd_typ', label: 'Human Design: Typ', type: 'select', options: [''].concat(Object.keys(HD_TYPES)) },
-      { key: 'hd_profil', label: 'Human Design: Profil', type: 'select', options: HD_PROFILES },
-      { key: 'hd_auth', label: 'Human Design: Autorität', type: 'select', options: HD_AUTH },
-      { key: 'hd_kreuz', label: 'Human Design: Inkarnationskreuz' },
       { key: 'notiz', label: 'Eigene Notizen', type: 'textarea' }
     ],
     onSave: async v => { S.profile.spirit = v; await persist('profile'); render(); } });
@@ -1522,7 +1533,7 @@ function viewSpirit() {
       h('div', { class: 'stat' }, h('b', null, lp), 'Lebensweg'),
       h('div', { class: 'stat' }, h('b', null, mo.emoji), mo.name))));
   wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Sternzeichen'), h('p', null, z.t),
-    h('div', null, kv('Element', z.el), kv('Qualität', z.q), kv('Herrscher', z.pl), kv('Aszendent', sp.aszendent), kv('Mondzeichen', sp.mond)),
+    h('div', null, kv('Element', z.el), kv('Qualität', z.q), kv('Herrscher', z.pl), kv('Aszendent', sp.aszendent), ...planetRows(p, sp)),
     h('p', { class: 'fine' }, 'An den Grenzen zwischen zwei Zeichen kann es je nach Geburtsjahr und Uhrzeit abweichen.')));
   wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Chinesisches Tierzeichen'),
     h('div', { class: 'hero' }, h('div', { class: 'spirit-big' }, ch.emoji), h('div', null, h('b', null, `${ch.element}-${ch.animal}`), h('p', null, (ch.yang ? 'Yang' : 'Yin') + ' · ' + ch.t))),
@@ -1535,15 +1546,703 @@ function viewSpirit() {
   wrap.append(h('div', { class: 'card' }, h('h2', null, 'Geburtstag im Überblick'),
     kv('Wochentag', new Date(by, bm - 1, bd).toLocaleDateString('de-DE', { weekday: 'long' })),
     kv('Mond bei der Geburt', `${mo.emoji} ${mo.name} (ca. ${mo.age}. Tag des Mondzyklus)`),
-    kv('Geburtsstein', STONES[bm - 1]), kv('Geburtszeit', sp.geburtszeit), kv('Geburtsort', sp.geburtsort)));
-  const hd = HD_TYPES[sp.hd_typ];
+    kv('Geburtsstein', STONES[bm - 1]), kv('Geburtszeit', p.geburtszeit || sp.geburtszeit), kv('Geburtsort', p.geburtsort || sp.geburtsort)));
+  const hr = hdResult();
   wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Human Design'),
-    hd ? h('div', null, kv('Typ', sp.hd_typ), kv('Strategie', hd.s), kv('Signatur', hd.sig), kv('Nicht-Selbst-Thema', hd.ns), kv('Profil', sp.hd_profil), kv('Autorität', sp.hd_auth), kv('Inkarnationskreuz', sp.hd_kreuz))
-      : h('p', { class: 'empty' }, 'Noch kein Human-Design-Typ eingetragen.'),
-    h('p', { class: 'fine' }, 'Das Chart braucht Geburtszeit und Geburtsort und lässt sich nicht offline berechnen. Erstelle es mit einem Human-Design-Rechner deiner Wahl und trage das Ergebnis hier ein.'),
-    hd ? null : h('button', { class: 'btn ghost wide', onclick: editSpirit }, 'Human Design eintragen')));
+    hr ? h('div', null, kv('Typ', hr.typ), kv('Strategie', HD_TYPES[hr.typ].s), kv('Autorität', hr.auth), kv('Profil', hr.profil), kv('Definition', hr.definition))
+      : h('p', { class: 'empty' }, p.geburtszeit ? 'Berechnung nicht möglich.' : 'Mit Geburtsdatum und Geburtszeit berechnet die App das Human Design.'),
+    h('button', { class: 'btn wide', onclick: () => go('hd') }, hr ? 'Komplettes Chart ansehen' : 'Human Design berechnen')));
   if (sp.notiz) wrap.append(h('div', { class: 'card' }, h('h2', null, 'Notizen'), h('p', { style: 'white-space:pre-wrap;margin-top:6px' }, sp.notiz)));
   wrap.append(h('p', { class: 'fine' }, 'Zur Unterhaltung und Inspiration – kein Ersatz für fachlichen Rat.'));
+  return wrap;
+}
+
+/* ============ Wochen-Begleiter ============ */
+const WEEKS = [
+  ["Ankommen", "Neugeborene schlafen 16 bis 18 Stunden, aber nur in kurzen Etappen. Hautkontakt und Füttern nach Bedarf geben Sicherheit. Der Nabelschnurrest fällt oft in dieser Zeit ab."],
+  ["Gewicht wiederfinden", "Viele Babys haben ihr Geburtsgewicht um den 10. bis 14. Lebenstag wieder erreicht. Die U2 (3. bis 10. Tag) ist in der Regel schon erledigt."],
+  ["Wach werden", "Die Wachphasen werden etwas länger. Gesichter und Stimmen der Eltern werden aufmerksam angeschaut, am besten aus 20 bis 30 cm Abstand."],
+  ["Mehr Blickkontakt", "Viele Babys fixieren jetzt Gesichter und folgen Gegenständen kurz mit den Augen. Die U3 liegt in der 4. bis 5. Woche. Frage nach Vitamin D und Fluorid bei der Kinderärztin oder dem Kinderarzt."],
+  ["Erster Entwicklungsschub", "Rund um die 5. Woche kommt oft der erste Schub: mehr Weinen, mehr Nähe. Das ist vorübergehend. Tragen, Ruhe und gleichbleibende Abläufe helfen."],
+  ["Das erste Lächeln", "Das soziale Lächeln zeigt sich oft in der 6. bis 8. Woche. Lächle zurück und sprich mit dem Baby, das ist das erste kleine Gespräch."],
+  ["Kopf heben", "In Bauchlage hebt das Baby den Kopf kurz an. Bauchlage nur im Wachzustand und unter Aufsicht, in kurzen Einheiten."],
+  ["Neue Wahrnehmung", "Ein zweiter Schub ist möglich: Muster, Licht und Geräusche werden bewusster wahrgenommen. Reize dosieren und Pausen anbieten."],
+  ["Gurren", "Erste Laute wie „aah“ und „ooh“ entstehen. Antworte darauf und lass Pausen, so lernt das Baby das Abwechseln beim Sprechen."],
+  ["Hände entdecken", "Die eigenen Hände werden spannend: anschauen, öffnen, zusammenführen. Eine leichte Rassel in Reichweite regt zum Greifen an."],
+  ["Stabilerer Kopf", "Der Kopf wird in Armen und in Bauchlage stabiler. Das Baby verfolgt Bewegungen im Raum zunehmend sicher."],
+  ["Schub der weichen Bewegungen", "Rund um die 12. Woche kann ein weiterer Schub kommen. Arme und Beine bewegen sich gezielter, oft begleitet von Unruhe."],
+  ["Drei Monate", "Viele Babys schlafen jetzt länger am Stück und sind tagsüber aufmerksamer. Die U4 (3. bis 4. Monat) steht an. Frage auch nach den anstehenden Impfungen."],
+  ["Lachen", "Das erste richtige Lachen entsteht. Kitzelspiele, Gesichter schneiden und Singen lösen oft Begeisterung aus."],
+  ["Greifen", "Das Baby greift gezielt nach Spielzeug und steckt es in den Mund. Alles Greifbare sollte sauber und groß genug sein."],
+  ["Rollen vorbereiten", "In Rückenlage werden die Beine gehoben und die Füße entdeckt. Erste Drehversuche zur Seite zeigen sich."],
+  ["Stimme testen", "Das Baby probiert Lautstärken und Tonhöhen aus, quietscht und jauchzt. Sprich und singe viel mit ihm."],
+  ["Mehr Neugier", "Alles wird untersucht: Gesichter, Gegenstände, Geräusche. Ein erstes Fremdeln kündigt sich manchmal schon an."],
+  ["Schub der Zusammenhänge", "Ein typischer Schub um die 19. Woche: Ursache und Wirkung werden spannend, etwa wenn eine Rassel ein Geräusch macht."],
+  ["Drehen", "Viele Babys drehen sich nun vom Rücken auf den Bauch oder umgekehrt. Den Wickeltisch nie unbeaufsichtigt lassen."],
+  ["Beikost in Sicht", "Beikost startet meist zwischen dem 5. und 7. Monat, wenn das Baby Interesse zeigt und mit Stütze aufrecht sitzt. Sprich den Zeitpunkt mit der Kinderärztin oder dem Kinderarzt ab."],
+  ["Stützen", "In Bauchlage stützt sich das Baby auf die Unterarme oder gestreckten Arme und „fliegt“ manchmal wie ein Flugzeug."],
+  ["Spiegelbild", "Das eigene Spiegelbild fasziniert. Zeige einen bruchsicheren Spiegel und benenne Körperteile."],
+  ["Gebrabbel", "Silben wie „ba-ba“ oder „ma-ma“ tauchen auf, noch ohne feste Bedeutung. Wiederhole sie freudig."],
+  ["Sitzversuche", "Mit Unterstützung sitzt das Baby schon kurz. Lass ihm Zeit: Freies Sitzen entwickelt sich meist zwischen 6 und 9 Monaten."],
+  ["Schub der Beziehungen", "Um die 26. Woche kann ein Schub kommen: Entfernungen und Beziehungen zu Dingen werden begriffen. Fremdeln und Trennungsangst können zunehmen."],
+  ["U5 im Blick", "Die U5 liegt im 6. bis 7. Monat. Ein guter Moment, Fragen zu Beikost, Schlaf und Zähnen zu sammeln."],
+  ["Erste Zähne", "Die ersten Zähnchen, meist unten vorne, kommen oft zwischen dem 6. und 8. Monat. Ein gekühlter Beißring kann beim Jucken helfen."],
+  ["Gegenstände suchen", "Das Baby sucht Dinge, die es fallen ließ. Kuckuck-Spiele machen großen Spaß, denn Verschwundenes kommt wieder."],
+  ["Umsetzen", "Gegenstände wandern von einer Hand in die andere. Das Baby wirft gern Sachen herunter und beobachtet, was passiert."],
+  ["Robben", "Viele Babys robben oder rutschen schon. Zeit, die Wohnung auf Kinderhöhe zu sichern: Steckdosen, Kabel, Kleinteile."],
+  ["Bewegungsdrang", "Der Vierfüßlerstand und Schaukeln werden geübt. Nicht jedes Kind krabbelt, auch das ist normal."],
+  ["Fremdeln", "Fremdeln ist ein gutes Zeichen für eine feste Bindung. Gib Zeit, nimm das Baby auf den Arm und führe Neues langsam ein."],
+  ["Fingerfood", "Mit der wachsenden Greifkoordination kann weiche Fingerfood-Kost probiert werden, immer unter Aufsicht."],
+  ["Klatschen", "Winken, Klatschen und „so groß“: Das Baby ahmt Gesten nach. Reime mit Bewegung helfen."],
+  ["Hochziehen", "Das Baby zieht sich an Möbeln hoch. Stabile Möbel und Kantenschutz sind jetzt wichtig."],
+  ["Schub der Kategorien", "Rund um die 37. Woche beginnen Kinder, Dinge zu unterscheiden und zu ordnen, etwa Tier und Fahrzeug. Oft verbunden mit Anhänglichkeit."],
+  ["Erstes Verstehen", "Das Baby versteht kleine Wörter wie „Nein“, „Papa“ oder den eigenen Namen. Benenne täglich, was du tust."],
+  ["Wippen und Musik", "Musik regt zum Mitwippen an. Einfache Instrumente wie Rassel oder Topf mit Holzlöffel wecken Freude."],
+  ["Kleiner Entdecker", "Schubladen und Schränke sind spannend. Ein „Ja-Bereich“ mit sicheren Dingen zum Ausräumen stillt die Neugier."],
+  ["Trinken üben", "Das Trinken aus dem offenen Becher wird geübt. Wasser zu den Mahlzeiten anbieten."],
+  ["Zeigen", "Der Zeigefinger kommt ins Spiel: Zeigen heißt „Schau mal!“. Benenne, worauf das Kind zeigt."],
+  ["Seitlich laufen", "Entlang der Möbel seitlich laufen, das sogenannte Cruisen. Barfuß oder mit rutschfesten Socken üben."],
+  ["Erste Wörter", "Erste bewusste Wörter wie „Mama“ oder „Papa“ können auftreten. Nicht korrigieren, sondern richtig wiederholen."],
+  ["Nachahmen", "Telefonieren, Kämmen, Löffeln: Alltagshandlungen werden nachgeahmt. Gib dem Kind Dinge zum Mitmachen."],
+  ["Schub der Abfolgen", "Ein weiterer Schub um die 46. Woche: Handlungen laufen in Abfolgen, etwa Einräumen oder Turmbauen. Kann mit Quengeln einhergehen."],
+  ["Erste Schritte", "Manche Kinder machen jetzt freie Schritte, andere erst mit 15 bis 18 Monaten. Beides liegt im Normalbereich."],
+  ["Gleichgewicht", "Hocken, Aufstehen, Balance halten: Das Kind trainiert die Kraft in den Beinen."],
+  ["Bücher", "Pappbilderbücher anschauen, umblättern, Tiere benennen. Vorlesen stärkt Sprache und Bindung."],
+  ["Eigener Wille", "Der eigene Wille meldet sich. Klare, freundliche Grenzen und Wahlmöglichkeiten („blau oder gelb?“) helfen."],
+  ["U6 naht", "Die U6 liegt im 10. bis 12. Monat. Sammle Fragen zu Sprache, Laufen, Impfungen und Ernährung."],
+  ["Fast ein Jahr", "Die letzte Woche vor dem ersten Geburtstag. Viele Kinder haben ihr Geburtsgewicht inzwischen verdreifacht und sind rund 25 cm gewachsen."],
+  ["Ein Jahr", "Alles Gute zum ersten Geburtstag! Viele Kinder laufen jetzt mit Festhalten oder allein, sagen 1 bis 3 Wörter und lieben Gesten."],
+  ["Sicher laufen", "Das Laufen wird sicherer. Treppen mit Gitter sichern und das Treppensteigen krabbelnd unter Aufsicht üben lassen."],
+  ["Schub der Programme", "Um die 55. Woche kann ein Schub kommen: Kinder verstehen Abläufe wie Anziehen oder Essen und testen eigene Wege. Oft mit Trotz."],
+  ["Sprache wächst", "Das Kind versteht deutlich mehr, als es sagen kann. Benenne beim Spaziergang, was ihr seht."],
+  ["Selbst essen", "Löffel, Gabel und Becher werden geübt. Kleckern gehört dazu."],
+  ["Bauklötze", "Türme aus 2 bis 3 Klötzen entstehen. Stapeln und Umwerfen trainiert die Auge-Hand-Koordination."],
+  ["Ja und Nein", "Kopfschütteln und Nicken kommen dazu. Das Kind erlebt Selbstwirksamkeit. Bleibe ruhig bei Neins."],
+  ["Gefühle zeigen", "Freude, Ärger und Zuneigung werden deutlicher gezeigt. Benenne Gefühle: „Du bist wütend.“"],
+  ["Lieblingsbücher", "Lieblingsbücher werden immer wieder verlangt. Wiederholung ist wichtig fürs Lernen."],
+  ["Rituale", "Feste Abläufe wie Abendritual und Mahlzeiten geben Sicherheit. Kündige Übergänge kurz an."],
+  ["Malen beginnt", "Dicke Stifte und große Papierbögen: Erste Kritzeleien sind der Beginn der Schreibentwicklung."],
+  ["Schub der Prinzipien", "Um die 64. Woche testen Kinder Regeln und Grenzen und experimentieren mit „Wenn ich …, dann …“."],
+  ["Laufsicherheit", "Viele Kinder laufen jetzt sicher. Draußen eignen sich Schuhe mit flexibler Sohle, drinnen gern barfuß."],
+  ["Tierlaute", "„Wauwau“ und „Muh“: Der Wortschatz wächst. Tierbilder und Spaziergänge fördern das Sprechen."],
+  ["Aufräumen", "Gemeinsam Spielzeug in Körbe räumen und ein Spiel daraus machen."],
+  ["Autonomie", "Die Autonomiephase beginnt. Die Wahl zwischen zwei Möglichkeiten und viel Lob fürs Mitmachen helfen."],
+  ["Ballspiele", "Ball rollen, werfen und treten: Bewegungsspiele entwickeln die Koordination."],
+  ["Erste Wortkombinationen", "Mit etwa 18 Monaten kommen erste Zwei-Wort-Kombinationen. Der Wortschatz liegt oft bei 10 bis 50 Wörtern."],
+  ["Nachahmen im Haushalt", "Fegen, Kochen spielen, Puppe füttern: Das Rollenspiel beginnt."],
+  ["U7 im Kalender", "Die U7 steht im 21. bis 24. Monat an. Ein Termin im Kalender lohnt sich jetzt."],
+  ["Erste Fantasie", "Ein Klotz wird zum Telefon: Das Symbolspiel entsteht. Spiele mit."],
+  ["Wasserspiele", "Planschen, Gießen, Umfüllen: Wasser bietet viele Sinneserfahrungen, aber nie unbeaufsichtigt."],
+  ["Schub der Systeme", "Um die 75. Woche entsteht das Verständnis für Regeln und Ordnung. Oft verbunden mit Anhänglichkeit."],
+  ["Singen", "Kinderlieder und Fingerspiele sind in diesem Alter ideal. Wiederholung ist erwünscht."],
+  ["Treppen", "Treppen steigen mit Festhalten und vorsichtiges Hüpfen. Bleibe wachsam."],
+  ["Wutanfälle", "Wutanfälle sind normal. Biete Körperkontakt an, bewahre Ruhe und tröste nach dem Sturm."],
+  ["Zahnpflege", "Täglich zweimal Zähneputzen mit fluoridhaltiger Kinderzahnpasta in der empfohlenen Menge. Frage die Kinderärztin oder den Zahnarzt nach der richtigen Dosierung."],
+  ["Das eigene Ich", "Das Kind sagt oft „Meins!“ und entdeckt das „Ich“. Das ist im zweiten Lebensjahr ganz normal."],
+  ["Körperteile", "Körperteile zeigen und benennen: Nase, Augen, Ohren, Mund."],
+  ["Sandkasten", "Matschen, Buddeln, Bauen: Naturmaterial und Zeit draußen stärken die Motorik."],
+  ["Zwei-Wort-Sätze", "Sätze wie „Papa weg“ oder „mehr Saft“ sind typisch. Antworte mit einem vollständigen Satz."],
+  ["Fahrzeuge", "Rutschauto und Laufrad trainieren Gleichgewicht und Beinkraft."],
+  ["Schlaf", "Der Mittagsschlaf bleibt wichtig. Der Nachtschlaf beträgt oft 10 bis 12 Stunden."],
+  ["Selbst anziehen", "Mützen, Socken und Hosen anziehen: Kleine Erfolge feiern."],
+  ["Formen und Puzzle", "Steckspiele und Puzzle mit großen Teilen fördern Denken und Feinmotorik."],
+  ["Geduld", "Das Kind testet oft die Geduld. Gleichbleibende Reaktionen geben Sicherheit."],
+  ["Hüpfen und Rennen", "Auf der Stelle hüpfen, rennen, balancieren: viel Bewegung an der frischen Luft."],
+  ["Wortschatzsprung", "Bei vielen Kindern beginnt jetzt ein Wortschatzschub, oft mit 50 und mehr Wörtern um den zweiten Geburtstag."],
+  ["Gleichaltrige", "Der Kontakt zu anderen Kindern wächst. Nebeneinanderspielen ist normal, Teilen kommt später."],
+  ["Gefühle benennen", "Bilderbücher über Gefühle helfen, Emotionen zu verstehen und zu benennen."],
+  ["Trockenwerden", "Anzeichen fürs Trockenwerden zeigen sich oft zwischen 2 und 3 Jahren. Nie unter Druck setzen."],
+  ["Zuhören", "Kleine Aufträge wie „Hol bitte den Ball“ werden verstanden und ausgeführt."],
+  ["Kuscheltier", "Ein Kuscheltier oder Schmusetuch gibt Trost. Nimm es ruhig überall mit."],
+  ["Gemeinsam essen", "Gemeinsame Mahlzeiten fördern Sprache und Essverhalten."],
+  ["Farben", "Erste Farben werden unterschieden und benannt."],
+  ["Spielplatz", "Schaukeln und Rutschen erkunden: nicht zu hoch und immer in Reichweite."],
+  ["U7 nicht vergessen", "Das Zeitfenster der U7 (21. bis 24. Monat) geht zu Ende. Falls noch nicht geschehen, jetzt einen Termin vereinbaren."],
+  ["Das Warum-Alter", "Das „Was ist das?“ und „Warum?“ beginnt. Gib Antworten und stelle Gegenfragen."],
+  ["Geschichten", "Kurze Geschichten, Bilderbuchgeschichten und Reime wecken die Fantasie."],
+  ["Alleine!", "„Alleine!“ ist das Motto. Plane etwas mehr Zeit zum Mitmachen ein."],
+  ["Fast zwei", "Mit fast zwei Jahren laufen, rennen und klettern die meisten Kinder und sprechen Zwei- bis Drei-Wort-Sätze."],
+  ["Zwei in Sicht", "Die letzte Woche vor dem zweiten Geburtstag. Ein Rückblick lohnt sich: Aus dem Neugeborenen ist ein kleiner Mensch mit eigener Meinung geworden."]
+];
+const WK_BANDS = [
+  [2, "Zwei bis drei Jahre: Die Sprache wächst rasant, der eigene Wille ist stark, Trockenwerden und Rollenspiele werden wichtig."],
+  [3, "Drei bis vier Jahre: Das Fragealter. Freundschaften beginnen, Fantasie und Rollenspiele blühen, Regeln werden verstanden."],
+  [4, "Vier bis fünf Jahre: Regelspiele, Zählen, Malen mit Stiftgriff und lange Geschichten gehören zum Alltag."],
+  [5, "Fünf bis sechs Jahre: Die Vorschulzeit. Konzentration, Ausdauer und Freundschaften wachsen, Schulreife entwickelt sich."],
+  [6, "Sechs bis sieben Jahre: Schulanfang. Lesen, Schreiben und Rechnen werden gelernt, Müdigkeit ist anfangs normal."],
+  [7, "Sieben bis neun Jahre: Grundschulalter. Freundschaften, Hobbys und Selbstständigkeit werden wichtiger."],
+  [9, "Neun bis zwölf Jahre: Mehr Eigenständigkeit, feste Interessen, Medienkompetenz und der Übergang zur weiterführenden Schule."],
+  [12, "Zwölf bis achtzehn Jahre: Pubertät und Jugend. Identität, Abgrenzung und Freundeskreis stehen im Mittelpunkt."]
+];
+const WK_IMPULSE = [
+  ["Vorlesen und Erzählen", "Gemeinsame Lesezeit stärkt Sprache, Fantasie und Bindung, in jedem Alter."],
+  ["Raus in die Natur", "Täglich frische Luft und Bewegung tun Körper und Stimmung gut."],
+  ["Zeit zu zweit", "Zehn Minuten ungeteilte Aufmerksamkeit, ohne Handy, stärken die Beziehung."],
+  ["Gefühle benennen", "Hilf dem Kind, Gefühle in Worte zu fassen, das erleichtert den Umgang damit."],
+  ["Schlafrhythmus", "Feste Schlafenszeiten und ein Abendritual helfen beim Einschlafen und Erholen."],
+  ["Zähne putzen", "Zweimal täglich putzen und regelmäßig zur Zahnärztin oder zum Zahnarzt. Als Eltern nachputzen, bis das Kind sauber selbst putzen kann."],
+  ["Gesunde Ernährung", "Gemeinsam essen, Gemüse ausprobieren und Wasser als Getränk anbieten."],
+  ["Selbstständigkeit", "Lass das Kind kleine Aufgaben selbst übernehmen, das stärkt das Selbstvertrauen."],
+  ["Sicherheit", "Kinder brauchen Schutz und Freiraum zugleich. Prüfe Helm, Sitz und Absprachen für den Alltag."],
+  ["Bildschirmzeit", "Gemeinsame Regeln für Handy, Tablet und Fernseher geben Orientierung. Schaut möglichst gemeinsam."],
+  ["Musik und Tanz", "Musik hören, singen und tanzen fördert Rhythmus, Sprache und gute Laune."],
+  ["Kreativ sein", "Malen, Basteln und Bauen: Der Prozess zählt mehr als das Ergebnis."],
+  ["Lob und Ermutigung", "Lobe Anstrengung statt nur Ergebnisse. Das fördert Ausdauer."],
+  ["Klare Grenzen", "Wenige, klare und liebevoll durchgesetzte Regeln geben Sicherheit."],
+  ["Freunde treffen", "Zeit mit Gleichaltrigen trainiert soziale Fähigkeiten und Konfliktlösung."],
+  ["Geduld üben", "Warten, Teilen und Abwarten sind Lernfelder. Begleite sie gelassen."],
+  ["Familienrituale", "Gemeinsame Rituale wie Sonntagsfrühstück oder Spieleabend schaffen Erinnerungen."],
+  ["Bewegung", "Rennen, Klettern, Radfahren und Schwimmen: Bewegung ist die beste Förderung."],
+  ["Fragen ernst nehmen", "Beantworte Fragen ehrlich und altersgerecht. Ein „Das weiß ich nicht, lass uns nachschauen“ ist völlig in Ordnung."],
+  ["Fehler dürfen sein", "Zeige, dass Fehler zum Lernen gehören, auch deine eigenen."],
+  ["Gemeinsam kochen", "Beim Kochen und Backen üben Kinder Zahlen, Geduld und Feinmotorik."],
+  ["Ausruhen", "Auch Kinder brauchen Pausen. Langeweile ist ein Motor für Kreativität."],
+  ["Dankbarkeit", "Ein kurzes „Was war heute schön?“ am Abend richtet den Blick auf Gutes."],
+  ["Vorsorge und Impfungen", "Behalte U-Untersuchungen und Impftermine im Blick und notiere Fragen für die Praxis."],
+  ["Wasser und Sonne", "Sonnenschutz, Mütze und genug trinken. Schwimmen lernen ist ein wichtiger Meilenstein."],
+  ["Erinnerungen sammeln", "Halte Lieblingssätze, Zeichnungen und Fotos fest. Sie werden später zu Schätzen."]
+];
+function weekInfo(n) {
+  if (n >= 1 && n <= WEEKS.length) return { title: WEEKS[n - 1][0], text: WEEKS[n - 1][1], hand: true };
+  const years = Math.floor(((n - 1) * 7) / 365.25);
+  let band = WK_BANDS[0];
+  WK_BANDS.forEach(b => { if (years >= b[0]) band = b; });
+  const y1 = Math.floor((n * 7 - 1) / 365.25), y0 = Math.floor(((n - 1) * 7 - 1) / 365.25);
+  if (y1 > y0 && y1 >= 2) {
+    const nb = WK_BANDS.slice().reverse().find(x => y1 >= x[0]) || WK_BANDS[0];
+    return { title: `${y1}. Geburtstag`, text: `Alles Gute zum ${y1}. Geburtstag! ${nb[1]}`, hand: false };
+  }
+  const imp = WK_IMPULSE[(n - 1) % WK_IMPULSE.length];
+  return { title: imp[0], text: `${band[1]} Wochenimpuls: ${imp[1]}`, hand: false };
+}
+const lifeDays = iso => { const b = parseD(iso), t = new Date(); return Math.round((new Date(t.getFullYear(), t.getMonth(), t.getDate()) - b) / 864e5); };
+const curWeek = iso => Math.floor(lifeDays(iso) / 7) + 1;
+const addDaysIso = (iso, n) => { const d = parseD(iso); d.setDate(d.getDate() + n); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };
+let weekSel = null;
+function viewWeeks() {
+  const p = S.profile, wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Wochen-Begleiter'));
+  if (!p.geburtsdatum) {
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum im Profil ein. Dann erscheint zu jeder Lebenswoche eine passende Info.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
+    return wrap;
+  }
+  const now = curWeek(p.geburtsdatum), max = 940;
+  if (now < 1) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Das Geburtsdatum liegt in der Zukunft.'))); return wrap; }
+  const n = Math.max(1, Math.min(max, weekSel == null ? now : weekSel));
+  const info = weekInfo(n);
+  const start = addDaysIso(p.geburtsdatum, (n - 1) * 7), end = addDaysIso(start, 6);
+  wrap.append(h('div', { class: 'hero2 cosmic' },
+    h('div', { class: 'top' }, h('div', { class: 'bigemoji', style: 'font-size:30px;font-weight:800' }, String(n)),
+      h('div', null, h('h1', null, 'Lebenswoche ' + n), h('p', null, `${fmtD(start)} bis ${fmtD(end)}`))),
+    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, ageText(p.geburtsdatum, start) || 'Neugeboren'), 'Alter zu Wochenbeginn'),
+      n === now ? h('div', { class: 'stat' }, h('b', null, 'Jetzt'), 'aktuelle Woche') : h('div', { class: 'stat' }, h('b', null, n < now ? plural(now - n, 'Woche', 'Wochen') : 'in ' + plural(n - now, 'Woche', 'Wochen')), n < now ? 'her' : 'noch'))));
+  wrap.append(h('div', { class: 'wk-nav' },
+    h('button', { class: 'pill ghost', disabled: n <= 1, onclick: () => { weekSel = n - 1; render(); } }, '‹ Zurück'),
+    h('button', { class: 'pill ghost', onclick: () => openSheet({ title: 'Zu Woche springen', values: { n: String(n) }, fields: [{ key: 'n', label: 'Lebenswoche', inputmode: 'numeric', type: 'number', required: true }], onSave: async v => { const x = parseInt(v.n, 10); if (x >= 1) { weekSel = Math.min(max, x); render(); } } }) }, 'Springen'),
+    n !== now ? h('button', { class: 'pill', onclick: () => { weekSel = null; render(); } }, 'Heute') : null,
+    h('button', { class: 'pill ghost', disabled: n >= max, onclick: () => { weekSel = n + 1; render(); } }, 'Weiter ›')));
+  const chips = [];
+  U_DEF.forEach(d => {
+    const ws = addDaysIso(p.geburtsdatum, d[2]), we = addDaysIso(p.geburtsdatum, d[3]);
+    if (ws <= end && we >= start) chips.push(h('span', { class: 'chip ' + (S.health.u[d[0]] ? 'ok' : 'warn') }, d[0] + (S.health.u[d[0]] ? ' erledigt' : ' Zeitfenster')));
+  });
+  wrap.append(h('div', { class: 'card stack' }, h('h2', null, info.title), h('p', null, info.text),
+    chips.length ? h('div', { class: 'chips' }, chips) : null,
+    h('p', { class: 'fine' }, info.hand ? 'Orientierungswerte: Jedes Kind entwickelt sich in seinem eigenen Tempo. Bei Fragen hilft die Kinderärztin oder der Kinderarzt.' : 'Ab dem dritten Lebensjahr gibt es zu jeder Woche einen Wochenimpuls passend zur Altersstufe.')));
+  wrap.append(sectionHead('Die nächsten Wochen'));
+  wrap.append(h('div', { class: 'card' }, [1, 2, 3].filter(k => n + k <= max).map(k => {
+    const w = weekInfo(n + k);
+    return li(() => { weekSel = n + k; render(); }, '', h('span', { class: 'badge' }, String(n + k)), liTxt(w.title, fmtD(addDaysIso(p.geburtsdatum, (n + k - 1) * 7))), chev());
+  })));
+  return wrap;
+}
+
+/* ============ U-Heft ============ */
+const MO = x => Math.round(x * 30.4375);
+const U_DEF = [
+  ['U1', 'Geburt', 0, 0], ['U2', '3. bis 10. Lebenstag', 3, 10], ['U3', '4. bis 5. Lebenswoche', 28, 42], ['U4', '3. bis 4. Monat', MO(3), MO(4)],
+  ['U5', '6. bis 7. Monat', MO(6), MO(7)], ['U6', '10. bis 12. Monat', MO(10), MO(12)], ['U7', '21. bis 24. Monat', MO(21), MO(24)],
+  ['U7a', '34. bis 36. Monat', MO(34), MO(36)], ['U8', '46. bis 48. Monat', MO(46), MO(48)], ['U9', '60. bis 64. Monat', MO(60), MO(64)],
+  ['U10', '7. bis 8. Jahr (je nach Kasse)', MO(84), MO(96)], ['U11', '9. bis 10. Jahr (je nach Kasse)', MO(108), MO(120)],
+  ['J1', '12. bis 14. Jahr', MO(144), MO(168)], ['J2', '16. bis 17. Jahr (je nach Kasse)', MO(192), MO(216)]
+];
+function uStatus(def, e, birth) {
+  if (e) return 'done';
+  if (!birth) return 'open';
+  const d = lifeDays(birth);
+  if (d < def[2]) return 'later';
+  if (d <= def[3] || (def[0] === 'U1' && d <= 0)) return 'due';
+  return 'past';
+}
+function editU(code, label) {
+  const cur = S.health.u[code] || {};
+  openSheet({
+    title: `${code} · ${label}`, values: Object.assign({ uebernehmen: !cur.datum }, cur),
+    fields: [
+      { key: 'datum', label: 'Durchgeführt am', type: 'date' },
+      { key: 'arzt', label: 'Praxis / Ärztin / Arzt' },
+      { key: 'gewicht', label: 'Gewicht (kg)', inputmode: 'decimal', ph: 'z. B. 3,4' },
+      { key: 'groesse', label: 'Größe (cm)', inputmode: 'decimal', ph: 'z. B. 51' },
+      { key: 'kopf', label: 'Kopfumfang (cm)', inputmode: 'decimal' },
+      { key: 'befund', label: 'Ergebnis / Auffälligkeiten', type: 'textarea' },
+      { key: 'notiz', label: 'Notiz', type: 'textarea' },
+      { key: 'uebernehmen', label: 'Messwerte in die Wachstumskurve übernehmen', type: 'checkbox' }
+    ],
+    onSave: async v => {
+      const { uebernehmen, ...rest } = v;
+      if (!Object.values(rest).some(Boolean)) delete S.health.u[code]; else S.health.u[code] = rest;
+      if (uebernehmen && rest.datum && (rest.gewicht || rest.groesse || rest.kopf)) {
+        let w = S.health.wachstum.find(x => x.datum === rest.datum);
+        if (!w) { w = { id: uid(), datum: rest.datum }; S.health.wachstum.push(w); }
+        ['gewicht', 'groesse', 'kopf'].forEach(k => { if (rest[k]) w[k] = rest[k]; });
+      }
+      await persist('health'); render();
+    },
+    onDelete: S.health.u[code] ? async () => { delete S.health.u[code]; await persist('health'); render(); } : null,
+    deleteLabel: 'Zurücksetzen'
+  });
+}
+function viewUHeft() {
+  const hl = S.health, p = S.profile, wrap = h('div', { class: 'stack' });
+  const done = U_DEF.filter(d => hl.u[d[0]]).length;
+  wrap.append(pageHead('Digitales U-Heft'));
+  wrap.append(h('div', { class: 'card stack' },
+    h('div', { class: 'metric' }, h('div', null, h('small', null, 'Eingetragen'), h('b', null, `${done} von ${U_DEF.length}`))),
+    h('div', { class: 'bar dark' }, h('i', { style: `width:${Math.round(done / U_DEF.length * 100)}%` })),
+    h('p', { class: 'fine' }, p.geburtsdatum ? 'Die Zeitfenster sind Orientierungswerte nach der Kinder-Richtlinie. Maßgeblich sind das gelbe Heft und die Praxis.' : 'Trage das Geburtsdatum im Profil ein, dann zeigt die App die Zeitfenster der Untersuchungen.')));
+  U_DEF.forEach(def => {
+    const [code, label, from, to] = def, e = hl.u[code], st = uStatus(def, e, p.geburtsdatum);
+    const ws = p.geburtsdatum ? addDaysIso(p.geburtsdatum, from) : null, we = p.geburtsdatum ? addDaysIso(p.geburtsdatum, to) : null;
+    let chip = null, sub;
+    if (e) {
+      const m = [e.gewicht && e.gewicht + ' kg', e.groesse && e.groesse + ' cm', e.kopf && 'Kopf ' + e.kopf + ' cm'].filter(Boolean).join(' · ');
+      sub = [e.datum ? 'Am ' + fmtD(e.datum) : 'Durchgeführt', e.arzt, m].filter(Boolean).join(' · ');
+      if (e.befund) chip = h('small', null, e.befund);
+    } else {
+      sub = label;
+      if (st === 'due') chip = h('span', { class: 'chip warn' }, code === 'U1' ? 'Zur Geburt' : 'Jetzt fällig bis ' + fmtD(we));
+      else if (st === 'later') chip = h('span', { class: 'chip' }, 'Ab ' + fmtD(ws) + ' bis ' + fmtD(we));
+      else if (st === 'past') chip = h('span', { class: 'chip bad' }, 'Nicht eingetragen');
+    }
+    wrap.append(h('div', { class: 'card' }, li(() => editU(code, label), '', h('span', { class: 'badge' + (e ? ' done' : '') }, code),
+      liTxt(e ? label : (st === 'due' ? 'Steht an' : st === 'later' ? 'Kommt noch' : 'Offen'), sub, chip),
+      (st === 'due' || st === 'later') && ws ? calBtn(`${code}-Vorsorge beim Kinderarzt`, st === 'due' ? isoToday() : ws, `Zeitfenster bis ${fmtD(we)}`, 3) : null, chev())));
+  });
+  return wrap;
+}
+
+/* ============ Medikamente ============ */
+const MED_FIELDS = [
+  { key: 'name', label: 'Medikament', required: true, ph: 'z. B. Ibuprofen-Saft' },
+  { key: 'wirkstoff', label: 'Wirkstoff' },
+  { key: 'dosis', label: 'Dosis', ph: 'z. B. 2,5 ml' },
+  { key: 'einnahme', label: 'Wann einnehmen', ph: 'z. B. morgens und abends' },
+  { key: 'grund', label: 'Wofür', ph: 'z. B. Fieber, Allergie' },
+  { key: 'von', label: 'Beginn', type: 'date' },
+  { key: 'bis', label: 'Ende', type: 'date' },
+  { key: 'dauer', label: 'Dauermedikation (ohne Ende)', type: 'checkbox' },
+  { key: 'arzt', label: 'Verordnet von' },
+  { key: 'notiz', label: 'Notiz', type: 'textarea' }
+];
+const medActive = m => !!m.dauer || ((!m.von || m.von <= isoToday()) && (!m.bis || m.bis >= isoToday()));
+const medPlanned = m => !m.dauer && m.von && m.von > isoToday();
+function medsText() {
+  return S.health.meds.filter(medActive).map(m => [m.name, m.dosis, m.einnahme].filter(Boolean).join(', ')).join('; ');
+}
+function viewMeds() {
+  const meds = S.health.meds, wrap = h('div', { class: 'stack' });
+  const edit = item => editListItem({ arr: meds, key: 'health', title: 'Medikament', fields: MED_FIELDS, item, defaults: { von: isoToday() } });
+  wrap.append(pageHead('Medikamente', addBtn('Medikament', () => edit())));
+  const act = meds.filter(medActive), plan = meds.filter(medPlanned), old = meds.filter(m => !medActive(m) && !medPlanned(m));
+  const row = m => li(() => edit(m), '', h('span', { class: 'hubico', html: ICON.cross }),
+    liTxt(m.name, [m.dosis, m.einnahme, m.grund].filter(Boolean).join(' · '), h('span', { class: 'chip ' + (m.dauer ? 'ok' : '') }, m.dauer ? 'Dauermedikation' : m.bis ? 'bis ' + fmtD(m.bis) : m.von ? 'seit ' + fmtD(m.von) : 'aktiv')), chev());
+  wrap.append(sectionHead('Aktuell'));
+  wrap.append(h('div', { class: 'card' }, act.length ? act.map(row) : h('p', { class: 'empty' }, 'Keine aktuellen Medikamente. Aktuelle Medikamente erscheinen auch in der Notfallkarte.')));
+  if (plan.length) { wrap.append(sectionHead('Geplant')); wrap.append(h('div', { class: 'card' }, plan.map(row))); }
+  if (old.length) { wrap.append(sectionHead('Früher')); wrap.append(h('div', { class: 'card' }, old.sort((a, b) => (b.bis || '').localeCompare(a.bis || '')).map(row))); }
+  if (meds.length) wrap.append(h('button', { class: 'btn ghost wide', onclick: () => shareText('Medikamente', 'Medikamente von ' + (S.profile.vorname || 'Kind') + ':\n' + (act.map(m => '- ' + [m.name, m.dosis, m.einnahme, m.grund].filter(Boolean).join(', ')).join('\n') || 'keine aktuellen')) }, 'Aktuelle Medikamente teilen'));
+  wrap.append(h('p', { class: 'fine' }, 'Dosierungen immer nach Angabe der Ärztin, des Arztes oder des Beipackzettels. Die App ersetzt keine ärztliche Beratung.'));
+  return wrap;
+}
+
+/* ============ Marken & Produkte ============ */
+const PROD_CATS = ['Windeln & Pflege', 'Ernährung', 'Kleidung', 'Schuhe', 'Spielzeug', 'Bücher & Medien', 'Unterwegs', 'Möbel & Schlafen', 'Technik', 'Sonstiges'];
+const PROD_RATE = ['', 'Favorit', 'Gut', 'Geht so', 'Nicht noch mal', 'Unverträglich / Allergie'];
+const PROD_FIELDS = [
+  { key: 'marke', label: 'Marke', required: true, ph: 'z. B. Pampers, Lego, Hipp' },
+  { key: 'produkt', label: 'Produkt', ph: 'z. B. Baby-Dry' },
+  { key: 'kategorie', label: 'Kategorie', type: 'select', options: PROD_CATS },
+  { key: 'groesse', label: 'Größe / Variante', ph: 'z. B. Gr. 5, 98, 28' },
+  { key: 'bewertung', label: 'Bewertung', type: 'select', options: PROD_RATE },
+  { key: 'datum', label: 'Seit wann', type: 'date' },
+  { key: 'notiz', label: 'Notiz', type: 'textarea' }
+];
+let prodCat = 'Alle';
+function viewProducts() {
+  const p = S.profile, list = p.produkte, wrap = h('div', { class: 'stack' });
+  const edit = item => editListItem({ arr: list, key: 'profile', title: 'Produkt', fields: PROD_FIELDS, item, defaults: { kategorie: prodCat !== 'Alle' ? prodCat : PROD_CATS[0], datum: isoToday() } });
+  wrap.append(pageHead('Marken & Produkte', addBtn('Produkt', () => edit())));
+  const cats = PROD_CATS.filter(c => list.some(x => x.kategorie === c));
+  if (prodCat !== 'Alle' && !cats.includes(prodCat)) prodCat = 'Alle';
+  const sizes = ['Kleidung', 'Schuhe', 'Windeln & Pflege'].map(c => {
+    const x = list.filter(i => i.kategorie === c && i.groesse).sort((a, b) => (b.datum || '').localeCompare(a.datum || ''))[0];
+    return x ? h('div', null, h('small', null, c === 'Windeln & Pflege' ? 'Windeln' : c), h('b', null, x.groesse)) : null;
+  }).filter(Boolean);
+  if (sizes.length) wrap.append(h('div', { class: 'card' }, h('div', { class: 'metric' }, sizes)));
+  if (cats.length) wrap.append(h('div', { class: 'chips' }, ['Alle', ...cats].map(c => h('button', { class: 'fchip' + (c === prodCat ? ' on' : ''), onclick: () => { prodCat = c; render(); } }, c))));
+  const shown = list.filter(x => prodCat === 'Alle' || x.kategorie === prodCat).slice().sort((a, b) => (a.kategorie || '').localeCompare(b.kategorie || '', 'de') || a.marke.localeCompare(b.marke, 'de'));
+  if (!shown.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Noch nichts erfasst. Halte fest, welche Marken und Produkte Luise nutzt und mag: Windeln, Pflege, Kleidung, Schuhgröße, Spielzeug oder Lieblingsessen.')));
+  else {
+    const groups = new Map();
+    shown.forEach(x => { const k = x.kategorie || 'Sonstiges'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(x); });
+    groups.forEach((items, k) => {
+      if (prodCat === 'Alle') wrap.append(sectionHead(k));
+      wrap.append(h('div', { class: 'card' }, items.map(x => li(() => edit(x), '', liTxt(x.marke + (x.produkt ? ' · ' + x.produkt : ''), [x.groesse && 'Größe ' + x.groesse, x.notiz].filter(Boolean).join(' · '),
+        x.bewertung ? h('span', { class: 'chip ' + (x.bewertung === 'Favorit' || x.bewertung === 'Gut' ? 'ok' : x.bewertung === 'Geht so' ? '' : x.bewertung === 'Nicht noch mal' ? 'warn' : 'bad') }, x.bewertung) : null), chev()))));
+    });
+  }
+  if (list.length) wrap.append(h('button', { class: 'btn ghost wide', onclick: () => shareText('Produkte', 'Marken & Produkte von ' + (p.vorname || 'Kind') + ':\n' + list.slice().sort((a, b) => (a.kategorie || '').localeCompare(b.kategorie || '', 'de')).map(x => `- ${x.kategorie || ''}: ${x.marke}${x.produkt ? ' ' + x.produkt : ''}${x.groesse ? ' (Gr. ' + x.groesse + ')' : ''}${x.bewertung ? ' [' + x.bewertung + ']' : ''}`).join('\n')) }, 'Liste teilen (z. B. für Oma)'));
+  return wrap;
+}
+
+/* ============ Kontakte mit Foto ============ */
+const contactAv = c => avatar({ vorname: c.name || '?', foto: c.foto }, 42);
+function editContact(item) {
+  const arr = S.profile.kontakte, isNew = !item;
+  openSheet({
+    title: isNew ? 'Kontakt hinzufügen' : 'Kontakt', fields: CONTACT_FIELDS, values: item || {},
+    onSave: async v => {
+      const { foto, fotoRemove, ...rest } = v;
+      const t = isNew ? { id: uid() } : item;
+      Object.assign(t, rest);
+      if (fotoRemove) delete t.foto;
+      if (foto) t.foto = await blobToDataURL(await imageToJpeg(foto, 240, 0.8));
+      if (isNew) arr.push(t);
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+
+/* ============ Human Design: Berechnung ============ */
+const HD = (() => {
+  const RAD = Math.PI / 180;
+  const norm = x => ((x % 360) + 360) % 360;
+  const sin = d => Math.sin(d * RAD), cos = d => Math.cos(d * RAD);
+  const jdOf = ms => ms / 86400000 + 2440587.5;
+  const Tof = ms => (jdOf(ms) - 2451545) / 36525;
+
+  function sunLon(ms) {
+    const T = Tof(ms);
+    const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+    const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+    const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * sin(M) + (0.019993 - 0.000101 * T) * sin(2 * M) + 0.000289 * sin(3 * M);
+    const om = 125.04 - 1934.136 * T;
+    return norm(L0 + C - 0.00569 - 0.00478 * sin(om));
+  }
+  function moonArgs(T) {
+    return {
+      L: norm(218.3164477 + 481267.88123421 * T), D: norm(297.8501921 + 445267.1114034 * T), M: norm(357.5291092 + 35999.0502909 * T),
+      Mp: norm(134.9633964 + 477198.8675055 * T), F: norm(93.272095 + 483202.0175233 * T)
+    };
+  }
+  function moonLon(ms) {
+    const T = Tof(ms), { L, D, M, Mp, F } = moonArgs(T);
+    const E = 1 - 0.002516 * T - 0.0000074 * T * T;
+    const terms = [
+      [6288774, 0, 0, 1, 0, 0], [1274027, 2, 0, -1, 0, 0], [658314, 2, 0, 0, 0, 0], [213618, 0, 0, 2, 0, 0], [-185116, 0, 1, 0, 0, 1],
+      [-114332, 0, 0, 0, 2, 0], [58793, 2, 0, -2, 0, 0], [57066, 2, -1, -1, 0, 1], [53322, 2, 0, 1, 0, 0], [45758, 2, -1, 0, 0, 1],
+      [-40923, 0, 1, -1, 0, 1], [-34720, 1, 0, 0, 0, 0], [-30383, 0, 1, 1, 0, 1], [15327, 2, 0, 0, -2, 0], [-12528, 0, 0, 1, 2, 0],
+      [10980, 0, 0, 1, -2, 0], [10675, 4, 0, -1, 0, 0], [10034, 0, 0, 3, 0, 0], [8548, 4, 0, -2, 0, 0], [-7888, 2, 1, -1, 0, 1],
+      [-6766, 2, 1, 0, 0, 1], [-5163, 1, 0, -1, 0, 0], [4987, 1, 1, 0, 0, 1], [4036, 2, -1, 1, 0, 1], [3994, 2, 0, 2, 0, 0],
+      [3861, 4, 0, 0, 0, 0], [3665, 2, 0, -3, 0, 0], [-2689, 0, 1, -2, 0, 1], [-2602, 2, 0, -1, 2, 0], [2390, 2, -1, -2, 0, 1],
+      [-2348, 1, 0, 1, 0, 0], [2236, 2, -2, 0, 0, 2], [-2120, 0, 1, 2, 0, 1], [-2069, 0, 2, 0, 0, 2], [2048, 2, -2, -1, 0, 2]
+    ];
+    let s = 0;
+    for (const [c, d, m, mp, f, e] of terms) s += c * Math.pow(E, e) * sin(d * D + m * M + mp * Mp + f * F);
+    const A1 = 119.75 + 131.849 * T, A2 = 53.09 + 479264.29 * T;
+    s += 3958 * sin(A1) + 1962 * sin(L - F) + 318 * sin(A2);
+    const om = 125.04 - 1934.136 * T;
+    return norm(L + s / 1e6 - 0.00478 * sin(om));
+  }
+  function trueNode(ms) {
+    const T = Tof(ms), { D, M, Mp, F } = moonArgs(T);
+    const mean = 125.0445479 - 1934.1362891 * T + 0.0020754 * T * T;
+    return norm(mean - 1.4979 * sin(2 * (D - F)) - 0.15 * sin(M) - 0.1226 * sin(2 * D) + 0.1176 * sin(2 * F) - 0.0801 * sin(2 * (Mp - F)));
+  }
+  // JPL (Standish) Näherungselemente 1800-2050: a, da, e, de, I, dI, L, dL, ϖ, dϖ, Ω, dΩ
+  const EL = {
+    Merkur: [0.38709927, 0.00000037, 0.20563593, 0.00001906, 7.00497902, -0.00594749, 252.2503235, 149472.67411175, 77.45779628, 0.16047689, 48.33076593, -0.12534081],
+    Venus: [0.72333566, 0.0000039, 0.00677672, -0.00004107, 3.39467605, -0.0007889, 181.9790995, 58517.81538729, 131.60246718, 0.00268329, 76.67984255, -0.27769418],
+    Erde: [1.00000261, 0.00000562, 0.01671123, -0.00004392, -0.00001531, -0.01294668, 100.46457166, 35999.37244981, 102.93768193, 0.32327364, 0, 0],
+    Mars: [1.52371034, 0.00001847, 0.0933941, 0.00007882, 1.84969142, -0.00813131, -4.55343205, 19140.30268499, -23.94362959, 0.44441088, 49.55953891, -0.29257343],
+    Jupiter: [5.202887, -0.00011607, 0.04838624, -0.00013253, 1.30439695, -0.00183714, 34.39644051, 3034.74612775, 14.72847983, 0.21252668, 100.47390909, 0.20469106],
+    Saturn: [9.53667594, -0.0012506, 0.05386179, -0.00050991, 2.48599187, 0.00193609, 49.95424423, 1222.49362201, 92.59887831, -0.41897216, 113.66242448, -0.28867794],
+    Uranus: [19.18916464, -0.00196176, 0.04725744, -0.00004397, 0.77263783, -0.00242939, 313.23810451, 428.48202785, 170.9542763, 0.40805281, 74.01692503, 0.04240589],
+    Neptun: [30.06992276, 0.00026291, 0.00859048, 0.00005105, 1.77004347, 0.00035372, -55.12002969, 218.45945325, 44.96476227, -0.32241464, 131.78422574, -0.00508664],
+    Pluto: [39.48211675, -0.00031596, 0.2488273, 0.0000517, 17.14001206, 0.00004818, 238.92903833, 145.20780515, 224.06891629, -0.04062942, 110.30393684, -0.01183482]
+  };
+  function helio(name, T) {
+    const e = EL[name];
+    const a = e[0] + e[1] * T, ec = e[2] + e[3] * T, I = e[4] + e[5] * T, L = e[6] + e[7] * T, w = e[8] + e[9] * T, Om = e[10] + e[11] * T;
+    const om = w - Om;
+    let M = norm(L - w); if (M > 180) M -= 360;
+    let E = M + ec / RAD * sin(M);
+    for (let i = 0; i < 12; i++) { const dE = (M - (E - ec / RAD * sin(E))) / (1 - ec * cos(E)); E += dE; if (Math.abs(dE) < 1e-10) break; }
+    const xp = a * (cos(E) - ec), yp = a * Math.sqrt(1 - ec * ec) * sin(E);
+    const co = cos(om), so = sin(om), cO = cos(Om), sO = sin(Om), cI = cos(I), sI = sin(I);
+    return [(co * cO - so * sO * cI) * xp + (-so * cO - co * sO * cI) * yp, (co * sO + so * cO * cI) * xp + (-so * sO + co * cO * cI) * yp, so * sI * xp + co * sI * yp];
+  }
+  function planetLon(name, ms) {
+    const T = Tof(ms), p = helio(name, T), e = helio('Erde', T);
+    const lon = Math.atan2(p[1] - e[1], p[0] - e[0]) / RAD;
+    return norm(lon + 1.3969713 * T + 0.0003086 * T * T);
+  }
+  const BODIES = [
+    ['Sonne', '☉'], ['Erde', '⊕'], ['Mond', '☽'], ['Nordknoten', '☊'], ['Südknoten', '☋'], ['Merkur', '☿'], ['Venus', '♀'],
+    ['Mars', '♂'], ['Jupiter', '♃'], ['Saturn', '♄'], ['Uranus', '♅'], ['Neptun', '♆'], ['Pluto', '♇']
+  ];
+  function allLons(ms) {
+    const sun = sunLon(ms), node = trueNode(ms), o = {};
+    o.Sonne = sun; o.Erde = norm(sun + 180); o.Mond = moonLon(ms); o.Nordknoten = node; o.Südknoten = norm(node + 180);
+    ['Merkur', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptun', 'Pluto'].forEach(n => { o[n] = planetLon(n, ms); });
+    return o;
+  }
+  const WHEEL = [41, 19, 13, 49, 30, 55, 37, 63, 22, 36, 25, 17, 21, 51, 42, 3, 27, 24, 2, 23, 8, 20, 16, 35, 45, 12, 15, 52, 39, 53, 62, 56, 31, 33, 7, 4, 29, 59, 40, 64, 47, 6, 46, 18, 48, 57, 32, 50, 28, 44, 1, 43, 14, 34, 9, 5, 26, 11, 10, 58, 38, 54, 61, 60];
+  function gateOf(lon) {
+    const x = norm(lon - 302), idx = Math.floor(x / 5.625), inside = x - idx * 5.625;
+    return { gate: WHEEL[idx], line: Math.min(6, Math.floor(inside / 0.9375) + 1) };
+  }
+  const CENTERS = {
+    Kopf: [64, 61, 63], Ajna: [47, 24, 4, 17, 43, 11], Kehle: [62, 23, 56, 35, 12, 45, 33, 8, 31, 20, 16], G: [1, 13, 25, 46, 2, 15, 10, 7],
+    Herz: [21, 40, 26, 51], Milz: [48, 57, 44, 50, 32, 28, 18], Solar: [36, 22, 37, 6, 49, 55, 30], Sakral: [5, 14, 29, 59, 9, 3, 42, 27, 34], Wurzel: [53, 60, 52, 19, 39, 41, 58, 38, 54]
+  };
+  const centerOf = {};
+  Object.keys(CENTERS).forEach(c => CENTERS[c].forEach(g => { centerOf[g] = c; }));
+  const CHANNELS = [
+    [64, 47, 'Abstraktion'], [61, 24, 'Bewusstheit'], [63, 4, 'Logik'], [17, 62, 'Akzeptanz'], [43, 23, 'Strukturierung'], [11, 56, 'Neugier'],
+    [31, 7, 'Der Alpha'], [8, 1, 'Inspiration'], [33, 13, 'Der Zeuge'], [20, 10, 'Erwachen'], [20, 57, 'Gehirnwelle'], [20, 34, 'Charisma'],
+    [45, 21, 'Geld'], [35, 36, 'Vergänglichkeit'], [12, 22, 'Offenheit'], [16, 48, 'Wellenlänge'], [25, 51, 'Initiation'], [10, 34, 'Exploration'],
+    [10, 57, 'Perfekte Form'], [15, 5, 'Rhythmus'], [2, 14, 'Der Beat'], [46, 29, 'Entdeckung'], [26, 44, 'Kapitulation'], [40, 37, 'Gemeinschaft'],
+    [18, 58, 'Urteil'], [28, 38, 'Kampf'], [32, 54, 'Transformation'], [57, 34, 'Kraft'], [50, 27, 'Bewahrung'], [6, 59, 'Intimität'],
+    [49, 19, 'Synthese'], [55, 39, 'Emotion'], [30, 41, 'Erkennen'], [9, 52, 'Konzentration'], [3, 60, 'Mutation'], [42, 53, 'Reifung']
+  ];
+  const MOTORS = ['Herz', 'Solar', 'Sakral', 'Wurzel'];
+  const RIGHT = ['1/3', '1/4', '2/4', '2/5', '3/5', '3/6', '4/6'], LEFT = ['5/1', '5/2', '6/2', '6/3'];
+
+  function localToUtc(y, m, d, hh, mi, tz, manualH) {
+    const local = Date.UTC(y, m - 1, d, hh, mi);
+    if (tz === 'manual') return local - (manualH || 0) * 3600000;
+    const offMin = ms => {
+      const f = new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+      const p = {}; f.formatToParts(new Date(ms)).forEach(x => { p[x.type] = x.value; });
+      return (Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second) - Math.floor(ms / 1000) * 1000) / 60000;
+    };
+    let utc = local - offMin(local) * 60000;
+    utc = local - offMin(utc) * 60000;
+    return utc;
+  }
+  function designTime(birthMs) {
+    const target = norm(sunLon(birthMs) - 88);
+    let t = birthMs - 88 * 86400000;
+    for (let i = 0; i < 40; i++) {
+      let diff = sunLon(t) - target; diff = ((diff + 540) % 360) - 180;
+      t -= diff / 0.9856 * 86400000;
+      if (Math.abs(diff) < 1e-7) break;
+    }
+    return t;
+  }
+  function compute(birthMs) {
+    const dMs = designTime(birthMs);
+    const pl = allLons(birthMs), dl = allLons(dMs);
+    const P = {}, D = {};
+    BODIES.forEach(([n]) => { P[n] = gateOf(pl[n]); D[n] = gateOf(dl[n]); });
+    const active = new Set();
+    BODIES.forEach(([n]) => { active.add(P[n].gate); active.add(D[n].gate); });
+    const channels = CHANNELS.filter(([a, b]) => active.has(a) && active.has(b));
+    const defined = new Set();
+    channels.forEach(([a, b]) => { defined.add(centerOf[a]); defined.add(centerOf[b]); });
+    const adj = {}; Object.keys(CENTERS).forEach(c => { adj[c] = []; });
+    channels.forEach(([a, b]) => { adj[centerOf[a]].push(centerOf[b]); adj[centerOf[b]].push(centerOf[a]); });
+    const reach = start => { const seen = new Set([start]), q = [start]; while (q.length) { const c = q.pop(); adj[c].forEach(n => { if (!seen.has(n)) { seen.add(n); q.push(n); } }); } return seen; };
+    const comps = []; const left = new Set(defined);
+    while (left.size) { const s = left.values().next().value; const r = reach(s); r.forEach(c => left.delete(c)); comps.push(r); }
+    const motorToThroat = defined.has('Kehle') && MOTORS.some(m => defined.has(m) && reach('Kehle').has(m));
+    let typ;
+    if (!defined.size) typ = 'Reflektor';
+    else if (defined.has('Sakral')) typ = motorToThroat ? 'Manifestierender Generator' : 'Generator';
+    else typ = motorToThroat ? 'Manifestor' : 'Projektor';
+    let auth;
+    if (typ === 'Reflektor') auth = 'Lunar';
+    else if (defined.has('Solar')) auth = 'Emotional';
+    else if (defined.has('Sakral')) auth = 'Sakral';
+    else if (defined.has('Milz')) auth = 'Milz';
+    else if (defined.has('Herz')) auth = 'Ego';
+    else if (defined.has('G')) auth = 'Selbst-projiziert';
+    else auth = 'Mental / Umfeld';
+    const profil = `${P.Sonne.line}/${D.Sonne.line}`;
+    const defNames = ['', 'Einfach', 'Split', 'Triple-Split', 'Quadruple-Split'];
+    const winkel = RIGHT.includes(profil) ? 'Rechter Winkel' : LEFT.includes(profil) ? 'Linker Winkel' : 'Juxtaposition';
+    return {
+      typ, auth, profil, winkel,
+      definition: !defined.size ? 'Keine' : defNames[Math.min(4, comps.length)],
+      defined: Object.keys(CENTERS).filter(c => defined.has(c)), undefinedC: Object.keys(CENTERS).filter(c => !defined.has(c)),
+      channels: channels.map(([a, b, n]) => ({ a, b, name: n })),
+      cross: { p: [P.Sonne.gate, P.Erde.gate], d: [D.Sonne.gate, D.Erde.gate] },
+      P, D, birthMs, designMs: dMs, plon: pl, dlon: dl
+    };
+  }
+  return { compute, localToUtc, sunLon, moonLon, trueNode, planetLon, gateOf, allLons, BODIES, CENTERS, CHANNELS, centerOf, WHEEL };
+})();
+
+
+function planetRows(p, sp) {
+  const rows = [];
+  try {
+    const i = hdInputs();
+    if (!i.date) return rows;
+    const ms = birthMs();
+    const hasT = !!p.geburtszeit;
+    const sfx = hasT ? '' : ' (ohne Geburtszeit ungenau)';
+    const moon = signOf(HD.moonLon(ms));
+    rows.push(kv('Mondzeichen' + (hasT ? '' : sfx), moon));
+    ['Merkur', 'Venus', 'Mars'].forEach(n => rows.push(kv(n, signOf(HD.planetLon(n, ms)))));
+  } catch (e) { if (sp.mond) rows.push(kv('Mondzeichen', sp.mond)); }
+  return rows;
+}
+
+/* ============ Human Design: Ansicht ============ */
+const TZ_OPTS = ['Europe/Berlin (Deutschland, Österreich, Schweiz)', 'Europe/London (Großbritannien)', 'Europe/Istanbul (Türkei)', 'Europe/Moscow (Moskau)', 'Europe/Athens (Griechenland, Osteuropa)',
+  'America/New_York (USA Ostküste)', 'America/Chicago (USA Mitte)', 'America/Los_Angeles (USA Westküste)', 'America/Sao_Paulo (Brasilien)', 'Asia/Dubai (Dubai)', 'Asia/Kolkata (Indien)',
+  'Asia/Bangkok (Thailand)', 'Asia/Shanghai (China)', 'Asia/Tokyo (Japan)', 'Australia/Sydney (Australien Ost)', 'UTC (Weltzeit)', 'manuell (UTC-Versatz selbst eintragen)'];
+const SIGNS = ['Widder', 'Stier', 'Zwillinge', 'Krebs', 'Löwe', 'Jungfrau', 'Waage', 'Skorpion', 'Schütze', 'Steinbock', 'Wassermann', 'Fische'];
+const signOf = lon => SIGNS[Math.floor((((lon % 360) + 360) % 360) / 30)];
+const CENTER_DE = { Kopf: 'Kopf', Ajna: 'Ajna', Kehle: 'Kehle', G: 'G-Zentrum', Herz: 'Herz / Ego', Milz: 'Milz', Solar: 'Solarplexus', Sakral: 'Sakral', Wurzel: 'Wurzel' };
+const HD_TYPE_TXT = {
+  'Generator': 'Lebendige, ausdauernde Energie, die sich entfaltet, wenn sie auf etwas Passendes antwortet. Rund 37 % der Menschen.',
+  'Manifestierender Generator': 'Schnell, vielseitig und mit viel Energie. Verbindet Sakral-Kraft mit direktem Ausdruck. Rund 33 % der Menschen.',
+  'Projektor': 'Begabt darin, andere und Abläufe zu durchschauen und zu lenken. Braucht Anerkennung und Ruhephasen. Rund 20 % der Menschen.',
+  'Manifestor': 'Impulsgeber, der Dinge anstößt und in Bewegung bringt. Rund 9 % der Menschen.',
+  'Reflektor': 'Spiegel seines Umfelds, sehr offen und empfindsam für Menschen und Orte. Rund 1 % der Menschen.'
+};
+const HD_AUTH_TXT = {
+  'Emotional': 'Entscheidungen brauchen Zeit: eine emotionale Welle abwarten und „darüber schlafen“.',
+  'Sakral': 'Auf die spontane Antwort aus dem Bauch hören: ein klares Ja oder Nein im Moment.',
+  'Milz': 'Auf die leise, spontane Eingebung im Moment vertrauen.',
+  'Ego': 'Darauf hören, was man wirklich will und zu geben bereit ist.',
+  'Selbst-projiziert': 'Klarheit entsteht durch Aussprechen und Zuhören der eigenen Stimme.',
+  'Mental / Umfeld': 'Mit vertrauten Menschen sprechen und Klarheit im passenden Umfeld finden.',
+  'Lunar': 'Einen ganzen Mondzyklus (rund 28 Tage) abwarten, bevor große Entscheidungen fallen.'
+};
+const HD_PROF_NAME = { 1: 'Forscher', 2: 'Eremit', 3: 'Märtyrer', 4: 'Opportunist', 5: 'Ketzer', 6: 'Rollenvorbild' };
+let hdCache = { key: '', val: null };
+function hdInputs() {
+  const p = S.profile, hd = p.hd || {};
+  return { date: p.geburtsdatum, time: p.geburtszeit, tz: (hd.tz || TZ_OPTS[0]).split(' ')[0], off: parseFloat(String(hd.off || '0').replace(',', '.')) || 0 };
+}
+function birthMs() {
+  const i = hdInputs();
+  if (!i.date) return null;
+  const [y, m, d] = i.date.split('-').map(Number), [hh, mm] = (i.time || '12:00').split(':').map(Number);
+  return HD.localToUtc(y, m, d, hh, mm, i.tz === 'manuell' ? 'manual' : i.tz, i.off);
+}
+function hdResult() {
+  const i = hdInputs();
+  if (!i.date || !i.time) return null;
+  const key = JSON.stringify(i);
+  if (hdCache.key === key) return hdCache.val;
+  let val = null;
+  try { val = HD.compute(birthMs()); } catch (e) { console.error(e); }
+  hdCache = { key, val };
+  return val;
+}
+function editHD() {
+  const p = S.profile, hd = p.hd || {};
+  openSheet({
+    title: 'Angaben für Human Design',
+    values: { geburtszeit: p.geburtszeit || '', geburtsort: p.geburtsort || '', tz: hd.tz || TZ_OPTS[0], off: hd.off || '' },
+    fields: [
+      { key: 'geburtszeit', label: 'Geburtszeit (Ortszeit)', type: 'time', hint: 'So genau wie möglich, z. B. aus der Geburtsurkunde oder dem Kinderuntersuchungsheft.' },
+      { key: 'geburtsort', label: 'Geburtsort' },
+      { key: 'tz', label: 'Zeitzone des Geburtsorts', type: 'select', options: TZ_OPTS },
+      { key: 'off', label: 'UTC-Versatz in Stunden (nur bei „manuell“)', inputmode: 'decimal', ph: 'z. B. 1 oder -5,5' }
+    ],
+    onSave: async v => { p.geburtszeit = v.geburtszeit; p.geburtsort = v.geburtsort; p.hd = { tz: v.tz, off: v.off }; await persist('profile'); render(); }
+  });
+}
+function hdSvg(r) {
+  const pos = { Kopf: [150, 30, 'up', 26], Ajna: [150, 96, 'down', 26], Kehle: [150, 166, 'sq', 22], G: [150, 244, 'dia', 28], Herz: [218, 214, 'up', 15],
+    Milz: [58, 300, 'left', 24], Solar: [244, 298, 'right', 24], Sakral: [150, 328, 'sq', 24], Wurzel: [150, 398, 'sq', 24] };
+  const def = new Set(r.defined), pairs = {};
+  HD.CHANNELS.forEach(([a, b], i) => { const k = [HD.centerOf[a], HD.centerOf[b]].sort().join('|'); (pairs[k] = pairs[k] || []).push(i); });
+  let lines = '', on = '';
+  HD.CHANNELS.forEach(([a, b], i) => {
+    const ca = pos[HD.centerOf[a]], cb = pos[HD.centerOf[b]], k = [HD.centerOf[a], HD.centerOf[b]].sort().join('|'), grp = pairs[k], idx = grp.indexOf(i);
+    const dx = cb[0] - ca[0], dy = cb[1] - ca[1], len = Math.hypot(dx, dy) || 1, off = (idx - (grp.length - 1) / 2) * 9;
+    const ox = -dy / len * off, oy = dx / len * off;
+    const seg = `<line x1="${(ca[0] + ox).toFixed(1)}" y1="${(ca[1] + oy).toFixed(1)}" x2="${(cb[0] + ox).toFixed(1)}" y2="${(cb[1] + oy).toFixed(1)}"`;
+    if (r.channels.some(c => c.a === a && c.b === b)) on += seg + ' stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/>';
+    else lines += seg + ' stroke="var(--line)" stroke-width="2" stroke-linecap="round"/>';
+  });
+  let shapes = '';
+  Object.keys(pos).forEach(c => {
+    const [x, y, t, s] = pos[c], d = def.has(c);
+    let el;
+    if (t === 'sq') el = `<rect x="${x - s}" y="${y - s}" width="${s * 2}" height="${s * 2}" rx="4"`;
+    else {
+      const pts = t === 'up' ? [[x, y - s], [x - s, y + s], [x + s, y + s]] : t === 'down' ? [[x, y + s], [x - s, y - s], [x + s, y - s]]
+        : t === 'dia' ? [[x, y - s], [x + s, y], [x, y + s], [x - s, y]] : t === 'left' ? [[x - s, y], [x + s, y - s], [x + s, y + s]] : [[x + s, y], [x - s, y - s], [x - s, y + s]];
+      el = `<polygon points="${pts.map(q => q.join(',')).join(' ')}" stroke-linejoin="round"`;
+    }
+    shapes += el + ` fill="${d ? 'var(--accent)' : 'var(--bg)'}" stroke="${d ? 'var(--accent)' : 'var(--mute)'}" stroke-width="2"/>`;
+    shapes += `<text x="${x}" y="${y + 3.5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${d ? '#fff' : 'var(--mute)'}">${CENTER_DE[c].split(' ')[0].replace('-Zentrum', '').replace('Solarplexus', 'Solar')}</text>`;
+  });
+  return `<svg viewBox="0 0 300 430" role="img" aria-label="Bodygraph" style="width:100%;max-width:340px;display:block;margin:0 auto">${lines}${on}${shapes}</svg>`;
+}
+function hdText(r, name) {
+  const L = [`Human Design von ${name}`, `Typ: ${r.typ}`, `Strategie: ${HD_TYPES[r.typ].s}`, `Autorität: ${r.auth}`, `Profil: ${r.profil}`, `Definition: ${r.definition}`,
+    `Inkarnationskreuz: ${r.winkel} (${r.cross.p.join('/')} | ${r.cross.d.join('/')})`, `Definierte Zentren: ${r.defined.map(c => CENTER_DE[c]).join(', ') || 'keine'}`,
+    `Kanäle: ${r.channels.map(c => c.a + '-' + c.b).join(', ') || 'keine'}`];
+  return L.join('\n');
+}
+function viewHD() {
+  const p = S.profile, wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Human Design', ghostBtn('Angaben', editHD)));
+  if (!p.geburtsdatum) {
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Für Human Design braucht die App das Geburtsdatum und die Geburtszeit.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
+    return wrap;
+  }
+  if (!p.geburtszeit) {
+    wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Geburtszeit fehlt'),
+      h('p', null, 'Das Chart hängt von der genauen Geburtszeit ab, schon ein paar Minuten können etwas ändern. Trage sie so genau wie möglich ein.'),
+      h('button', { class: 'btn wide', onclick: editHD }, 'Geburtszeit eintragen')));
+    return wrap;
+  }
+  const r = hdResult();
+  if (!r) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Berechnung nicht möglich. Prüfe Geburtsdatum, Zeit und Zeitzone.'))); return wrap; }
+  const ty = HD_TYPES[r.typ], name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Kind';
+  const [pl, dl] = r.profil.split('/').map(Number);
+  wrap.append(h('div', { class: 'hero2 cosmic' },
+    h('div', { class: 'top' }, h('div', { class: 'bigemoji', style: 'font-size:30px' }, '✦'), h('div', null, h('h1', null, r.typ), h('p', null, 'Strategie: ' + ty.s))),
+    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, r.profil), 'Profil'), h('div', { class: 'stat' }, h('b', null, r.auth), 'Autorität'), h('div', { class: 'stat' }, h('b', null, r.definition), 'Definition'))));
+  wrap.append(h('div', { class: 'card' }, h('div', { html: hdSvg(r) }), h('p', { class: 'fine' }, 'Farbig: definierte Zentren und Kanäle. Weiß: offene Zentren.')));
+  wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Typ und Entscheidung'), h('p', null, HD_TYPE_TXT[r.typ]),
+    h('div', null, kv('Strategie', ty.s), kv('Signatur', ty.sig), kv('Nicht-Selbst-Thema', ty.ns), kv('Autorität', r.auth)),
+    h('p', null, HD_AUTH_TXT[r.auth]),
+    h('p', { class: 'fine' }, 'Bei Kindern gilt die Strategie vor allem als Einladung an die Eltern: beobachten, begleiten, nichts erzwingen.')));
+  wrap.append(h('div', { class: 'card' }, h('h2', null, 'Profil und Kreuz'),
+    kv('Profil', `${r.profil} · ${HD_PROF_NAME[pl]} / ${HD_PROF_NAME[dl]}`), kv('Inkarnationskreuz', r.winkel),
+    kv('Persönlichkeit (Sonne / Erde)', r.cross.p.join(' / ')), kv('Design (Sonne / Erde)', r.cross.d.join(' / ')),
+    kv('Design-Datum', new Date(r.designMs).toLocaleDateString('de-DE') + ' (88 Sonnengrad vor der Geburt)')));
+  wrap.append(h('div', { class: 'card' }, h('h2', null, 'Zentren'),
+    kv('Definiert', r.defined.map(c => CENTER_DE[c]).join(', ') || 'keine'), kv('Offen', r.undefinedC.map(c => CENTER_DE[c]).join(', ') || 'keine')));
+  wrap.append(h('div', { class: 'card' }, h('h2', null, 'Kanäle'),
+    r.channels.length ? r.channels.map(c => kv(`${c.a}-${c.b}`, c.name)) : h('p', { class: 'empty' }, 'Keine definierten Kanäle.')));
+  const grid = h('div', { class: 'hdgrid' }, h('b', null, ''), h('b', null, 'Persönlichkeit'), h('b', { class: 'red' }, 'Design'));
+  HD.BODIES.forEach(([n, sym]) => grid.append(h('span', null, sym + ' ' + n), h('span', null, `${r.P[n].gate}.${r.P[n].line}`), h('span', { class: 'red' }, `${r.D[n].gate}.${r.D[n].line}`)));
+  wrap.append(h('div', { class: 'card' }, h('h2', null, 'Aktivierungen (Tor.Linie)'), grid));
+  wrap.append(h('button', { class: 'btn ghost wide', onclick: () => shareText('Human Design ' + name, hdText(r, name)) }, 'Als Text teilen'));
+  wrap.append(h('p', { class: 'fine' }, `Berechnet in der App mit astronomischen Formeln für ${fmtD(p.geburtsdatum)}, ${p.geburtszeit} Uhr (Zeitzone ${hdInputs().tz}). Sonne und Mond sind sehr genau, die Planeten auf etwa 0,1 Grad. Liegt eine Position nahe an einer Tor- oder Liniengrenze, kann ein Profi-Tool leicht abweichen. Zur Unterhaltung und Inspiration, kein Ersatz für fachlichen Rat.`));
   return wrap;
 }
 
@@ -1634,7 +2333,10 @@ function viewMore() {
   wrap.append(h('div', { class: 'card' },
     hubRow(ICON.school, 'Kita / Schule', 'Einrichtung, Termine, Abholberechtigte', 'school'),
     hubRow(ICON.trophy, 'Abzeichen', 'Level, Meilensteine und Auszeichnungen', 'badges'),
-    hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Human Design', 'spirit')));
+    hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
+    hubRow(ICON.star, 'Human Design', 'Chart aus Geburtsdatum und Geburtszeit', 'hd'),
+    hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Tierzeichen', 'spirit'),
+    hubRow(ICON.tag, 'Marken & Produkte', 'Was Luise nutzt und mag', 'products')));
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
@@ -1679,7 +2381,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 3'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 4'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -1692,11 +2394,12 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['school', 'badges', 'spirit'];
+const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const views = {
   home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, more: viewMore,
-  school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit())
+  school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
+  weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD())
 };
 let tab = 'home', lastTab = null;
 function go(id) { tab = id; render(); }
