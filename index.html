@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -261,6 +261,52 @@ button.callbtn{border:0;cursor:pointer;padding:0}
 :root[data-dark] .tile.gold .ico{background:#3a2e10;color:#f2c14e}
 :root[data-dark] .tile.violet .ico{background:#2a2347;color:#b6a2ff}
 .avatar{background:linear-gradient(135deg,var(--accent),var(--g2))}
+
+/* ---- v6 ---- */
+html,body,button,a,input,select,textarea,label,.key{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+#lock,#lock *,.welcome,.welcome *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.lock-logo{width:76px;height:76px;border-radius:18px;box-shadow:var(--shadow);margin-bottom:4px}
+.lock-in{gap:12px}
+.padgrid{grid-template-columns:repeat(3,80px);gap:16px;margin-top:10px}
+.padgrid>span{display:grid;place-items:center;width:80px;height:80px}
+.key{width:80px;height:80px;font-size:30px;font-weight:500}
+.key.fid{color:var(--accent);border-color:var(--accent);background:var(--card);box-shadow:var(--shadow);font-size:0}
+.key.fid svg{width:36px;height:36px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.welcome{position:fixed;inset:0;z-index:1000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:calc(24px + env(safe-area-inset-top)) 28px calc(24px + env(safe-area-inset-bottom));text-align:center;overflow-y:auto}
+.welcome h1{font-size:28px;margin:4px 0 0}
+.welcome p{color:var(--mute);max-width:320px;line-height:1.45}
+.welcome .btn{width:100%;max-width:340px;flex:none}
+.welcome .btn.big{padding:17px 18px;font-size:17px}
+.welcome .btn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.welcome .note{min-height:20px;font-size:13px;color:var(--bad)}
+.crop{position:fixed;inset:0;z-index:1200;background:#000;color:#fff;display:flex;flex-direction:column;touch-action:none;-webkit-user-select:none;user-select:none}
+.crop-top{padding:calc(14px + env(safe-area-inset-top)) 16px 10px;text-align:center;font-weight:600}
+.crop-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.crop-stage img{max-width:100%;max-height:100%;display:block;-webkit-user-drag:none;pointer-events:none}
+.crop-box{position:absolute;box-shadow:0 0 0 9999px rgba(0,0,0,.6);border:2px solid #fff;touch-action:none;cursor:move}
+.cg{position:absolute;background:rgba(255,255,255,.35);pointer-events:none}
+.cg.v1,.cg.v2{top:0;bottom:0;width:1px}.cg.v1{left:33.33%}.cg.v2{left:66.66%}
+.cg.h1,.cg.h2{left:0;right:0;height:1px}.cg.h1{top:33.33%}.cg.h2{top:66.66%}
+.ch{position:absolute;width:44px;height:44px;margin:-22px;touch-action:none}
+.ch::after{content:"";position:absolute;left:14px;top:14px;width:16px;height:16px;border:0 solid #fff}
+.ch.tl{left:0;top:0}.ch.tr{left:100%;top:0}.ch.bl{left:0;top:100%}.ch.br{left:100%;top:100%}
+.ch.tl::after{border-width:4px 0 0 4px;left:22px;top:22px;margin:-2px}.ch.tr::after{border-width:4px 4px 0 0;left:6px;top:22px;margin:-2px}
+.ch.bl::after{border-width:0 0 4px 4px;left:22px;top:6px;margin:-2px}.ch.br::after{border-width:0 4px 4px 0;left:6px;top:6px;margin:-2px}
+.crop-bar{padding:10px 16px calc(14px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px;background:#111}
+.crop-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.cchip{border:1px solid rgba(255,255,255,.35);background:none;color:#fff;font:inherit;font-size:14px;padding:6px 14px;border-radius:99px}
+.cchip.on{background:#fff;color:#000;border-color:#fff}
+.crop-btns{display:flex;gap:8px}
+.cbtn{flex:1;border:1px solid rgba(255,255,255,.3);background:none;color:#fff;font:inherit;font-size:15px;padding:12px 4px;border-radius:12px}
+.cbtn.main{background:#fff;color:#000;font-weight:700;border-color:#fff}
+.lb-acts{flex-wrap:wrap}
+.ocrbar{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:1300;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:12px 14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.ocrbar .bar{background:var(--line)}.ocrbar .bar>i{background:var(--accent);transition:width .3s}
+.ocr-row{display:flex;flex-direction:column;gap:6px;padding:8px 0;border-top:1px solid var(--line)}
+.ocr-text{white-space:pre-wrap;font-size:14px;line-height:1.45;max-height:50vh;overflow:auto;-webkit-user-select:text;user-select:text}
+.spot-frame{width:100%;border:0;border-radius:12px;display:block}
+.player h2{margin:0}
+button.spotbtn{border:0;cursor:pointer;padding:0}
 </style>
 </head>
 <body>
@@ -270,7 +316,7 @@ button.callbtn{border:0;cursor:pointer;padding:0}
 </div>
 <div id="lock" hidden>
   <div class="lock-in">
-    <span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+    <img class="lock-logo" id="lockLogo" alt="" hidden>
     <h1 id="lockTitle"></h1>
     <p id="lockSub"></p>
     <div class="dots" id="lockDots"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -436,6 +482,7 @@ async function loadState() {
 const persist = k => kvSet(k, S[k]);
 
 /* ============ Sperre ============ */
+ICON.faceid = '<svg viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 9.5v1.5M15 9.5v1.5M12 9.5v3.5h-1M9 16c1.7 1.3 4.3 1.3 6 0"/></svg>';
 const LOCK_KEY = 'luise_lock_v1';
 const enc = new TextEncoder();
 const hasSubtle = () => !!(window.crypto && window.crypto.subtle);
@@ -477,7 +524,7 @@ async function checkPin(pin) {
 }
 
 const lockScreen = (() => {
-  const root = $('#lock'), t = $('#lockTitle'), s = $('#lockSub'), d = $('#lockDots'), ex = $('#lockExtra'), padEl = $('#lockPad');
+  const root = $('#lock'), logo = $('#lockLogo'), t = $('#lockTitle'), s = $('#lockSub'), d = $('#lockDots'), ex = $('#lockExtra'), padEl = $('#lockPad');
   let val = '', resolver = null;
   const upd = () => Array.from(d.children).forEach((c, i) => c.classList.toggle('on', i < val.length));
   function press(k) {
@@ -490,8 +537,9 @@ const lockScreen = (() => {
       setTimeout(() => r(v), 120);
     }
   }
+  const fidCell = h('span');
   ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'del'].forEach(k => {
-    if (k === '') padEl.append(h('span'));
+    if (k === '') padEl.append(fidCell);
     else padEl.append(h('button', { class: 'key' + (k === 'del' ? ' ghost' : ''), type: 'button', 'aria-label': k === 'del' ? 'Löschen' : k, onclick: () => press(k) }, k === 'del' ? '⌫' : k));
   });
   document.addEventListener('keydown', e => {
@@ -501,8 +549,12 @@ const lockScreen = (() => {
   });
   function setSub(text, isErr) { s.textContent = text || ''; s.classList.toggle('err', !!isErr); }
   return {
-    prompt(title, sub, extra, err) {
+    prompt(title, sub, extra, err, fidFn, auto) {
       root.hidden = false; root.classList.remove('busy');
+      const lk = document.querySelector('link[rel="icon"]');
+      if (lk && lk.href) { logo.src = lk.href; logo.hidden = false; }
+      fidCell.replaceChildren(...(fidFn ? [h('button', { class: 'key fid', type: 'button', 'aria-label': 'Mit Face ID entsperren', onclick: fidFn, html: ICON.faceid })] : []));
+      if (fidFn && auto) setTimeout(fidFn, 350);
       t.textContent = title; setSub(err || sub, !!err);
       ex.replaceChildren(...(extra ? [extra] : []));
       val = ''; upd();
@@ -518,10 +570,10 @@ const lockScreen = (() => {
 })();
 const cancelBtn = label => h('button', { class: 'linkbtn', type: 'button', onclick: () => lockScreen.cancel() }, label);
 
-async function createPin(skipLabel) {
+async function createPin(skipLabel, title1, sub1) {
   let err = '';
   for (;;) {
-    const p1 = await lockScreen.prompt('Code festlegen', 'Schützt die Daten, falls jemand anderes dein iPhone benutzt (6 Ziffern)', cancelBtn(skipLabel), err);
+    const p1 = await lockScreen.prompt(title1 || 'Code festlegen', sub1 || 'Schützt die Daten, falls jemand anderes dein iPhone benutzt (6 Ziffern)', cancelBtn(skipLabel), err);
     err = '';
     if (p1 === null) { lockScreen.hide(); return false; }
     const p2 = await lockScreen.prompt('Code wiederholen', '', cancelBtn('Zurück'));
@@ -536,7 +588,8 @@ const FID_OK = '\u0000fid';
 const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 const unb64u = str => { const b = atob(str.replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(b, c => c.charCodeAt(0)); };
 let fidAvail = false;
-(async () => { try { fidAvail = !!(window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); } catch (e) {} })();
+const fidAvailP = (async () => { try { return !!(window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); } catch (e) { return false; } })();
+fidAvailP.then(v => { fidAvail = v; });
 async function fidAuth() {
   const l = getLock();
   if (!l || !l.fid) return false;
@@ -546,18 +599,22 @@ async function fidAuth() {
     return !!r;
   } catch (e) { return false; }
 }
-async function enableFid() {
-  const l = getLock();
-  if (!l) { toast('Lege zuerst einen Code fest'); return; }
+async function fidCreate() {
   try {
     suppressLockUntil = Date.now() + 90000;
     const cred = await navigator.credentials.create({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)),
       rp: { name: 'Luises Identität', id: location.hostname }, user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'luise-app', displayName: 'Luises Identität' },
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
       authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' }, attestation: 'none', timeout: 60000 } });
-    l.fid = b64u(cred.rawId); ls.set(LOCK_KEY, JSON.stringify(l));
-    toast('Face ID aktiviert');
-  } catch (e) { console.error(e); toast('Face ID konnte nicht aktiviert werden'); }
+    return b64u(cred.rawId);
+  } catch (e) { console.error(e); return null; }
+}
+async function enableFid() {
+  const l = getLock();
+  if (!l) { toast('Lege zuerst einen Code fest'); return; }
+  const id = await fidCreate();
+  if (id) { l.fid = id; ls.set(LOCK_KEY, JSON.stringify(l)); toast('Face ID aktiviert'); }
+  else toast('Face ID konnte nicht aktiviert werden');
   render();
 }
 function disableFid() {
@@ -571,19 +628,18 @@ function fidRow() {
   if (!fidAvail) return h('p', { class: 'fine' }, 'Face ID ist hier nicht verfügbar. Öffne die App vom Home-Bildschirm und prüfe, ob Face ID am iPhone eingerichtet ist.');
   return h('button', { class: 'btn wide', onclick: enableFid }, 'Face ID aktivieren');
 }
-function fidButton(first) {
+function fidHandler() {
   const l = getLock();
   if (!l || !l.fid) return null;
-  const go = async () => { if (await fidAuth()) lockScreen.done(FID_OK); };
-  if (first) setTimeout(go, 300);
-  return h('button', { class: 'btn', type: 'button', onclick: go }, 'Mit Face ID entsperren');
+  return async () => { if (await fidAuth()) lockScreen.done(FID_OK); };
 }
 const lockExtra = (...kids) => h('div', { style: 'display:flex;flex-direction:column;gap:10px;align-items:center' }, ...kids.filter(Boolean));
 async function verifyPin(title) {
   if (!getLock()) return true;
   let err = '', first = true;
   for (let i = 0; i < 5; i++) {
-    const p = await lockScreen.prompt(title || 'Code eingeben', 'Zur Bestätigung', lockExtra(fidButton(first), cancelBtn('Abbrechen')), err);
+    const fn = fidHandler();
+    const p = await lockScreen.prompt(title || 'Code eingeben', fn ? 'Mit Face ID oder Code bestätigen' : 'Zur Bestätigung', lockExtra(cancelBtn('Abbrechen')), err, fn, first);
     first = false;
     if (p === FID_OK) return true;
     if (p === null) { lockScreen.hide(); return false; }
@@ -609,7 +665,8 @@ async function unlockFlow() {
     if (confirm('Code vergessen? Dann müssen alle Daten dieser App gelöscht werden (du kannst danach eine Sicherung einspielen). Wirklich alles löschen?')) wipeAll();
   } }, 'Code vergessen?');
   for (;;) {
-    const p = await lockScreen.prompt('Luises Identität', getLock() && getLock().fid ? 'Face ID oder Code' : 'Code eingeben', lockExtra(fidButton(first), forgot), err);
+    const fn = fidHandler();
+    const p = await lockScreen.prompt('Luises Identität', fn ? 'Mit Face ID oder Code entsperren' : 'Code eingeben', lockExtra(forgot), err, fn, first);
     first = false;
     if (p === FID_OK) { lockScreen.hide(); return; }
     if (p !== null && await checkPin(p)) { lockScreen.hide(); return; }
@@ -617,6 +674,43 @@ async function unlockFlow() {
     if (fails % 5 === 0) { await cooldown(30 * Math.min(8, 2 ** (fails / 5 - 1))); err = ''; }
   }
 }
+
+/* ============ Willkommen & Einrichtung ============ */
+function welcomeFlow() {
+  return new Promise(resolve => {
+    const lk = document.querySelector('link[rel="icon"]');
+    const note = h('p', { class: 'note' });
+    const finish = v => { root.remove(); resolve(v); };
+    const faceBtn = h('button', { class: 'btn big', type: 'button', onclick: async () => {
+      faceBtn.disabled = true; note.textContent = '';
+      const id = await fidCreate();
+      faceBtn.disabled = false;
+      if (id) finish({ fid: id });
+      else note.textContent = fidAvail ? 'Face ID wurde nicht bestätigt. Versuche es nochmal oder wähle einen Code.' : 'Face ID geht nur, wenn die App vom Home-Bildschirm geöffnet ist und Face ID am iPhone eingerichtet ist.';
+    } }, h('span', { html: ICON.faceid }), 'Mit Face ID schützen');
+    const root = h('div', { class: 'welcome' },
+      lk && lk.href ? h('img', { class: 'lock-logo', src: lk.href, alt: '' }) : null,
+      h('h1', null, 'Willkommen'),
+      h('p', null, 'Luises Daten bleiben privat nur auf diesem iPhone. Schütze sie mit Face ID: Ein Blick genügt.'),
+      faceBtn,
+      h('button', { class: 'btn ghost', type: 'button', onclick: () => finish({ fid: null }) }, 'Nur mit Code schützen'),
+      note,
+      h('button', { class: 'linkbtn', type: 'button', onclick: () => finish(null) }, 'Später entscheiden'));
+    document.body.append(root);
+  });
+}
+async function setupFlow() {
+  for (;;) {
+    const c = await welcomeFlow();
+    if (!c) { ls.set('luise_nolock', '1'); return; }
+    const ok = await createPin('Zurück', c.fid ? 'Reserve-Code festlegen' : 'Code festlegen', c.fid ? 'Falls Face ID mal nicht klappt (6 Ziffern)' : 'Schützt die Daten, falls jemand anderes dein iPhone benutzt (6 Ziffern)');
+    if (!ok) continue;
+    if (c.fid) { const l = getLock(); if (l) { l.fid = c.fid; ls.set(LOCK_KEY, JSON.stringify(l)); } }
+    return;
+  }
+}
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
 let locking = false, suppressLockUntil = 0, hiddenAt = 0;
 async function lockNow() {
   if (!getLock() || locking) return;
@@ -669,6 +763,14 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
     else if (f.type === 'file') {
       inp = h('input', { type: 'file', accept: f.accept || '' });
       inp.addEventListener('click', () => { suppressLockUntil = Date.now() + 180000; });
+      if (f.crop) inp.addEventListener('change', async () => {
+        const file = inp.files && inp.files[0];
+        inp._blob = null;
+        if (!file || !(file.type || '').startsWith('image/')) return;
+        const b = await cropFile(file, { square: f.crop === 'square', optional: f.crop !== 'square' });
+        if (!b) { inp.value = ''; return; }
+        inp._blob = new File([b], ((file.name || 'foto').replace(/\.[^.]+$/, '') || 'foto') + '.jpg', { type: 'image/jpeg', lastModified: file.lastModified || Date.now() });
+      });
       if (f.fillTitle) inp.addEventListener('change', () => {
         const t = inputs[f.fillTitle], file = inp.files && inp.files[0];
         if (t && file && !t.value) t.value = file.name.replace(/\.[^.]+$/, '');
@@ -699,7 +801,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
     const out = {};
     for (const f of fields) {
       const i = inputs[f.key]; if (!i) continue;
-      out[f.key] = f.type === 'file' ? ((i.files && i.files[0]) || null) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
+      out[f.key] = f.type === 'file' ? (i._blob || (i.files && i.files[0]) || null) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
     }
     try { const r = await onSave(out); if (r !== false) close(); }
     catch (err) { console.error(err); toast('Fehler: ' + (err.message || err)); }
@@ -825,7 +927,14 @@ async function prepareFile(file) {
     } catch (e) { /* Rohdatei speichern */ }
   }
   const mime = file.type || (/\.pdf$/i.test(file.name) ? 'application/pdf' : 'application/octet-stream');
-  return { mime, data: await file.arrayBuffer(), thumb: null };
+  const data = await file.arrayBuffer();
+  if (mime === 'application/pdf') {
+    try {
+      const imgs = await pdfToImages(data, 12, 1600);
+      if (imgs.length) return { mime, data, thumb: await blobToDataURL(await imageToJpeg(imgs[0], 180, 0.7)), pages: await Promise.all(imgs.map(b => b.arrayBuffer())) };
+    } catch (e) { /* ohne Internet: Seiten werden später erzeugt */ }
+  }
+  return { mime, data, thumb: null };
 }
 
 /* ============ UI-Bausteine ============ */
@@ -870,7 +979,7 @@ const CONTACT_FIELDS = [
   { key: 'name', label: 'Name', required: true },
   { key: 'rolle', label: 'Beziehung', ph: 'z. B. Mama, Oma, Notfallkontakt' },
   { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' },
-  { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*' },
+  { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*', crop: 'square' },
   { key: 'fotoRemove', label: 'Foto entfernen', type: 'checkbox', showIf: v => !!v.foto }
 ];
 function computeAlerts() {
@@ -912,7 +1021,7 @@ function editProfile() {
     title: 'Profil bearbeiten',
     values: Object.assign({}, p, { vorname: p.vorname || 'Luise' }),
     fields: [
-      { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*' },
+      { key: 'foto', label: 'Foto', type: 'file', accept: 'image/*', crop: 'square' },
       { key: 'fotoRemove', label: 'Foto entfernen', type: 'checkbox', showIf: v => !!v.foto },
       { key: 'vorname', label: 'Vorname', required: true, cap: 'words' },
       { key: 'nachname', label: 'Nachname', cap: 'words' },
@@ -1013,7 +1122,7 @@ function viewDocs() {
     chipsEl.replaceChildren(...['Alle', ...DOC_CATS].map(c => h('button', { class: 'fchip' + (c === docFilter ? ' on' : ''), onclick: () => { docFilter = c; fill(); } }, c)));
     const q = docQuery.trim().toLowerCase();
     const items = S.docs.filter(d => (docFilter === 'Alle' || d.kategorie === docFilter) &&
-      (!q || (d.titel + ' ' + (d.notiz || '') + ' ' + d.kategorie).toLowerCase().includes(q)))
+      (!q || (d.titel + ' ' + (d.notiz || '') + ' ' + d.kategorie + ' ' + (d.text || '')).toLowerCase().includes(q)))
       .sort((a, b) => DOC_CATS.indexOf(a.kategorie) - DOC_CATS.indexOf(b.kategorie) || a.titel.localeCompare(b.titel, 'de'));
     list.replaceChildren(...(items.length ? items.map(d => h('div', { class: 'doc', role: 'button', tabindex: '0', onclick: () => openDoc(d) },
       d.thumb ? h('img', { class: 'thumb', src: d.thumb, alt: '' }) : h('div', { class: 'thumb pdf' }, d.mime === 'application/pdf' ? 'PDF' : 'DATEI'),
@@ -1028,12 +1137,14 @@ function viewDocs() {
 function editDoc(d) {
   const isNew = !d;
   const fields = [
-    ...(isNew ? [{ key: 'datei', label: 'Datei (Foto, Scan oder PDF)', type: 'file', accept: 'image/*,application/pdf', required: true, fillTitle: 'titel' }] : []),
+    ...(isNew ? [{ key: 'datei', label: 'Datei (Foto, Scan oder PDF)', type: 'file', accept: 'image/*,application/pdf', required: true, fillTitle: 'titel', crop: 'free' }] : []),
     { key: 'titel', label: 'Bezeichnung', required: true, ph: 'z. B. Geburtsurkunde' },
     { key: 'kategorie', label: 'Kategorie', type: 'select', options: DOC_CATS },
     { key: 'ablauf', label: 'Gültig bis (optional)', type: 'date', hint: 'Für Kinderreisepass, Ausweis usw. – du wirst vorher in der Übersicht erinnert.' },
-    { key: 'notiz', label: 'Notiz', type: 'textarea' }
+    { key: 'notiz', label: 'Notiz', type: 'textarea' },
+    ...(isNew ? [{ key: 'ocr', label: 'Text und Infos automatisch auslesen (braucht Internet)', type: 'checkbox', default: true }] : [])
   ];
+  let newMeta = null;
   openSheet({
     title: isNew ? 'Dokument hinzufügen' : 'Dokument bearbeiten', fields,
     values: d || { kategorie: DOC_CATS.includes(docFilter) ? docFilter : DOC_CATS[0] },
@@ -1044,15 +1155,17 @@ function editDoc(d) {
         const rec = await prepareFile(file);
         const id = uid();
         const meta = { id, titel: v.titel, kategorie: v.kategorie, ablauf: v.ablauf, notiz: v.notiz, mime: rec.mime, name: file.name, size: rec.data.byteLength, thumb: rec.thumb, created: Date.now() };
-        await filePut({ id, mime: rec.mime, data: rec.data });
+        await filePut({ id, mime: rec.mime, data: rec.data, pages: rec.pages });
         await docPut(meta);
         S.docs.push(meta);
+        if (v.ocr) newMeta = meta;
       } else {
         Object.assign(d, { titel: v.titel, kategorie: v.kategorie, ablauf: v.ablauf, notiz: v.notiz });
         await docPut(d);
         if (viewer) viewer.close();
       }
       render();
+      if (newMeta) setTimeout(() => runOcr(newMeta), 400);
     },
     onDelete: isNew ? null : async () => {
       await fileDel(d.id); await docDel(d.id);
@@ -1062,32 +1175,6 @@ function editDoc(d) {
     }
   });
 }
-async function openDoc(d) {
-  const rec = await fileGet(d.id);
-  if (!rec) { toast('Datei nicht gefunden'); return; }
-  const blob = new Blob([rec.data], { type: rec.mime });
-  const url = mkUrl(blob);
-  const ext = rec.mime === 'application/pdf' ? '.pdf' : rec.mime === 'image/jpeg' ? '.jpg' : '';
-  const fname = (d.titel.replace(/[\\/:*?"<>|]+/g, '_') || 'Dokument') + ext;
-  const file = new File([blob], fname, { type: rec.mime });
-  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
-  let preview;
-  if (rec.mime.startsWith('image/')) {
-    preview = h('div', { class: 'stack', style: 'gap:8px' },
-      h('img', { class: 'doc-prev', src: url, alt: d.titel, onclick: () => openLightbox(url, d.titel) }),
-      h('p', { class: 'prev-hint' }, 'Tippen zum Vergrößern'));
-  } else if (rec.mime === 'application/pdf') preview = h('iframe', { class: 'doc-pdf', src: url, title: d.titel });
-  else preview = h('div', { class: 'card' }, 'Keine Vorschau verfügbar.');
-  const body = h('div', { class: 'stack' }, preview,
-    h('div', { class: 'card' }, kv('Kategorie', d.kategorie), kv('Gültig bis', d.ablauf ? fmtD(d.ablauf) : ''), kv('Notiz', d.notiz), kv('Größe', fmtSize(rec.data.byteLength))),
-    h('div', { class: 'btn-row' },
-      canShare ? h('button', { class: 'btn', onclick: () => navigator.share({ files: [file], title: d.titel }).catch(() => {}) }, 'Teilen / Sichern') : h('a', { class: 'btn', href: url, download: fname }, 'Herunterladen'),
-      rec.mime === 'application/pdf' ? h('a', { class: 'btn ghost', href: url, target: '_blank' }, 'Neuer Tab') : null),
-    d.ablauf ? h('button', { class: 'btn ghost wide', onclick: () => addToCalendar(d.titel + ' läuft ab', d.ablauf, 'Dokument rechtzeitig erneuern', 30) }, 'Erinnerung im Kalender (30 Tage vorher)') : null,
-    h('button', { class: 'btn ghost wide', onclick: () => editDoc(d) }, 'Bearbeiten / Löschen'));
-  viewer = openFull({ title: d.titel, body, onClose: () => { rmUrl(url); viewer = null; } });
-}
-
 /* ============ Ansicht: Gesundheit ============ */
 const U_LIST = [
   ['U1', 'Geburt'], ['U2', '3.–10. Lebenstag'], ['U3', '4.–5. Lebenswoche'], ['U4', '3.–4. Monat'], ['U5', '6.–7. Monat'],
@@ -1265,7 +1352,12 @@ const albumNames = () => Array.from(new Set(S.photos.map(f => f.album).filter(Bo
 function viewPhotos() {
   const wrap = h('div', { class: 'stack' });
   const input = h('input', { type: 'file', accept: 'image/*', multiple: true, style: 'display:none', onchange: async e => {
-    const files = Array.from(e.target.files || []); e.target.value = '';
+    let files = Array.from(e.target.files || []); e.target.value = '';
+    if (files.length === 1) {
+      const b = await cropFile(files[0], { optional: true, title: 'Foto zuschneiden' });
+      if (!b) return;
+      files = [new File([b], files[0].name || 'foto.jpg', { type: 'image/jpeg', lastModified: files[0].lastModified || Date.now() })];
+    }
     if (files.length) await addPhotos(files);
   } });
   wrap.append(pageHead('Fotos', h('button', { class: 'pill', onclick: () => { suppressLockUntil = Date.now() + 180000; input.click(); } }, '+ Fotos')), input);
@@ -1313,7 +1405,8 @@ async function openPhotoViewer(list, start) {
   const shareBtn = h('button', { class: 'lb-act', type: 'button' }, 'Teilen');
   const profBtn = h('button', { class: 'lb-act', type: 'button' }, 'Profilbild');
   const editBtn = h('button', { class: 'lb-act', type: 'button' }, 'Bearbeiten');
-  const bar = h('div', { class: 'lb-bar' }, cap, h('div', { class: 'lb-acts' }, favBtn, shareBtn, profBtn, editBtn));
+  const cropBtn = h('button', { class: 'lb-act', type: 'button' }, 'Zuschneiden');
+  const bar = h('div', { class: 'lb-bar' }, cap, h('div', { class: 'lb-acts' }, favBtn, shareBtn, profBtn, cropBtn, editBtn));
   const step = d => { const n = i + d; if (n < 0 || n >= list.length) return; i = n; load(); };
   const api = openLightbox(BLANK, '', { bar, hint: '', extra: [count, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => step(-1) }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => step(1) }, '›')], onSwipe: step, onClose: () => { if (url) rmUrl(url); } });
   const load = async () => {
@@ -1339,6 +1432,18 @@ async function openPhotoViewer(list, start) {
     if (!blob) return;
     try { S.profile.foto = await blobToDataURL(await imageToJpeg(blob, 400, 0.82)); await persist('profile'); render(); toast('Profilbild gesetzt'); }
     catch (e) { toast('Fehler: ' + (e.message || e)); }
+  };
+  cropBtn.onclick = async () => {
+    if (!blob) return;
+    const b = await cropFile(blob, { title: 'Foto zuschneiden' });
+    if (!b) return;
+    try {
+      const m = list[i];
+      const big = await imageToJpeg(b, 2000, 0.85), th = await imageToJpeg(b, 360, 0.75);
+      await pfilePut({ id: m.id, data: await big.arrayBuffer() });
+      m.thumb = await blobToDataURL(th); m.size = big.size; await photoPut(m);
+      await load(); render(); toast('Ausschnitt gespeichert');
+    } catch (e) { toast('Fehler: ' + (e.message || e)); }
   };
   editBtn.onclick = () => {
     const m = list[i];
@@ -2357,6 +2462,29 @@ function designCard() {
 /* ============ Lieblingslieder (Spotify) ============ */
 const SPOT_OK = u => /^https:\/\/(open\.spotify\.com|spotify\.link|spoti\.fi)\//.test(u || '');
 const spotSearch = (t, a) => 'https://open.spotify.com/search/' + encodeURIComponent([t, a].filter(Boolean).join(' '));
+let nowPlaying = null;
+function embedUrl(u) {
+  try {
+    const x = new URL(u);
+    if (x.hostname !== 'open.spotify.com') return null;
+    const parts = x.pathname.split('/').filter(Boolean);
+    if (parts[0] && /^intl-/.test(parts[0])) parts.shift();
+    if (parts[0] === 'embed') parts.shift();
+    const type = parts[0], id = parts[1] || '';
+    if (!['track', 'playlist', 'album', 'artist', 'episode', 'show'].includes(type) || !/^[A-Za-z0-9]{10,30}$/.test(id)) return null;
+    return { type, id, url: `https://open.spotify.com/embed/${type}/${id}?utm_source=generator`, orig: `https://open.spotify.com/${type}/${id}` };
+  } catch (e) { return null; }
+}
+function playInApp(u, title) { const e = embedUrl(u); if (!e) return false; nowPlaying = { e, title }; render(); try { window.scrollTo(0, 0); const v = $('#view'); if (v) v.scrollTop = 0; } catch (x) {} return true; }
+function playerCard() {
+  if (!nowPlaying) return null;
+  const e = nowPlaying.e, tall = e.type !== 'track' && e.type !== 'episode';
+  return h('div', { class: 'card stack player' },
+    h('div', { class: 'sec-head' }, h('h2', null, 'Player'), h('button', { class: 'pill ghost', onclick: () => { nowPlaying = null; render(); } }, 'Schließen')),
+    h('iframe', { class: 'spot-frame', src: e.url, height: tall ? 352 : 152, title: 'Spotify Player', loading: 'lazy', allowfullscreen: true, allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture' }),
+    h('p', { class: 'fine' }, 'Ohne Anmeldung spielt der Player 30-Sekunden-Vorschauen. Für ganze Lieder oben im Player bei Spotify anmelden. Klappt das nicht, nimm „In Spotify öffnen“.'),
+    h('a', { class: 'lnk', href: e.orig, target: '_blank', rel: 'noopener', onclick: spotClick }, 'In Spotify öffnen'));
+}
 const spotClick = e => { e.stopPropagation(); suppressLockUntil = Date.now() + 120000; };
 function editSong(item) {
   const arr = S.profile.lieder, isNew = !item;
@@ -2390,19 +2518,373 @@ function editPlaylist() {
 function viewSongs() {
   const p = S.profile, wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Lieblingslieder', addBtn('Lied', () => editSong())));
+  if (nowPlaying) wrap.append(playerCard());
   wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Luises Playlist'),
     p.playlist && SPOT_OK(p.playlist)
-      ? h('div', { class: 'btn-row' }, h('a', { class: 'btn spot', href: p.playlist, target: '_blank', rel: 'noopener', onclick: spotClick }, h('span', { html: ICON.play }), 'In Spotify öffnen'), h('button', { class: 'btn ghost', onclick: editPlaylist }, 'Ändern'))
+      ? h('div', { class: 'btn-row' }, embedUrl(p.playlist) ? h('button', { class: 'btn spot', onclick: () => playInApp(p.playlist, 'Playlist') }, h('span', { html: ICON.play }), 'Im Player abspielen') : h('a', { class: 'btn spot', href: p.playlist, target: '_blank', rel: 'noopener', onclick: spotClick }, h('span', { html: ICON.play }), 'In Spotify öffnen'), h('button', { class: 'btn ghost', onclick: editPlaylist }, 'Ändern'))
       : h('button', { class: 'btn wide', onclick: editPlaylist }, 'Playlist-Link hinzufügen'),
     h('a', { class: 'lnk', href: 'https://open.spotify.com/search/Kinderlieder', target: '_blank', rel: 'noopener', onclick: spotClick }, 'Neue Lieder in Spotify entdecken')));
   wrap.append(sectionHead('Lieder'));
   wrap.append(h('div', { class: 'card' }, p.lieder.length ? p.lieder.slice().sort((a, b) => a.titel.localeCompare(b.titel, 'de')).map(x => {
     const href = SPOT_OK(x.link) ? x.link : spotSearch(x.titel, x.interpret);
     return li(() => editSong(x), '', h('span', { class: 'hubico', html: ICON.note }), liTxt(x.titel, [x.interpret, x.notiz].filter(Boolean).join(' · ')),
-      h('a', { class: 'spotbtn', href, target: '_blank', rel: 'noopener', 'aria-label': 'In Spotify abspielen', onclick: spotClick, html: ICON.play }));
+      embedUrl(x.link) ? h('button', { class: 'spotbtn', type: 'button', 'aria-label': 'Im Player abspielen', onclick: e => { e.stopPropagation(); playInApp(x.link, x.titel); }, html: ICON.play })
+        : h('a', { class: 'spotbtn', href, target: '_blank', rel: 'noopener', 'aria-label': 'In Spotify abspielen', onclick: spotClick, html: ICON.play }));
   }) : h('p', { class: 'empty' }, 'Noch keine Lieder. Sammle hier Luises Lieblingslieder und spiele sie mit einem Tipp in Spotify ab.')));
-  wrap.append(h('p', { class: 'fine' }, 'Die Lieder öffnen sich in der Spotify-App oder im Browser. Dafür ist ein Spotify-Zugang nötig.'));
+  wrap.append(h('p', { class: 'fine' }, 'Lieder mit Spotify-Link spielen direkt im Player oben. Ohne Link öffnet sich die Suche in Spotify. Beim Wechsel in einen anderen Bereich stoppt die Musik.'));
   return wrap;
+}
+
+/* ============ Bildausschnitt wählen ============ */
+function cropFile(file, opts) {
+  opts = opts || {};
+  return new Promise(resolve => {
+    let work = file, url = null, ratio = opts.square ? 1 : 0, m = { l: 0, t: 0, w: 1, h: 1 }, c = { x: 0, y: 0, w: 1, h: 1 }, act = null;
+    const img = h('img', { alt: '', draggable: 'false' });
+    const box = h('div', { class: 'crop-box' }, h('i', { class: 'cg v1' }), h('i', { class: 'cg v2' }), h('i', { class: 'cg h1' }), h('i', { class: 'cg h2' }),
+      ['tl', 'tr', 'bl', 'br'].map(k => h('b', { class: 'ch ' + k, 'data-h': k })));
+    const stage = h('div', { class: 'crop-stage' }, img, box);
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const place = () => {
+      box.style.left = (m.l + c.x) + 'px'; box.style.top = (m.t + c.y) + 'px';
+      box.style.width = c.w + 'px'; box.style.height = c.h + 'px';
+    };
+    const measure = () => {
+      const sr = stage.getBoundingClientRect(), ir = img.getBoundingClientRect();
+      m = { l: ir.left - sr.left, t: ir.top - sr.top, w: ir.width || 1, h: ir.height || 1 };
+    };
+    const fitRatio = () => {
+      let w = m.w, hh = m.h;
+      if (ratio) { if (w / hh > ratio) w = hh * ratio; else hh = w / ratio; w *= 0.92; hh *= 0.92; }
+      c = { x: (m.w - w) / 2, y: (m.h - hh) / 2, w, h: hh };
+      place();
+    };
+    const init = () => { measure(); fitRatio(); };
+    const load = () => {
+      if (url) URL.revokeObjectURL(url);
+      url = URL.createObjectURL(work);
+      img.onload = () => requestAnimationFrame(init);
+      img.src = url;
+    };
+    box.addEventListener('pointerdown', e => {
+      const hd = e.target.dataset && e.target.dataset.h;
+      act = { hd: hd || 'move', sx: e.clientX, sy: e.clientY, o: Object.assign({}, c) };
+      try { box.setPointerCapture(e.pointerId); } catch (err) {}
+      e.preventDefault();
+    });
+    box.addEventListener('pointermove', e => {
+      if (!act) return;
+      const dx = e.clientX - act.sx, dy = e.clientY - act.sy, o = act.o;
+      if (act.hd === 'move') { c.x = clamp(o.x + dx, 0, m.w - o.w); c.y = clamp(o.y + dy, 0, m.h - o.h); }
+      else {
+        const L = act.hd.includes('l'), T = act.hd.includes('t');
+        const ax = L ? o.x + o.w : o.x, ay = T ? o.y + o.h : o.y;
+        const px = clamp((L ? o.x : o.x + o.w) + dx, 0, m.w), py = clamp((T ? o.y : o.y + o.h) + dy, 0, m.h);
+        let w = Math.max(48, Math.abs(px - ax)), hh = Math.max(48, Math.abs(py - ay));
+        const aw = L ? ax : m.w - ax, ah = T ? ay : m.h - ay;
+        if (ratio) {
+          w = Math.max(w, hh * ratio); hh = w / ratio;
+          if (w > aw) { w = aw; hh = w / ratio; }
+          if (hh > ah) { hh = ah; w = hh * ratio; }
+        } else { w = Math.min(w, aw); hh = Math.min(hh, ah); }
+        c = { x: L ? ax - w : ax, y: T ? ay - hh : ay, w, h: hh };
+      }
+      place();
+    });
+    const up = () => { act = null; };
+    box.addEventListener('pointerup', up); box.addEventListener('pointercancel', up);
+    const onResize = () => { const ow = m.w, oh = m.h; measure(); const kx = m.w / ow, ky = m.h / oh; c = { x: c.x * kx, y: c.y * ky, w: c.w * kx, h: c.h * ky }; place(); };
+    window.addEventListener('resize', onResize);
+    const finish = v => { window.removeEventListener('resize', onResize); if (url) URL.revokeObjectURL(url); root.remove(); resolve(v); };
+    const done = () => {
+      const sc = img.naturalWidth / m.w, sw = c.w * sc, sh = c.h * sc, k = Math.min(1, 2200 / Math.max(sw, sh));
+      const cv = document.createElement('canvas'); cv.width = Math.max(1, Math.round(sw * k)); cv.height = Math.max(1, Math.round(sh * k));
+      const x = cv.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, cv.width, cv.height);
+      x.drawImage(img, c.x * sc, c.y * sc, sw, sh, 0, 0, cv.width, cv.height);
+      cv.toBlob(b => b ? finish(b) : finish(null), 'image/jpeg', 0.88);
+    };
+    const rotate = () => {
+      const cv = document.createElement('canvas'); cv.width = img.naturalHeight; cv.height = img.naturalWidth;
+      const x = cv.getContext('2d'); x.translate(cv.width, 0); x.rotate(Math.PI / 2); x.drawImage(img, 0, 0);
+      cv.toBlob(b => { if (b) { work = b; load(); } }, 'image/jpeg', 0.92);
+    };
+    const chips = h('div', { class: 'crop-chips' });
+    const drawChips = () => chips.replaceChildren(...[['Frei', 0], ['1:1', 1], ['4:3', 4 / 3], ['3:4', 3 / 4], ['A4', 1 / 1.4142]].map(([l, r]) =>
+      h('button', { type: 'button', class: 'cchip' + (Math.abs(ratio - r) < 0.001 ? ' on' : ''), onclick: () => { ratio = r; drawChips(); fitRatio(); } }, l)));
+    drawChips();
+    const root = h('div', { class: 'crop', role: 'dialog', 'aria-label': 'Bildausschnitt wählen' },
+      h('div', { class: 'crop-top' }, opts.title || 'Bildausschnitt wählen'), stage,
+      h('div', { class: 'crop-bar' }, opts.square ? null : chips,
+        h('div', { class: 'crop-btns' },
+          h('button', { type: 'button', class: 'cbtn', onclick: () => finish(null) }, 'Abbrechen'),
+          h('button', { type: 'button', class: 'cbtn', onclick: rotate }, 'Drehen'),
+          opts.optional ? h('button', { type: 'button', class: 'cbtn', onclick: () => finish(work) }, 'Ganzes Bild') : null,
+          h('button', { type: 'button', class: 'cbtn main', onclick: done }, 'Fertig'))));
+    img.onerror = () => { toast('Bild konnte nicht geöffnet werden'); finish(opts.square ? null : file); };
+    document.body.append(root);
+    load();
+  });
+}
+
+/* ============ PDF-Seiten, OCR und Auslesen ============ */
+const PDFJS_BASE = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+const TESS_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+function loadScript(src) {
+  return new Promise((res, rej) => {
+    const sc = document.createElement('script'); sc.src = src; sc.async = true;
+    sc.onload = res; sc.onerror = () => rej(new Error('Nicht ladbar: ' + src));
+    document.head.append(sc);
+  });
+}
+let pdfjsP = null;
+function loadPdfJs() {
+  if (window.pdfjsLib && window.pdfjsLib.getDocument) return Promise.resolve(window.pdfjsLib);
+  if (!pdfjsP) pdfjsP = (async () => {
+    await loadScript(PDFJS_BASE + 'pdf.min.js');
+    const lib = window.pdfjsLib;
+    try {
+      const t = await (await fetch(PDFJS_BASE + 'pdf.worker.min.js')).text();
+      lib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(new Blob([t], { type: 'text/javascript' }));
+    } catch (e) { lib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js'; }
+    return lib;
+  })().catch(e => { pdfjsP = null; throw e; });
+  return pdfjsP;
+}
+async function pdfToImages(data, maxPages, maxW) {
+  const lib = await loadPdfJs();
+  const pdf = await lib.getDocument({ data: new Uint8Array(data.slice(0)) }).promise;
+  const out = [];
+  for (let n = 1; n <= Math.min(pdf.numPages, maxPages); n++) {
+    const page = await pdf.getPage(n);
+    const w1 = page.getViewport({ scale: 1 }).width;
+    const vp = page.getViewport({ scale: Math.min(3, maxW / w1) });
+    const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+    const cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
+    await page.render({ canvasContext: cx, viewport: vp }).promise;
+    out.push(await new Promise(r => cv.toBlob(r, 'image/jpeg', 0.85)));
+  }
+  try { pdf.destroy(); } catch (e) {}
+  return out;
+}
+async function docPages(d, rec) {
+  if (rec.pages && rec.pages.length) return rec.pages.map(b => new Blob([b], { type: 'image/jpeg' }));
+  const imgs = await pdfToImages(rec.data, 12, 1600);
+  if (!imgs.length) throw new Error('Keine Seiten');
+  rec.pages = await Promise.all(imgs.map(b => b.arrayBuffer()));
+  await filePut({ id: d.id, mime: rec.mime, data: rec.data, pages: rec.pages });
+  if (!d.thumb) { d.thumb = await blobToDataURL(await imageToJpeg(imgs[0], 180, 0.7)); await docPut(d); }
+  return imgs;
+}
+
+/* --- OCR --- */
+const ocrUi = (() => {
+  let el = null, bar = null, txt = null;
+  return {
+    show(label, frac) {
+      if (!el) {
+        txt = h('span', null); bar = h('i', { style: 'width:0%' });
+        el = h('div', { class: 'ocrbar' }, txt, h('div', { class: 'bar' }, bar));
+        document.body.append(el);
+      }
+      txt.textContent = label; bar.style.width = Math.round(Math.max(0, Math.min(1, frac || 0)) * 100) + '%';
+    },
+    hide() { if (el) { el.remove(); el = null; } }
+  };
+})();
+async function ocrPrep(blob) {
+  const url = URL.createObjectURL(blob);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = url; });
+    const long = Math.max(img.naturalWidth, img.naturalHeight), sc = Math.min(2, Math.max(0.3, 2200 / long));
+    const cv = document.createElement('canvas'); cv.width = Math.round(img.naturalWidth * sc); cv.height = Math.round(img.naturalHeight * sc);
+    const cx = cv.getContext('2d', { willReadFrequently: true }); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
+    cx.drawImage(img, 0, 0, cv.width, cv.height);
+    const id = cx.getImageData(0, 0, cv.width, cv.height), px = id.data, hist = new Uint32Array(256);
+    for (let i = 0; i < px.length; i += 4) { const g = Math.round(px[i] * 0.299 + px[i + 1] * 0.587 + px[i + 2] * 0.114); px[i] = g; hist[g]++; }
+    const total = cv.width * cv.height; let acc = 0, lo = 0, hi = 255;
+    for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= total * 0.02) { lo = v; break; } }
+    acc = 0; for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc >= total * 0.2) { hi = v; break; } }
+    if (hi - lo < 40) { lo = 0; hi = 255; }
+    const k = 255 / (hi - lo);
+    for (let i = 0; i < px.length; i += 4) { const g = Math.max(0, Math.min(255, Math.round((px[i] - lo) * k))); px[i] = px[i + 1] = px[i + 2] = g; }
+    cx.putImageData(id, 0, 0);
+    return cv;
+  } finally { URL.revokeObjectURL(url); }
+}
+async function ocrBlobs(blobs) {
+  ocrUi.show('OCR wird geladen (beim ersten Mal einige MB) …', 0.02);
+  if (!window.Tesseract) await loadScript(TESS_URL);
+  const stage = { n: 0, of: blobs.length };
+  const worker = await window.Tesseract.createWorker('deu', 1, { logger: m => {
+    if (!m) return;
+    if (m.status === 'recognizing text') ocrUi.show(`Text wird erkannt (Seite ${stage.n + 1} von ${stage.of}) …`, 0.1 + 0.9 * ((stage.n + (m.progress || 0)) / stage.of));
+    else if (/load|init/i.test(m.status || '')) ocrUi.show('OCR wird vorbereitet …', 0.05 + 0.05 * (m.progress || 0));
+  } });
+  let text = '';
+  try {
+    for (let i = 0; i < blobs.length; i++) {
+      stage.n = i;
+      const r = await worker.recognize(await ocrPrep(blobs[i]));
+      text += (text ? '\n\n' : '') + (r.data.text || '');
+    }
+  } finally { try { await worker.terminate(); } catch (e) {} }
+  return text.trim();
+}
+
+const MONTHS_DE = { januar: 1, februar: 2, märz: 3, maerz: 3, april: 4, mai: 5, juni: 6, juli: 7, august: 8, september: 9, oktober: 10, november: 11, dezember: 12 };
+const RX_NUM = '(\\d{1,2})\\.\\s?(\\d{1,2})\\.\\s?(\\d{4})';
+const RX_TXT = '(\\d{1,2})\\.?\\s*(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\\s+(\\d{4})';
+function isoDate(d, m, y) {
+  d = +d; m = +m; y = +y;
+  if (!(d >= 1 && d <= 31 && m >= 1 && m <= 12 && y >= 1900 && y <= 2100)) return null;
+  return `${y}-${pad2(m)}-${pad2(d)}`;
+}
+function firstDate(s) {
+  let best = null;
+  const a = new RegExp(RX_NUM).exec(s), b = new RegExp(RX_TXT, 'i').exec(s);
+  if (a) best = { i: a.index, iso: isoDate(a[1], a[2], a[3]) };
+  if (b) { const iso = isoDate(b[1], MONTHS_DE[b[2].toLowerCase()], b[3]); if (iso && (!best || !best.iso || b.index < best.i)) best = { i: b.index, iso }; }
+  return best && best.iso ? best.iso : null;
+}
+const KASSEN = /\b(AOK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|Techniker Krankenkasse|TK|BARMER|Barmer|DAK(?:[\- ]Gesundheit)?|IKK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|KKH|hkk|Knappschaft|BKK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|[A-ZÄÖÜ][A-Za-zäöüß]+ BKK|Viactiv|SBK|HEK|Mobil Krankenkasse|Debeka|HanseMerkur|Signal Iduna)\b/;
+function extractInfo(text) {
+  const T = String(text || '').replace(/\r/g, '').replace(/[ \t]+/g, ' ');
+  const out = [];
+  const add = (key, label, value, target) => {
+    value = String(value || '').trim().replace(/\s{2,}/g, ' ').replace(/[\s.,;:\-]+$/, '');
+    if (value && !out.some(o => o.key === key)) out.push({ key, label, value, target });
+  };
+  const after = (re, span) => { const m = re.exec(T); return m ? firstDate(T.slice(m.index + m[0].length, m.index + m[0].length + span)) : null; };
+  const W = "[A-ZÄÖÜ][A-Za-zÄÖÜäöüß\\-]+";
+  let vor = null, nach = null;
+  let m = new RegExp('(?<![A-Za-zäöüß])Vornamen?\\s*[:\\-]?\\s*(' + W + '(?: ' + W + '){0,3})').exec(T);
+  if (m) vor = m[1];
+  m = new RegExp('(?<![A-Za-zäöüß])(?:Familienname|Nachname|Name)\\s*[:\\-]?\\s*(' + W + ')').exec(T);
+  if (m && !/^Vorname/i.test(m[1])) nach = m[1];
+  if (!vor || !nach) {
+    m = new RegExp('(' + W + '(?: ' + W + '){1,3})\\s+(?:ist|wurde)\\s+am\\s+\\d').exec(T);
+    if (m) { const parts = m[1].split(' '); if (!nach) nach = parts.pop(); else parts.pop(); if (!vor && parts.length) vor = parts.join(' '); }
+  }
+  if (vor) add('vorname', 'Vorname', vor, { f: 'vorname' });
+  if (nach) add('nachname', 'Nachname', nach, { f: 'nachname' });
+  const gd = after(/(?:Geburtsdatum|Geb\.?-?Datum|geboren am|geb\. am|Tag der Geburt|Datum der Geburt)\D{0,12}/i, 40) || after(/(?:ist|wurde)\s+am\s+/i, 40);
+  if (gd) add('geburtsdatum', 'Geburtsdatum', gd, { f: 'geburtsdatum' });
+  m = new RegExp('Geburtsort\\s*[:\\-]?\\s*(' + W + '(?:[ \\-/]' + W + '){0,2})').exec(T) || new RegExp('\\bin\\s+(' + W + '(?:[ \\-]' + W + '){0,2})\\s+geboren').exec(T);
+  if (m) add('geburtsort', 'Geburtsort', m[1], { f: 'geburtsort' });
+  m = /Staatsangehörigkeit\s*[:\-]?\s*([A-ZÄÖÜa-zäöüß\-]{4,25})/i.exec(T);
+  if (m) add('staat', 'Staatsangehörigkeit', m[1], { f: 'staatsangehoerigkeit' });
+  m = /\b([A-Z]\d{9})\b/.exec(T);
+  if (m) add('versnr', 'Versichertennummer', m[1], { f: 'versnr' });
+  m = KASSEN.exec(T);
+  if (m) add('kasse', 'Krankenkasse', m[1], { f: 'krankenkasse' });
+  m = /(?:Steuer-?\s?ID|Identifikationsnummer|IdNr\.?)\D{0,30}?(\d{2}\s?\d{3}\s?\d{3}\s?\d{3})/i.exec(T);
+  if (m) add('steuerid', 'Steuer-ID', m[1].replace(/\s/g, ''), { f: 'steuerid' });
+  const ab = after(/(?:gültig bis|Gültig bis|Ablaufdatum|gueltig bis|Date of expiry|valid until)\D{0,6}/i, 30);
+  if (ab) add('ablauf', 'Gültig bis', ab, { doc: 'ablauf' });
+  m = /Standesamt\s+([A-ZÄÖÜ][A-Za-zäöüß\-]+(?: (?!Nr\b)[A-ZÄÖÜ][A-Za-zäöüß\-]+)?)/.exec(T);
+  if (m) add('standesamt', 'Standesamt', m[1], { x: 'Standesamt' });
+  m = /(?:Registernummer|Reg\.?\s?-?\s?Nr\.?|Geburtenregister[- ]?(?:Nr\.?|nummer)?)\s*[:\-]?\s*([A-Z]{0,3}\s?[0-9][0-9A-Za-z\/\-]{2,20})/i.exec(T) || /Standesamt[^\n]{0,60}?\bNr\.?\s*([0-9][0-9A-Za-z\/\-]{2,20})/.exec(T);
+  if (m) add('regnr', 'Registernummer', m[1], { x: 'Registernummer' });
+  m = /(?:Seriennummer|Ausweisnummer|Passnummer|Dokumentennummer|Document No\.?)\s*[:\-]?\s*([A-Z0-9]{6,12})/i.exec(T);
+  if (m) add('docnr', 'Dokumentnummer', m[1].toUpperCase(), { x: 'Dokumentnummer' });
+  return out;
+}
+function applyInfo(sugs, d) {
+  const p = S.profile;
+  sugs.forEach(s => {
+    if (s.target.f) p[s.target.f] = s.value;
+    else if (s.target.doc) d[s.target.doc] = s.value;
+    else if (s.target.x) {
+      const ex = p.extras.find(e => e.label === s.target.x);
+      if (ex) ex.value = s.value; else p.extras.push({ id: uid(), label: s.target.x, value: s.value });
+    }
+  });
+}
+function showOcrResult(d) {
+  const sugs = extractInfo(d.text);
+  const p = S.profile, rows = [];
+  const cur = s => s.target.f ? p[s.target.f] : s.target.doc ? d[s.target.doc] : ((p.extras.find(e => e.label === s.target.x) || {}).value || '');
+  const body = h('div', { class: 'stack' });
+  if (sugs.length) {
+    body.append(h('div', { class: 'card stack' }, h('h2', null, 'Gefundene Angaben'),
+      h('p', { class: 'fine' }, 'Bitte prüfen und bei Bedarf korrigieren. Erkennungsfehler sind bei Fotos normal. Nur markierte Angaben werden übernommen.'),
+      ...sugs.map(s => {
+        const cb = h('input', { type: 'checkbox' }), inp = h('input', { type: 'text', value: s.value, 'aria-label': s.label });
+        const old = cur(s); cb.checked = !old || old !== s.value;
+        rows.push({ s, cb, inp });
+        return h('div', { class: 'ocr-row' }, h('label', { class: 'field check' }, cb, h('span', null, s.label + (old && old !== s.value ? ` (bisher: ${s.target.doc === 'ablauf' ? fmtD(old) : old})` : ''))), inp);
+      }),
+      h('button', { class: 'btn wide', onclick: async () => {
+        const chosen = rows.filter(r => r.cb.checked && r.inp.value.trim()).map(r => Object.assign({}, r.s, { value: r.inp.value.trim() }));
+        if (!chosen.length) { toast('Nichts ausgewählt'); return; }
+        applyInfo(chosen, d); await persist('profile'); await docPut(d); toast(`${chosen.length} Angaben übernommen`); ov.close(); render();
+      } }, 'Ausgewählte übernehmen')));
+  } else body.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Keine bekannten Angaben gefunden. Den erkannten Text siehst du unten.')));
+  body.append(h('div', { class: 'card stack' }, h('h2', null, 'Erkannter Text'),
+    h('p', { class: 'ocr-text' }, d.text || 'Kein Text erkannt.'),
+    d.text ? h('button', { class: 'btn ghost wide', onclick: () => copyText(d.text) }, 'Text kopieren') : null,
+    h('button', { class: 'btn ghost wide', onclick: async () => { ov.close(); await runOcr(d, true); } }, 'Erneut erkennen')));
+  const ov = openFull({ title: 'Ausgelesene Infos', body });
+}
+async function runOcr(d, again) {
+  try {
+    const rec = await fileGet(d.id);
+    if (!rec) { toast('Datei nicht gefunden'); return; }
+    let blobs;
+    if (rec.mime.startsWith('image/')) blobs = [new Blob([rec.data], { type: rec.mime })];
+    else if (rec.mime === 'application/pdf') { ocrUi.show('PDF wird vorbereitet …', 0.01); blobs = await docPages(d, rec); }
+    else { toast('Für diesen Dateityp ist keine Texterkennung möglich'); return; }
+    const text = await ocrBlobs(blobs);
+    d.text = text; await docPut(d); ocrUi.hide();
+    showOcrResult(d);
+  } catch (e) {
+    console.error(e); ocrUi.hide();
+    toast('Texterkennung nicht möglich. Prüfe die Internetverbindung.');
+  }
+}
+
+/* --- Dokumentvorschau --- */
+async function openDoc(d) {
+  const rec = await fileGet(d.id);
+  if (!rec) { toast('Datei nicht gefunden'); return; }
+  const blob = new Blob([rec.data], { type: rec.mime });
+  const url = mkUrl(blob), extra = [];
+  const ext = rec.mime === 'application/pdf' ? '.pdf' : rec.mime === 'image/jpeg' ? '.jpg' : '';
+  const fname = (d.titel.replace(/[\\/:*?"<>|]+/g, '_') || 'Dokument') + ext;
+  const file = new File([blob], fname, { type: rec.mime });
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  const isImg = rec.mime.startsWith('image/'), isPdf = rec.mime === 'application/pdf';
+  const pagesBox = h('div', { class: 'stack', style: 'gap:8px' });
+  const showImgs = list => {
+    pagesBox.replaceChildren(...list.map((b, i) => { const u = mkUrl(b); extra.push(u); return h('img', { class: 'doc-prev', src: u, alt: d.titel + (list.length > 1 ? ' Seite ' + (i + 1) : ''), onclick: () => openLightbox(u, d.titel) }); }),
+      h('p', { class: 'prev-hint' }, 'Tippen zum Vergrößern' + (list.length > 1 ? ` · ${list.length} Seiten` : '')));
+  };
+  if (isImg) showImgs([blob]);
+  else if (isPdf) {
+    pagesBox.append(h('p', { class: 'prev-hint' }, 'Seiten werden geladen …'));
+    docPages(d, rec).then(showImgs).catch(() => {
+      pagesBox.replaceChildren(h('iframe', { class: 'doc-pdf', src: url, title: d.titel }), h('p', { class: 'prev-hint' }, 'Die Seitenansicht braucht beim ersten Mal Internet. Du kannst das PDF auch im neuen Tab öffnen.'));
+    });
+  } else pagesBox.append(h('div', { class: 'card' }, 'Keine Vorschau verfügbar.'));
+  const canOcr = isImg || isPdf;
+  let ov;
+  const body = h('div', { class: 'stack' }, pagesBox,
+    h('div', { class: 'card' }, kv('Kategorie', d.kategorie), kv('Gültig bis', d.ablauf ? fmtD(d.ablauf) : ''), kv('Notiz', d.notiz), kv('Größe', fmtSize(rec.data.byteLength))),
+    h('div', { class: 'btn-row' },
+      canShare ? h('button', { class: 'btn', onclick: () => navigator.share({ files: [file], title: d.titel }).catch(() => {}) }, 'Teilen / Sichern') : h('a', { class: 'btn', href: url, download: fname }, 'Herunterladen'),
+      isPdf ? h('a', { class: 'btn ghost', href: url, target: '_blank' }, 'Neuer Tab') : null),
+    canOcr ? h('div', { class: 'btn-row' },
+      h('button', { class: 'btn ghost', onclick: () => { ov.close(); d.text ? showOcrResult(d) : runOcr(d); } }, d.text ? 'Ausgelesene Infos' : 'Text erkennen'),
+      isImg ? h('button', { class: 'btn ghost', onclick: async () => {
+        const b = await cropFile(blob, { title: 'Dokument zuschneiden' });
+        if (!b) return;
+        const r2 = await prepareFile(new File([b], 'dok.jpg', { type: 'image/jpeg' }));
+        await filePut({ id: d.id, mime: r2.mime, data: r2.data }); d.thumb = r2.thumb; d.size = r2.data.byteLength; d.text = ''; await docPut(d);
+        ov.close(); render(); openDoc(d);
+      } }, 'Zuschneiden') : null) : null,
+    d.ablauf ? h('button', { class: 'btn ghost wide', onclick: () => addToCalendar(d.titel + ' läuft ab', d.ablauf, 'Dokument rechtzeitig erneuern', 30) }, 'Erinnerung im Kalender (30 Tage vorher)') : null,
+    h('button', { class: 'btn ghost wide', onclick: () => editDoc(d) }, 'Bearbeiten / Löschen'));
+  ov = viewer = openFull({ title: d.titel, body, onClose: () => { rmUrl(url); extra.forEach(rmUrl); viewer = null; } });
 }
 
 /* ============ Ansicht: Kita/Schule ============ */
@@ -2543,7 +3025,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 5'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 6'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -2608,7 +3090,7 @@ async function boot() {
   catch (e) { document.body.replaceChildren(h('p', { style: 'padding:24px' }, 'Der Speicher ist nicht verfügbar. Bitte prüfe, ob privates Surfen aus ist, und lade die Seite neu.')); return; }
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
   if (getLock()) await unlockFlow();
-  else if (!ls.get('luise_nolock')) { const ok = await createPin('Ohne Code fortfahren'); if (!ok) ls.set('luise_nolock', '1'); }
+  else if (!ls.get('luise_nolock')) await setupFlow();
   await loadState();
   render();
 }
