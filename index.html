@@ -452,7 +452,8 @@ async function setPin(pin) {
   const salt = toHex(crypto.getRandomValues(new Uint8Array(16)));
   const scheme = hasSubtle() ? 'pbkdf2' : 'simple';
   const hash = await hashPin(pin, salt, scheme);
-  ls.set(LOCK_KEY, JSON.stringify({ salt, hash, scheme }));
+  const old = getLock();
+  ls.set(LOCK_KEY, JSON.stringify({ salt, hash, scheme, fid: old && old.fid ? old.fid : undefined }));
 }
 async function checkPin(pin) {
   const l = getLock();
@@ -494,6 +495,7 @@ const lockScreen = (() => {
       return new Promise(r => { resolver = r; });
     },
     cancel() { const r = resolver; resolver = null; if (r) r(null); },
+    done(v) { const r = resolver; resolver = null; if (r) r(v); },
     hide() { root.hidden = true; val = ''; resolver = null; },
     busy(on) { root.classList.toggle('busy', on); },
     setSub
@@ -515,11 +517,60 @@ async function createPin(skipLabel) {
     return true;
   }
 }
+const FID_OK = '\u0000fid';
+const b64u = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const unb64u = str => { const b = atob(str.replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(b, c => c.charCodeAt(0)); };
+let fidAvail = false;
+(async () => { try { fidAvail = !!(window.PublicKeyCredential && PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); } catch (e) {} })();
+async function fidAuth() {
+  const l = getLock();
+  if (!l || !l.fid) return false;
+  try {
+    const r = await navigator.credentials.get({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)), rpId: location.hostname,
+      allowCredentials: [{ type: 'public-key', id: unb64u(l.fid), transports: ['internal'] }], userVerification: 'required', timeout: 60000 } });
+    return !!r;
+  } catch (e) { return false; }
+}
+async function enableFid() {
+  const l = getLock();
+  if (!l) { toast('Lege zuerst einen Code fest'); return; }
+  try {
+    suppressLockUntil = Date.now() + 90000;
+    const cred = await navigator.credentials.create({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)),
+      rp: { name: 'Luises Identität', id: location.hostname }, user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'luise-app', displayName: 'Luises Identität' },
+      pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+      authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' }, attestation: 'none', timeout: 60000 } });
+    l.fid = b64u(cred.rawId); ls.set(LOCK_KEY, JSON.stringify(l));
+    toast('Face ID aktiviert');
+  } catch (e) { console.error(e); toast('Face ID konnte nicht aktiviert werden'); }
+  render();
+}
+function disableFid() {
+  const l = getLock();
+  if (l) { delete l.fid; ls.set(LOCK_KEY, JSON.stringify(l)); }
+  toast('Face ID ausgeschaltet'); render();
+}
+function fidRow() {
+  const l = getLock();
+  if (l && l.fid) return h('div', { class: 'btn-row' }, h('span', { class: 'chip ok' }, 'Face ID aktiv'), h('button', { class: 'btn ghost', onclick: disableFid }, 'Face ID ausschalten'));
+  if (!fidAvail) return h('p', { class: 'fine' }, 'Face ID ist hier nicht verfügbar. Öffne die App vom Home-Bildschirm und prüfe, ob Face ID am iPhone eingerichtet ist.');
+  return h('button', { class: 'btn wide', onclick: enableFid }, 'Face ID aktivieren');
+}
+function fidButton(first) {
+  const l = getLock();
+  if (!l || !l.fid) return null;
+  const go = async () => { if (await fidAuth()) lockScreen.done(FID_OK); };
+  if (first) setTimeout(go, 300);
+  return h('button', { class: 'btn', type: 'button', onclick: go }, 'Mit Face ID entsperren');
+}
+const lockExtra = (...kids) => h('div', { style: 'display:flex;flex-direction:column;gap:10px;align-items:center' }, ...kids.filter(Boolean));
 async function verifyPin(title) {
   if (!getLock()) return true;
-  let err = '';
+  let err = '', first = true;
   for (let i = 0; i < 5; i++) {
-    const p = await lockScreen.prompt(title || 'Code eingeben', 'Zur Bestätigung', cancelBtn('Abbrechen'), err);
+    const p = await lockScreen.prompt(title || 'Code eingeben', 'Zur Bestätigung', lockExtra(fidButton(first), cancelBtn('Abbrechen')), err);
+    first = false;
+    if (p === FID_OK) return true;
     if (p === null) { lockScreen.hide(); return false; }
     if (await checkPin(p)) return true;
     err = 'Falscher Code';
@@ -538,12 +589,14 @@ async function wipeAll() {
   location.reload();
 }
 async function unlockFlow() {
-  let err = '', fails = 0;
+  let err = '', fails = 0, first = true;
   const forgot = h('button', { class: 'linkbtn', type: 'button', onclick: () => {
     if (confirm('Code vergessen? Dann müssen alle Daten dieser App gelöscht werden (du kannst danach eine Sicherung einspielen). Wirklich alles löschen?')) wipeAll();
   } }, 'Code vergessen?');
   for (;;) {
-    const p = await lockScreen.prompt('Luises Identität', 'Code eingeben', forgot, err);
+    const p = await lockScreen.prompt('Luises Identität', getLock() && getLock().fid ? 'Face ID oder Code' : 'Code eingeben', lockExtra(fidButton(first), forgot), err);
+    first = false;
+    if (p === FID_OK) { lockScreen.hide(); return; }
     if (p !== null && await checkPin(p)) { lockScreen.hide(); return; }
     fails++; err = 'Falscher Code';
     if (fails % 5 === 0) { await cooldown(30 * Math.min(8, 2 ** (fails / 5 - 1))); err = ''; }
@@ -2348,6 +2401,7 @@ function viewMore() {
     lock ? h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Automatisch sperren'),
       h('select', { onchange: e => { ls.set('luise_autolock', e.target.value); toast('Gespeichert'); } },
         [['0', 'Sofort beim Verlassen'], ['30', 'Nach 30 Sekunden'], ['300', 'Nach 5 Minuten']].map(([v, l]) => h('option', { value: v, selected: String(autolockSec()) === v }, l)))) : null,
+    lock ? fidRow() : null,
     lock ? h('button', { class: 'linkbtn', onclick: removeLock }, 'Code entfernen') : null));
   wrap.append(sectionHead('Datensicherung'));
   const lb = parseInt(ls.get('luise_lastbackup'), 10);
@@ -2381,7 +2435,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 4'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 4.1'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
