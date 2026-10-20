@@ -6,12 +6,12 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Luise">
+<meta name="apple-mobile-web-app-title" content="MyLuiseApp">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#f4f2ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="light dark">
-<title>Luises Identität</title>
+<title>MyLuiseApp</title>
 <style>
 :root{
   --bg:#f4f2ee; --card:#ffffff; --ink:#1c1b19; --mute:#7a766f; --line:#e6e2db;
@@ -32,8 +32,14 @@ body{font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Ne
 #app{display:flex;flex-direction:column;height:100vh;height:100dvh}
 #view{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(16px + env(safe-area-inset-top)) 16px 28px;max-width:640px;width:100%;margin:0 auto}
 .tabbar{display:flex;border-top:1px solid var(--line);background:var(--card);background:color-mix(in srgb,var(--card) 82%,transparent);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-.tab{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+.tab{flex:1;min-width:0;border:0;background:none;color:var(--mute);font:inherit;font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
 .tab.on{color:var(--accent);font-weight:600}
+.newsitem{text-decoration:none;color:inherit;align-items:flex-start}
+.newsitem b{font-weight:600;line-height:1.3}
+.newsk{display:block;margin:2px 0}
+.newsfoot{display:block;font-size:12px;line-height:1.4;padding:0 4px 8px}
+.newshero .linkbtn{text-align:left}
+@media(max-width:400px){.tab{font-size:10px}}
 .ico svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
 .stack{display:flex;flex-direction:column;gap:14px}
 .card{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--line)}
@@ -445,7 +451,7 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
     <div id="lockExtra"></div>
   </div>
 </div>
-<div id="privacy" hidden><div class="lock-in"><span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h1>Luises Identität</h1></div></div>
+<div id="privacy" hidden><div class="lock-in"><span class="ico"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h1>MyLuiseApp</h1></div></div>
 <div id="toast"></div>
 
 <script>
@@ -533,6 +539,7 @@ const ICON = {
   edit: '<svg viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 7l3 3"/></svg>',
   cross: '<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="18" rx="1.5"/><rect x="3" y="9" width="18" height="6" rx="1.5"/></svg>',
   smile: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14c1 1.5 2.2 2.2 3.5 2.2s2.5-.7 3.5-2.2M9 9.5h.01M15 9.5h.01"/></svg>',
+  news: '<svg viewBox="0 0 24 24"><path d="M5 4h11a2 2 0 0 1 2 2v13H7a2 2 0 0 1-2-2z"/><path d="M18 9h1.5a1.5 1.5 0 0 1 1.5 1.5V18a1 1 0 0 1-1 1h-2"/><path d="M8.5 8h6M8.5 11.5h6M8.5 15h4"/></svg>',
   photo: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="10.5" r="1.8"/><path d="M4 17l5-4.5 3.5 3L16 12l4 4.5"/></svg>',
   trophy: '<svg viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5v1.5A3 3 0 0 0 8 10.5M16 6h3v1.5a3 3 0 0 1-3 3M12 13v4M9 20h6M10 17h4"/></svg>',
   moon: '<svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/><path d="M17 4v3M15.5 5.5h3"/></svg>',
@@ -752,7 +759,7 @@ async function fidCreate() {
   try {
     suppressLockUntil = Date.now() + 90000;
     const cred = await navigator.credentials.create({ publicKey: { challenge: crypto.getRandomValues(new Uint8Array(32)),
-      rp: { name: 'Luises Identität', id: location.hostname }, user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'luise-app', displayName: 'Luises Identität' },
+      rp: { name: 'MyLuiseApp', id: location.hostname }, user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'luise-app', displayName: 'MyLuiseApp' },
       pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
       authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' }, attestation: 'none', timeout: 60000 } });
     return b64u(cred.rawId);
@@ -815,7 +822,7 @@ async function unlockFlow() {
   } }, 'Code vergessen?');
   for (;;) {
     const fn = fidHandler();
-    const p = await lockScreen.prompt('Luises Identität', fn ? 'Mit Face ID oder Code entsperren' : 'Code eingeben', lockExtra(forgot), err, fn, first);
+    const p = await lockScreen.prompt('MyLuiseApp', fn ? 'Mit Face ID oder Code entsperren' : 'Code eingeben', lockExtra(forgot), err, fn, first);
     first = false;
     if (p === FID_OK) { lockScreen.hide(); return; }
     if (p !== null && await checkPin(p)) { lockScreen.hide(); return; }
@@ -1031,7 +1038,7 @@ function buildIcs(title, iso, notes, days) {
   const d = parseD(iso), next = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1), n = new Date();
   const stamp = `${n.getUTCFullYear()}${pad2(n.getUTCMonth() + 1)}${pad2(n.getUTCDate())}T${pad2(n.getUTCHours())}${pad2(n.getUTCMinutes())}${pad2(n.getUTCSeconds())}Z`;
   const k = Math.max(1, days || 1);
-  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Luise Identitaet//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MyLuiseApp//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
     `UID:${uid()}@luise-identitaet`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${ymd(d)}`, `DTEND;VALUE=DATE:${ymd(next)}`,
     `SUMMARY:${icsEsc(title)}`, notes ? `DESCRIPTION:${icsEsc(notes)}` : null,
     'BEGIN:VALARM', `TRIGGER:-P${k > 1 ? (k - 1) + 'D' : ''}T15H`, 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc(title)}`, 'END:VALARM',
@@ -1487,12 +1494,12 @@ function journeyFeed(withAuto) {
   const p = S.profile, out = [], photoOf = ids => (ids || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean);
   (p.journey || []).forEach(m => out.push({ key: m.id, datum: m.datum || '', titel: m.titel || 'Moment', text: m.text || '', emoji: m.emoji || '⭐', fotos: photoOf(m.fotos), auto: false, open: () => openMoment(m) }));
   if (withAuto) {
-    if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, open: editProfile });
+    if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, o: 0, open: editProfile });
     S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
     Object.entries(S.health.u).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
     if (showImpf()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
   }
-  return out.sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
+  return out.sort((a, b) => (b.datum || '').localeCompare(a.datum || '') || ((b.o == null ? 1 : b.o) - (a.o == null ? 1 : a.o)));
 }
 function momentCard(e, p) {
   const ph = e.fotos, shown = ph.slice(0, 4), more = ph.length - shown.length, a = ageAt(p, e.datum);
@@ -3439,7 +3446,7 @@ async function buildBackup(only) {
   const photos = [];
   for (const f of await photosAll()) { if (only && (f.cid || 'main') !== only) continue; const rec = await pfileGet(f.id); photos.push({ meta: f, b64: rec ? ab2b64(rec.data) : null }); }
   const json = JSON.stringify({ app: 'luise-identitaet', version: 3, exportedAt: new Date().toISOString(), children: kids, docs, photos });
-  const nm = only ? 'Profil-' + (kidName(CH.find(c => c.id === only)) || 'Kind') : 'Luise-Sicherung';
+  const nm = only ? 'Profil-' + (kidName(CH.find(c => c.id === only)) || 'Kind') : 'MyLuiseApp-Sicherung';
   return new File([json], `${nm}-${isoToday()}.json`, { type: 'application/json' });
 }
 async function importBackup(file, asNew) {
@@ -3548,7 +3555,7 @@ function viewMore() {
       ? h('button', { class: 'btn wide', onclick: async () => {
           const f = backupFile;
           try {
-            if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], title: 'Sicherung Luises Identität' });
+            if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], title: 'Sicherung MyLuiseApp' });
             else { const u = mkUrl(f); const a = h('a', { href: u, download: f.name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => rmUrl(u), 10000); }
             ls.set('luise_lastbackup', String(Date.now())); backupFile = null; render();
           } catch (e) { if (e && e.name !== 'AbortError') toast('Sichern nicht möglich'); }
@@ -3567,7 +3574,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 12'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 13'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -3752,7 +3759,7 @@ function buildIcsEvent(t) {
   const ymd = d => `${d.getFullYear()}${pad2(d.getMonth() + 1)}${pad2(d.getDate())}`;
   const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
   const d = parseD(t.datum), now = new Date(), stamp = `${now.getUTCFullYear()}${pad2(now.getUTCMonth() + 1)}${pad2(now.getUTCDate())}T${pad2(now.getUTCHours())}${pad2(now.getUTCMinutes())}${pad2(now.getUTCSeconds())}Z`;
-  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Luise Identitaet//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:${uid()}@luise-identitaet`, `DTSTAMP:${stamp}`];
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MyLuiseApp//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:${uid()}@luise-identitaet`, `DTSTAMP:${stamp}`];
   if (t.zeit) {
     const [hh, mm] = t.zeit.split(':').map(Number), e = new Date(d.getFullYear(), d.getMonth(), d.getDate(), hh + 1, mm);
     L.push(`DTSTART:${ymd(d)}T${pad2(hh)}${pad2(mm)}00`, `DTEND:${ymd(e)}T${pad2(e.getHours())}${pad2(e.getMinutes())}00`);
@@ -4091,7 +4098,7 @@ async function buildDatasheet(sel) {
   if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
   if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
   if (y < M + 260) { cx.fillStyle = '#6b6b6b'; cx.font = `400 28px ${FONT}`; cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, y + 50); }
-  pages.forEach((pg, i) => { const x = pg.getContext('2d'); x.fillStyle = '#9a9a9a'; x.font = `400 22px ${FONT}`; x.fillText(`Stand ${fmtD(isoToday())} · Luises Identität`, M, H - 50); x.textAlign = 'right'; x.fillText(`Seite ${i + 1} von ${pages.length}`, W - M, H - 50); x.textAlign = 'left'; });
+  pages.forEach((pg, i) => { const x = pg.getContext('2d'); x.fillStyle = '#9a9a9a'; x.font = `400 22px ${FONT}`; x.fillText(`Stand ${fmtD(isoToday())} · MyLuiseApp`, M, H - 50); x.textAlign = 'right'; x.fillText(`Seite ${i + 1} von ${pages.length}`, W - M, H - 50); x.textAlign = 'left'; });
   const blobs = await Promise.all(pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.9))));
   return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
 }
@@ -4214,7 +4221,7 @@ function reviewData(per) {
     const first = before && num(before[k]) != null ? num(before[k]) : (vals.length > 1 ? num(vals[0][k]) : null);
     return { last, delta: first != null ? last - first : null };
   };
-  const feed = journeyFeed(true).filter(e => inP(e.datum)).sort((a, b) => a.datum.localeCompare(b.datum));
+  const feed = journeyFeed(true).filter(e => inP(e.datum)).sort((a, b) => a.datum.localeCompare(b.datum) || ((a.o == null ? 1 : a.o) - (b.o == null ? 1 : b.o)));
   const photos = S.photos.filter(f => inP(f.datum));
   const notes = notesAll().filter(n => inP(n.datum)), moods = {};
   notes.forEach(n => { if (n.stimmung) moods[n.stimmung] = (moods[n.stimmung] || 0) + 1; });
@@ -4302,7 +4309,7 @@ async function buildReview(per) {
   const used = new Set(cover6.map(x => x.id)), more = pickPhotosFor(d.photos.filter(x => !used.has(x.id)), 12);
   if (more.length) { section('Weitere Fotos'); await grid(more, 3, 340, 14); }
   if (!d.feed.length && !d.photos.length && !d.notes.length) { need(80); cx.fillStyle = '#6b6b6b'; cx.font = `400 30px ${FONT}`; cx.fillText('In diesem Zeitraum gibt es noch keine Einträge.', M, y + 40); y += 70; }
-  pages.forEach((pg, i) => { const c = pg.getContext('2d'); c.fillStyle = '#9a9a9a'; c.font = `400 22px ${FONT}`; c.fillText(`Luises Identität · ${per.title}`, M, H - 50); const t = `Seite ${i + 1} von ${pages.length}`; c.fillText(t, W - M - c.measureText(t).width, H - 50); });
+  pages.forEach((pg, i) => { const c = pg.getContext('2d'); c.fillStyle = '#9a9a9a'; c.font = `400 22px ${FONT}`; c.fillText(`MyLuiseApp · ${per.title}`, M, H - 50); const t = `Seite ${i + 1} von ${pages.length}`; c.fillText(t, W - M - c.measureText(t).width, H - 50); });
   const blobs = await Promise.all(pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.88))));
   return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
 }
@@ -4782,7 +4789,7 @@ function aiContext(sh) {
   if (sh.addr && p.adressen.length) L.push('Adressen: ' + p.adressen.map(a => `${a.label}: ${addrText(a)}`).join('; '));
   return L.join('\n');
 }
-const aiSystem = cfg => 'Du bist der freundliche Assistent in der privaten Eltern-App „Luises Identität“. Antworte auf Deutsch, klar und konkret, ohne unnötige Floskeln. Nutze die App-Daten unten, wenn die Frage dazu passt, und sage offen, wenn etwas dort nicht steht. Du darfst auch allgemeine Fragen beantworten (Erziehung, Entwicklung, Ideen, Organisation, Behörden). Du bist keine Ärztin und kein Arzt: Bei gesundheitlichen Sorgen, Fieber bei Babys, Verdacht auf Notfälle empfiehl den Kinderarzt, den ärztlichen Bereitschaftsdienst 116117 oder bei Gefahr den Notruf 112. Erfinde keine Daten, Fristen oder Beträge.\n\nAPP-DATEN:\n' + aiContext(cfg.share);
+const aiSystem = cfg => 'Du bist der freundliche Assistent in der privaten Eltern-App „MyLuiseApp“. Antworte auf Deutsch, klar und konkret, ohne unnötige Floskeln. Nutze die App-Daten unten, wenn die Frage dazu passt, und sage offen, wenn etwas dort nicht steht. Du darfst auch allgemeine Fragen beantworten (Erziehung, Entwicklung, Ideen, Organisation, Behörden). Du bist keine Ärztin und kein Arzt: Bei gesundheitlichen Sorgen, Fieber bei Babys, Verdacht auf Notfälle empfiehl den Kinderarzt, den ärztlichen Bereitschaftsdienst 116117 oder bei Gefahr den Notruf 112. Erfinde keine Daten, Fristen oder Beträge.\n\nAPP-DATEN:\n' + aiContext(cfg.share);
 async function aiAsk(history, onDelta, signal) {
   const key = ls.get('luise_ai_key'); if (!key) throw new Error('Es ist noch kein API-Schlüssel hinterlegt.');
   const cfg = aiCfg();
@@ -4828,7 +4835,7 @@ async function deviceEngine(onProgress) {
 async function deviceAsk(history, onDelta, signal, onProgress) {
   const eng = await deviceEngine(onProgress), cfg = aiCfg();
   const ctx = aiContext(cfg.share).slice(0, 5500);
-  const sys = 'Du bist der Assistent in der privaten Eltern-App „Luises Identität“. Antworte auf Deutsch, kurz und freundlich. Nutze die folgenden App-Daten, wenn sie zur Frage passen, und erfinde nichts. Bei Gesundheitssorgen verweise auf den Kinderarzt (116117) oder bei Gefahr auf 112.\n\nAPP-DATEN:\n' + ctx;
+  const sys = 'Du bist der Assistent in der privaten Eltern-App „MyLuiseApp“. Antworte auf Deutsch, kurz und freundlich. Nutze die folgenden App-Daten, wenn sie zur Frage passen, und erfinde nichts. Bei Gesundheitssorgen verweise auf den Kinderarzt (116117) oder bei Gefahr auf 112.\n\nAPP-DATEN:\n' + ctx;
   const chunks = await eng.chat.completions.create({ messages: [{ role: 'system', content: sys }].concat(history.slice(-6).map(m => ({ role: m.role, content: m.text }))), stream: true, temperature: 0.5, max_tokens: 700 });
   for await (const ch of chunks) {
     const d = ch.choices && ch.choices[0] && ch.choices[0].delta && ch.choices[0].delta.content;
@@ -5682,18 +5689,205 @@ function offlineCard() {
 
 Object.assign(WIDGETS, { erinnerung: { name: 'Erinnerungen', desc: 'Heute vor 1 Jahr und Monatsgeburtstag', render: wErinnerung } });
 
+/* ============ News: aktuelle Meldungen passend zum Alter ============ */
+const NEWS_KEY = 'luise_news_v1';
+const NEWS_TOPICS = [['gesundheit', 'Gesundheit'], ['entwicklung', 'Entwicklung'], ['familie', 'Familie & Geld'], ['sicherheit', 'Sicherheit']];
+const NEWS_STAGES = [
+  { id: 'neu', max: 3, label: 'Neugeborenes', q: { gesundheit: 'Neugeborenes Gesundheit Impfung', entwicklung: 'Neugeborenes Entwicklung Schlaf Stillen', familie: 'Elterngeld Neugeborenes Kindergeld', sicherheit: 'Babyprodukt Rückruf Warnung' } },
+  { id: 'baby1', max: 6, label: 'Baby (3 bis 6 Monate)', q: { gesundheit: 'Baby Gesundheit Impfung Säugling', entwicklung: 'Baby Entwicklung Schlaf Beikost', familie: 'Elterngeld Eltern Baby', sicherheit: 'Babyprodukt Rückruf Warnung' } },
+  { id: 'baby2', max: 12, label: 'Baby (6 bis 12 Monate)', q: { gesundheit: 'Baby Gesundheit Zahnen Impfung', entwicklung: 'Baby Entwicklung Beikost krabbeln', familie: 'Elterngeld Kita-Platz Eltern', sicherheit: 'Babyprodukt Rückruf Warnung' } },
+  { id: 'klein', max: 36, label: 'Kleinkind', q: { gesundheit: 'Kleinkind Gesundheit Impfung Kinderarzt', entwicklung: 'Kleinkind Entwicklung Sprache Trotzphase', familie: 'Kita-Platz Kindergeld Eltern', sicherheit: 'Kinderprodukt Spielzeug Rückruf Warnung' } },
+  { id: 'kita', max: 72, label: 'Kita- und Vorschulkind', q: { gesundheit: 'Kindergartenkind Gesundheit Kinderarzt', entwicklung: 'Vorschulkind Entwicklung Schulreife', familie: 'Kita Kindergeld Einschulung Eltern', sicherheit: 'Spielzeug Rückruf Kinder Warnung' } },
+  { id: 'schule', max: 144, label: 'Grundschulkind', q: { gesundheit: 'Schulkinder Gesundheit Kinderarzt', entwicklung: 'Grundschule Kinder Lernen Medien', familie: 'Schule Kindergeld Eltern Bildung', sicherheit: 'Kinder Sicherheit Schulweg Rückruf' } },
+  { id: 'teen', max: 1e9, label: 'Jugendliche', q: { gesundheit: 'Jugendliche Gesundheit Kinderarzt', entwicklung: 'Jugendliche Pubertät Schule Medien', familie: 'Kindergeld Ausbildung Eltern Jugendliche', sicherheit: 'Jugendliche Sicherheit Internet Rückruf' } }
+];
+function newsStage() {
+  const m = eduAgeMonths();
+  if (m == null) return Object.assign({ unknown: true }, NEWS_STAGES[3]);
+  return NEWS_STAGES.find(s => m < s.max) || NEWS_STAGES[0];
+}
+const newsQueryUrl = q => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q + ' when:30d') + '&hl=de&gl=DE&ceid=DE:de';
+const newsSafeUrl = u => { try { const x = new URL(String(u)); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch (e) { return ''; } };
+function newsSplitTitle(t, src) {
+  t = String(t || '').replace(/\s+/g, ' ').trim();
+  const i = t.lastIndexOf(' - ');
+  if (i > 3 && !src) return { t: t.slice(0, i), s: t.slice(i + 3) };
+  if (src && t.endsWith(' - ' + src)) return { t: t.slice(0, -(src.length + 3)), s: src };
+  return { t, s: src || '' };
+}
+function newsFromJson(j) {
+  if (!j || j.status !== 'ok' || !Array.isArray(j.items)) throw new Error('Antwort ohne Meldungen');
+  return j.items.map(x => {
+    const ts = x.pubDate ? Date.parse(String(x.pubDate).replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(x.pubDate) ? '' : 'Z')) : NaN;
+    const sp = newsSplitTitle(x.title, ''); return { t: sp.t, s: sp.s || (x.author || ''), u: newsSafeUrl(x.link), d: isNaN(ts) ? 0 : ts };
+  });
+}
+function newsFromXml(text) {
+  const doc = new DOMParser().parseFromString(String(text), 'text/xml');
+  if (doc.querySelector('parsererror')) throw new Error('Kein gültiger Feed');
+  const items = Array.from(doc.querySelectorAll('item'));
+  if (!items.length && !doc.querySelector('channel')) throw new Error('Kein gültiger Feed');
+  return items.map(it => {
+    const g = n => { const e = it.querySelector(n); return e ? e.textContent : ''; };
+    const sp = newsSplitTitle(g('title'), g('source').trim()), ts = Date.parse(g('pubDate'));
+    return { t: sp.t, s: sp.s, u: newsSafeUrl(g('link')), d: isNaN(ts) ? 0 : ts };
+  });
+}
+const NEWS_PROXIES = [
+  { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) },
+  { n: 'allorigins', url: f => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
+  { n: 'corsproxy', url: f => 'https://corsproxy.io/?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) }
+];
+async function newsFetchFeed(feedUrl) {
+  let lastErr = null;
+  for (const p of NEWS_PROXIES) {
+    const ac = new AbortController(), to = setTimeout(() => ac.abort(), 9000);
+    try {
+      const r = await fetch(p.url(feedUrl), { signal: ac.signal, cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const items = await p.parse(r);
+      clearTimeout(to);
+      return items;
+    } catch (e) { lastErr = e; clearTimeout(to); }
+  }
+  throw lastErr || new Error('Keine Verbindung');
+}
+const newsRead = () => { try { const c = JSON.parse(ls.get(NEWS_KEY) || 'null'); return c && typeof c === 'object' ? c : null; } catch (e) { return null; } };
+const newsWrite = c => ls.set(NEWS_KEY, JSON.stringify(c));
+let newsTopic = 'alle', newsBusy = false, newsErr = '', newsTried = false, claudeBusy = false, claudeErr = '';
+function newsMerge(byTopic) {
+  const seen = new Set(), out = [];
+  Object.entries(byTopic).forEach(([topic, items]) => items.filter(x => x.t && x.u).sort((a, b) => b.d - a.d).slice(0, 12).forEach(x => {
+    const k = x.t.toLowerCase().replace(/[^a-zäöüß0-9]/g, '').slice(0, 60);
+    if (seen.has(k)) return; seen.add(k); out.push(Object.assign({ topic }, x));
+  }));
+  return out.sort((a, b) => b.d - a.d);
+}
+async function newsLoad(force) {
+  if (newsBusy) return;
+  const st = newsStage(), c = newsRead();
+  if (!force && c && c.stage === st.id && c.items && Date.now() - c.ts < 6 * 36e5) { newsTried = true; return; }
+  newsBusy = true; newsErr = ''; newsTried = true; if (tab === 'news') render();
+  try {
+    const res = await Promise.allSettled(NEWS_TOPICS.map(([id]) => newsFetchFeed(newsQueryUrl(st.q[id]))));
+    const by = {}; let ok = 0;
+    res.forEach((r, i) => { if (r.status === 'fulfilled') { ok++; by[NEWS_TOPICS[i][0]] = r.value; } });
+    if (!ok) throw new Error((res[0].reason && res[0].reason.message) || 'Keine Verbindung');
+    const prev = newsRead() || {};
+    newsWrite({ stage: st.id, ts: Date.now(), items: newsMerge(by), claude: prev.stage === st.id ? prev.claude : undefined });
+  } catch (e) {
+    newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
+  }
+  newsBusy = false; if (tab === 'news') render();
+}
+function newsAgoTxt(ts) {
+  if (!ts) return '';
+  const m = Math.round((Date.now() - ts) / 6e4);
+  if (m < 2) return 'gerade eben';
+  if (m < 60) return `vor ${m} Min.`;
+  const hrs = Math.round(m / 60); if (hrs < 24) return `vor ${hrs} Std.`;
+  const d = Math.round(hrs / 24); if (d === 1) return 'gestern';
+  if (d < 14) return `vor ${d} Tagen`;
+  const x = new Date(ts); return fmtD(`${x.getFullYear()}-${pad2(x.getMonth() + 1)}-${pad2(x.getDate())}`);
+}
+function newsAgeText() {
+  const m = eduAgeMonths(); if (m == null) return '';
+  const w = Math.floor(lifeDays(S.profile.geburtsdatum) / 7);
+  if (m < 3) return `${Math.max(w, 0)} Wochen`;
+  if (m < 24) return `${m} Monaten`;
+  return `${Math.floor(m / 12)} Jahren`;
+}
+async function newsAskClaude() {
+  if (claudeBusy) return;
+  const key = ls.get('luise_ai_key'); if (!key) { toast('Dafür braucht es einen API-Schlüssel (Mehr, KI-Assistent).'); return; }
+  const st = newsStage(), cfg = aiCfg(), age = newsAgeText();
+  claudeBusy = true; claudeErr = ''; render();
+  try {
+    const prompt = `Suche aktuelle deutschsprachige Nachrichten der letzten drei Wochen, die für Eltern eines Kindes im Alter von ${age || 'unbekannt'} (${st.label}) in Deutschland relevant sind: Gesundheit und Vorsorge, Entwicklung, Familienleistungen und Gesetze, Produktwarnungen. Nimm nur seriöse Quellen. Antworte ausschließlich mit JSON ohne weiteren Text: {"items":[{"titel":"...","quelle":"...","url":"https://...","datum":"JJJJ-MM-TT","kurz":"ein Satz, warum das für dieses Alter wichtig ist"}]} mit höchstens 6 Einträgen.`;
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: cfg.model, max_tokens: 2500, tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 4, user_location: { type: 'approximate', country: 'DE' } }], system: 'Du lieferst geprüfte, aktuelle Eltern-Nachrichten für Deutschland. Erfinde nichts, nenne nur Meldungen, die du per Websuche gefunden hast.', messages: [{ role: 'user', content: prompt }] }) });
+    if (!res.ok) {
+      let t = ''; try { t = (await res.json()).error.message; } catch (e) {}
+      throw new Error(({ 401: 'Der API-Schlüssel wird nicht akzeptiert.', 403: 'Der Zugriff wurde verweigert.', 429: 'Zu viele Anfragen oder das Limit ist erreicht.', 529: 'Der Dienst ist gerade überlastet.' })[res.status] || ('Fehler ' + res.status + (t ? ': ' + t : '')));
+    }
+    const j = await res.json(), txt = (j.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+    const a = txt.indexOf('{'), z = txt.lastIndexOf('}'); if (a < 0 || z < a) throw new Error('Claude hat keine Liste geliefert.');
+    const items = (JSON.parse(txt.slice(a, z + 1)).items || []).map(x => ({ t: String(x.titel || '').trim(), s: String(x.quelle || '').trim(), u: newsSafeUrl(x.url), d: Date.parse(x.datum) || 0, k: String(x.kurz || '').trim() })).filter(x => x.t && x.u).slice(0, 6);
+    if (!items.length) throw new Error('Keine passenden Meldungen gefunden.');
+    const c = newsRead() || { stage: st.id, ts: 0, items: [] };
+    c.claude = { stage: st.id, ts: Date.now(), items }; newsWrite(c);
+  } catch (e) { claudeErr = e.name === 'SyntaxError' ? 'Die Antwort konnte nicht gelesen werden.' : (e.message || 'Fehler'); }
+  claudeBusy = false; if (tab === 'news') render();
+}
+function newsNextU() {
+  const b = S.profile.geburtsdatum; if (!b) return null;
+  let later = null;
+  for (const d of U_DEF) {
+    if (d[0] === 'U1' || S.health.u[d[0]]) continue;
+    const s = uStatus(d, null, b);
+    if (s === 'due') return { def: d, due: true };
+    if (s === 'later' && !later) later = { def: d, due: false, from: addDaysIso(b, d[2]) };
+  }
+  return later;
+}
+function newsItemRow(x, extra) {
+  const meta = [x.s, newsAgeTxtSafe(x.d)].filter(Boolean).join(' · ');
+  const tp = extra && NEWS_TOPICS.find(t => t[0] === x.topic);
+  return h('a', { class: 'li newsitem', href: x.u, target: '_blank', rel: 'noopener noreferrer' },
+    h('span', { class: 'li-txt' }, h('b', null, x.t), x.k ? h('small', { class: 'newsk' }, x.k) : null, h('small', null, [meta, tp && tp[1]].filter(Boolean).join(' · '))), chev());
+}
+const newsAgeTxtSafe = ts => ts ? newsAgoTxt(ts) : '';
+function viewNews() {
+  const p = S.profile, wrap = h('div', { class: 'stack' }), st = newsStage(), c = newsRead();
+  wrap.append(pageHead('News', ghostBtn(newsBusy ? 'Lädt …' : 'Aktualisieren', () => newsLoad(true))));
+  const wk = p.geburtsdatum ? curWeek(p.geburtsdatum) : 0;
+  if (wk >= 1 && wk <= 940) {
+    const info = weekInfo(wk), nu = newsNextU();
+    wrap.append(h('div', { class: 'card stack newshero', style: 'gap:6px' },
+      h('small', { class: 'mute' }, `${childName()} · ${st.label} · Lebenswoche ${wk}`),
+      h('b', null, info.title), h('p', { style: 'margin:0' }, info.text),
+      nu ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { healthSeg = 'uheft'; go('health'); } }, nu.due ? `${nu.def[0]} ist jetzt fällig (${nu.def[1]})` : `Nächste Vorsorge: ${nu.def[0]} ab ${fmtD(nu.from)}`) : null,
+      h('button', { class: 'linkbtn', type: 'button', onclick: () => go('weeks') }, 'Wochen-Begleiter öffnen')));
+  } else if (!p.geburtsdatum) {
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum ein. Dann zeigt dir die App News passend zum Alter.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
+  }
+  wrap.append(h('div', { class: 'chips' }, [['alle', 'Alle'], ...NEWS_TOPICS].map(([id, nm]) => h('button', { class: 'fchip' + (newsTopic === id ? ' on' : ''), type: 'button', onclick: () => { newsTopic = id; render(); } }, nm))));
+  const cl = c && c.claude && c.claude.stage === st.id ? c.claude : null;
+  if (cl && newsTopic === 'alle') {
+    wrap.append(sectionHead('Von Claude ausgewählt'), h('div', { class: 'card' }, cl.items.map(x => newsItemRow(x, false))), h('small', { class: 'mute' }, `Gesucht ${newsAgoTxt(cl.ts)}. Bitte Quellen selbst prüfen.`));
+  }
+  const items = c && c.stage === st.id && c.items ? c.items.filter(x => newsTopic === 'alle' || x.topic === newsTopic) : [];
+  wrap.append(sectionHead(newsTopic === 'alle' ? 'Aktuell für ' + st.label : (NEWS_TOPICS.find(t => t[0] === newsTopic) || [0, ''])[1]));
+  if ((newsBusy || !newsTried) && !items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Lade aktuelle Meldungen …')));
+  else if (items.length) {
+    wrap.append(h('div', { class: 'card' }, items.slice(0, newsTopic === 'alle' ? 30 : 20).map(x => newsItemRow(x, newsTopic === 'alle'))));
+    wrap.append(h('small', { class: 'mute' }, `Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
+  } else {
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
+  }
+  const hasKey = !!ls.get('luise_ai_key');
+  wrap.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('b', null, 'Genau für dieses Alter suchen'),
+    h('small', { class: 'mute' }, hasKey ? 'Claude sucht im Web nach aktuellen Meldungen für Eltern von ' + (newsAgeText() ? 'einem Kind mit ' + newsAgeText() : 'Kindern dieser Altersphase') + '. Das nutzt deinen API-Schlüssel und kostet wenige Cent. Es wird nur das Alter gesendet.' : 'Mit einem eigenen API-Schlüssel (Mehr, KI-Assistent, Modus „Claude“) sucht Claude persönlich passende Meldungen.'),
+    h('button', { class: 'btn wide' + (hasKey ? '' : ' ghost'), type: 'button', disabled: claudeBusy || null, onclick: newsAskClaude }, claudeBusy ? 'Claude sucht …' : 'Mit Claude suchen'),
+    claudeErr ? h('small', { style: 'color:var(--bad)' }, claudeErr) : null));
+  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Google News und werden über einen Vermittlungsdienst geladen. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Die Meldungen ersetzen keine ärztliche Beratung.'));
+  if (!newsTried && !newsBusy) setTimeout(() => newsLoad(false), 0);
+  return wrap;
+}
+
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
   { id: 'photos', label: 'Fotos', icon: ICON.photo },
   { id: 'docs', label: 'Dokumente', icon: ICON.docs },
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
+  { id: 'news', label: 'News', icon: ICON.news },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
 const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const views = {
-  home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, more: viewMore,
+  home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), search: viewSearch, chat: viewChat
@@ -5751,7 +5945,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { newsFromJson, newsFromXml, newsMerge, newsStage, newsNextU, newsQueryUrl, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>

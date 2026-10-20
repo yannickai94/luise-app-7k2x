@@ -1,4 +1,4 @@
-/* Luises Identität: Offline-Modus. Speichert die App und lädt sie bei schlechter oder fehlender Verbindung aus dem Speicher. */
+/* MyLuiseApp: Offline-Modus. Speichert die App und lädt sie bei schlechter oder fehlender Verbindung aus dem Speicher. */
 const CACHE = 'luise-offline-v1';
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./', './index.html']).catch(() => {})).then(() => self.skipWaiting()));
