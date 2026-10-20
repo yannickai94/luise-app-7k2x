@@ -427,6 +427,7 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .amt.pos{color:var(--accent);font-weight:600}.amt.neg{color:var(--bad);font-weight:600}
 .qrbox{background:#fff;border-radius:16px;padding:10px;display:grid;place-items:center;max-width:300px;width:100%;margin:0 auto;box-sizing:border-box}.qrbox svg{width:100%;height:auto;display:block}
 .sec-head .amt{color:var(--mute)}
+.memday{background:var(--accent-bg)}
 </style>
 </head>
 <body>
@@ -1165,6 +1166,7 @@ function computeAlerts() {
   const hasData = S.docs.length || S.profile.vorname;
   const lb = parseInt(ls.get('luise_lastbackup'), 10) || 0;
   if (hasData && Date.now() - lb > 60 * 864e5) a.push({ lvl: 'info', o: 3, text: 'Datensicherung empfohlen', sub: lb ? 'Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') : 'Noch keine Sicherung erstellt', tab: 'more' });
+  memAlerts().forEach(x => a.push(x)); giftAlerts().forEach(x => a.push(x));
   return a.sort((x, y) => x.o - y.o);
 }
 function editProfile() {
@@ -1394,11 +1396,13 @@ const WIDGETS = {
   kontakte: { name: 'Kontakte', desc: 'Wichtige Personen mit Anruf-Knopf', render: wKontakte },
   install: { name: 'Installations-Hinweis', desc: 'Nur im Browser sichtbar', render: wInstall }
 };
-const HOME_DEFAULT = [['hero', 2], ['clock', 2], ['quick', 2], ['week', 2], ['alerts', 2], ['stamm', 2], ['kontakte', 2], ['install', 2]].map(([id, w]) => ({ id, w }));
+const HOME_DEFAULT = [['hero', 2], ['clock', 2], ['quick', 2], ['week', 2], ['alerts', 2], ['erinnerung', 2], ['stamm', 2], ['kontakte', 2], ['install', 2]].map(([id, w]) => ({ id, w }));
 function homeLayout() {
   try {
     const l = JSON.parse(ls.get('luise_home_v2') || 'null');
-    if (Array.isArray(l)) { const out = l.filter(x => x && WIDGETS[x.id]).map(x => ({ id: x.id, w: x.w === 1 && WIDGETS[x.id].half ? 1 : 2 })); return out; }
+    if (Array.isArray(l)) { const out = l.filter(x => x && WIDGETS[x.id]).map(x => ({ id: x.id, w: x.w === 1 && WIDGETS[x.id].half ? 1 : 2 }));
+      if (!ls.get('luise_mem_v11')) { ls.set('luise_mem_v11', '1'); if (!out.some(x => x.id === 'erinnerung')) { const i = out.findIndex(x => x.id === 'alerts'); out.splice(i >= 0 ? i + 1 : Math.min(out.length, 4), 0, { id: 'erinnerung', w: 2 }); saveLayout(out); } }
+      return out; }
   } catch (e) {}
   return HOME_DEFAULT.map(x => Object.assign({}, x));
 }
@@ -3520,6 +3524,7 @@ function viewMore() {
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
   wrap.append(eduSettingCard());
+  wrap.append(offlineCard());
   const lock = getLock();
   wrap.append(sectionHead('Sperre'));
   wrap.append(h('div', { class: 'card stack' },
@@ -3562,7 +3567,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 11'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 12'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4501,7 +4506,7 @@ function openMoment(m) {
 /* ============ Widget-Vorlagen ============ */
 const WIDGET_TEMPLATES = [
   ['Alltag', 'Uhr, Schnellzugriff, Termine, Tagesnotiz und Hinweise', ['hero', 'clock', 'quick', 'termine', 'diary', 'alerts', 'week', 'kontakte']],
-  ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'bday', 'family', 'journey', 'photo', 'zodiac', 'rueckblick', 'kontakte']],
+  ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'erinnerung', 'bday', 'family', 'journey', 'photo', 'zodiac', 'rueckblick', 'kontakte']],
   ['Kompakt', 'Nur das Wichtigste', ['hero', 'clock', 'quick', 'chat']],
   ['Alles', 'Alle Widgets, nach Themen sortiert', Object.keys(WIDGETS)]
 ];
@@ -5293,7 +5298,7 @@ function editBuchung(it, b, preset) {
   const people = [...new Set([...(S.profile.familie || []).map(m => m.name), ...S.profile.kontakte.map(c => c.name)].filter(Boolean))];
   const title = isNew ? { ein: 'Geld erhalten', aus: 'Ausgabe', konto: 'Aufs Konto einzahlen' }[art] : art === 'anfang' ? 'Anfangsbestand' : b.betrag < 0 ? 'Ausgabe' : 'Geld erhalten';
   const fields = [{ key: 'betrag', label: 'Betrag (€)', required: true, inputmode: 'decimal', ph: 'z. B. 20' }, { key: 'datum', label: 'Datum', type: 'date', required: true }];
-  if (art === 'ein') fields.push({ key: 'von', label: 'Von wem', list: people, cap: 'words', ph: 'z. B. Oma' }, { key: 'grund', label: 'Anlass', list: BAR_ANLAESSE, cap: 'words', ph: 'z. B. Geburtstag' });
+  if (art === 'ein') fields.push({ key: 'von', label: 'Von wem', list: people, cap: 'words', ph: 'z. B. Oma' }, { key: 'grund', label: 'Anlass', list: BAR_ANLAESSE, cap: 'words', ph: 'z. B. Geburtstag' }, { key: 'danke', label: 'Schon bedankt', type: 'checkbox' });
   else if (art === 'aus') fields.push({ key: 'grund', label: 'Wofür', cap: 'words', ph: 'z. B. Spielzeug' });
   else if (art === 'konto' && isNew) fields.push({ key: 'ziel', label: 'Einzahlen auf', type: 'select', options: names });
   openSheet({
@@ -5304,14 +5309,14 @@ function editBuchung(it, b, preset) {
       if (amt == null || amt <= 0) { toast('Bitte einen Betrag größer als 0 eingeben'); return false; }
       const sign = art === 'ein' || art === 'anfang' ? 1 : -1, signed = Math.round(amt * sign * 100) / 100;
       if (isNew) {
-        const nb = { id: uid(), datum: v.datum, betrag: signed, art, von: v.von || '', grund: v.grund || '' };
+        const nb = { id: uid(), datum: v.datum, betrag: signed, art, von: v.von || '', grund: v.grund || '', danke: !!v.danke };
         if (art === 'konto') {
           const tg = kontoZiele[names.indexOf(v.ziel)]; if (!tg) { toast('Lege zuerst ein Konto an'); return false; }
           tg.wert = numStr(num0(tg.wert) + amt); pushVerlauf(tg, v.datum, valOf(tg));
           nb.ziel = tg.id; nb.grund = 'Einzahlung auf ' + (tg.name || 'Konto');
         }
         it.buchungen.push(nb);
-      } else Object.assign(b, { datum: v.datum, betrag: signed, von: v.von != null ? v.von : b.von, grund: v.grund != null ? v.grund : b.grund });
+      } else Object.assign(b, { datum: v.datum, betrag: signed, von: v.von != null ? v.von : b.von, grund: v.grund != null ? v.grund : b.grund, danke: v.danke != null ? !!v.danke : b.danke });
       await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
     },
     onDelete: isNew ? null : async () => { it.buchungen.splice(it.buchungen.indexOf(b), 1); await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it); }
@@ -5392,6 +5397,8 @@ function geldBody(it) {
       h('button', { class: 'btn ghost', type: 'button', onclick: () => editBuchung(it, null, 'aus') }, '− Ausgabe'),
       ziele ? h('button', { class: 'btn ghost', type: 'button', onclick: () => editBuchung(it, null, 'konto') }, 'Aufs Konto einzahlen') : null));
     if (top.length) stack.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('h2', null, 'Geschenke nach Person'), h('div', { class: 'legend' }, top.map(([n, v]) => h('span', null, h('i', { style: 'background:' + kindCol('bar') }), `${n} ${fmtEur(v)}`)))));
+    const thank = (it.buchungen || []).filter(b => b.art === 'ein' && b.von && !b.danke).sort((a, b) => b.datum.localeCompare(a.datum)).slice(0, 6);
+    if (thank.length) stack.append(h('div', { class: 'card' }, h('h2', null, 'Noch bedanken'), thank.map(b => li(async () => { b.danke = true; await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it); }, '', liTxt(b.von + (b.grund ? ' · ' + b.grund : ''), fmtD(b.datum) + ' · ' + fmtEurX(b.betrag)), h('span', { class: 'pill ghost' }, 'Bedankt ✓')))));
     const pts = barChartPts(it);
     if (pts.length >= 2) stack.append(h('div', { class: 'card' }, h('h2', null, 'Bestand im Zeitverlauf'), h('div', { html: chartSvg(pts, v => fmtEur(v)) })));
     stack.append(h('div', { class: 'card' }, h('h2', null, 'Buchungen'), bs.length ? bs.map(b => li(() => editBuchung(it, b), '', h('span', { class: 'hubico', html: ICON.coins }),
@@ -5594,6 +5601,87 @@ function viewSchool() {
 }
 
 
+/* ============ Erinnerungen: Heute vor …, Monatsgeburtstag ============ */
+function isoMonthsBack(k) {
+  const t = today0(), d = new Date(t.getFullYear(), t.getMonth() - k, 1);
+  const last = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(Math.min(t.getDate(), last))}`;
+}
+function memItems() {
+  const p = S.profile, hl = S.health, out = [];
+  const push = (datum, kind, title, sub, thumb, tab, open) => { if (datum) out.push({ datum, kind, title: title || kind, sub: sub || '', thumb, tab, open }); };
+  (p.journey || []).forEach(m => { const ph = (m.fotos || []).map(id => S.photos.find(x => x.id === id)).find(Boolean); push(m.datum, 'Moment', m.titel, (m.text || '').slice(0, 70), ph && ph.thumb, 'journey', () => openMoment(m)); });
+  notesAll().forEach(n => push(n.datum, 'Tagesnotiz', noteTitle(n), '', null, 'diary', () => editNote(n)));
+  S.photos.forEach(m => push(m.datum, 'Foto', m.titel || 'Foto', '', m.thumb, 'photos', () => openPhotoViewer(S.photos, S.photos.indexOf(m))));
+  (hl.meilensteine || []).forEach(m => push(m.datum, 'Meilenstein', m.titel, '', null, 'health', () => { healthSeg = 'entwicklung'; go('health'); }));
+  (hl.wachstum || []).forEach(w => push(w.datum, 'Messung', [w.groesse && w.groesse + ' cm', w.gewicht && w.gewicht + ' kg'].filter(Boolean).join(' · ') || 'Messung', '', null, 'health', () => { healthSeg = 'entwicklung'; go('health'); }));
+  return out;
+}
+const MEM_KS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].concat(Array.from({ length: 25 }, (_, i) => (i + 1) * 12));
+const memLabel = k => k < 12 ? 'Vor ' + plural(k, 'Monat', 'Monaten') : 'Vor ' + plural(k / 12, 'Jahr', 'Jahren');
+function memToday() {
+  const items = memItems(), out = [];
+  MEM_KS.forEach(k => { const t = isoMonthsBack(k); items.filter(x => x.datum === t).forEach(x => out.push(Object.assign({ k, label: memLabel(k) }, x))); });
+  return out;
+}
+function ageLabelMonths(n) {
+  const y = Math.floor(n / 12), m = n % 12;
+  return y === 0 ? plural(m, 'Monat', 'Monate') : m === 0 ? plural(y, 'Jahr', 'Jahre') : `${plural(y, 'Jahr', 'Jahre')} und ${plural(m, 'Monat', 'Monate')}`;
+}
+function monthBirthday() {
+  const b = S.profile.geburtsdatum; if (!b) return null;
+  const bd = parseD(b), t = today0();
+  const dom = (y, mo) => Math.min(bd.getDate(), new Date(y, mo + 1, 0).getDate());
+  let months = (t.getFullYear() - bd.getFullYear()) * 12 + t.getMonth() - bd.getMonth();
+  if (t.getDate() < dom(t.getFullYear(), t.getMonth())) months--;
+  if (months < 0) return null;
+  const todayIsIt = months > 0 && t.getDate() === dom(t.getFullYear(), t.getMonth());
+  const nextN = months + 1, nd = new Date(bd.getFullYear(), bd.getMonth() + nextN, 1), iso = `${nd.getFullYear()}-${pad2(nd.getMonth() + 1)}-${pad2(dom(nd.getFullYear(), nd.getMonth()))}`;
+  return { isToday: todayIsIt, months, nextN, nextIso: iso, nextDays: daysTo(iso) };
+}
+function wErinnerung() {
+  const mb = monthBirthday(), mem = memToday(), nm = childName();
+  if (!mem.length && !(mb && mb.isToday)) return null;
+  const rows = mem.slice(0, 4).map(x => li(x.open, '', x.thumb ? h('img', { class: 'thumb', src: x.thumb, alt: '' }) : h('span', { class: 'hubico', html: ICON.journey }), liTxt(x.title, `${x.label} · ${x.kind}`, x.sub ? h('small', null, x.sub) : null), chev()));
+  return h('div', { class: 'stack' }, sectionHead('Erinnerungen'),
+    mb && mb.isToday ? h('div', { class: 'card memday' }, h('b', null, `🎉 Heute ist ${nm} genau ${ageLabelMonths(mb.months)} alt`)) : null,
+    h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Heute gibt es keine Erinnerung zu diesem Datum.' + (mb && !mb.isToday ? ` Der nächste Monatsgeburtstag (${ageLabelMonths(mb.nextN)}) ist ${rel(mb.nextIso)}.` : ''))),
+    mem.length > 4 ? h('p', { class: 'fine' }, `Und ${mem.length - 4} weitere Erinnerungen von heute.`) : null);
+}
+function memAlerts() {
+  const out = [], mb = monthBirthday(), nm = childName();
+  if (mb && mb.isToday) out.push({ lvl: 'info', o: 2, text: `🎉 Heute ist ${nm} genau ${ageLabelMonths(mb.months)} alt`, sub: 'Monatsgeburtstag', tab: 'home' });
+  memToday().slice(0, 2).forEach(x => out.push({ lvl: 'info', o: 2, text: `${x.label}: ${x.title}`, sub: x.kind + ' vom ' + fmtD(x.datum), tab: x.tab }));
+  return out;
+}
+/* ============ Dank-Liste für Geldgeschenke ============ */
+function giftsToThank(days) {
+  const lim = days == null ? 3650 : days, out = [];
+  S.profile.invest.filter(it => kindOf(it) === 'bar').forEach(it => (it.buchungen || []).forEach(b => {
+    if (b.art === 'ein' && b.von && !b.danke && b.datum && daysTo(b.datum) >= -lim) out.push({ it, b });
+  }));
+  return out.sort((a, b) => b.b.datum.localeCompare(a.b.datum));
+}
+function giftAlerts() {
+  const g = giftsToThank(45); if (!g.length) return [];
+  const names = [...new Set(g.map(x => x.b.von))];
+  return [{ lvl: 'info', o: 3, text: 'Noch nicht bedankt: ' + names.slice(0, 3).join(', ') + (names.length > 3 ? ' …' : ''), sub: plural(g.length, 'Geldgeschenk', 'Geldgeschenke'), tab: 'invest' }];
+}
+/* ============ Offline-Nutzung ============ */
+function offlineCard() {
+  const msg = h('small', { class: 'mute' }, 'Wird geprüft …'), card = h('div', { class: 'card stack', style: 'gap:6px' }, h('b', null, 'Offline-Nutzung'), msg);
+  const set = t => { msg.textContent = t; };
+  if (!('serviceWorker' in navigator)) { set('Dieser Browser unterstützt keinen Offline-Modus. Deine Daten liegen trotzdem auf dem Gerät.'); return card; }
+  navigator.serviceWorker.getRegistration().then(reg => {
+    if (navigator.serviceWorker.controller) set('✓ Aktiv. Die App startet auch ohne Internet, zum Beispiel im Funkloch oder beim Arzt. Neue Versionen lädt sie automatisch, sobald du online bist.');
+    else if (reg && (reg.active || reg.installing || reg.waiting)) set('Wird eingerichtet. Schließe die App einmal komplett und öffne sie noch einmal, dann ist der Offline-Modus aktiv.');
+    else set('Noch nicht eingerichtet. Lade im selben GitHub-Ordner zusätzlich die Datei „sw.js“ hoch (neben index.html), öffne die App danach zweimal online.');
+  }).catch(() => set('Der Offline-Modus konnte nicht geprüft werden.'));
+  return card;
+}
+
+Object.assign(WIDGETS, { erinnerung: { name: 'Erinnerungen', desc: 'Heute vor 1 Jahr und Monatsgeburtstag', render: wErinnerung } });
+
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
@@ -5654,13 +5742,16 @@ async function boot() {
   try { db = await openDB(); }
   catch (e) { document.body.replaceChildren(h('p', { style: 'padding:24px' }, 'Der Speicher ist nicht verfügbar. Bitte prüfe, ob privates Surfen aus ist, und lade die Seite neu.')); return; }
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+  try { if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+  window.addEventListener('offline', () => toast('Offline: Deine Daten sind trotzdem da'));
+  window.addEventListener('online', () => toast('Wieder online'));
   if (getLock()) await unlockFlow();
   else if (!ls.get('luise_nolock')) await setupFlow();
   await loadState();
   render();
 }
 boot();
-window.__luise = { ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
