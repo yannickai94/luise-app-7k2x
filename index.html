@@ -390,20 +390,33 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .chat-in{position:sticky;bottom:-16px;display:flex;gap:8px;align-items:flex-end;background:var(--bg);padding:8px 0 14px;z-index:3}
 .chat-text{flex:1;resize:none;font:inherit;font-size:16px;padding:10px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-height:130px}
 .chat-send{width:44px;height:44px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);font-size:18px;cursor:pointer;flex:none}.chat-send[hidden]{display:none}
-.ftree{position:relative}
-.ft-row+.ft-row::before{display:none}
-.ft-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
-.ft-edge{fill:none;stroke:var(--line);stroke-width:2.5;transition:stroke .2s,opacity .2s,stroke-width .2s}.ft-edge.hl{stroke:var(--accent);stroke-width:4}
-.ft-label{position:relative;z-index:2;align-self:center;background:var(--card);padding:0 8px;border-radius:6px}
-.ft-node{position:relative;z-index:1;transition:transform .18s,box-shadow .18s,opacity .2s,border-color .2s}
-@media (hover:hover){.ft-node:not(.me):hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.16);border-color:var(--accent)}}
-.ft-node:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.ft-node.me{cursor:pointer}
-.ftree.has-focus .ft-node:not(.hl){opacity:.3}.ftree.has-focus .ft-edge:not(.hl){opacity:.12}
-.ft-node.hl{border-color:var(--accent)}.ft-node.sel{box-shadow:0 0 0 3px var(--accent)}
-.ft-tip{position:absolute;z-index:5;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:12px;padding:8px 12px;font-size:12px;display:none;flex-direction:column;gap:1px;max-width:230px;box-shadow:0 8px 24px rgba(0,0,0,.25)}.ft-tip.on{display:flex}
-.ft-bd{font-style:normal;font-size:10px}.dot.l{background:var(--accent)}
-.ft-detail{margin-top:6px}.ft-card{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}.ft-card-top{display:flex;gap:12px;align-items:center}.ft-card-top small{color:var(--mute);display:block}
+.ftwrap{padding:12px}
+.fam2{display:flex;flex-direction:column;gap:12px}
+.fme{display:flex;align-items:center;gap:12px;align-self:center;border:2px solid var(--accent);background:var(--accent-bg);color:var(--ink);font:inherit;border-radius:22px;padding:10px 20px 10px 12px;cursor:pointer;transition:opacity .2s,transform .18s}
+.fme .ftx b{font-size:18px}.fme .ftx small{color:var(--mute);font-size:13px}
+.ftx{display:flex;flex-direction:column;min-width:0;text-align:left;gap:1px}
+.fn{position:relative;z-index:1;display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;text-align:left;border:1px solid var(--line);border-left:4px solid var(--sidec,var(--line));background:var(--card);color:var(--ink);font:inherit;border-radius:14px;padding:8px;margin-bottom:10px;cursor:pointer;transition:transform .18s,box-shadow .18s,opacity .2s,border-color .2s}
+.fn .avatar{width:36px!important;height:36px!important;font-size:14px!important;flex:none}
+.fn .ftx b{font-size:13.5px;line-height:1.2;overflow-wrap:anywhere}.fn .ftx small{font-size:11px;color:var(--mute)}.fn .ftx i{font-style:normal;font-size:10.5px;font-weight:600;color:var(--accent)}
+.fn.gone{opacity:.7}
+.fn:focus-visible,.fme:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.fam2.has-focus .fn:not(.hl),.fam2.has-focus .fme:not(.hl){opacity:.28}.fn.hl,.fme.hl{border-color:var(--accent)}
+@media (hover:hover){.fn:hover,.fme:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.16)}}
+.fbd{position:absolute;top:-8px;right:-4px;font-size:15px}
+.fcols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fcol{min-width:0}
+.fcol.sm{--sidec:#e0719b}.fcol.sv{--sidec:#4f8fdc}
+.fhead{display:flex;align-items:center;justify-content:center;gap:6px;font-weight:700;font-size:13px;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--sidec) 18%,transparent);margin-bottom:12px}
+.fdot{width:9px;height:9px;border-radius:50%;background:var(--sidec)}
+.fspine{position:relative}.fspine::before{content:"";position:absolute;left:21px;top:4px;bottom:20px;width:3px;border-radius:3px;background:var(--sidec);opacity:.45}
+.fgen{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:0 0 6px 46px}
+.fside{margin-top:6px;padding-top:10px;border-top:1px dashed var(--line)}
+.fsec{display:flex;flex-direction:column;gap:6px}.fl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);text-align:center}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.fbracket{height:18px;margin:-6px 24% 0;border:3px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0}
+.fadd{width:100%;border:2px dashed var(--line);background:none;color:var(--mute);font:inherit;border-radius:14px;padding:16px 8px;cursor:pointer}
+.fsh-top{display:flex;align-items:center;gap:14px}.fsh-top b{font-size:20px;display:block}.fsh-top small{color:var(--mute)}
+.pbar{display:block;height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}.pbar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.macts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.modechip{margin:0}
 .mp-strip{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}.mp-th{position:relative;width:64px;height:64px}.mp-th img{width:100%;height:100%;object-fit:cover;border-radius:10px}.mp-th button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--bad);color:#fff;cursor:pointer;line-height:1}
 .pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pp-th{position:relative;border:0;padding:0;aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;background:var(--line)}.pp-th img{width:100%;height:100%;object-fit:cover;display:block}.pp-th.on{outline:4px solid var(--accent);outline-offset:-4px}.pp-th i{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;display:grid;place-items:center}
 .mm-emo{font-size:56px;text-align:center}.mm-text{white-space:pre-wrap;font-size:17px;line-height:1.5;margin:0}.mm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tl-th.big{width:100%;height:auto;aspect-ratio:1}
@@ -3580,7 +3593,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 9'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 10'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4492,102 +4505,85 @@ function famEdges(fam) {
   });
   return E;
 }
+const LINE_ROLES = { Mutter: 1, Vater: 1, Großmutter: 2, Großvater: 2, Urgroßmutter: 3, Urgroßvater: 3 };
+const SIDE_ROLES = new Set(['Tante', 'Onkel', 'Tante (angeheiratet)', 'Onkel (angeheiratet)', 'Großtante', 'Großonkel', 'Cousine', 'Cousin']);
+function famPath(fam, k) {
+  const edges = famEdges(fam), nb = {};
+  edges.forEach(([a, b]) => { (nb[a] = nb[a] || []).push(b); (nb[b] = nb[b] || []).push(a); });
+  const prev = { [k]: null }, q = [k];
+  while (q.length) { const c = q.shift(); if (c === 'me') break; (nb[c] || []).forEach(n => { if (!(n in prev)) { prev[n] = c; q.push(n); } }); }
+  if (!('me' in prev)) return [];
+  const out = []; let c = 'me'; while (c != null) { out.push(c); c = prev[c]; } return out.reverse();
+}
+function memberSheet(m, isMe) {
+  const p = S.profile, fam = p.familie || [], role = isMe ? null : famRole(m.rolle);
+  const chain = isMe ? [] : famPath(fam, m.id).map(k => k === 'me' ? (p.vorname || 'Ich') : (fam.find(x => x.id === k) || {}).name);
+  const na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
+  const back = h('div', { class: 'back' });
+  const close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); };
+  const rows = [
+    role ? kv('Verwandtschaft', role.t) : null,
+    chain.length > 1 ? kv('Verbindung', chain.join(' → ')) : null,
+    m.geb ? kv('Geboren', fmtD(m.geb) + (m.gest ? '' : ' (' + ageText(m.geb) + ')')) : null,
+    m.gest ? kv('Verstorben', fmtD(m.gest)) : null,
+    na ? kv('Nächster Geburtstag', `${fmtD(na.iso)} · wird ${na.age} · ${rel(na.iso)}`) : null,
+    m.ort ? kv('Wohnort', m.ort) : null, m.tel ? kv('Telefon', m.tel, { tel: true }) : null, m.notiz ? kv('Notiz', m.notiz) : null
+  ].filter(Boolean);
+  back.append(h('div', { class: 'sheet' },
+    h('div', { class: 'sheet-head' }, h('button', { class: 'nav-btn', type: 'button', onclick: close }, 'Schließen'), h('b', null, isMe ? (p.vorname || 'Ich') : m.name), h('span', { class: 'nav-spacer' })),
+    h('div', { class: 'sheet-body' },
+      h('div', { class: 'fsh-top' }, isMe ? avatar(p, 72) : avatar({ vorname: m.name || '?', foto: m.foto }, 72), h('div', null, h('b', null, isMe ? [p.vorname, p.nachname].filter(Boolean).join(' ') : m.name), h('small', null, isMe ? 'Das bin ich' : [m.rolle + (m.gest ? ' †' : ''), famSide(m) && role.side ? famSide(m) : ''].filter(Boolean).join(' · ')))),
+      rows.length ? h('div', { class: 'card' }, rows) : null,
+      h('div', { class: 'btn-row' }, m.tel ? h('a', { class: 'btn', href: 'tel:' + m.tel.replace(/[^\d+]/g, '') }, 'Anrufen') : null,
+        h('button', { class: 'btn ghost', type: 'button', onclick: () => { close(); if (isMe) editProfile(); else editMember(m); } }, isMe ? 'Profil bearbeiten' : 'Bearbeiten')))));
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  document.body.append(back); requestAnimationFrame(() => back.classList.add('in'));
+}
 function famTree(fam) {
-  const p = S.profile, svgNS = 'http://www.w3.org/2000/svg', nodes = {}, rowsDef = [[-3, 'Urgroßeltern'], [-2, 'Großeltern'], [-1, 'Eltern, Tanten & Onkel'], [0, 'Luise, Geschwister & Cousins']];
-  rowsDef[3][1] = (p.vorname || 'Ich') + ', Geschwister & Cousins';
-  let sel = null, hov = null;
-  const tree = h('div', { class: 'ftree' }), tip = h('div', { class: 'ft-tip', role: 'tooltip' }), detail = h('div', { class: 'ft-detail' });
-  const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('class', 'ft-svg'); svg.setAttribute('aria-hidden', 'true');
-  tree.append(svg);
-  const byId = id => id === 'me' ? { id: 'me', name: p.vorname || 'Ich', rolle: 'Das bin ich' } : fam.find(m => m.id === id);
-  const sideKey = m => { const s = famSide(m); return s === 'Mutterseite' ? 0 : s === 'Vaterseite' ? 2 : 1; };
-  const roleIdx = m => FAM_ROLES.indexOf(famRole(m.rolle));
-  const mkNode = m => {
-    const role = famRole(m.rolle), na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
-    const el = h('button', { class: 'ft-node' + (m.gest ? ' gone' : '') + (famSide(m) === 'Mutterseite' ? ' sm' : famSide(m) === 'Vaterseite' ? ' sv' : ''), type: 'button', 'aria-label': `${m.name}, ${m.rolle}${role.g < 9 ? ', ' + role.t : ''}`,
-      onpointerenter: ev => { if (ev.pointerType === 'mouse') { hov = m.id; apply(el); } }, onpointerleave: ev => { if (ev.pointerType === 'mouse') { hov = null; apply(); } },
-      onfocus: () => { hov = m.id; apply(el); }, onblur: () => { hov = null; apply(); },
-      onclick: () => { sel = sel === m.id ? null : m.id; apply(); renderDetail(); } },
-      famAv(m), h('b', null, m.name), h('small', null, m.rolle + (m.gest ? ' †' : '')), role.g < 9 ? h('i', { class: 'ft-g' }, role.g + '. Grad') : null,
-      na && daysTo(na.iso) <= 30 ? h('i', { class: 'ft-bd' }, '🎂 ' + rel(na.iso)) : null);
-    nodes[m.id] = el; return el;
-  };
-  rowsDef.forEach(([gen, label]) => {
-    let list = fam.filter(m => famRole(m.rolle).gen === gen);
-    const self = gen === 0;
-    if (!list.length && !self) return;
-    list.sort((a, b) => sideKey(a) - sideKey(b) || roleIdx(a) - roleIdx(b));
-    const els = list.map(mkNode);
-    if (self) {
-      const me = h('button', { class: 'ft-node me', type: 'button', 'aria-label': (p.vorname || 'Ich') + ', das bin ich', onclick: () => { sel = sel === 'me' ? null : 'me'; apply(); renderDetail(); },
-        onpointerenter: ev => { if (ev.pointerType === 'mouse') { hov = 'me'; apply(me); } }, onpointerleave: ev => { if (ev.pointerType === 'mouse') { hov = null; apply(); } } },
-        avatar(p, 52), h('b', null, p.vorname || 'Ich'), h('small', null, 'Das bin ich'));
-      nodes.me = me;
-      const mid = els.filter((_, i) => sideKey(list[i]) === 1), left = els.filter((_, i) => sideKey(list[i]) === 0), right = els.filter((_, i) => sideKey(list[i]) === 2);
-      tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, left, me, mid, right)));
-    } else tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, els)));
-  });
-  const other = fam.filter(m => famRole(m.rolle).gen == null);
-  if (other.length) tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Weitere'), h('div', { class: 'ft-nodes' }, other.map(mkNode))));
-  tree.append(tip);
-  const edges = famEdges(fam).filter(([a, b]) => nodes[a] && nodes[b]);
-  const par = {}, chi = {};
+  const p = S.profile, nodes = {}, edges = famEdges(fam), par = {}, chi = {};
   edges.forEach(([a, b]) => { (chi[a] = chi[a] || []).push(b); (par[b] = par[b] || []).push(a); });
   const walk = (start, map) => { const seen = new Set(), st = [start]; while (st.length) { const k = st.pop(); (map[k] || []).forEach(n => { if (!seen.has(n)) { seen.add(n); st.push(n); } }); } return seen; };
-  const lineage = k => { const s = new Set([k]); walk(k, par).forEach(x => s.add(x)); walk(k, chi).forEach(x => s.add(x)); if (k !== 'me') { const pth = pathTo(k); pth.forEach(x => s.add(x)); } return s; };
-  function pathTo(k) {
-    const prev = { [k]: null }, q = [k];
-    while (q.length) { const c = q.shift(); if (c === 'me') break; (chi[c] || []).concat(par[c] || []).forEach(n => { if (!(n in prev)) { prev[n] = c; q.push(n); } }); }
-    const out = []; let c = 'me'; if (!(c in prev)) return out; while (c != null) { out.push(c); c = prev[c]; } return out.reverse();
-  }
-  const paths = [];
-  function draw() {
-    const tb = tree.getBoundingClientRect(); if (!tb.width) return;
-    svg.setAttribute('width', tb.width); svg.setAttribute('height', tb.height); svg.replaceChildren(); paths.length = 0;
-    edges.forEach(([a, b]) => {
-      const ra = nodes[a].getBoundingClientRect(), rb = nodes[b].getBoundingClientRect();
-      const x1 = ra.left + ra.width / 2 - tb.left, y1 = ra.bottom - tb.top, x2 = rb.left + rb.width / 2 - tb.left, y2 = rb.top - tb.top, my = (y1 + y2) / 2;
-      const pa = document.createElementNS(svgNS, 'path'); pa.setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)} C${x1.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
-      pa.setAttribute('class', 'ft-edge'); pa._e = [a, b]; svg.append(pa); paths.push(pa);
-    });
-    apply();
-  }
-  function showTip(el, m) {
-    if (!m) { tip.classList.remove('on'); return; }
-    const role = m.id === 'me' ? null : famRole(m.rolle), tb = tree.getBoundingClientRect(), r = el.getBoundingClientRect();
-    tip.replaceChildren(h('b', null, m.name), h('span', null, role ? role.t : 'Das Kind'), m.geb ? h('span', null, 'geb. ' + fmtD(m.geb) + (m.gest ? ', † ' + fmtD(m.gest) : ' · ' + ageText(m.geb))) : null, m.ort ? h('span', null, m.ort) : null);
-    tip.classList.add('on');
-    const tw = tip.offsetWidth, th = tip.offsetHeight;
-    let x = r.left + r.width / 2 - tb.left - tw / 2; x = Math.max(4, Math.min(x, tb.width - tw - 4));
-    let yy = r.top - tb.top - th - 8; if (yy < 0) yy = r.bottom - tb.top + 8;
-    tip.style.left = x + 'px'; tip.style.top = yy + 'px';
-  }
-  function apply(hoverEl) {
-    const act = hov || sel, set = act ? lineage(act) : null;
-    tree.classList.toggle('has-focus', !!act);
-    Object.entries(nodes).forEach(([k, el]) => { el.classList.toggle('hl', !!set && set.has(k)); el.classList.toggle('sel', k === sel); });
-    paths.forEach(pa => pa.classList.toggle('hl', !!set && set.has(pa._e[0]) && set.has(pa._e[1])));
-    if (hov && hoverEl) showTip(hoverEl, byId(hov)); else showTip(null);
-  }
-  function renderDetail() {
-    detail.replaceChildren();
-    if (!sel) { detail.append(h('p', { class: 'mute', style: 'font-size:13px;text-align:center' }, 'Tippe auf eine Person, um die Verbindung zu sehen und Details zu öffnen.')); return; }
-    const m = byId(sel), role = sel === 'me' ? null : famRole(m.rolle), chain = pathTo(sel).map(k => byId(k).name), na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
-    detail.append(h('div', { class: 'ft-card' },
-      h('div', { class: 'ft-card-top' }, sel === 'me' ? avatar(p, 52) : famAv(m), h('div', null, h('b', null, m.name), h('small', null, sel === 'me' ? 'Das bin ich' : [m.rolle, famSide(m) && role.side ? famSide(m) : ''].filter(Boolean).join(' · ')))),
-      role ? kv('Verwandtschaft', role.t) : null,
-      chain.length > 1 ? kv('Verbindung', chain.join(' → ')) : null,
-      m.geb ? kv('Geboren', fmtD(m.geb) + (m.gest ? '' : ' (' + ageText(m.geb) + ')')) : null,
-      m.gest ? kv('Verstorben', fmtD(m.gest)) : null,
-      na ? kv('Nächster Geburtstag', `${fmtD(na.iso)} · wird ${na.age} · ${rel(na.iso)}`) : null,
-      m.ort ? kv('Wohnort', m.ort) : null, m.notiz ? kv('Notiz', m.notiz) : null,
-      h('div', { class: 'btn-row' }, m.tel ? h('a', { class: 'btn', href: 'tel:' + m.tel.replace(/[^\d+]/g, '') }, 'Anrufen') : null,
-        h('button', { class: 'btn ghost', type: 'button', onclick: () => sel === 'me' ? editProfile() : editMember(m) }, sel === 'me' ? 'Profil bearbeiten' : 'Bearbeiten'))));
-  }
-  const wrapCard = h('div', { class: 'card ftwrap' }, h('div', { class: 'ft-legend' }, h('span', null, h('i', { class: 'dot m' }), 'Mutterseite'), h('span', null, h('i', { class: 'dot v' }), 'Vaterseite'), h('span', null, h('i', { class: 'dot l' }), 'Verbindung')), tree, detail);
-  renderDetail();
-  if (typeof ResizeObserver === 'function') new ResizeObserver(() => draw()).observe(tree); else requestAnimationFrame(draw);
-  return wrapCard;
+  const lineage = k => { const s = new Set([k]); walk(k, par).forEach(x => s.add(x)); walk(k, chi).forEach(x => s.add(x)); famPath(fam, k).forEach(x => s.add(x)); return s; };
+  const root = h('div', { class: 'fam2' });
+  const setHover = k => {
+    const set = k ? lineage(k) : null;
+    root.classList.toggle('has-focus', !!k);
+    Object.entries(nodes).forEach(([id, el]) => el.classList.toggle('hl', !!set && set.has(id)));
+  };
+  const node = m => {
+    const role = famRole(m.rolle), na = m.geb && !m.gest ? nextAnnual(m.geb) : null, side = famSide(m);
+    const el = h('button', { class: 'fn' + (m.gest ? ' gone' : '') + (side === 'Mutterseite' ? ' sm' : side === 'Vaterseite' ? ' sv' : ''), type: 'button', 'data-id': m.id, 'aria-label': `${m.name}, ${m.rolle}${role.g < 9 ? ', ' + role.t : ''}`,
+      onpointerenter: ev => { if (ev.pointerType === 'mouse') setHover(m.id); }, onpointerleave: ev => { if (ev.pointerType === 'mouse') setHover(null); },
+      onfocus: () => setHover(m.id), onblur: () => setHover(null), onclick: () => memberSheet(m, false) },
+      famAv(m), h('span', { class: 'ftx' }, h('b', null, m.name), h('small', null, m.rolle + (m.gest ? ' †' : '')), role.g < 9 ? h('i', null, role.g + '. Grad') : null),
+      na && daysTo(na.iso) <= 30 ? h('span', { class: 'fbd', title: 'Geburtstag ' + rel(na.iso) }, '🎂') : null);
+    nodes[m.id] = el; return el;
+  };
+  const placed = new Set(), take = (list) => { list.forEach(m => placed.add(m.id)); return list; };
+  const ord = (a, b) => FAM_ROLES.indexOf(famRole(a.rolle)) - FAM_ROLES.indexOf(famRole(b.rolle)) || (a.name || '').localeCompare(b.name || '', 'de');
+  // Kopf: das Kind
+  const me = h('button', { class: 'fme', type: 'button', onclick: () => memberSheet({ id: 'me', name: p.vorname || 'Ich' }, true), onpointerenter: ev => { if (ev.pointerType === 'mouse') setHover('me'); }, onpointerleave: ev => { if (ev.pointerType === 'mouse') setHover(null); } },
+    avatar(p, 64), h('span', { class: 'ftx' }, h('b', null, [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Ich'), h('small', null, p.geburtsdatum ? ageText(p.geburtsdatum) : 'Das bin ich')));
+  nodes.me = me; root.append(me);
+  const sibs = take(fam.filter(m => !famSide(m) && famRole(m.rolle).gen === 0).sort(ord));
+  if (sibs.length) root.append(h('div', { class: 'fsec' }, h('small', { class: 'fl' }, 'Geschwister'), h('div', { class: 'fgrid' }, sibs.map(node))));
+  root.append(h('div', { class: 'fbracket', 'aria-hidden': 'true' }));
+  const col = (side, cls) => {
+    const inSide = fam.filter(m => famSide(m) === side);
+    const lines = [[1, 'Eltern'], [2, 'Großeltern'], [3, 'Urgroßeltern']].map(([g, label]) => [label, take(inSide.filter(m => LINE_ROLES[m.rolle] === g).sort(ord))]).filter(([, l]) => l.length);
+    const sideL = take(inSide.filter(m => SIDE_ROLES.has(m.rolle)).sort(ord));
+    const head = h('div', { class: 'fhead' }, h('span', { class: 'fdot' }), side);
+    const c = h('div', { class: 'fcol ' + cls }, head);
+    if (!lines.length && !sideL.length) c.append(h('button', { class: 'fadd', type: 'button', onclick: () => editMember(null, side === 'Mutterseite' ? { rolle: 'Mutter', seite: side } : { rolle: 'Vater', seite: side }) }, '+ ' + (side === 'Mutterseite' ? 'Mutter' : 'Vater') + ' hinzufügen'));
+    if (lines.length) { const sp = h('div', { class: 'fspine' }); lines.forEach(([label, l]) => sp.append(h('small', { class: 'fgen' }, label), ...l.map(node))); c.append(sp); }
+    if (sideL.length) c.append(h('div', { class: 'fside' }, h('small', { class: 'fgen' }, 'Tanten, Onkel & Cousins'), sideL.map(node)));
+    return c;
+  };
+  root.append(h('div', { class: 'fcols' }, col('Mutterseite', 'sm'), col('Vaterseite', 'sv')));
+  const rest = fam.filter(m => !placed.has(m.id)).sort(ord);
+  if (rest.length) root.append(h('div', { class: 'fsec' }, h('small', { class: 'fl' }, 'Weitere Personen'), h('div', { class: 'fgrid' }, rest.map(node))));
+  root.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center;margin:4px 0 0' }, 'Tippe auf eine Person für Details. Am Computer hebt der Mauszeiger die Linie hervor.'));
+  return h('div', { class: 'card ftwrap' }, root);
 }
 
 /* ============ Journey: Galerie-Auswahl und Detailansicht ============ */
@@ -4704,12 +4700,174 @@ function viewSearch() {
   return wrap;
 }
 
+/* ============ Lokaler Assistent (ohne KI-Dienst, offline, kostenlos) ============ */
+const nrm = s => String(s || '').toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+const bullets = a => a.map(x => '- ' + x).join('\n');
+function childName() { return S.profile.vorname || 'Dein Kind'; }
+function localAnswer(question) {
+  const q = nrm(question), p = S.profile, hl = S.health, sc = S.school, nm = childName(), act = [];
+  const A = (label, fn) => act.push([label, fn]);
+  const has = (...w) => w.filter(k => q.includes(k)).length;
+  let matched = true; const R = (text) => ({ text, actions: act, matched });
+  const fam = p.familie || [];
+  // Namen aus Familie oder Kontakten
+  const nameHit = (arr) => arr.find(x => (x.name || '').trim() && nrm(x.name).split(/\s+/).some(t => t.length >= 3 && new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(q)));
+  const fm = nameHit(fam), ct = nameHit(p.kontakte);
+  if (fm && !has('telefon', 'nummer', 'anrufen')) {
+    const r = famRole(fm.rolle), na = fm.geb && !fm.gest ? nextAnnual(fm.geb) : null;
+    A('Stammbuch öffnen', () => go('family'));
+    return R(`**${fm.name}** ist ${nm}s ${fm.rolle}${famSide(fm) && r.side ? ' (' + famSide(fm) + ')' : ''}.\n- Verwandtschaft: ${r.t}` + (fm.geb ? `\n- Geboren am ${fmtD(fm.geb)}${fm.gest ? ', verstorben ' + fmtD(fm.gest) : ' (' + ageText(fm.geb) + ')'}` : '') + (na ? `\n- Nächster Geburtstag: ${fmtD(na.iso)}, wird ${na.age}, ${rel(na.iso)}` : '') + (fm.ort ? `\n- Wohnort: ${fm.ort}` : '') + (fm.tel ? `\n- Telefon: ${fm.tel}` : ''));
+  }
+  if ((ct || fm) && has('telefon', 'nummer', 'anrufen', 'erreichen')) {
+    const c = ct || fm; if (c.tel) { A('Anrufen', () => { location.href = 'tel:' + c.tel.replace(/[^\d+]/g, ''); }); return R(`**${c.name}**${c.rolle ? ' (' + c.rolle + ')' : ''}: ${c.tel}`); }
+    return R(`Für ${c.name} ist keine Telefonnummer gespeichert.`);
+  }
+  const intents = [
+    ['hilfe', has('hilfe', 'was kannst', 'was kann ', 'funktion', 'befehl', 'womit')],
+    ['alter', has('wie alt', 'alter', 'geboren', 'geburtstag', 'lebenswoche', 'tage alt', 'monate alt', 'wann wird')],
+    ['wachstum', has('groesse', 'gross ', 'gewicht', 'wiegt', 'kopfumfang', 'wachstum', 'perzentil', 'schuhgroesse', 'gewachsen', 'wiegen')],
+    ['termine', has('termin', 'anstehend', 'naechste', 'kalender', 'morgen', 'wann ist', 'was steht', 'diese woche', 'bald')],
+    ['fristen', has('frist', 'faellig', 'vorsorge', 'u-untersuchung', 'u-heft', 'impf', 'stiko', 'u8', 'u7', 'u9', 'ablauf')],
+    ['meds', has('medikament', 'tablette', 'dosis', 'saft', 'arznei', 'tropfen', 'zaepfchen')],
+    ['notizen', has('notiz', 'tagebuch', 'fieber', 'temperatur', 'stimmung', 'schlaf', 'gegessen', 'heute')],
+    ['journey', has('journey', 'meilenstein', 'erster ', 'erste ', 'moment', 'erinner', 'timeline')],
+    ['familie', has('familie', 'verwandt', 'oma', 'opa', 'mama', 'papa', 'mutter', 'vater', 'tante', 'onkel', 'cousin', 'grad', 'stammbuch', 'geschwister', 'grosseltern', 'bruder', 'schwester')],
+    ['kontakt', has('telefon', 'nummer', 'anrufen', 'kontakt', 'erreichen', 'notfall')],
+    ['adresse', has('adresse', 'wohnt', 'route', 'wo ist', 'weg zu', 'anfahrt', 'navigier')],
+    ['geld', has('invest', 'geld', 'spar', 'anlage', 'vermoegen', 'etf', 'sparplan', 'rendite', 'mit 18')],
+    ['dokumente', has('dokument', 'pass ', 'ausweis', 'urkunde', 'versicherung', 'reisepass')],
+    ['spirit', has('sternzeichen', 'human design', 'tierzeichen', 'horoskop', 'mondphase', 'sternbild', 'typ ')],
+    ['woche', has('lebenswoche', 'wochen-begleiter', 'was ist normal', 'typisch', 'entwicklungsschritt', 'diese woche')],
+    ['badges', has('abzeichen', 'level', 'badge', 'auszeichnung')],
+    ['kita', has('kita', 'schule', 'abhol', 'betreuung', 'allergie')],
+    ['musik', has('lied', 'musik', 'spotify', 'playlist', 'song')],
+    ['rueckblick', has('rueckblick', 'jahresrueckblick', 'monatsrueckblick', 'pdf', 'datenblatt')],
+    ['summe', has('zusammenfassung', 'ueberblick', 'status', 'neuigkeit', 'was gibt es neues', 'alles wichtige')]
+  ].filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
+  const top = intents[0] && intents[0][0];
+  const upcoming = () => S.school.termine.map(t => ({ t, d: nextOcc(t) })).filter(x => x.d && daysTo(x.d) >= 0).sort((a, b) => (a.d + (a.t.zeit || '')).localeCompare(b.d + (b.t.zeit || '')));
+  const wl = () => hl.wachstum.filter(e => e.datum).slice().sort((a, b) => a.datum.localeCompare(b.datum));
+  switch (top) {
+    case 'hilfe': return R('Ich beantworte Fragen zu den Daten in dieser App, ganz ohne Internet und kostenlos. Zum Beispiel:\n' + bullets(['Wie alt ist ' + nm + '?', 'Was steht als Nächstes an?', 'Wie groß und schwer ist ' + nm + '?', 'Welche Impfungen und Vorsorgen sind fällig?', 'Wer ist Oma Anna und wie ist sie verwandt?', 'Wie war die Temperatur zuletzt?', 'Was habe ich in der Journey festgehalten?', 'Wie viel ist angelegt?']) + '\n\nFür freie Fragen über die App hinaus gibt es in den Einstellungen den Modus „Auf dem Gerät“ (kostenlos, einmaliger Download) oder Claude mit eigenem Schlüssel.');
+    case 'alter': {
+      const g = p.geburtsdatum; if (!g) { A('Profil bearbeiten', editProfile); return R('Das Geburtsdatum fehlt noch.'); }
+      const b = birthDateTime(), a = b && exactAge(b, new Date()), nb = nextBirthday();
+      return R(`**${nm}** ist ${a ? `${plural(a.y, 'Jahr', 'Jahre')}, ${plural(a.mo, 'Monat', 'Monate')} und ${plural(a.d, 'Tag', 'Tage')}` : ageText(g)} alt.\n- Geboren am ${fmtD(g)}${p.geburtszeit ? ' um ' + p.geburtszeit + ' Uhr' : ''}${p.geburtsort ? ' in ' + p.geburtsort : ''}\n- Das sind ${nf(lifeDays(g))} Tage, aktuell Lebenswoche ${curWeek(g)}` + (nb ? `\n- Nächster Geburtstag: ${fmtD(nb.iso)} (${nb.age}.), ${daysTo(nb.iso) === 0 ? 'heute!' : 'in ' + plural(daysTo(nb.iso), 'Tag', 'Tagen')}` : ''));
+    }
+    case 'wachstum': {
+      const w = wl(); if (!w.length) { A('Messung eintragen', () => { healthSeg = 'entwicklung'; go('health'); }); return R('Es ist noch keine Messung eingetragen.'); }
+      const sx = sexKey(), g = p.geburtsdatum, L = [];
+      [['Größe', 'groesse', 'cm', 'h'], ['Gewicht', 'gewicht', 'kg', 'w'], ['Kopfumfang', 'kopf', 'cm', 'k']].forEach(([lab, k, u, pk]) => {
+        const s = w.filter(e => num(e[k]) != null); if (!s.length) return;
+        const last = s[s.length - 1], prev = s[s.length - 2], pn = sx && g ? pctNote(sx, pk, g, w, k) : '';
+        L.push(`${lab}: **${fmtNum(num(last[k]))} ${u}** (${fmtD(last.datum)})${prev ? `, ${num(last[k]) - num(prev[k]) >= 0 ? '+' : ''}${fmtNum(num(last[k]) - num(prev[k]))} ${u} seit ${fmtD(prev.datum)}` : ''}${pn ? ', Perzentil ' + pn : ''}`);
+      });
+      if (!sx) L.push('Tipp: Mit dem Geschlecht im Profil zeige ich auch die Perzentile.');
+      A('Wachstum öffnen', () => { healthSeg = 'entwicklung'; go('health'); }); return R(L.join('\n'));
+    }
+    case 'termine': {
+      const u = upcoming().slice(0, 6); const f = autoDeadlines().slice(0, 3);
+      A('Termine öffnen', () => go('dates'));
+      if (!u.length && !f.length) return R('Aktuell steht nichts an.');
+      return R((u.length ? '**Nächste Termine**\n' + bullets(u.map(x => `${wd(x.d)}${x.t.zeit ? ', ' + x.t.zeit + ' Uhr' : ''}: ${x.t.titel}${x.t.ort ? ' (' + x.t.ort + ')' : ''}, ${rel(x.d)}`)) : 'Keine anstehenden Termine.') + (f.length ? '\n\n**Fristen**\n' + bullets(f.map(x => `${x.title}: ${x.status}`)) : ''));
+    }
+    case 'fristen': {
+      const f = autoDeadlines().slice(0, 8), imp = showImpf() ? hl.impfungen.filter(v => v.datum).sort((a, b) => b.datum.localeCompare(a.datum)) : [];
+      const us = Object.entries(hl.u).filter(([, x]) => x && x.datum);
+      A('Fristen öffnen', () => go('dates'));
+      return R((f.length ? '**Fällig oder bald**\n' + bullets(f.map(x => `${x.title}: ${x.status}`)) : 'Gerade ist nichts fällig.') + (us.length ? '\n\n**U-Untersuchungen erledigt:** ' + us.map(([c, x]) => `${c} (${fmtD(x.datum)})`).join(', ') : '') + (imp.length && has('impf') ? '\n\n**Impfungen eingetragen**\n' + bullets(imp.slice(0, 8).map(v => `${v.name}, ${fmtD(v.datum)}`)) : '') + '\n\nHinweis: Die Fristen folgen den STIKO-Empfehlungen und ersetzen nicht den Impfpass.');
+    }
+    case 'meds': {
+      const m = hl.meds; A('Medikamente öffnen', () => { healthSeg = 'medikamente'; go('health'); });
+      return R(m.length ? bullets(m.map(x => `**${x.name}**${[x.dosis, x.einnahme].filter(Boolean).length ? ': ' + [x.dosis, x.einnahme].filter(Boolean).join(', ') : ''}`)) : 'Es sind keine Medikamente eingetragen.');
+    }
+    case 'notizen': {
+      const n = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || ''))); A('Tagesnotizen öffnen', () => go('diary'));
+      if (!n.length) return R('Es gibt noch keine Tagesnotizen.');
+      const temps = n.map(x => ({ x, t: num(x.temp) })).filter(o => o.t != null), wk = temps.filter(o => daysTo(o.x.datum) >= -7);
+      let t = '**Letzte Notizen**\n' + bullets(n.slice(0, 5).map(x => `${fmtD(x.datum)}${x.zeit ? ' ' + x.zeit : ''}: ${moodEmoji(x.stimmung)} ${noteTitle(x)}${x.temp && x.text ? ' (' + x.temp + ' °C)' : ''}`));
+      if (temps.length) { const mx = wk.length ? wk.reduce((a, b) => b.t > a.t ? b : a) : null; t += `\n\nTemperatur: zuletzt **${fmtNum(temps[0].t)} °C** (${fmtD(temps[0].x.datum)})` + (mx ? `, Höchstwert der letzten 7 Tage ${fmtNum(mx.t)} °C` : ''); }
+      return R(t);
+    }
+    case 'journey': {
+      const j = journeyFeed(true).slice(0, 6); A('Journey öffnen', () => go('journey'));
+      return R(j.length ? '**Zuletzt**\n' + bullets(j.map(e => `${fmtD(e.datum)}: ${e.emoji} ${e.titel}${e.fotos.length ? ' (' + plural(e.fotos.length, 'Foto', 'Fotos') + ')' : ''}`)) : 'Die Journey ist noch leer.');
+    }
+    case 'familie': {
+      A('Stammbuch öffnen', () => go('family'));
+      if (!fam.length) return R('Im Stammbuch sind noch keine Personen eingetragen.');
+      const map = { oma: ['Großmutter'], opa: ['Großvater'], grosseltern: ['Großmutter', 'Großvater'], mama: ['Mutter'], mutter: ['Mutter'], papa: ['Vater'], vater: ['Vater'], tante: ['Tante'], onkel: ['Onkel'], cousin: ['Cousin', 'Cousine'], geschwister: ['Schwester', 'Bruder', 'Halbschwester', 'Halbbruder'], bruder: ['Bruder'], schwester: ['Schwester'] };
+      const key = Object.keys(map).find(k => q.includes(k));
+      if (key) { const l = fam.filter(m => map[key].includes(m.rolle)); if (l.length) return R(bullets(l.map(m => `**${m.name}** (${m.rolle}${famSide(m) ? ', ' + famSide(m) : ''}${m.geb ? ', geb. ' + fmtD(m.geb) : ''}, ${famRole(m.rolle).t})`))); }
+      const by = {}; fam.forEach(m => { const g = famRole(m.rolle).g; (by[g] = by[g] || []).push(m.name); });
+      return R(`Im Stammbuch stehen ${plural(fam.length, 'Person', 'Personen')}:\n` + bullets(Object.entries(by).sort((a, b) => a[0] - b[0]).map(([g, n]) => `${+g < 9 ? g + '. Grad' : 'Nicht verwandt'}: ${n.join(', ')}`)));
+    }
+    case 'kontakt': {
+      A('Kontakte öffnen', () => go('home')); const k = p.kontakte;
+      return R(k.length ? bullets(k.map(c => `**${c.name}**${c.rolle ? ' (' + c.rolle + ')' : ''}${c.tel ? ': ' + c.tel : ''}`)) : 'Es sind keine Kontakte eingetragen.');
+    }
+    case 'adresse': {
+      const a = p.adressen.filter(x => addrText(x)); A('Adressen öffnen', () => go('addr'));
+      if (!a.length) return R('Es sind keine Adressen gespeichert.');
+      const hit = a.find(x => q.includes(nrm(x.label)) || nrm(x.label).split(/\s+/).some(t => t.length > 3 && q.includes(t)));
+      if (hit) A('Route starten', () => window.open(mapsUrl(addrText(hit), 'car'), '_blank'));
+      return R(bullets(a.map(x => `**${x.label}**: ${addrText(x)}`)));
+    }
+    case 'geld': {
+      const arr = p.invest; A('Investments öffnen', () => go('invest')); if (!arr.length) return R('Es sind noch keine Anlagen erfasst.');
+      const tot = arr.reduce((s, it) => s + (eur2num(it.wert) || 0), 0), m = monthsTo18(), pj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null;
+      return R(`Aktuell angelegt: **${fmtEur(tot)}** in ${plural(arr.length, 'Anlage', 'Anlagen')}.` + (pj != null ? `\nHochrechnung bis zum 18. Geburtstag: **${fmtEur(pj)}** (aus den eingetragenen Renditen und Raten, keine Garantie).` : '') + '\n' + bullets(arr.map(it => `${it.name || 'Anlage'}: ${fmtEur(eur2num(it.wert) || 0)}`)));
+    }
+    case 'dokumente': {
+      A('Dokumente öffnen', () => go('docs')); const d = S.docs, ex = d.filter(x => x.ablauf).sort((a, b) => a.ablauf.localeCompare(b.ablauf));
+      if (!d.length) return R('Es sind noch keine Dokumente abgelegt.');
+      return R(`${plural(d.length, 'Dokument', 'Dokumente')} abgelegt.` + (ex.length ? '\n\n**Mit Ablaufdatum**\n' + bullets(ex.map(x => `${x.titel}: bis ${fmtD(x.ablauf)} (${rel(x.ablauf)})`)) : ''));
+    }
+    case 'spirit': {
+      const g = p.geburtsdatum; if (!g) return R('Das Geburtsdatum fehlt noch.');
+      const z = zodiacOf(g), c = chineseOf(g), mp = moonPhase(g), hd = hdResult(); A('Spirituelles öffnen', () => go('spirit'));
+      return R(`**Sternzeichen:** ${z.e || ''} ${z.n}\n**Tierzeichen:** ${c.emoji} ${c.animal}\n**Mondphase bei der Geburt:** ${mp.emoji} ${mp.name}` + (hd ? `\n**Human Design:** ${hd.typ}, Profil ${hd.profil}, Autorität ${hd.auth}` : '\nFür Human Design fehlt die Geburtszeit.'));
+    }
+    case 'woche': {
+      const g = p.geburtsdatum; if (!g) return R('Das Geburtsdatum fehlt noch.'); const wn = curWeek(g), wi = weekInfo(wn); A('Wochen-Begleiter öffnen', () => { weekSel = null; go('weeks'); });
+      return R(`**Lebenswoche ${wn}: ${wi.title}**\n${wi.text}`);
+    }
+    case 'badges': { const a = evalBadges(), st = badgeStats(a); A('Abzeichen öffnen', () => go('badges')); return R(`Level **${st.lvl}**: ${st.got.length} von ${a.length} Abzeichen erreicht (${st.pct} %).`); }
+    case 'kita': {
+      A('Kita / Schule öffnen', () => go('school')); const L = [];
+      if (sc.einrichtung) L.push('Einrichtung: ' + sc.einrichtung + (sc.gruppe ? ', ' + sc.gruppe : '')); if (sc.ansprechpartner) L.push('Ansprechpartner/in: ' + sc.ansprechpartner + (sc.tel ? ', ' + sc.tel : ''));
+      if ((sc.abholer || []).length) L.push('Abholberechtigt: ' + sc.abholer.map(a => a.name).join(', ')); if (hl.allergien) L.push('Allergien: ' + hl.allergien);
+      return R(L.length ? bullets(L) : 'Zu Kita, Schule und Betreuung ist noch nichts eingetragen.');
+    }
+    case 'musik': { const l = p.lieder || []; A('Lieder öffnen', () => go('songs')); return R(l.length ? bullets(l.slice(0, 8).map(x => `${x.titel}${x.interpret ? ' von ' + x.interpret : ''}`)) : 'Es sind noch keine Lieblingslieder eingetragen.'); }
+    case 'rueckblick': A('Rückblick erstellen', reviewStart); A('Datenblatt erstellen', datasheetFlow); return R('Du kannst einen Monats- oder Jahresrückblick und ein Datenblatt als PDF erstellen. Tippe auf einen Knopf unten.');
+    case 'summe': {
+      const L = [], g = p.geburtsdatum; if (g) L.push(`${nm} ist ${ageText(g)} alt (Lebenswoche ${curWeek(g)}).`);
+      const u = upcoming()[0]; if (u) L.push(`Nächster Termin: ${u.t.titel}, ${wd(u.d)}, ${rel(u.d)}.`);
+      const f = autoDeadlines()[0]; if (f) L.push(`Wichtig: ${f.title}, ${f.status}.`);
+      const w = wl().pop(); if (w) L.push(`Letzte Messung (${fmtD(w.datum)}): ${[w.groesse && w.groesse + ' cm', w.gewicht && w.gewicht + ' kg'].filter(Boolean).join(', ')}.`);
+      const n = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')))[0]; if (n) L.push(`Letzte Notiz (${fmtD(n.datum)}): ${noteTitle(n)}.`);
+      return R(L.length ? bullets(L) : 'Es sind noch kaum Daten vorhanden.');
+    }
+  }
+  // Fallback: Volltextsuche über alle Inhalte
+  const words = q.split(/[^a-z0-9]+/).filter(w => w.length >= 3 && !['wer', 'was', 'wie', 'wann', 'wo', 'der', 'die', 'das', 'und', 'ist', 'hat', 'haben', 'mit', 'von', 'fuer', 'ein', 'eine', 'mir', 'mein', 'meine', 'sind', 'gibt', 'bitte', 'kannst', 'zeig', 'zeige', 'sag', 'sage'].includes(w));
+  if (words.length) {
+    const hits = searchItems().filter(it => it.typ !== 'Seiten' && words.some(w => it.text.includes(w))).slice(0, 6);
+    if (hits.length) { matched = true; hits.slice(0, 3).forEach(it => A(it.title.slice(0, 22), it.open)); return R('Dazu habe ich diese Einträge gefunden:\n' + bullets(hits.map(it => `**${it.title}** (${it.typ})${it.sub ? ': ' + it.sub : ''}`))); }
+  }
+  matched = false;
+  return R('Dazu habe ich in den Daten der App nichts gefunden. Probiere es mit Stichworten wie „Termine“, „Größe“, „Impfungen“, „Familie“ oder „Notizen“. Für freie Fragen, die nicht in der App stehen, kannst du in den Einstellungen den Modus „Auf dem Gerät“ aktivieren (kostenlos).');
+}
+
 /* ============ KI-Assistent ============ */
 const AI_MODELS = ['claude-sonnet-5-5', 'claude-haiku-5-5', 'claude-opus-5-5'];
 const AI_SHARE = [['health', 'Gesundheit: Wachstum, U-Heft, Impfungen, Medikamente, Meilensteine, Betreuungs-Infos'], ['family', 'Familie und Kontakte: Namen, Beziehung, Geburtstage (ohne Telefonnummern)'], ['journey', 'Journey und Tagesnotizen'], ['dates', 'Termine und Fristen'], ['finance', 'Investments und Geldanlagen'], ['addr', 'Adressen']];
+const AI_MODES = [['lokal', 'Lokal: kostenlos, offline, beantwortet Fragen zu den App-Daten'], ['geraet', 'Auf dem Gerät: kostenlos, freie Fragen, einmaliger Download'], ['claude', 'Claude: eigener API-Schlüssel, kostenpflichtig']];
+const AI_SIZES = [['klein', 'Klein, ca. 0,4 GB, schneller'], ['mittel', 'Mittel, ca. 1 GB, schlauer']];
 const aiCfg = () => {
   let c = {}; try { c = JSON.parse(ls.get('luise_ai_cfg') || '{}') || {}; } catch (e) {}
-  return { model: AI_MODELS.includes(c.model) ? c.model : AI_MODELS[0], share: Object.assign({ health: true, family: true, journey: true, dates: true, finance: false, addr: false }, c.share || {}) };
+  return { mode: AI_MODES.some(m => m[0] === c.mode) ? c.mode : 'lokal', size: c.size === 'mittel' ? 'mittel' : 'klein', model: AI_MODELS.includes(c.model) ? c.model : AI_MODELS[0], share: Object.assign({ health: true, family: true, journey: true, dates: true, finance: false, addr: false }, c.share || {}) };
 };
 const SENS_KEY = /steuer|versnr|iban|konto|passwort|pin|tel$|^tel/i;
 const kvTxt = o => Object.entries(o || {}).filter(([k, v]) => !SKIP_KEYS.test(k) && !SENS_KEY.test(k) && (typeof v === 'string' || typeof v === 'number') && String(v) !== '' && !/^data:/.test(String(v))).map(([k, v]) => k + ': ' + v).join('; ');
@@ -4775,26 +4933,55 @@ async function aiAsk(history, onDelta, signal) {
 }
 const chatKey = () => 'luise_chat' + (CID === 'main' ? '' : '@' + CID);
 const chatLoad = () => { try { const a = JSON.parse(ls.get(chatKey()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
-const chatSave = m => ls.set(chatKey(), JSON.stringify(m.slice(-40)));
-let chatPrefill = null, chatBusy = null;
+const chatSave = m => ls.set(chatKey(), JSON.stringify(m.slice(-40).map(x => ({ role: x.role, text: x.text, err: x.err ? 1 : undefined, local: x.local ? 1 : undefined }))));
+let chatPrefill = null, chatBusy = null, devEngine = null;
+const modeLabel = m => (AI_MODES.find(x => x[0] === m) || AI_MODES[0])[1];
+async function deviceEngine(onProgress) {
+  if (devEngine) return devEngine;
+  if (!navigator.gpu) throw new Error('Dieses Gerät oder dieser Browser unterstützt WebGPU nicht. Auf dem iPhone braucht der Modus iOS 26 oder neuer.');
+  let webllm;
+  try { webllm = await import('https://esm.run/@mlc-ai/web-llm@0.2.79'); } catch (e) { throw new Error('Das Modell-Paket konnte nicht geladen werden. Beim ersten Mal braucht der Modus Internet.'); }
+  const cfg = aiCfg(), list = ((webllm.prebuiltAppConfig && webllm.prebuiltAppConfig.model_list) || []).map(m => m.model_id);
+  const pref = cfg.size === 'mittel' ? [/Qwen2\.5-1\.5B-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/, /Qwen2\.5-0\.5B-Instruct-q4f16_1/] : [/Qwen2\.5-0\.5B-Instruct-q4f16_1/, /SmolLM2-360M-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/];
+  const id = pref.map(rx => list.find(x => rx.test(x))).find(Boolean);
+  if (!id) throw new Error('In diesem Paket gibt es kein passendes kleines Modell.');
+  devEngine = await webllm.CreateMLCEngine(id, { initProgressCallback: r => onProgress(r.progress || 0, r.text || '') });
+  ls.set('luise_ai_dev_ready', id);
+  return devEngine;
+}
+async function deviceAsk(history, onDelta, signal, onProgress) {
+  const eng = await deviceEngine(onProgress), cfg = aiCfg();
+  const ctx = aiContext(cfg.share).slice(0, 5500);
+  const sys = 'Du bist der Assistent in der privaten Eltern-App „Luises Identität“. Antworte auf Deutsch, kurz und freundlich. Nutze die folgenden App-Daten, wenn sie zur Frage passen, und erfinde nichts. Bei Gesundheitssorgen verweise auf den Kinderarzt (116117) oder bei Gefahr auf 112.\n\nAPP-DATEN:\n' + ctx;
+  const chunks = await eng.chat.completions.create({ messages: [{ role: 'system', content: sys }].concat(history.slice(-6).map(m => ({ role: m.role, content: m.text }))), stream: true, temperature: 0.5, max_tokens: 700 });
+  for await (const ch of chunks) {
+    const d = ch.choices && ch.choices[0] && ch.choices[0].delta && ch.choices[0].delta.content;
+    if (d) onDelta(d);
+    if (signal && signal.aborted) { try { eng.interruptGenerate(); } catch (e) {} break; }
+  }
+}
 function aiSettings() {
-  const cfg = aiCfg(), has = !!ls.get('luise_ai_key'), vals = { model: cfg.model, key: '' };
+  const cfg = aiCfg(), has = !!ls.get('luise_ai_key'), vals = { mode: modeLabel(cfg.mode), size: AI_SIZES.find(x => x[0] === cfg.size)[1], model: cfg.model, key: '' };
   AI_SHARE.forEach(([k]) => vals['sh_' + k] = !!cfg.share[k]);
-  openSheet({ title: 'KI-Assistent einrichten', saveLabel: 'Sichern', values: vals, deleteLabel: 'Schlüssel entfernen',
+  openSheet({ title: 'Assistent einrichten', saveLabel: 'Sichern', values: vals, deleteLabel: 'Schlüssel entfernen',
     fields: [
-      { key: 'key', label: has ? 'Neuer API-Schlüssel (leer lassen = behalten)' : 'API-Schlüssel von Anthropic', type: 'password', ph: 'sk-ant-…', hint: 'Du erstellst ihn auf console.anthropic.com unter „API Keys“. Er wird nur auf diesem iPhone gespeichert, nicht in Sicherungen. Die Nutzung kostet pro Frage ein paar Cent.' },
-      { key: 'model', label: 'Modell', type: 'select', options: AI_MODELS, hint: 'Sonnet: ausgewogen. Haiku: schnell und günstig. Opus: am gründlichsten.' },
+      { key: 'mode', label: 'Modus', type: 'select', options: AI_MODES.map(m => m[1]), hint: 'Lokal ist sofort bereit und kostet nichts. „Auf dem Gerät“ lädt einmalig ein kleines Sprachmodell (WLAN empfohlen) und läuft danach ohne Internet. Die Daten verlassen das iPhone in beiden Modi nicht.' },
+      { key: 'size', label: 'Modellgröße (nur „Auf dem Gerät“)', type: 'select', options: AI_SIZES.map(m => m[1]), hint: 'Starte mit „Klein“. Große Modelle können Safari auf dem iPhone zum Neuladen bringen.' },
+      { key: 'key', label: has ? 'Claude: neuer API-Schlüssel (leer = behalten)' : 'Claude: API-Schlüssel (nur für den Modus Claude)', type: 'password', ph: 'sk-ant-…', hint: 'Optional und kostenpflichtig. Erstellt auf console.anthropic.com. Bleibt nur auf diesem iPhone, nicht in Sicherungen.' },
+      { key: 'model', label: 'Claude-Modell', type: 'select', options: AI_MODELS },
       ...AI_SHARE.map(([k, l]) => ({ key: 'sh_' + k, label: l, type: 'checkbox' })),
-      { key: 'note', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Beim Senden einer Frage werden die angehakten Daten an Anthropic übertragen. Steuer-ID, Versichertennummer, Kontodaten und Telefonnummern werden nie gesendet.'), }
+      { key: 'note', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Die Häkchen gelten für „Auf dem Gerät“ und Claude. Beim Modus Claude werden die gewählten Daten an Anthropic übertragen. Steuer-ID, Versichertennummer, Kontodaten und Telefonnummern werden nie an ein Modell gesendet.') }
     ],
     onSave: async v => {
       if (v.key) ls.set('luise_ai_key', v.key.trim());
       const share = {}; AI_SHARE.forEach(([k]) => share[k] = !!v['sh_' + k]);
-      ls.set('luise_ai_cfg', JSON.stringify({ model: v.model, share })); render();
+      const mode = (AI_MODES.find(m => m[1] === v.mode) || AI_MODES[0])[0], size = (AI_SIZES.find(m => m[1] === v.size) || AI_SIZES[0])[0];
+      if (mode !== aiCfg().mode || size !== aiCfg().size) devEngine = null;
+      ls.set('luise_ai_cfg', JSON.stringify({ mode, size, model: v.model, share })); render();
     },
     onDelete: has ? async () => { ls.del('luise_ai_key'); render(); } : null });
 }
-const AI_SUGGEST = ['Was steht bei uns als Nächstes an?', 'Fasse Luises Entwicklung der letzten Monate zusammen.', 'Was ist in dieser Lebenswoche typisch?', 'Ideen für den nächsten Geburtstag', 'Wie bereite ich Luise auf die Kita vor?'];
+const AI_SUGGEST = ['Was steht bei uns als Nächstes an?', 'Wie groß und schwer ist sie zuletzt?', 'Welche Vorsorgen und Impfungen sind fällig?', 'Wie war die Temperatur zuletzt?', 'Gib mir einen Überblick.'];
 function mdNodes(text) {
   const frag = [], inl = s => { const out = []; s.split(/(\*\*[^*]+\*\*)/).forEach(t => { if (/^\*\*[^*]+\*\*$/.test(t)) out.push(h('strong', null, t.slice(2, -2))); else if (t) out.push(t); }); return out; };
   let list = null;
@@ -4806,34 +4993,40 @@ function mdNodes(text) {
   return frag;
 }
 function viewChat() {
-  const wrap = h('div', { class: 'stack chat' }), has = !!ls.get('luise_ai_key');
+  const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg(), hasKey = !!ls.get('luise_ai_key');
   wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'));
-  wrap.append(pageHead('KI-Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
-  if (!has) {
-    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'Fragen zu Luises Daten und darüber hinaus'),
-      h('p', { class: 'mute' }, 'Der Assistent kennt auf Wunsch Wachstum, Termine, Journey, Familie und mehr. Er kann aber auch allgemeine Fragen beantworten. Dafür braucht er einen eigenen API-Schlüssel von Anthropic. Der Schlüssel bleibt nur auf diesem iPhone.'),
-      h('button', { class: 'btn wide', onclick: aiSettings }, 'Schlüssel eingeben')));
-    return wrap;
-  }
+  wrap.append(pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
+  wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : cfg.mode === 'geraet' ? 'Auf dem Gerät · kostenlos' : 'Claude · eigener Schlüssel')));
   let msgs = chatLoad();
   const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
   const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden' }, '➤'), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
-  const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') }, m.role === 'user' ? m.text : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…')));
+  const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') },
+    m.role === 'user' ? m.text : (m.progress != null ? h('span', null, 'Modell wird geladen … ' + Math.round(m.progress * 100) + ' %', h('span', { class: 'pbar' }, h('i', { style: 'width:' + Math.round(m.progress * 100) + '%' }))) : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…'))),
+    m.actions && m.actions.length ? h('div', { class: 'macts' }, m.actions.map(([l, f]) => h('button', { class: 'fchip', type: 'button', onclick: f }, l))) : null);
   const scroll = () => { const v = $('#view'); v.scrollTop = v.scrollHeight; };
   const draw = () => { list.replaceChildren(...msgs.map(bubble)); sug.style.display = msgs.length ? 'none' : ''; };
   AI_SUGGEST.forEach(q => sug.append(h('button', { class: 'fchip', type: 'button', onclick: () => ask(q) }, q)));
   async function ask(q) {
     q = (q || '').trim(); if (!q || chatBusy) return;
     inp.value = ''; inp.style.height = '';
-    msgs.push({ role: 'user', text: q }); const a = { role: 'assistant', text: '' }; msgs.push(a); draw(); scroll();
+    const mode = aiCfg().mode;
+    msgs.push({ role: 'user', text: q }); const a = { role: 'assistant', text: '' }; msgs.push(a);
+    const redraw = () => { const nb = bubble(a); if (list.lastChild) list.lastChild.replaceWith(nb); };
+    draw(); scroll();
+    const local = localAnswer(q);
+    if (mode === 'lokal' || (mode === 'geraet' && local.matched)) { a.text = local.text; a.actions = local.actions; a.local = true; msgs[msgs.length - 2].local = true; chatSave(msgs.filter(m => m.text)); draw(); scroll(); return; }
+    if (mode === 'claude' && !hasKey) { a.err = true; a.text = 'Für den Modus Claude fehlt der API-Schlüssel. Tippe oben auf „Einstellungen“.'; draw(); return; }
     const ctl = new AbortController(); chatBusy = ctl; send.hidden = true; stop.hidden = false; stop.onclick = () => ctl.abort();
-    const abubble = () => list.lastChild;
+    const hist = msgs.slice(0, -1).filter(m => !m.err && !m.local && m.text);
     try {
-      await aiAsk(msgs.slice(0, -1).filter(m => !m.err).slice(-20), t => { a.text += t; abubble().replaceChildren(...mdNodes(a.text)); scroll(); }, ctl.signal);
-      if (!a.text) a.text = '(Keine Antwort erhalten.)';
+      const onDelta = t => { a.progress = null; a.text += t; redraw(); scroll(); };
+      if (mode === 'geraet') await deviceAsk(hist, onDelta, ctl.signal, pr => { a.progress = pr; redraw(); });
+      else await aiAsk(hist.slice(-20), onDelta, ctl.signal);
+      a.progress = null; if (!a.text) a.text = '(Keine Antwort erhalten.)';
     } catch (e) {
+      a.progress = null;
       if (e.name === 'AbortError') { if (!a.text) msgs.pop(); }
-      else { a.err = true; a.text = (a.text ? a.text + '\n\n' : '') + (e.message === 'Failed to fetch' ? 'Keine Verbindung. Bitte Internet prüfen.' : e.message); }
+      else { a.err = true; a.text = (a.text ? a.text + '\n\n' : '') + (e.message === 'Failed to fetch' ? 'Keine Verbindung. Bitte Internet prüfen.' : e.message); if (mode === 'geraet') { a.text += '\n\nIch antworte stattdessen mit dem lokalen Assistenten:'; a.actions = local.actions; msgs.push({ role: 'assistant', text: local.text, actions: local.actions, local: true }); } }
     }
     chatBusy = null; send.hidden = false; stop.hidden = true; chatSave(msgs.filter(m => m.text)); draw(); scroll();
   }
@@ -4843,16 +5036,16 @@ function viewChat() {
   draw();
   wrap.append(list, sug, h('div', { class: 'chat-in' }, inp, send, stop));
   if (msgs.length) wrap.append(h('button', { class: 'linkbtn', onclick: () => { if (confirm('Den Chatverlauf löschen?')) { ls.del(chatKey()); render(); } } }, 'Verlauf löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, 'KI-Antworten können Fehler enthalten. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
+  wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, cfg.mode === 'lokal' ? 'Der lokale Assistent liest nur die Daten dieser App. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.' : 'KI-Antworten können Fehler enthalten. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
   if (chatPrefill) { const q = chatPrefill; chatPrefill = null; setTimeout(() => ask(q), 120); }
   setTimeout(scroll, 60);
   return wrap;
 }
 function wChat() {
-  const has = !!ls.get('luise_ai_key');
-  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'KI-Assistent'), ghostBtn(has ? 'Chat öffnen' : 'Einrichten', () => go('chat'))),
-    h('p', { class: 'mute' }, has ? 'Frag zu Luises Daten oder allgemein:' : 'Fragen zu Luises Daten und darüber hinaus. Mit eigenem API-Schlüssel.'),
-    has ? h('div', { class: 'chips' }, AI_SUGGEST.slice(0, 3).map(q => h('button', { class: 'fchip', type: 'button', onclick: () => { chatPrefill = q; go('chat'); } }, q))) : null);
+  const cfg = aiCfg();
+  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'Assistent'), ghostBtn('Chat öffnen', () => go('chat'))),
+    h('p', { class: 'mute' }, 'Frag zu Luises Daten, kostenlos und offline:'),
+    h('div', { class: 'chips' }, AI_SUGGEST.slice(0, 3).map(q => h('button', { class: 'fchip', type: 'button', onclick: () => { chatPrefill = q; go('chat'); } }, q))));
 }
 
 
