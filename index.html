@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="17">
+<meta name="app-version" content="18">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -694,6 +694,130 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 .hubtile.wide{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:14px}
 .hubtile.wide .tx{display:flex;flex-direction:column;gap:2px}
 .hubtile.wide .ico{flex:none}
+
+/* ===== v18: Gesundheit & Wachstum ===== */
+.healthpage .tile.hot .ico{background:#fde3df;color:#d0453a}
+:root[data-dark] .healthpage .tile.hot .ico{background:#3e1f1c;color:#ff8f84}
+.healthpage .tile.hq{min-height:86px;justify-content:space-between}
+.hdoc{position:relative;overflow:hidden;border-radius:24px;padding:18px;color:#fff;background:linear-gradient(135deg,var(--accent) 0%,color-mix(in srgb,var(--accent) 55%,#7b5cff) 100%);box-shadow:0 14px 34px -10px color-mix(in srgb,var(--accent) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+.hdoc::before{content:"";position:absolute;right:-40px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);pointer-events:none}
+.hdoc-top{display:flex;gap:14px;align-items:center;position:relative}
+.hdoc-ico{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);flex:none}
+.hdoc-ico svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:1.8}
+.hdoc-tx{min-width:0;display:flex;flex-direction:column;gap:2px}
+.hdoc-tx small{opacity:.85;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.hdoc-tx b{font-size:19px;line-height:1.2}
+.hdoc-sub,.hdoc-hrs{font-size:14px;opacity:.92}
+.hdoc-hrs{margin:10px 0 0;position:relative}
+.hdoc-act{display:flex;gap:8px;margin-top:14px;position:relative;flex-wrap:wrap}
+.hbtn{flex:1;min-width:84px;text-align:center;text-decoration:none;font:inherit;font-weight:700;font-size:15px;padding:11px 14px;border-radius:14px;cursor:pointer;color:var(--ink);background:color-mix(in srgb,var(--card) 70%,transparent);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.hdoc .hbtn{color:#fff;background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.45)}
+.hdoc .hbtn.main{background:#fff;color:var(--accent);border-color:#fff}
+.hbtn.danger{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+.hvor{border-radius:20px}
+.hvor.due{border-color:color-mix(in srgb,#e8a43a 70%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,#e8a43a 18%,transparent),var(--shadow)}
+.hvor-top{display:flex;gap:12px;align-items:center}
+.hvor-badge{min-width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-weight:800;background:var(--accent-bg);color:var(--accent)}
+.hvor-top b{display:block;font-size:16px}
+.hvor.ok{text-align:center}
+.hampel{padding:6px 14px 12px}
+.hamp{border-bottom:1px solid var(--line)}
+.hamp:last-of-type{border-bottom:0}
+.hamp-head{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;color:var(--ink);font:inherit;padding:12px 0;cursor:pointer;text-align:left}
+.hamp-head b{flex:1;font-size:15.5px}
+.hamp-dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:17px;flex:none}
+.hamp.red .hamp-dot{background:#fde3df}.hamp.orange .hamp-dot{background:#fdeccf}.hamp.green .hamp-dot{background:#dff3e5}
+:root[data-dark] .hamp.red .hamp-dot{background:#4a2420}:root[data-dark] .hamp.orange .hamp-dot{background:#4a3818}:root[data-dark] .hamp.green .hamp-dot{background:#1d3a28}
+.hamp-chev{transition:transform .2s;color:var(--mute);font-size:22px}
+.hamp.open .hamp-chev{transform:rotate(90deg)}
+.hamp-body{display:none;padding:0 0 10px 46px}
+.hamp.open .hamp-body{display:block}
+.hamp-body ul{margin:0;padding-left:18px;color:var(--ink);font-size:14.5px;line-height:1.5}
+.hamp-act{display:flex;gap:8px;margin-top:6px}
+.hrecchips{padding-bottom:2px}
+.hrecs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hrec{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px;border-radius:20px;border:1px solid rgba(255,255,255,.5);background:color-mix(in srgb,var(--card) 62%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+:root[data-dark] .hrec{border-color:rgba(255,255,255,.12)}
+.hrec:active{transform:scale(.97)}
+@media (hover:hover){.hrec:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px color-mix(in srgb,var(--accent) 50%,transparent)}}
+.hrec-e{font-size:28px;line-height:1}
+.hrec b{font-size:15px}
+.hrec small{color:var(--mute);font-size:12.5px;line-height:1.3}
+.hrec-more{margin-top:auto;color:var(--accent);font-weight:700;font-size:13px;padding-top:6px}
+.hrecbig{font-size:46px;text-align:center}
+.hrecdet h2{text-align:center;margin:4px 0 0}.hrecdet>p{text-align:center;margin:0}
+.hrecul{margin:8px 0 0;padding-left:20px;line-height:1.55;font-size:15.5px}
+.hrecul li{margin-bottom:6px}
+.hfq{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.hfq:last-of-type{border-bottom:0}
+.hfq-chk{width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);background:none;color:#fff;font-weight:800;cursor:pointer;flex:none;display:grid;place-items:center;padding:0}
+.hfq.done .hfq-chk{background:var(--accent)}
+.hfq-t{flex:1;font-size:15.5px;line-height:1.35}
+.hfq.done .hfq-t{text-decoration:line-through;color:var(--mute)}
+.hfq-x{background:none;border:0;color:var(--mute);font-size:16px;cursor:pointer;padding:6px}
+/* Wachstum */
+.gsum{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.gsum::-webkit-scrollbar{display:none}
+.gs{flex:1 0 118px;display:flex;flex-direction:column;gap:3px;text-align:left;padding:12px 14px;border-radius:18px;border:1px solid rgba(255,255,255,.5);background:color-mix(in srgb,var(--card) 62%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+:root[data-dark] .gs{border-color:rgba(255,255,255,.12)}
+.gs small{color:var(--mute);font-size:12.5px}
+.gs b{font-size:21px;font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif}
+.gs.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 35%,transparent),var(--shadow)}
+@media (hover:hover){.gs:hover{transform:translateY(-3px)}}
+.gs-sub{display:flex;gap:6px;align-items:center;min-height:18px}
+.gs-sub em{font-style:normal;font-size:12px;color:var(--mute)}
+.gpc{font-style:normal;font-weight:800;font-size:12px;padding:3px 9px;border-radius:999px;background:var(--accent-bg);color:var(--accent);white-space:nowrap}
+.gcard{padding-bottom:12px}
+.gcard-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gcard-head h2{margin:0}
+.gctl{margin:10px 0 2px}
+.gchart{position:relative;margin-top:6px}
+.chart.gi{touch-action:pan-y;cursor:crosshair;overflow:visible;user-select:none;-webkit-user-select:none}
+.chart.gi .dt{cursor:pointer;transition:r .15s}
+.chart.gi .dt.sel{fill:var(--accent);filter:drop-shadow(0 0 6px var(--accent))}
+.chart.gi .ln{filter:drop-shadow(0 3px 5px color-mix(in srgb,var(--accent) 45%,transparent))}
+.chart.gi .ln.draw{stroke-dasharray:1;stroke-dashoffset:1;animation:gdraw 1s .05s ease-out forwards}
+@keyframes gdraw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.chart.gi .ln.draw{animation:none;stroke-dashoffset:0}}
+.chart.gi .xl{stroke:var(--accent);stroke-width:1;stroke-dasharray:3 3;opacity:.8}
+.chart.gi .xc{fill:var(--card);stroke:var(--mute);stroke-width:1.5}
+.chart.gi .xc.c50{stroke:var(--ink)}
+.chart.gi .xc.cy{fill:var(--accent);stroke:#fff;stroke-width:2}
+.chart.gi .xh{transition:opacity .12s;pointer-events:none}
+.chart.gi .mk line{stroke:#e8a43a;stroke-width:1.5}
+.chart.gi .mk text{fill:#e8a43a;font-size:11px}
+.chart.gi text.pl{font-size:9px}
+.gtip{position:absolute;width:max-content;max-width:60%;padding:9px 12px;border-radius:14px;font-size:12.5px;line-height:1.35;color:var(--ink);background:color-mix(in srgb,var(--card) 80%,transparent);border:1px solid rgba(255,255,255,.55);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 12px 30px -10px rgba(0,0,0,.35);pointer-events:none;opacity:0;transition:opacity .12s;z-index:3}
+.gtip.on{opacity:1}
+.gtip.tr{margin-left:12px}
+.gtip.tl{top:4px;transform:translateX(-100%);margin-left:-12px}
+:root[data-dark] .gtip{border-color:rgba(255,255,255,.15)}
+.gtip small{color:var(--mute);display:block}
+.gt-main{font-size:18px;font-weight:800}
+.gt-main i{font-style:normal;font-size:12px;background:var(--accent-bg);color:var(--accent);padding:2px 8px;border-radius:999px;margin-left:4px}
+.gt-p span{white-space:nowrap}
+.gt-p{display:flex;gap:2px 10px;flex-wrap:wrap;margin-top:4px;color:var(--mute)}
+.gt-p b{color:var(--ink)}
+.gt-ms{margin-top:4px;color:#b97a00;font-weight:700}
+.gread{min-height:38px;margin-top:8px;padding:8px 12px;border-radius:12px;font-size:13.5px;color:var(--mute);background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.gread b{color:var(--ink)}
+.gread span{margin-right:8px}
+.gdet-top{display:flex;gap:12px;align-items:center}
+.gdet-top>div{flex:1}
+.gdet-e{font-size:30px}
+.gdet-v{font-size:24px;display:block;font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif}
+.gdet-t{margin:0;font-size:14.5px;line-height:1.5}
+.gempty{text-align:center}.gempty-e{font-size:52px}
+.gmiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gm{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:12px 14px;border-radius:18px;border:1px solid rgba(255,255,255,.5);background:color-mix(in srgb,var(--card) 62%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);color:var(--ink);font:inherit;cursor:pointer;box-shadow:var(--shadow);transition:transform .15s}
+:root[data-dark] .gm{border-color:rgba(255,255,255,.12)}
+.gm small{color:var(--mute);font-size:12px}
+.gm-e{font-size:20px}
+.gm-note{display:block;max-height:0;overflow:hidden;opacity:0;font-size:12.5px;color:var(--ink);transition:max-height .25s,opacity .25s,margin .25s}
+.gm:focus .gm-note,.gm:active .gm-note{max-height:120px;opacity:1;margin-top:6px}
+@media (hover:hover){.gm:hover{transform:translateY(-3px)}.gm:hover .gm-note{max-height:120px;opacity:1;margin-top:6px}.grow-row:hover{background:var(--accent-bg)}}
+/* News: Chip-Leiste klebt unter der Glas-Kappe, ohne Leerraum im Ruhezustand */
+.newschips{top:-16px;padding:8px 16px 8px}
 
 </style>
 </head>
@@ -2028,7 +2152,9 @@ function editHealth() {
       { key: 'medikamente', label: 'Dauermedikation', type: 'textarea' },
       { key: 'hinweise', label: 'Wichtige Hinweise', type: 'textarea', ph: 'z. B. Vorerkrankungen' },
       { key: 'kinderarzt', label: 'Kinderarzt / Kinderärztin' },
-      { key: 'kinderarzt_tel', label: 'Telefon Praxis', type: 'tel', inputmode: 'tel' }
+      { key: 'kinderarzt_tel', label: 'Telefon Praxis', type: 'tel', inputmode: 'tel' },
+      { key: 'kinderarzt_adr', label: 'Adresse der Praxis', ph: 'Straße Nr., PLZ Ort' },
+      { key: 'kinderarzt_zeiten', label: 'Sprechzeiten', type: 'textarea', ph: 'z. B. Mo bis Fr 8 bis 12 Uhr, Di und Do auch 15 bis 18 Uhr' }
     ],
     onSave: async v => { Object.assign(S.health, v); await persist('health'); render(); }
   });
@@ -2039,20 +2165,6 @@ function viewHealth() {
   const wrap = h('div', { class: 'stack' });
   wrap.append(seg([['gesundheit', 'Gesundheit'], ['uheft', 'U-Heft'], ['entwicklung', 'Wachstum'], ['medikamente', 'Medikamente']], healthSeg, id => { healthSeg = id; render(); }));
   wrap.append(healthSeg === 'uheft' ? viewUHeft() : healthSeg === 'entwicklung' ? viewGrowth() : healthSeg === 'medikamente' ? viewMeds() : viewHealthMain());
-  return wrap;
-}
-function viewHealthMain() {
-  const hl = S.health, wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Gesundheit', ghostBtn('Bearbeiten', editHealth)));
-  const rows = [kv('Blutgruppe', hl.blutgruppe), kv('Allergien', hl.allergien), kv('Dauermedikation', hl.medikamente), kv('Hinweise', hl.hinweise), kv('Kinderarzt', hl.kinderarzt), kv('Telefon Praxis', hl.kinderarzt_tel, { tel: true })].filter(Boolean);
-  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben. Blutgruppe, Allergien und Kinderarzt erscheinen auch auf der Notfallkarte.')));
-  if (showImpf()) wrap.append(sectionHead('Impfungen', addBtn('Impfung', () => editListItem({ arr: hl.impfungen, key: 'health', title: 'Impfung', fields: IMPF_FIELDS }))));
-  const imp = hl.impfungen.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
-  if (showImpf()) wrap.append(h('div', { class: 'card' }, imp.length ? imp.map(v => {
-    const n = v.naechste ? daysTo(v.naechste) : null;
-    const chip = n == null ? null : h('span', { class: 'chip ' + (n < 0 ? 'bad' : n <= 30 ? 'warn' : 'ok') }, (n < 0 ? 'Überfällig seit ' : 'Auffrischung ') + fmtD(v.naechste));
-    return li(() => editListItem({ arr: hl.impfungen, key: 'health', title: 'Impfung', fields: IMPF_FIELDS, item: v }), '', liTxt(v.name, v.datum ? fmtD(v.datum) : 'Datum offen', chip), v.naechste ? calBtn('Impfung: ' + v.name, v.naechste, v.notiz, 7) : null, chev());
-  }) : h('p', { class: 'empty' }, 'Noch keine Impfungen eingetragen.')));
   return wrap;
 }
 
@@ -2091,48 +2203,6 @@ function chartSvg(pts, fmt) {
   const dots = pts.map(p => `<circle class="dt" cx="${X(p.t).toFixed(1)}" cy="${Y(p.y).toFixed(1)}" r="3.5"/>`).join('');
   const dl = t => new Date(t).toLocaleDateString('de-DE', { month: 'short', year: '2-digit' });
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Verlauf">${grid}<path class="ln" d="${path}"/>${dots}<text x="${pl}" y="${H - 6}">${dl(t0)}</text><text x="${W - pr}" y="${H - 6}" text-anchor="end">${dl(t1)}</text></svg>`;
-}
-function viewGrowth() {
-  const hl = S.health, p = S.profile, wrap = h('div', { class: 'stack' });
-  const editG = item => editListItem({ arr: hl.wachstum, key: 'health', title: 'Messung', fields: GROWTH_FIELDS, item, defaults: { datum: isoToday() } });
-  const editM = item => editListItem({ arr: hl.meilensteine, key: 'health', title: 'Meilenstein', fields: MILE_FIELDS, item, defaults: { datum: isoToday() } });
-  wrap.append(pageHead('Entwicklung', addBtn('Messung', () => editG())));
-  const ent = hl.wachstum.filter(e => e.datum).slice().sort((a, b) => a.datum.localeCompare(b.datum));
-  const series = k => ent.map(e => ({ t: parseD(e.datum).getTime(), y: num(e[k]) })).filter(x => x.y != null);
-  const cards = [['Größe', 'groesse', 'cm'], ['Gewicht', 'gewicht', 'kg'], ['Kopfumfang', 'kopf', 'cm'], ['Schuhgröße', 'schuh', '']].map(([label, k, unit]) => {
-    const s = series(k); if (!s.length) return null;
-    return h('div', null, h('small', null, label), h('b', null, fmtNum(s[s.length - 1].y) + (unit ? ' ' + unit : '')));
-  }).filter(Boolean);
-  if (cards.length) wrap.append(h('div', { class: 'card' }, h('div', { class: 'metric' }, cards)));
-  const sx = sexKey();
-  if (!sx) wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Perzentilkurven'),
-    h('p', { class: 'mute' }, 'Wähle das Geschlecht. Dann zeigt die App, wo Größe, Gewicht und Kopfumfang im Vergleich zu Gleichaltrigen liegen.'),
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: () => setSex('Mädchen') }, 'Mädchen'), h('button', { class: 'btn ghost', onclick: () => setSex('Junge') }, 'Junge'))));
-  [['Größe in cm', 'groesse', 'h'], ['Gewicht in kg', 'gewicht', 'w'], ['Kopfumfang in cm', 'kopf', 'k']].forEach(([label, k, pk]) => {
-    const s = series(k);
-    let svg = null, pn = '';
-    if (sx && p.geburtsdatum && s.length) {
-      const pts = ent.filter(e => num(e[k]) != null).map(e => ({ m: monthsAt(p.geburtsdatum, e.datum), y: num(e[k]) })).filter(q => q.m >= 0);
-      if (pts.length) svg = growChart(sx, pk, pts);
-      pn = pctNote(sx, pk, p.geburtsdatum, ent, k);
-    }
-    if (svg) wrap.append(h('div', { class: 'card' }, h('h2', null, label + (pn ? ' · aktuell ' + pn : '')), h('div', { html: svg })));
-    else if (k !== 'kopf' && s.length >= 2) wrap.append(h('div', { class: 'card' }, h('h2', null, label), h('div', { html: chartSvg(s) })));
-  });
-  if (sx) wrap.append(h('p', { class: 'fine' }, 'Perzentile: WHO-Wachstumsstandards bis 5 Jahre, danach CDC-Kurven. Das Band zeigt P3 bis P97, die dicke Linie ist der Durchschnitt (P50). Werte am Rand sind nicht automatisch auffällig. Bitte mit der Kinderärztin oder dem Kinderarzt besprechen.'));
-  const rows = ent.slice().reverse().map(e => {
-    const parts = [e.groesse && e.groesse + ' cm', e.gewicht && e.gewicht + ' kg', e.kopf && 'Kopf ' + e.kopf + ' cm', e.schuh && 'Schuh ' + e.schuh].filter(Boolean);
-    const a = ageAt(p, e.datum);
-    return li(() => editG(e), '', liTxt(fmtD(e.datum) + (a ? ' · ' + a : ''), parts.join(' · ') || 'Keine Werte'), chev());
-  });
-  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Messungen. Trage Größe, Gewicht oder Schuhgröße ein, dann erscheinen hier Kurven.')));
-  wrap.append(sectionHead('Meilensteine', addBtn('Meilenstein', () => editM())));
-  const ms = hl.meilensteine.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
-  wrap.append(h('div', { class: 'card' }, ms.length ? ms.map(m => {
-    const a = ageAt(p, m.datum);
-    return li(() => editM(m), '', liTxt(m.titel, [m.datum ? fmtD(m.datum) + (a ? ' · mit ' + a : '') : '', m.notiz].filter(Boolean).join(' · ')), chev());
-  }) : h('p', { class: 'empty' }, 'Halte besondere Momente fest, z. B. erster Zahn oder erste Schritte.')));
-  return wrap;
 }
 const CARE_FIELDS = [
   { key: 'essen', label: 'Essen & Trinken', type: 'textarea', ph: 'Lieblingsgerichte, Abneigungen, Portionen …' },
@@ -3900,7 +3970,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 17'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 18'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6058,8 +6128,10 @@ function newsFromXml(text) {
 }
 const NEWS_PROXIES = [
   { n: 'allorigins', url: f => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
+  { n: 'codetabs', url: f => 'https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
   { n: 'corsproxy', url: f => 'https://corsproxy.io/?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
-  { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) }
+  { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) },
+  { n: 'thingproxy', url: f => 'https://thingproxy.freeboard.io/fetch/' + f, parse: async r => newsFromXml(await r.text()) }
 ];
 function newsProxyOrder() {
   const a = NEWS_PROXIES.slice(), i = a.findIndex(p => p.n === ls.get('luise_news_px'));
@@ -6085,7 +6157,7 @@ function newsFetchFeed(feedUrl) {
           clearTimeout(to); lastErr = e; if (done) return; fails++;
           if (fails >= order.length) { done = true; clearTimeout(timer); reject(lastErr); } else startNext();
         });
-      if (started < order.length) timer = setTimeout(startNext, 2500);
+      if (started < order.length) timer = setTimeout(startNext, 1800);
     };
     startNext();
   });
@@ -6131,21 +6203,6 @@ function newsDedupe(items) {
   return out;
 }
 /* Zeigt gespeicherte Meldungen sofort, lädt im Hintergrund nach und füllt jedes Thema, sobald es da ist. */
-async function newsLoad(force) {
-  if (newsBusy) return;
-  const st = newsStage(), c = newsRead(), old = c && c.stage === st.id && Array.isArray(c.items) ? c.items : [];
-  if (!force && old.length && !c.partial && Date.now() - c.ts < NEWS_TTL) { newsTried = true; return; }
-  newsBusy = true; newsErr = ''; newsTried = true; if (tab === 'news') render();
-  const by = {}; let ok = 0;
-  const snap = fin => {
-    const items = newsDedupe(newsMerge(by).concat(old.filter(x => !(x.topic in by))).sort((a, b) => b.d - a.d));
-    newsWrite({ stage: st.id, ts: fin || !old.length ? Date.now() : c.ts, items, partial: !fin });
-  };
-  await Promise.all(NEWS_TOPICS.map(([id]) => newsFetchQueries(st.q[id]).then(v => { ok++; by[id] = v; snap(false); if (tab === 'news') render(); }, () => {})));
-  if (ok) snap(true);
-  else newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
-  newsBusy = false; if (tab === 'news') render();
-}
 const newsSkeleton = n => h('div', { class: 'card newsskel', 'aria-busy': 'true' },
   h('p', { class: 'empty', style: 'padding:10px 0 2px' }, 'Lade aktuelle Meldungen …'),
   Array.from({ length: n }, () => h('div', { class: 'li skel', 'aria-hidden': 'true' }, h('span', { class: 'li-txt' }, h('i', { class: 'sk l1' }), h('i', { class: 'sk l2' })), h('span', { class: 'newsth sk' }))));
@@ -6278,9 +6335,10 @@ function viewNews() {
     });
     if (newsTopic !== 'gemerkt') wrap.append(h('small', { class: 'mute' }, `${newsBusy ? 'Aktualisiere … · ' : ''}Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
   } else {
-    wrap.append(h('div', { class: 'card stack nempty' }, h('span', { class: 'nbig', 'aria-hidden': 'true' }, '📰'), h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
+    wrap.append(h('div', { class: 'card stack nempty' }, h('span', { class: 'nbig', 'aria-hidden': 'true' }, '📰'), h('p', { class: 'empty' }, newsErr ? `${newsErr} Unten findest du verlässliche Quellen, die immer gehen.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
   }
-  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Bing News und Google News und werden über einen Vermittlungsdienst geladen, die Bilder direkt von den Servern der Anbieter. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit[0] + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Ohne Bild der Quelle zeigt die App ein Symbol. Die Meldungen ersetzen keine ärztliche Beratung.'));
+  if (!items.length && !newsBusy && newsTried) { const gb = newsGuideBlock(); if (gb) wrap.append(gb); }
+  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Bing News, Google News und GDELT und werden über den eigenen Nachrichtenspeicher dieser App oder einen Vermittlungsdienst geladen, die Bilder direkt von den Servern der Anbieter. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit[0] + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Ohne Bild der Quelle zeigt die App ein Symbol. Die Meldungen ersetzen keine ärztliche Beratung.'));
   if (!newsTried && !newsBusy) setTimeout(() => newsLoad(false), 0);
   return wrap;
 }
@@ -6298,15 +6356,6 @@ const OFFERS_DEPOT = [
   { n: 'DKB-Broker u18', note: '2,7', order: '10 €', plan: '1,50 €', min: '25 €', hint: 'Setzt ein DKB-Junior-Girokonto voraus, 1 % auf Tagesgeld.', url: 'https://www.dkb.de' }
 ];
 let offBusy = false, offErr = '', offTried = false;
-async function offersLoad(force) {
-  if (offBusy) return;
-  const c = newsRead(OFFERS_KEY);
-  if (!force && c && c.items && Date.now() - c.ts < 6 * 36e5) { offTried = true; return; }
-  offBusy = true; offErr = ''; offTried = true; if (tab === 'offers') render();
-  try { newsWrite({ ts: Date.now(), items: newsClean(await newsFetchQueries(OFFERS_QUERIES), 12) }, OFFERS_KEY); }
-  catch (e) { offErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.'; }
-  offBusy = false; if (tab === 'offers') render();
-}
 const offLink = (label, url) => h('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener noreferrer' }, label);
 function offersDepotCard(o, mine) {
   const kv2 = (k, v) => h('span', { class: 'offkv' }, h('small', null, k), h('b', null, v));
@@ -6481,7 +6530,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 17;
+const APP_VERSION = 18;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6976,13 +7025,447 @@ function openVideoFeed(filter) {
 }
 
 Object.assign(ICON, { video: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10.5l5-2.5v8l-5-2.5"/></svg>' });
+/* ============ v18: News sofort und zuverlässig ============ */
+const NEWS_GUIDES = [
+  { t: 'Kindergesundheit-info.de: Das Elternportal der BZgA', s: 'BZgA', u: 'https://www.kindergesundheit-info.de/', topic: 'gesundheit' },
+  { t: 'Kinderärzte im Netz: Krankheiten, Vorsorge und Tipps', s: 'Berufsverband der Kinder- und Jugendärzte', u: 'https://www.kinderaerzte-im-netz.de/', topic: 'gesundheit' },
+  { t: 'Gesund ins Leben: Ernährung und Bewegung im ersten Lebensjahr', s: 'Netzwerk Gesund ins Leben', u: 'https://www.gesund-ins-leben.de/', topic: 'entwicklung' },
+  { t: 'Nahrungsergänzung bei Kindern: Einschätzungen des BfR', s: 'Bundesinstitut für Risikobewertung', u: 'https://www.bfr.bund.de/', topic: 'natur' },
+  { t: 'Familienportal: Elterngeld, Kindergeld und weitere Leistungen', s: 'Bundesfamilienministerium', u: 'https://familienportal.de/', topic: 'recht' },
+  { t: 'Lebensmittelwarnung.de: Aktuelle Rückrufe', s: 'Bund und Länder', u: 'https://www.lebensmittelwarnung.de/', topic: 'sicherheit' }
+];
+const NEWS_GDELT_STAGE = { neu: 'Neugeborenes OR Baby OR Säugling OR Stillen OR Wochenbett', baby1: 'Baby OR Säugling OR Beikost OR Schlaf', baby2: 'Baby OR Säugling OR Beikost OR Zahnen', klein: 'Kleinkind OR Kita OR Trotzphase OR Sprachentwicklung', kita: 'Kindergartenkind OR Vorschulkind OR Kita OR Schulreife', schule: 'Grundschule OR Schulkind OR Schulweg', teen: 'Jugendliche OR Pubertät OR Jugendschutz' };
+function newsClassify(t) {
+  t = String(t || '');
+  if (/rückruf|zurückgerufen|warnung|gefährlich|schadstoff|giftig|sicherheit/i.test(t)) return 'sicherheit';
+  if (/kindergeld|elterngeld|gesetz|steuer|bürgergeld|anspruch|urteil|rente|freibetrag|familienleistung|depot|sparen/i.test(t)) return 'recht';
+  if (/homöopath|naturheil|hausmittel|heilpflanze|globuli|kräuter|natur/i.test(t)) return 'natur';
+  if (/entwicklung|schlaf|sprache|trotz|krabbel|beikost|bindung|lernen|spielen|motorik|erziehung|kita|schule/i.test(t)) return 'entwicklung';
+  return 'gesundheit';
+}
+function newsGdeltItems(j, forced) {
+  const out = [];
+  ((j && j.articles) || []).forEach(a => {
+    const d = /^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)Z$/.exec(a.seendate || ''), u = newsSafeUrl(a.url), t = String(a.title || '').replace(/\s+/g, ' ').trim();
+    if (!u || t.length < 15) return;
+    out.push({ t, s: String(a.domain || '').replace(/^www\./, ''), u, d: d ? Date.UTC(+d[1], +d[2] - 1, +d[3], +d[4], +d[5], +d[6]) : 0, i: newsImgUrl(a.socialimage || ''), topic: forced || newsClassify(t) });
+  });
+  return out;
+}
+async function newsGdelt(query) {
+  const ac = new AbortController(), to = setTimeout(() => ac.abort(), 12000);
+  try {
+    const r = await fetch('https://api.gdeltproject.org/api/v2/doc/doc?mode=artlist&format=json&maxrecords=60&sort=datedesc&timespan=21d&query=' + encodeURIComponent(query), { signal: ac.signal, cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const txt = await r.text(); let j; try { j = JSON.parse(txt); } catch (e) { throw new Error('Kein JSON'); }
+    return newsGdeltItems(j);
+  } finally { clearTimeout(to); }
+}
+let newsRepoJson;
+async function newsRepo(force) {
+  if (newsRepoJson !== undefined && !force) return newsRepoJson;
+  const ac = new AbortController(), to = setTimeout(() => ac.abort(), 6000);
+  try {
+    const r = await fetch('news.json?h=' + Math.floor(Date.now() / 18e5), { signal: ac.signal, cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json(); newsRepoJson = j && typeof j === 'object' && j.stages ? j : null;
+  } catch (e) { newsRepoJson = null; } finally { clearTimeout(to); }
+  return newsRepoJson;
+}
+function newsRepoItems(arr) {
+  return (Array.isArray(arr) ? arr : []).map(x => ({ t: String(x.t || ''), s: String(x.s || ''), u: newsSafeUrl(x.u), d: +x.d || 0, i: newsImgUrl(x.i || ''), topic: NEWS_TOPICS.some(t => t[0] === x.topic) ? x.topic : 'gesundheit' })).filter(x => x.t && x.u && !NEWS_BLOCK.test(x.t));
+}
+async function newsLoad(force) {
+  if (newsBusy) return;
+  const st = newsStage(), c = newsRead(), old = c && c.stage === st.id && Array.isArray(c.items) ? c.items : [];
+  if (!force && old.length && !c.partial && Date.now() - c.ts < NEWS_TTL) { newsTried = true; return; }
+  newsBusy = true; newsErr = ''; newsTried = true; if (tab === 'news') render();
+  const by = {}, byG = {}; let ok = 0, base = old, finished = false;
+  const snap = fin => {
+    const merged = {}; NEWS_TOPICS.forEach(([id]) => { const a = (by[id] || []).concat(byG[id] || []); if (a.length) merged[id] = a; });
+    const items = newsDedupe(newsMerge(merged).concat(base.filter(x => !(x.topic in merged))).sort((a, b) => b.d - a.d));
+    newsWrite({ stage: st.id, ts: fin || !old.length ? Date.now() : c.ts, items, partial: !fin });
+  };
+  // 1. Eigener Server: news.json wird von GitHub regelmäßig aktualisiert und liegt direkt neben der App
+  const repo = await newsRepo(force), rItems = repo ? newsRepoItems(repo.stages[st.id]) : [];
+  let fresh = false;
+  if (rItems.length) {
+    base = rItems; ok++; newsWrite({ stage: st.id, ts: Date.now(), items: newsDedupe(rItems), partial: false, src: 'repo', gen: +repo.ts || 0 });
+    fresh = Date.now() - (+repo.ts || 0) < 8 * 36e5; if (tab === 'news') render();
+    if (fresh) { newsBusy = false; if (tab === 'news') render(); return; }
+  }
+  // 2. Live: GDELT direkt (ohne Vermittler) und die Vermittlungsdienste gleichzeitig
+  const gdelt = async () => {
+    const terms = NEWS_GDELT_STAGE[st.id] || NEWS_GDELT_STAGE.klein;
+    const qs = [`(${terms} OR Kinderarzt) sourcelang:german`, '(Kindergeld OR Elterngeld OR Kinderfreibetrag OR Babyprodukt OR Kinderprodukt OR Spielzeug) (Rückruf OR Warnung OR Gesetz OR Erhöhung OR Familienleistungen) sourcelang:german'];
+    for (let i = 0; i < qs.length; i++) {
+      if (i) await sleep(5500);
+      try { const it = await newsGdelt(qs[i]); if (it.length) { it.forEach(x => { (byG[x.topic] = byG[x.topic] || []).push(x); }); ok++; snap(finished); if (tab === 'news') render(); } } catch (e) {}
+    }
+  };
+  const gp = gdelt();
+  await Promise.all(NEWS_TOPICS.map(([id]) => newsFetchQueries(st.q[id]).then(v => { ok++; by[id] = v; snap(false); if (tab === 'news') render(); }, () => {})));
+  if (!ok) await gp;
+  finished = true;
+  if (ok) snap(true);
+  else if (!rItems.length) newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Live-Meldungen sind gerade nicht erreichbar.';
+  newsBusy = false; if (tab === 'news') render();
+}
+async function offersLoad(force) {
+  if (offBusy) return;
+  const c = newsRead(OFFERS_KEY);
+  if (!force && c && c.items && c.items.length && Date.now() - c.ts < 6 * 36e5) { offTried = true; return; }
+  offBusy = true; offErr = ''; offTried = true; if (tab === 'offers') render();
+  let items = [];
+  const repo = await newsRepo(force); if (repo) items = newsRepoItems(repo.geld);
+  if (!items.length) { try { items = newsClean(await newsFetchQueries(OFFERS_QUERIES), 12); } catch (e) {} }
+  if (!items.length) { try { items = newsClean(await newsGdelt('(Kindergeld OR Kinderfreibetrag OR Kinderdepot OR Frühstart-Rente OR Junior-Depot) sourcelang:german'), 12); } catch (e) {} }
+  if (items.length) newsWrite({ ts: Date.now(), items }, OFFERS_KEY);
+  else offErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
+  offBusy = false; if (tab === 'offers') render();
+}
+function newsGuideBlock() {
+  const g = NEWS_GUIDES.filter(x => newsTopic === 'alle' || x.topic === newsTopic); if (!g.length || newsTopic === 'gemerkt') return null;
+  return h('div', { class: 'stack' }, h('h3', { class: 'ngrp' }, 'Verlässliche Quellen', h('i', null, String(g.length))), h('div', { class: 'nlist' }, g.map((x, i) => newsCard(x, i, false))));
+}
+
+/* ============ v18: Gesundheit-Startseite ============ */
+Object.assign(ICON, {
+  thermo: '<svg viewBox="0 0 24 24"><path d="M10 14.5V5a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v7"/></svg>',
+  pill: '<svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="6.5" rx="3.25" transform="rotate(-40 12 12)"/><path d="M9.6 8.6l5.8 6.8"/></svg>',
+  ruler: '<svg viewBox="0 0 24 24"><path d="M4 16.5L16.5 4 20 7.5 7.5 20z"/><path d="M8 12.5l2 2M11 9.5l1.6 1.6M14 6.5l2 2"/></svg>',
+  shield: '<svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.2-3 7.8-7 9.5-4-1.7-7-5.3-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>',
+  clip: '<svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/></svg>'
+});
+const HAMPEL = [
+  { c: 'red', e: '🚨', t: 'Sofort 112 anrufen', pts: ['Atemnot, blaue oder graue Lippen, Atemaussetzer', 'Bewusstlos, nicht weckbar oder Krampfanfall', 'Verschlucktes Teil mit Atemnot, starke Blutung, schwere Verletzung', 'Verdacht auf Vergiftung: Giftnotruf deiner Region und 112'] },
+  { c: 'orange', e: '📞', t: 'Heute zum Kinderarzt oder 116117', pts: ['Fieber ab 38,0 °C bei Babys unter 3 Monaten: bitte sofort abklären lassen', 'Fieber über 39 °C oder länger als 3 Tage, bei Babys früher melden', 'Trinkt kaum, erbricht mehrfach oder hat Durchfall und viel weniger nasse Windeln', 'Ungewöhnlich schläfrig, schlapp oder nicht zu beruhigen', 'Hautausschlag, der sich nicht wegdrücken lässt, oder starke Ohr- oder Bauchschmerzen'] },
+  { c: 'green', e: '🏠', t: 'Zu Hause beobachten', pts: ['Leichter Schnupfen oder Husten ohne Atemnot, Kind ist munter', 'Spucken bei munterem Baby, das gut zunimmt', 'Blähungen, Zahnen, leichte Rötung im Windelbereich', 'Wird es schlechter oder bist du unsicher: lieber einmal mehr anrufen'] }
+];
+const HREC_CATS = [['fuer', 'Für dein Kind'], ['erg', 'Nahrungsergänzung'], ['alltag', 'Alltag & Sicherheit'], ['zahn', 'Zähne & Haut']];
+const HREC = [
+  { id: 'vitd', cat: 'erg', e: '☀️', t: 'Vitamin D', sub: 'Meist täglich im ersten Lebensjahr', from: 0, to: 24, pts: ['Kinder- und Jugendärzte in Deutschland empfehlen für Säuglinge in der Regel 400 bis 500 I. E. Vitamin D pro Tag, meist das ganze erste Lebensjahr.', 'Stillkinder und Flaschenkinder bekommen es gleichermaßen, weil Muttermilch und Muttermilchersatz es nicht ausreichend decken.', 'Tropfen und Kombi-Tabletten zählen zusammen. Nicht doppelt geben, nicht höher dosieren.', 'Wie lange es im zweiten Jahr weitergeht, entscheidet die Kinderärztin oder der Kinderarzt.'], ask: 'Welche Vitamin-D-Dosis und wie lange?', src: ['Kindergesundheit-info.de', 'https://www.kindergesundheit-info.de/'] },
+  { id: 'vitk', cat: 'erg', e: '🩸', t: 'Vitamin K nach der Geburt', sub: 'Gaben bei U1 bis U3', from: 0, to: 3, pts: ['Neugeborene bekommen Vitamin K, damit sie nicht an Blutungen erkranken. Üblich sind drei Gaben bei U1, U2 und U3.', 'Schau im gelben Heft nach, ob alle Gaben eingetragen sind.', 'Fehlt eine, sprich die Kinderarztpraxis zeitnah an.'], ask: 'Sind alle drei Vitamin-K-Gaben eingetragen?', src: ['Kinderärzte im Netz', 'https://www.kinderaerzte-im-netz.de/'] },
+  { id: 'fluor', cat: 'zahn', e: '🦷', t: 'Fluorid und erste Zähne', sub: 'Ab dem ersten Zahn', from: 4, to: 48, pts: ['Ab dem ersten Zahn zweimal täglich putzen, mit einer reiskorngroßen Menge fluoridhaltiger Kinderzahnpasta.', 'Kinderärzte und Zahnärzte empfehlen teils unterschiedlich, ob zusätzlich eine Fluorid-Tablette sinnvoll ist. Das gilt vor allem bei Kombi-Präparaten mit Vitamin D.', 'Zahnpasta und Tablette nicht ohne Rücksprache kombinieren.'], ask: 'Fluorid: Tablette, Zahnpasta oder beides?', src: ['Kindergesundheit-info.de', 'https://www.kindergesundheit-info.de/'] },
+  { id: 'eisen', cat: 'erg', e: '🥩', t: 'Eisen', sub: 'Über die Beikost, nicht aus der Dose', from: 4, to: 24, pts: ['Reife Babys haben einen Eisenvorrat für etwa die ersten sechs Monate. Mit der Beikost braucht es eisenreiche Lebensmittel.', 'Gut sind Fleisch, Haferflocken, Hirse und Hülsenfrüchte, am besten mit Obst oder Gemüse mit Vitamin C.', 'Eisenpräparate nur nach Blutwert und ärztlicher Verordnung. Eine Überdosierung ist gefährlich.'], ask: 'Ist Eisen bei uns ein Thema (Blutwert)?', src: ['Gesund ins Leben', 'https://www.gesund-ins-leben.de/'] },
+  { id: 'jod', cat: 'erg', e: '🐟', t: 'Jod, Fisch und DHA', sub: 'Für Stillzeit und Beikost', from: 0, to: 36, pts: ['Stillende haben einen höheren Jodbedarf. Häufig wird eine Jodid-Tablette mit 100 µg empfohlen, sprich das mit deiner Ärztin oder Hebamme ab.', 'Mit Beikost: ein- bis zweimal pro Woche Seefisch liefert Jod und Omega-3-Fettsäuren (DHA).', 'Für gesunde Kinder gibt es keine Routine-Empfehlung für zusätzliche Fischöl-Präparate.'], ask: 'Jod in der Stillzeit: was ist sinnvoll?', src: ['Gesund ins Leben', 'https://www.gesund-ins-leben.de/'] },
+  { id: 'b12', cat: 'erg', e: '🌱', t: 'Vegetarisch oder vegan', sub: 'Vitamin B12 nicht vergessen', from: 0, to: 216, pts: ['Bei veganer Ernährung von Stillenden oder Kindern muss Vitamin B12 ergänzt werden.', 'Auch bei vegetarischer Kost lohnt sich ein Check von Eisen, Jod, B12 und Omega-3.', 'Lass den Plan von der Kinderarztpraxis oder einer Ernährungsberatung prüfen.'], ask: 'Ernährungsplan vegetarisch/vegan prüfen lassen?', src: ['BfR', 'https://www.bfr.bund.de/'] },
+  { id: 'zusatz', cat: 'erg', e: '🧪', t: 'Probiotika, Globuli und Co.', sub: 'Keine Routine nötig', from: 0, to: 216, pts: ['Für gesunde Kinder gibt es keine allgemeine Empfehlung für Probiotika, Multivitamin- oder Immun-Präparate.', 'Für Homöopathie ist keine Wirkung über den Placebo-Effekt hinaus nachgewiesen.', 'Frag vor jedem Präparat die Kinderarztpraxis oder Apotheke. Nimm nicht mehrere Präparate gleichzeitig.', 'Bei Beschwerden lieber abklären lassen, statt zu probieren.'], ask: 'Brauchen wir überhaupt Zusatzpräparate?', src: ['BfR', 'https://www.bfr.bund.de/'] },
+  { id: 'beikost', cat: 'alltag', e: '🥣', t: 'Beikost-Start', sub: 'Meist zwischen 5. und 7. Monat', from: 4, to: 14, pts: ['Der Start passt, wenn das Baby stabil sitzt, Interesse am Essen zeigt und den Brei nicht mehr herausschiebt.', 'Kein Honig im ersten Lebensjahr (Botulismus-Risiko).', 'Keine Kuhmilch als Hauptgetränk im ersten Jahr, kein Salz und kein Zucker im Essen.', 'Ganze Nüsse, Weintrauben und harte Stücke sind Erstickungsgefahr.'], ask: 'Wann und womit mit der Beikost starten?', src: ['Gesund ins Leben', 'https://www.gesund-ins-leben.de/'] },
+  { id: 'schlaf', cat: 'alltag', e: '😴', t: 'Sicherer Schlaf', sub: 'Gegen den plötzlichen Kindstod', from: 0, to: 18, pts: ['Rückenlage, feste Matratze, ein Schlafsack statt Decke, kein Kissen, kein Nestchen.', 'Raum eher kühl (etwa 16 bis 18 °C), kein Rauch, im Zimmer der Eltern schlafen.', 'Nicht auf Sofa oder Sessel gemeinsam einschlafen.'], ask: 'Tipps für sicheren Schlaf besprechen', src: ['Kindergesundheit-info.de', 'https://www.kindergesundheit-info.de/'] },
+  { id: 'fieber', cat: 'alltag', e: '🌡️', t: 'Fieber richtig angehen', sub: 'Messen, trinken, beobachten', from: 0, to: 216, pts: ['Am genauesten misst man bei Babys im Po. Ab 38,0 °C gilt Fieber.', 'Fiebersenkende Mittel nur nach Gewicht dosieren, nicht nach Alter, und mit Ärztin, Arzt oder Apotheke abstimmen.', 'Bei Babys unter 3 Monaten mit Fieber immer sofort ärztlich abklären lassen.', 'Wichtiger als die Zahl ist, wie es dem Kind geht: trinkt es, ist es wach?'], ask: 'Welches Fiebermittel in welcher Dosis (nach Gewicht)?', src: ['Kinderärzte im Netz', 'https://www.kinderaerzte-im-netz.de/'] },
+  { id: 'sonne', cat: 'zahn', e: '🧴', t: 'Sonne und Haut', sub: 'Schatten statt Creme', from: 0, to: 60, pts: ['Babys im ersten Lebensjahr nicht in die direkte Sonne. Schatten, Hut und Kleidung schützen am besten.', 'Sonnencreme mit hohem Lichtschutzfaktor erst ab etwa 6 Monaten und nur für unbedeckte Stellen.', 'Zum Baden im Alltag reicht klares Wasser, Pflegeprodukte sparsam und parfümfrei.'], ask: 'Hautpflege: was brauchen wir wirklich?', src: ['Kinderärzte im Netz', 'https://www.kinderaerzte-im-netz.de/'] },
+  { id: 'zahnen', cat: 'zahn', e: '🧸', t: 'Zahnen', sub: 'Was hilft, was nicht', from: 3, to: 36, pts: ['Ein gekühlter (nicht gefrorener) Beißring oder ein kalter Waschlappen lindert den Druck.', 'Von Zahnungsgels mit Betäubungsmitteln und von Bernsteinketten wird abgeraten (Erstickungs- und Strangulationsgefahr, kein belegter Nutzen).', 'Hohes Fieber ist kein typisches Zahnungszeichen. Dann bitte abklären.'], ask: 'Was hilft beim Zahnen?', src: ['Kindergesundheit-info.de', 'https://www.kindergesundheit-info.de/'] },
+  { id: 'zahnarzt', cat: 'zahn', e: '🪥', t: 'Erster Zahnarztbesuch', sub: 'Früherkennung ab dem 6. Monat', from: 5, to: 72, pts: ['Die zahnärztlichen Früherkennungsuntersuchungen für Kinder beginnen ab dem 6. Lebensmonat.', 'Frühzeitig hingehen ist ein guter Start, auch wenn noch kein Zahn zu sehen ist.', 'Das Zahn-Vorsorgeheft bekommst du in der Praxis.'], ask: 'Zahnärztin oder Zahnarzt für den ersten Besuch finden', src: ['Kindergesundheit-info.de', 'https://www.kindergesundheit-info.de/'] }
+];
+let hrecCat = 'fuer';
+const fragenAll = () => (S.health.fragen = S.health.fragen || []);
+function editFrage(text) {
+  openSheet({ title: 'Frage für den Kinderarzt', saveLabel: 'Merken', values: { t: text || '' }, fields: [{ key: 't', label: 'Frage oder Beobachtung', type: 'textarea', required: true, ph: 'z. B. Wie lange noch Vitamin D? Seit gestern Husten …' }],
+    onSave: async v => { fragenAll().push({ id: uid(), t: v.t, done: false }); await persist('health'); render(); } });
+}
+async function addFrageQuick(t) { const a = fragenAll(); if (a.some(x => x.t === t && !x.done)) { toast('Steht schon auf der Liste'); return; } a.push({ id: uid(), t, done: false }); await persist('health'); toast('Auf die Fragenliste gesetzt'); render(); }
+function openHrec(r) {
+  const ov = openFull({ title: r.t, body: h('div', { class: 'stack' },
+    h('div', { class: 'card stack hrecdet' }, h('div', { class: 'hrecbig', 'aria-hidden': 'true' }, r.e), h('h2', null, r.t), h('p', { class: 'mute' }, r.sub),
+      h('ul', { class: 'hrecul' }, r.pts.map(x => h('li', null, x)))),
+    h('button', { class: 'btn wide', type: 'button', onclick: () => { ov.close(); addFrageQuick(r.ask); } }, 'Beim nächsten Termin fragen'),
+    h('a', { class: 'btn ghost wide', href: r.src[1], target: '_blank', rel: 'noopener noreferrer' }, 'Mehr bei ' + r.src[0]),
+    h('p', { class: 'fine' }, 'Allgemeine Information nach üblichen Empfehlungen deutscher Fachgesellschaften. Sie ersetzt keine Beratung. Dosierungen und Präparate immer mit der Kinderarztpraxis abstimmen.')) });
+}
+function hAmpel() {
+  return h('div', { class: 'card hampel' }, HAMPEL.map((a, i) => {
+    const det = h('div', { class: 'hamp-body' }, h('ul', null, a.pts.map(x => h('li', null, x))));
+    const row = h('div', { class: 'hamp ' + a.c + (i === 1 ? ' open' : '') });
+    const head = h('button', { class: 'hamp-head', type: 'button', 'aria-expanded': i === 1 ? 'true' : 'false', onclick: () => { const o = row.classList.toggle('open'); head.setAttribute('aria-expanded', o ? 'true' : 'false'); } },
+      h('span', { class: 'hamp-dot', 'aria-hidden': 'true' }, a.e), h('b', null, a.t), h('span', { class: 'hamp-chev', 'aria-hidden': 'true' }, '›'));
+    row.append(head, det); return row;
+  }), h('div', { class: 'hamp-act' }, h('a', { class: 'hbtn danger', href: 'tel:112' }, '112 Notruf'), h('a', { class: 'hbtn', href: 'tel:116117' }, '116117 Bereitschaft')),
+  h('p', { class: 'fine' }, 'Eine grobe Orientierung, kein Ersatz für ärztlichen Rat. Im Zweifel anrufen.'));
+}
+function viewHealthMain() {
+  const hl = S.health, p = S.profile, wrap = h('div', { class: 'stack healthpage' });
+  wrap.append(pageHead('Gesundheit', ghostBtn('Bearbeiten', editHealth)));
+  const nm = hl.kinderarzt, tel = hl.kinderarzt_tel, adr = hl.kinderarzt_adr, hrs = hl.kinderarzt_zeiten;
+  wrap.append(h('div', { class: 'hdoc' },
+    h('div', { class: 'hdoc-top' }, h('span', { class: 'hdoc-ico', html: ICON.health }), h('div', { class: 'hdoc-tx' }, h('small', null, 'Mein Kinderarzt'), h('b', null, nm || 'Noch nicht eingetragen'), adr ? h('span', { class: 'hdoc-sub' }, adr) : (tel ? h('span', { class: 'hdoc-sub' }, tel) : h('span', { class: 'hdoc-sub' }, 'Name, Telefon und Adresse der Praxis')))),
+    hrs ? h('p', { class: 'hdoc-hrs' }, '🕒 ' + hrs) : null,
+    h('div', { class: 'hdoc-act' },
+      tel ? h('a', { class: 'hbtn main', href: telHref(tel) }, 'Anrufen') : h('button', { class: 'hbtn main', type: 'button', onclick: editHealth }, nm ? 'Telefon ergänzen' : 'Eintragen'),
+      adr ? h('button', { class: 'hbtn', type: 'button', onclick: () => routeSheet(nm || 'Kinderarzt', adr) }, 'Route') : null,
+      h('button', { class: 'hbtn', type: 'button', onclick: () => editTermin() }, 'Termin'))));
+  // Vorsorge
+  const nu = newsNextU();
+  if (!p.geburtsdatum) wrap.append(h('div', { class: 'card stack hvor' }, h('b', null, 'Vorsorge-Erinnerung'), h('p', { class: 'mute' }, 'Trage das Geburtsdatum ein, dann zeigt die App, wann die nächste U-Untersuchung dran ist.'), h('button', { class: 'btn wide', type: 'button', onclick: editProfile }, 'Profil bearbeiten')));
+  else if (nu) {
+    const code = nu.def[0], label = nu.def[1], n = nu.due ? 0 : daysTo(nu.from);
+    wrap.append(h('div', { class: 'card stack hvor ' + (nu.due ? 'due' : '') },
+      h('div', { class: 'hvor-top' }, h('span', { class: 'hvor-badge' }, code), h('div', null, h('small', { class: 'mute' }, 'Nächste Vorsorge'), h('b', null, label))),
+      h('div', { class: 'hvor-st' }, nu.due ? h('span', { class: 'chip warn' }, 'Jetzt fällig') : h('span', { class: 'chip' }, n <= 0 ? 'Zeitfenster beginnt heute' : `Beginnt in ${n} ${n === 1 ? 'Tag' : 'Tagen'} (${fmtD(nu.from)})`)),
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => editU(code, label) }, 'Erledigt eintragen'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { healthSeg = 'uheft'; render(); } }, 'U-Heft'))));
+  } else wrap.append(h('div', { class: 'card hvor ok' }, h('b', null, '✓ Alle Vorsorgen in diesem Alter sind eingetragen'), h('button', { class: 'linkbtn', type: 'button', onclick: () => { healthSeg = 'uheft'; render(); } }, 'U-Heft öffnen')));
+  // Schnellaktionen
+  const q = (cls, ico, t, sub, fn) => h('button', { class: 'tile hq ' + cls, type: 'button', onclick: fn }, h('span', { class: 'ico', html: ico }), h('span', null, t, h('small', null, sub)));
+  wrap.append(sectionHead('Schnell erledigt'));
+  const lastT = notesAll().filter(x => x.temp).sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')))[0];
+  const gl = hl.wachstum.filter(e => e.datum && (num(e.groesse) != null || num(e.gewicht) != null)).sort((a, b) => b.datum.localeCompare(a.datum))[0];
+  wrap.append(h('div', { class: 'tiles' },
+    q('hot', ICON.thermo, 'Temperatur', lastT ? `Zuletzt ${lastT.temp} °C` : 'Fieber eintragen', () => editNote()),
+    q('violet', ICON.pill, 'Medikamente', hl.meds.filter(medActive).length ? plural(hl.meds.filter(medActive).length, 'aktiv', 'aktiv') : 'Einnahmeplan', () => { healthSeg = 'medikamente'; render(); }),
+    q('', ICON.ruler, 'Wachstum', gl ? [gl.groesse && gl.groesse + ' cm', gl.gewicht && gl.gewicht + ' kg'].filter(Boolean).join(' · ') : 'Messung eintragen', () => { healthSeg = 'entwicklung'; render(); }),
+    q('sos', ICON.cross, 'Notfallkarte', 'Alles Wichtige sofort', openEmergency)));
+  // Wann zum Arzt
+  wrap.append(sectionHead('Wann zum Kinderarzt?'));
+  wrap.append(hAmpel());
+  // Empfehlungen
+  const m = eduAgeMonths();
+  wrap.append(sectionHead('Tipps & Empfehlungen'));
+  wrap.append(h('div', { class: 'chips hrecchips' }, HREC_CATS.map(([id, l]) => h('button', { class: 'fchip' + (hrecCat === id ? ' on' : ''), type: 'button', onclick: () => { hrecCat = id; render(); } }, l))));
+  const recs = HREC.filter(r => hrecCat === 'fuer' ? (m == null || (m >= r.from && m <= r.to)) : r.cat === hrecCat);
+  wrap.append(recs.length ? h('div', { class: 'hrecs' }, recs.map(r => h('button', { class: 'hrec', type: 'button', 'data-id': r.id, onclick: () => openHrec(r) },
+    h('span', { class: 'hrec-e', 'aria-hidden': 'true' }, r.e), h('b', null, r.t), h('small', null, r.sub), h('span', { class: 'hrec-more' }, 'Lesen ›')))) : h('p', { class: 'empty' }, 'Für diese Auswahl gibt es gerade nichts Passendes.'));
+  wrap.append(h('p', { class: 'fine' }, 'Nahrungsergänzung nur nach Rücksprache mit der Kinderarztpraxis. Die Hinweise folgen üblichen Empfehlungen in Deutschland und ersetzen keine Beratung.'));
+  // Fragenliste
+  const fr = fragenAll();
+  wrap.append(sectionHead('Fragen für den nächsten Termin', addBtn('Frage', () => editFrage())));
+  wrap.append(h('div', { class: 'card hfrag' }, fr.length ? fr.map(x => h('div', { class: 'hfq' + (x.done ? ' done' : '') },
+    h('button', { class: 'hfq-chk', type: 'button', 'aria-label': x.done ? 'Als offen markieren' : 'Als besprochen markieren', 'aria-pressed': x.done ? 'true' : 'false', onclick: async () => { x.done = !x.done; await persist('health'); render(); } }, x.done ? '✓' : ''),
+    h('span', { class: 'hfq-t' }, x.t),
+    h('button', { class: 'hfq-x', type: 'button', 'aria-label': 'Frage löschen', onclick: async () => { const a = fragenAll(); a.splice(a.indexOf(x), 1); await persist('health'); render(); } }, '✕'))) : h('p', { class: 'empty' }, 'Noch keine Fragen. Schreibe auf, was du beim nächsten Besuch nicht vergessen willst.'),
+    fr.length ? h('button', { class: 'linkbtn', type: 'button', onclick: () => shareText('Fragen für den Kinderarzt', 'Fragen für den Kinderarzt' + (p.vorname ? ' (' + p.vorname + ')' : '') + ':\n' + fr.filter(x => !x.done).map(x => '• ' + x.t).join('\n')) }, 'Offene Fragen teilen') : null));
+  // Gesundheitsdaten
+  const rows = [kv('Blutgruppe', hl.blutgruppe), kv('Allergien', hl.allergien), kv('Dauermedikation', hl.medikamente), kv('Hinweise', hl.hinweise)].filter(Boolean);
+  wrap.append(sectionHead('Gesundheitsdaten'));
+  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben. Blutgruppe, Allergien und Hinweise erscheinen auch auf der Notfallkarte.')));
+  if (showImpf()) wrap.append(sectionHead('Impfungen', addBtn('Impfung', () => editListItem({ arr: hl.impfungen, key: 'health', title: 'Impfung', fields: IMPF_FIELDS }))));
+  const imp = hl.impfungen.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
+  if (showImpf()) wrap.append(h('div', { class: 'card' }, imp.length ? imp.map(v => {
+    const n = v.naechste ? daysTo(v.naechste) : null;
+    const chip = n == null ? null : h('span', { class: 'chip ' + (n < 0 ? 'bad' : n <= 30 ? 'warn' : 'ok') }, (n < 0 ? 'Überfällig seit ' : 'Auffrischung ') + fmtD(v.naechste));
+    return li(() => editListItem({ arr: hl.impfungen, key: 'health', title: 'Impfung', fields: IMPF_FIELDS, item: v }), '', liTxt(v.name, v.datum ? fmtD(v.datum) : 'Datum offen', chip), v.naechste ? calBtn('Impfung: ' + v.name, v.naechste, v.notiz, 7) : null, chev());
+  }) : h('p', { class: 'empty' }, 'Noch keine Impfungen eingetragen.')));
+  return wrap;
+}
+
+/* ============ v18: Wachstum interaktiv ============ */
+let growMetric = 'groesse', growBand = true, growMs = true, growRange = 0, growSel = null;
+const GM = {
+  groesse: { label: 'Größe', unit: 'cm', pk: 'h', e: '📏' },
+  gewicht: { label: 'Gewicht', unit: 'kg', pk: 'w', e: '⚖️' },
+  kopf: { label: 'Kopfumfang', unit: 'cm', pk: 'k', e: '🧢' },
+  schuh: { label: 'Schuhgröße', unit: '', pk: null, e: '👟' }
+};
+const gAge = m => { m = Math.max(0, m); if (m < 1) return 'Geburt'; if (m < 24) { const r = Math.round(m); return r + (r === 1 ? ' Monat' : ' Monate'); } const y = Math.floor(m / 12), r = Math.round(m - y * 12); return y + ' J' + (r ? ' ' + r + ' M' : ''); };
+const gPctText = p => p == null ? '' : p < 3 ? 'unter der P3-Linie. Bitte bei der nächsten Vorsorge ansprechen.' : p > 97 ? 'über der P97-Linie. Bitte bei der nächsten Vorsorge ansprechen.' : 'im üblichen Bereich (zwischen P3 und P97).';
+function growChartI(o) {
+  const { sex, pk, pts, unit } = o, pct = !!(sex && pk && o.birth);
+  const W = 340, H = 236, pl = 36, pr = 30, pt = 14, pb = 30, N = 64;
+  const maxM = Math.max(...pts.map(p => p.m), 1);
+  let xmax;
+  if (pct) {
+    const lim = pk === 'k' ? [12, 24, 36, 60] : [12, 24, 36, 60, 120, 216];
+    xmax = o.range ? o.range * 12 : (lim.find(x => x >= maxM * 1.05) || lim[lim.length - 1]);
+    if (pk === 'k') xmax = Math.min(xmax, 60);
+  } else xmax = Math.max(maxM * 1.06, 1);
+  const vis = pts.filter(p => p.m <= xmax + 1e-6);
+  const curves = PZ.map(() => []);
+  if (pct) for (let i = 0; i <= N; i++) { const m = xmax * i / N, l = lmsAt(sex, pk, m); if (!l) continue; PZ.forEach((p, k) => curves[k].push([m, yAtZ(l, p[1])])); }
+  const hasC = pct && curves[0].length > 1;
+  let ys = vis.map(p => p.y);
+  if (hasC && o.band) ys = ys.concat(curves[0].map(c => c[1]), curves[4].map(c => c[1]));
+  if (!ys.length && hasC) ys = curves[0].map(c => c[1]).concat(curves[4].map(c => c[1]));
+  if (!ys.length) return null;
+  let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = ((y1 - y0) || 1) * 0.07; y0 -= pad; y1 += pad;
+  const X = m => pl + m / xmax * (W - pl - pr), Y = y => pt + (1 - (y - y0) / (y1 - y0)) * (H - pt - pb);
+  const f1 = n => n.toFixed(1);
+  const line = c => c.map((q, i) => (i ? 'L' : 'M') + f1(X(q[0])) + ' ' + f1(Y(q[1]))).join(' ');
+  let s = `<svg class="chart gi" viewBox="0 0 ${W} ${H}" role="img" aria-label="${o.label}: interaktive Kurve">`;
+  s += `<defs><linearGradient id="gifill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--accent)" stop-opacity=".28"/><stop offset="1" stop-color="var(--accent)" stop-opacity="0"/></linearGradient></defs>`;
+  [0, 0.25, 0.5, 0.75, 1].forEach(f => { const v = y0 + (y1 - y0) * f, yy = f1(Y(v)); s += `<line class="gd" x1="${pl}" x2="${W - pr}" y1="${yy}" y2="${yy}"/><text x="${pl - 5}" y="${(+yy + 3).toFixed(1)}" text-anchor="end">${fmtNum(v)}</text>`; });
+  const step = pct ? (xmax <= 12 ? 3 : xmax <= 24 ? 6 : xmax <= 60 ? 12 : xmax <= 120 ? 24 : 36) : 0;
+  if (pct) for (let m = 0; m <= xmax + 1e-6; m += step) s += `<text x="${f1(X(m))}" y="${H - 9}" text-anchor="middle">${step < 12 ? m + ' M' : (m / 12) + ' J'}</text>`;
+  else { s += `<text x="${pl}" y="${H - 9}">${o.dateAt(0)}</text><text x="${W - pr}" y="${H - 9}" text-anchor="end">${o.dateAt(xmax)}</text>`; }
+  if (hasC && o.band) {
+    const area = line(curves[4]) + ' ' + curves[0].slice().reverse().map(q => 'L' + f1(X(q[0])) + ' ' + f1(Y(q[1]))).join(' ') + ' Z';
+    s += `<path class="pb" d="${area}"/><path class="pm" d="${line(curves[1])}"/><path class="pm" d="${line(curves[3])}"/><path class="pe" d="${line(curves[0])}"/><path class="pe" d="${line(curves[4])}"/><path class="p50" d="${line(curves[2])}"/>`;
+    const last = k => curves[k][curves[k].length - 1];
+    s += [[0, 'P3'], [2, 'P50'], [4, 'P97']].map(([k, t]) => `<text class="pl" x="${W - pr + 3}" y="${(Y(last(k)[1]) + 3).toFixed(1)}">${t}</text>`).join('');
+  }
+  const sp = vis.slice().sort((a, b) => a.m - b.m);
+  if (sp.length > 1) {
+    const path = sp.map((p, i) => (i ? 'L' : 'M') + f1(X(p.m)) + ' ' + f1(Y(p.y))).join(' ');
+    s += `<path class="fl" d="${path} L${f1(X(sp[sp.length - 1].m))} ${H - pb} L${f1(X(sp[0].m))} ${H - pb} Z" fill="url(#gifill)"/><path class="ln draw" pathLength="1" d="${path}"/>`;
+  }
+  s += sp.map((p, i) => `<circle class="dt${o.sel && p.e && p.e.id === o.sel ? ' sel' : ''}" data-i="${i}" cx="${f1(X(p.m))}" cy="${f1(Y(p.y))}" r="${o.sel && p.e && p.e.id === o.sel ? 6 : 4}"/>`).join('');
+  const msv = (o.ms || []).filter(q => q.m >= 0 && q.m <= xmax);
+  s += msv.map(q => `<g class="mk"><line x1="${f1(X(q.m))}" x2="${f1(X(q.m))}" y1="${H - pb - 8}" y2="${H - pb}"/><text x="${f1(X(q.m))}" y="${H - pb - 10}" text-anchor="middle">★</text></g>`).join('');
+  s += `<g class="xh" style="opacity:0"><line class="xl" x1="0" x2="0" y1="${pt}" y2="${H - pb}"/><circle class="xc c3" r="3"/><circle class="xc c50" r="3"/><circle class="xc c97" r="3"/><circle class="xc cy" r="6"/></g></svg>`;
+  const box = h('div', { class: 'gchart' });
+  box.innerHTML = s;
+  const svg = box.firstChild, xh = svg.querySelector('.xh'), xl = svg.querySelector('.xl');
+  const c3 = svg.querySelector('.c3'), c50 = svg.querySelector('.c50'), c97 = svg.querySelector('.c97'), cy = svg.querySelector('.cy');
+  const tip = h('div', { class: 'gtip', 'aria-hidden': 'true' });
+  const rd = h('div', { class: 'gread', 'aria-live': 'polite' });
+  const hint = o.hint || 'Fahre mit der Maus über die Kurve oder wische mit dem Finger darüber.';
+  rd.textContent = hint;
+  box.append(tip);
+  const fmtV = v => fmtNum(v) + (unit ? ' ' + unit : '');
+  function locate(cx) {
+    const r = svg.getBoundingClientRect(), vx = (cx - r.left) / r.width * W;
+    const x = Math.max(pl, Math.min(W - pr, vx)), m = (x - pl) / (W - pl - pr) * xmax;
+    let best = null, bd = 1e9; sp.forEach(p => { const d = Math.abs(X(p.m) - x); if (d < bd) { bd = d; best = p; } });
+    let bm = null, md = 1e9; msv.forEach(q => { const d = Math.abs(X(q.m) - x); if (d < md) { md = d; bm = q; } });
+    return { x, m, snap: best && bd <= 18 ? best : null, ms: bm && md <= 10 ? bm : null, r };
+  }
+  function show(ev) {
+    const L = locate(ev.clientX), cxv = L.snap ? X(L.snap.m) : L.x, m = L.snap ? L.snap.m : L.m;
+    xh.style.opacity = 1; xl.setAttribute('x1', cxv); xl.setAttribute('x2', cxv);
+    const lines = [];
+    const head = pct ? gAge(m) : o.dateAt(m);
+    let pc = null;
+    if (hasC) {
+      const l = lmsAt(sex, pk, m);
+      if (l) {
+        const v3 = yAtZ(l, PZ[0][1]), v50 = yAtZ(l, 0), v97 = yAtZ(l, PZ[4][1]);
+        [[c3, v3], [c50, v50], [c97, v97]].forEach(([c, v]) => { c.setAttribute('cx', f1(X(m))); c.setAttribute('cy', f1(Y(v))); c.style.display = o.band ? '' : 'none'; });
+        lines.push(`<span>P3 <b>${fmtNum(v3)}</b></span><span>P50 <b>${fmtNum(v50)}</b></span><span>P97 <b>${fmtNum(v97)}</b></span>`);
+      } else [c3, c50, c97].forEach(c => c.style.display = 'none');
+    } else [c3, c50, c97].forEach(c => c.style.display = 'none');
+    if (L.snap) {
+      cy.style.display = ''; cy.setAttribute('cx', f1(X(L.snap.m))); cy.setAttribute('cy', f1(Y(L.snap.y)));
+      pc = hasC ? pctOf(sex, pk, L.snap.m, L.snap.y) : null;
+    } else cy.style.display = 'none';
+    let html = `<small>${head}</small>`;
+    if (L.snap) html += `<div class="gt-main">${fmtV(L.snap.y)}${pc != null ? ` <i>P${Math.round(pc)}</i>` : ''}</div><small>${fmtD(L.snap.e.datum)}${pct ? ' · gemessen' : ''}</small>`;
+    if (lines.length) html += `<div class="gt-p">${lines.join('')}</div>`;
+    if (L.ms) html += `<div class="gt-ms">⭐ ${L.ms.t}</div>`;
+    tip.innerHTML = html;
+    const left = cxv < W * 0.5;
+    tip.className = 'gtip on ' + (left ? 'tr' : 'tl');
+    tip.style.left = (cxv / W * 100) + '%';
+    tip.style.top = left ? Math.round(L.r.height * 0.5) + 'px' : '4px';
+    rd.innerHTML = (L.snap ? `<b>${fmtV(L.snap.y)}</b> am ${fmtD(L.snap.e.datum)}${pc != null ? ` · <b>P${Math.round(pc)}</b>` : ''}` : `<b>${head}</b>`) + (lines.length ? ' · ' + lines.join(' ') : '') + (L.ms ? ` · ⭐ ${L.ms.t}` : '');
+  }
+  function hide() { xh.style.opacity = 0; tip.className = 'gtip'; rd.textContent = hint; }
+  svg.addEventListener('pointermove', show);
+  svg.addEventListener('pointerdown', show);
+  svg.addEventListener('pointerleave', ev => { if (ev.pointerType !== 'touch') hide(); });
+  svg.addEventListener('click', ev => { const L = locate(ev.clientX); if (L.snap && o.onPick) o.onPick(L.snap.e); });
+  box.append(rd);
+  return box;
+}
+function growDetail(e, k, sx, p, ent, editG) {
+  const g = GM[k], y = num(e[k]), card = h('div', { class: 'card stack gdet' });
+  const same = ent.filter(x => num(x[k]) != null);
+  const idx = same.indexOf(e), prev = idx > 0 ? same[idx - 1] : null;
+  const pc = (sx && g.pk && p.geburtsdatum) ? pctOf(sx, g.pk, monthsAt(p.geburtsdatum, e.datum), y) : null;
+  const l = (sx && g.pk && p.geburtsdatum) ? lmsAt(sx, g.pk, monthsAt(p.geburtsdatum, e.datum)) : null;
+  card.append(h('div', { class: 'gdet-top' }, h('span', { class: 'gdet-e', 'aria-hidden': 'true' }, g.e), h('div', null, h('small', { class: 'mute' }, fmtD(e.datum) + (ageAt(p, e.datum) ? ' · ' + ageAt(p, e.datum) : '')), h('b', { class: 'gdet-v' }, fmtNum(y) + (g.unit ? ' ' + g.unit : ''))), pc != null ? h('span', { class: 'gpc' }, 'P' + Math.round(pc)) : null));
+  const bits = [];
+  if (pc != null) bits.push(`${g.label}: Perzentile P${Math.round(pc)}, ${gPctText(pc)}`);
+  if (l) bits.push(`Der Durchschnitt (P50) liegt in diesem Alter bei ${fmtNum(yAtZ(l, 0))} ${g.unit}, der übliche Bereich bei ${fmtNum(yAtZ(l, PZ[0][1]))} bis ${fmtNum(yAtZ(l, PZ[4][1]))} ${g.unit}.`);
+  if (prev) { const d = y - num(prev[k]), days = Math.round((parseD(e.datum) - parseD(prev.datum)) / 864e5); bits.push(`${d >= 0 ? '+' : ''}${fmtNum(d)} ${g.unit} in ${days} ${days === 1 ? 'Tag' : 'Tagen'} seit der Messung vom ${fmtD(prev.datum)}.`); }
+  if (!bits.length) bits.push(sx ? 'Eine weitere Messung zeigt den Verlauf.' : 'Wähle oben das Geschlecht, dann vergleicht die App mit den Perzentilkurven.');
+  bits.forEach(b => card.append(h('p', { class: 'gdet-t' }, b)));
+  card.append(h('button', { class: 'btn ghost wide', type: 'button', onclick: () => editG(e) }, 'Messung bearbeiten'));
+  return card;
+}
+function viewGrowth() {
+  const hl = S.health, p = S.profile, wrap = h('div', { class: 'stack growpage' });
+  const editG = item => editListItem({ arr: hl.wachstum, key: 'health', title: 'Messung', fields: GROWTH_FIELDS, item, defaults: { datum: isoToday() } });
+  const editM = item => editListItem({ arr: hl.meilensteine, key: 'health', title: 'Meilenstein', fields: MILE_FIELDS, item, defaults: { datum: isoToday() } });
+  wrap.append(pageHead('Entwicklung', addBtn('Messung', () => editG())));
+  const ent = hl.wachstum.filter(e => e.datum).slice().sort((a, b) => a.datum.localeCompare(b.datum));
+  const sx = sexKey(), birth = p.geburtsdatum;
+  const series = k => ent.filter(e => num(e[k]) != null);
+  const avail = Object.keys(GM).filter(k => series(k).length);
+  if (!avail.length) {
+    wrap.append(h('div', { class: 'card stack gempty' }, h('div', { class: 'gempty-e', 'aria-hidden': 'true' }, '📈'), h('h2', null, 'Wachstum im Blick'), h('p', { class: 'mute' }, 'Trage Größe und Gewicht ein. Dann entsteht eine Kurve, die du antippen oder mit der Maus erkunden kannst, samt Vergleich mit den üblichen Perzentilen.'), h('button', { class: 'btn wide', type: 'button', onclick: () => editG() }, 'Erste Messung eintragen')));
+  } else {
+    if (!avail.includes(growMetric)) growMetric = avail[0];
+    const k = growMetric, g = GM[k];
+    // Kacheln
+    wrap.append(h('div', { class: 'gsum' }, avail.map(m => {
+      const s = series(m), l = s[s.length - 1], gm = GM[m], pc = (sx && gm.pk && birth) ? pctOf(sx, gm.pk, monthsAt(birth, l.datum), num(l[m])) : null;
+      const pr = s.length > 1 ? num(l[m]) - num(s[s.length - 2][m]) : null;
+      return h('button', { class: 'gs' + (m === k ? ' on' : ''), type: 'button', title: `${gm.label}: zuletzt am ${fmtD(l.datum)}${pc != null ? ', Perzentile P' + Math.round(pc) : ''}. Tippen für die Kurve.`, onclick: () => { growMetric = m; growSel = null; render(); } },
+        h('small', null, gm.e + ' ' + gm.label), h('b', null, fmtNum(num(l[m])) + (gm.unit ? ' ' + gm.unit : '')),
+        h('span', { class: 'gs-sub' }, pc != null ? h('i', { class: 'gpc' }, 'P' + Math.round(pc)) : null, pr != null ? h('em', null, (pr >= 0 ? '+' : '') + fmtNum(pr)) : null));
+    })));
+    if (!sx) wrap.append(h('div', { class: 'card stack' }, h('b', null, 'Mit Perzentilkurven vergleichen'),
+      h('p', { class: 'mute' }, 'Wähle das Geschlecht. Dann zeigt die App, wo Größe, Gewicht und Kopfumfang im Vergleich zu Gleichaltrigen liegen.'),
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => setSex('Mädchen') }, 'Mädchen'), h('button', { class: 'btn ghost', type: 'button', onclick: () => setSex('Junge') }, 'Junge'))));
+    else if (!birth) wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'mute' }, 'Trage das Geburtsdatum ein, um die Perzentilkurven zu sehen.'), h('button', { class: 'btn wide', type: 'button', onclick: editProfile }, 'Profil bearbeiten')));
+    // Diagramm
+    const s = series(k), pct = !!(sx && birth && g.pk);
+    const pts = pct ? s.map(e => ({ m: monthsAt(birth, e.datum), y: num(e[k]), e })).filter(q => q.m >= 0) : (() => { const t0 = parseD(s[0].datum).getTime(); return s.map(e => ({ m: (parseD(e.datum).getTime() - t0) / 864e5 / 30.4375, y: num(e[k]), e })); })();
+    const ms = hl.meilensteine.filter(m => m.datum && m.titel).map(m => ({ m: pct ? monthsAt(birth, m.datum) : (parseD(m.datum).getTime() - parseD(s[0].datum).getTime()) / 864e5 / 30.4375, t: m.titel }));
+    if (growSel && !s.some(e => e.id === growSel)) growSel = null;
+    let selE = (growSel && s.find(e => e.id === growSel)) || s[s.length - 1], firstMount = true;
+    const card = h('div', { class: 'card gcard' });
+    const detSlot = h('div', null);
+    const t0 = parseD(s[0].datum).getTime();
+    const mount = () => {
+      const old = card.querySelector('.gchart'); const fresh = growChartI({
+        sex: sx, pk: g.pk, birth, pts, unit: g.unit, ms: growMs ? ms : [], band: growBand, range: growRange, label: g.label, sel: selE.id,
+        dateAt: m => fmtD(new Date(t0 + m * 30.4375 * 864e5).toISOString().slice(0, 10)),
+        onPick: e => { growSel = e.id; selE = e; detSlot.replaceChildren(growDetail(e, k, sx, p, ent, editG)); mount(); }
+      });
+      if (!fresh) return;
+      if (!firstMount) fresh.querySelectorAll('.ln.draw').forEach(x => x.classList.remove('draw'));
+      firstMount = false;
+      if (old) old.replaceWith(fresh); else card.append(fresh);
+    };
+    const lastPc = (pct && pts.length) ? pctOf(sx, g.pk, pts[pts.length - 1].m, pts[pts.length - 1].y) : null;
+    card.append(h('div', { class: 'gcard-head' }, h('h2', null, g.label), lastPc != null ? h('span', { class: 'gpc' }, 'aktuell P' + Math.round(lastPc)) : null));
+    const tg = (label, on, fn, title) => h('button', { class: 'fchip' + (on ? ' on' : ''), type: 'button', title: title || null, 'aria-pressed': on ? 'true' : 'false', onclick: fn }, label);
+    const ctl = h('div', { class: 'chips gctl' });
+    if (pct) {
+      ctl.append(tg('Perzentil-Band', growBand, () => { growBand = !growBand; render(); }, 'Zeigt den üblichen Bereich von P3 bis P97'));
+      [[0, 'Alles'], [1, '1 J'], [3, '3 J'], [6, '6 J']].concat(g.pk === 'k' ? [] : [[18, '18 J']]).forEach(([v, l]) => ctl.append(tg(l, growRange === v, () => { growRange = v; render(); }, v ? 'Zoom auf die ersten ' + l : 'Gesamten Verlauf zeigen')));
+    }
+    if (ms.length) ctl.append(tg('★ Meilensteine', growMs, () => { growMs = !growMs; render(); }, 'Meilensteine im Diagramm markieren'));
+    if (ctl.childNodes.length) card.append(ctl);
+    wrap.append(card); mount();
+    detSlot.append(growDetail(selE, k, sx, p, ent, editG));
+    wrap.append(detSlot);
+    if (pct) wrap.append(h('p', { class: 'fine' }, 'Perzentile: WHO-Wachstumsstandards bis 5 Jahre, danach CDC-Kurven. Das Band zeigt P3 bis P97, die gestrichelte Linie ist der Durchschnitt (P50). Werte am Rand sind nicht automatisch auffällig. Bitte mit der Kinderärztin oder dem Kinderarzt besprechen.'));
+  }
+  // Messungen
+  wrap.append(sectionHead('Alle Messungen'));
+  const rows = ent.slice().reverse().map(e => {
+    const parts = [];
+    [['groesse', 'cm', 'h'], ['gewicht', 'kg', 'w'], ['kopf', 'cm', 'k']].forEach(([k, u, pk]) => {
+      if (num(e[k]) == null) return;
+      const pc = (sx && birth) ? pctOf(sx, pk, monthsAt(birth, e.datum), num(e[k])) : null;
+      parts.push((k === 'kopf' ? 'Kopf ' : '') + e[k] + ' ' + u + (pc != null ? ' (P' + Math.round(pc) + ')' : ''));
+    });
+    if (e.schuh) parts.push('Schuh ' + e.schuh);
+    const a = ageAt(p, e.datum);
+    return li(() => editG(e), 'grow-row', liTxt(fmtD(e.datum) + (a ? ' · ' + a : ''), parts.join(' · ') || 'Keine Werte'), chev());
+  });
+  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Messungen.')));
+  // Meilensteine
+  wrap.append(sectionHead('Meilensteine', addBtn('Meilenstein', () => editM())));
+  const msl = hl.meilensteine.slice().sort((a, b) => (a.datum || '').localeCompare(b.datum || ''));
+  wrap.append(msl.length ? h('div', { class: 'gmiles' }, msl.map(m => {
+    const a = ageAt(p, m.datum);
+    return h('button', { class: 'gm', type: 'button', title: [m.titel, m.datum ? fmtD(m.datum) : '', m.notiz].filter(Boolean).join(' · '), onclick: () => editM(m) },
+      h('span', { class: 'gm-e', 'aria-hidden': 'true' }, '⭐'), h('b', null, m.titel),
+      h('small', null, [m.datum ? fmtD(m.datum) : '', a ? 'mit ' + a : ''].filter(Boolean).join(' · ')),
+      m.notiz ? h('span', { class: 'gm-note' }, m.notiz) : null);
+  })) : h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Halte besondere Momente fest, z. B. erster Zahn oder erste Schritte.')));
+  return wrap;
+}
+
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
   catch (e) { document.body.replaceChildren(h('p', { style: 'padding:24px' }, 'Der Speicher ist nicht verfügbar. Bitte prüfe, ob privates Surfen aus ist, und lade die Seite neu.')); return; }
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
   try { initPull(); } catch (e) { console.error(e); }
-  setTimeout(() => { try { if (navigator.onLine !== false && S.profile.geburtsdatum && ls.get('luise_noboot_news') !== '1') newsLoad(false); } catch (e) {} }, 1800);
+  setTimeout(() => { try { if (navigator.onLine !== false && S.profile.geburtsdatum && ls.get('luise_noboot_news') !== '1') newsLoad(false); } catch (e) {} }, 250);
   try { if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
   window.addEventListener('offline', () => toast('Offline: Deine Daten sind trotzdem da'));
   window.addEventListener('online', () => toast('Wieder online'));
@@ -6992,7 +7475,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
