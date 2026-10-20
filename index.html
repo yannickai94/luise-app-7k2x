@@ -39,6 +39,28 @@ body{font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Ne
 .newsk{display:block;margin:2px 0}
 .newsfoot{display:block;font-size:12px;line-height:1.4;padding:0 4px 8px}
 .newshero .linkbtn{text-align:left}
+.newsitem{align-items:center;gap:12px}
+.newsth{flex:none;width:88px;height:66px;border-radius:10px;overflow:hidden;background:var(--accent-bg);display:flex;align-items:center;justify-content:center}
+.newsth img{width:100%;height:100%;object-fit:cover;display:block}
+.newsph{font-size:28px}
+.newsnote{background:var(--warn-bg);color:var(--warn)}
+.btn.small{padding:8px 14px;font-size:14px}
+.offhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.offhead b{flex:1;font-size:17px}
+.offhead .chip{margin-top:0}
+.offgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px}
+.offkv{display:flex;flex-direction:column}
+.offkv small{color:var(--mute);font-size:12px}
+.offkv b{font-size:15px}
+.quizopt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;font:inherit;font-size:16px;cursor:pointer}
+.quizopt .qk{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.quizopt span:nth-child(2){flex:1}
+.quizopt .qm{flex:none;font-weight:700}
+.quizopt.right{border-color:var(--accent);background:var(--accent-bg)}
+.quizopt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.quizopt.dim{opacity:.55}
+.quizfb.ok{border-left:4px solid var(--accent)}
+.quizfb.bad{border-left:4px solid var(--bad)}
 @media(max-width:400px){.tab{font-size:10px}}
 .ico svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block}
 .stack{display:flex;flex-direction:column;gap:14px}
@@ -2050,6 +2072,12 @@ function evalBadges() {
   add('c_hd', '🧬', 'Design-Entdecker', 'Human Design berechnet', 'Trage die Geburtszeit ein und öffne Human Design.', !!(p.geburtszeit && p.hd && p.hd.tz));
   add('c_song', '🎵', 'Musik-Fan', '5 Lieblingslieder gesammelt', 'Füge 5 Lieblingslieder hinzu.', p.lieder.length >= 5);
   add('c_med', '💊', 'Medikamenten-Überblick', 'Medikamentenplan angelegt', 'Lege ein Medikament an.', hl.meds.length >= 1);
+  const cq = coinData();
+  add('q_first', '🧠', 'Quiz-Starter', 'Die erste Quiz-Runde gespielt', 'Spiele unter Abzeichen › Quiz eine Runde.', cq.rounds >= 1);
+  add('q_perfect', '🎯', 'Volltreffer', 'Eine Runde ohne Fehler', 'Beantworte in einer Quiz-Runde alle Fragen richtig.', cq.perfect >= 1);
+  add('q_100', '🪙', 'Münzsammler', '100 Coins gesammelt', 'Sammle im Quiz 100 Coins.', cq.total >= 100);
+  add('q_500', '💰', 'Schatzmeister', '500 Coins gesammelt', 'Sammle im Quiz 500 Coins.', cq.total >= 500);
+  add('q_all', '🎓', 'Baby-Profi', 'Alle Quizfragen gemeistert', 'Beantworte jede Quizfrage einmal richtig.', quizMastered() >= QUIZ.length);
   const yrs = p.geburtsdatum ? ageYears(p.geburtsdatum) : -1;
   AGE_B.forEach(([n, emoji]) => {
     let date = null;
@@ -2105,7 +2133,8 @@ function viewBadges() {
   wrap.append(h('div', { class: 'hero2 gold' },
     h('div', { class: 'top' }, h('div', { class: 'bigemoji' }, L.e), h('div', null, h('h1', null, 'Level ' + st.lvl), h('p', null, L.n))),
     h('div', { class: 'bar' }, h('i', { style: `width:${st.pct}%` })),
-    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, `${st.got.length} / ${all.length}`), 'Abzeichen'), h('div', { class: 'stat' }, h('b', null, st.xp), 'Punkte'))));
+    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, `${st.got.length} / ${all.length}`), 'Abzeichen'), h('div', { class: 'stat' }, h('b', null, st.xp), 'Punkte'), h('div', { class: 'stat' }, h('b', null, coinData().total), 'Coins'))));
+  wrap.append(h('div', { class: 'card' }, li(() => { qz = null; go('quiz'); }, '', h('span', { class: 'hubico emo' }, '🪙'), liTxt('Quiz & ' + coinName(), `${coinData().total} Coins · ${quizMastered()} von ${QUIZ.length} Fragen gemeistert`), chev())));
   wrap.append(seg([['earned', 'Verdient'], ['open', 'Noch offen']], badgeSeg, id => { badgeSeg = id; render(); }));
   const want = badgeSeg === 'earned';
   const bdg = b => h('button', { class: 'bdg' + (b.earned ? '' : ' off'), onclick: () => openBadge(b) }, h('span', { class: 'bdg-c' }, h('span', null, b.emoji)), h('small', null, b.title));
@@ -3574,7 +3603,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 13'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 14'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4744,13 +4773,12 @@ function localAnswer(question) {
 }
 
 /* ============ KI-Assistent ============ */
-const AI_MODELS = ['claude-sonnet-5-5', 'claude-haiku-5-5', 'claude-opus-5-5'];
 const AI_SHARE = [['health', 'Gesundheit: Wachstum, U-Heft, Impfungen, Medikamente, Meilensteine, Betreuungs-Infos'], ['family', 'Familie und Kontakte: Namen, Beziehung, Geburtstage (ohne Telefonnummern)'], ['journey', 'Journey und Tagesnotizen'], ['dates', 'Termine und Fristen'], ['finance', 'Investments und Geldanlagen'], ['addr', 'Adressen']];
-const AI_MODES = [['lokal', 'Lokal: kostenlos, offline, beantwortet Fragen zu den App-Daten'], ['geraet', 'Auf dem Gerät: kostenlos, freie Fragen, einmaliger Download'], ['claude', 'Claude: eigener API-Schlüssel, kostenpflichtig']];
-const AI_SIZES = [['klein', 'Klein, ca. 0,4 GB, schneller'], ['mittel', 'Mittel, ca. 1 GB, schlauer']];
+const AI_MODES = [['lokal', 'Lokal: kostenlos, offline, beantwortet Fragen zu den App-Daten'], ['geraet', 'Auf dem Gerät: kostenlos, freie Fragen, einmaliger Download']];
+const AI_SIZES = [['klein', 'Klein, ca. 0,4 GB, am schnellsten'], ['mittel', 'Mittel, ca. 1 GB, schlauer'], ['gross', 'Groß, ca. 2 GB, am klügsten (neuere iPhones)']];
 const aiCfg = () => {
   let c = {}; try { c = JSON.parse(ls.get('luise_ai_cfg') || '{}') || {}; } catch (e) {}
-  return { mode: AI_MODES.some(m => m[0] === c.mode) ? c.mode : 'lokal', size: c.size === 'mittel' ? 'mittel' : 'klein', model: AI_MODELS.includes(c.model) ? c.model : AI_MODELS[0], share: Object.assign({ health: true, family: true, journey: true, dates: true, finance: false, addr: false }, c.share || {}) };
+  return { mode: AI_MODES.some(m => m[0] === c.mode) ? c.mode : 'lokal', size: ['klein', 'mittel', 'gross'].includes(c.size) ? c.size : 'mittel', share: Object.assign({ health: true, family: true, journey: true, dates: true, finance: false, addr: false }, c.share || {}) };
 };
 const SENS_KEY = /steuer|versnr|iban|konto|passwort|pin|tel$|^tel/i;
 const kvTxt = o => Object.entries(o || {}).filter(([k, v]) => !SKIP_KEYS.test(k) && !SENS_KEY.test(k) && (typeof v === 'string' || typeof v === 'number') && String(v) !== '' && !/^data:/.test(String(v))).map(([k, v]) => k + ': ' + v).join('; ');
@@ -4790,30 +4818,6 @@ function aiContext(sh) {
   return L.join('\n');
 }
 const aiSystem = cfg => 'Du bist der freundliche Assistent in der privaten Eltern-App „MyLuiseApp“. Antworte auf Deutsch, klar und konkret, ohne unnötige Floskeln. Nutze die App-Daten unten, wenn die Frage dazu passt, und sage offen, wenn etwas dort nicht steht. Du darfst auch allgemeine Fragen beantworten (Erziehung, Entwicklung, Ideen, Organisation, Behörden). Du bist keine Ärztin und kein Arzt: Bei gesundheitlichen Sorgen, Fieber bei Babys, Verdacht auf Notfälle empfiehl den Kinderarzt, den ärztlichen Bereitschaftsdienst 116117 oder bei Gefahr den Notruf 112. Erfinde keine Daten, Fristen oder Beträge.\n\nAPP-DATEN:\n' + aiContext(cfg.share);
-async function aiAsk(history, onDelta, signal) {
-  const key = ls.get('luise_ai_key'); if (!key) throw new Error('Es ist noch kein API-Schlüssel hinterlegt.');
-  const cfg = aiCfg();
-  const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', signal, headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({ model: cfg.model, max_tokens: 1500, stream: true, system: aiSystem(cfg), messages: history.map(m => ({ role: m.role, content: m.text })) }) });
-  if (!res.ok) {
-    let t = ''; try { t = (await res.json()).error.message; } catch (e) {}
-    const known = { 401: 'Der API-Schlüssel wird nicht akzeptiert.', 403: 'Der Zugriff wurde verweigert.', 429: 'Zu viele Anfragen oder das Limit ist erreicht.', 529: 'Der Dienst ist gerade überlastet.' }[res.status];
-    throw new Error(known || ('Fehler ' + res.status + (t ? ': ' + t : '')));
-  }
-  const rd = res.body.getReader(), dec = new TextDecoder(); let buf = '';
-  for (;;) {
-    const { done, value } = await rd.read(); if (done) break;
-    buf += dec.decode(value, { stream: true }); let i;
-    while ((i = buf.indexOf('\n')) >= 0) {
-      const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1);
-      if (!line.startsWith('data:')) continue;
-      const d = line.slice(5).trim(); if (!d || d === '[DONE]') continue;
-      let ev = null; try { ev = JSON.parse(d); } catch (e) { continue; }
-      if (ev.type === 'content_block_delta' && ev.delta && ev.delta.text) onDelta(ev.delta.text);
-      else if (ev.type === 'error') throw new Error((ev.error && ev.error.message) || 'Fehler beim Antworten');
-    }
-  }
-}
 const chatKey = () => 'luise_chat' + (CID === 'main' ? '' : '@' + CID);
 const chatLoad = () => { try { const a = JSON.parse(ls.get(chatKey()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
 const chatSave = m => ls.set(chatKey(), JSON.stringify(m.slice(-40).map(x => ({ role: x.role, text: x.text, err: x.err ? 1 : undefined, local: x.local ? 1 : undefined }))));
@@ -4824,13 +4828,23 @@ async function deviceEngine(onProgress) {
   if (!navigator.gpu) throw new Error('Dieses Gerät oder dieser Browser unterstützt WebGPU nicht. Auf dem iPhone braucht der Modus iOS 26 oder neuer.');
   let webllm;
   try { webllm = await import('https://esm.run/@mlc-ai/web-llm@0.2.79'); } catch (e) { throw new Error('Das Modell-Paket konnte nicht geladen werden. Beim ersten Mal braucht der Modus Internet.'); }
-  const cfg = aiCfg(), list = ((webllm.prebuiltAppConfig && webllm.prebuiltAppConfig.model_list) || []).map(m => m.model_id);
-  const pref = cfg.size === 'mittel' ? [/Qwen2\.5-1\.5B-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/, /Qwen2\.5-0\.5B-Instruct-q4f16_1/] : [/Qwen2\.5-0\.5B-Instruct-q4f16_1/, /SmolLM2-360M-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/];
-  const id = pref.map(rx => list.find(x => rx.test(x))).find(Boolean);
-  if (!id) throw new Error('In diesem Paket gibt es kein passendes kleines Modell.');
-  devEngine = await webllm.CreateMLCEngine(id, { initProgressCallback: r => onProgress(r.progress || 0, r.text || '') });
-  ls.set('luise_ai_dev_ready', id);
-  return devEngine;
+  const list = ((webllm.prebuiltAppConfig && webllm.prebuiltAppConfig.model_list) || []).map(m => m.model_id);
+  const pref = {
+    gross: [/Llama-3\.2-3B-Instruct-q4f16_1/, /Qwen2\.5-3B-Instruct-q4f16_1/, /gemma-2-2b-it-q4f16_1/],
+    mittel: [/Qwen2\.5-1\.5B-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/],
+    klein: [/Qwen2\.5-0\.5B-Instruct-q4f16_1/, /SmolLM2-360M-Instruct-q4f16_1/, /Llama-3\.2-1B-Instruct-q4f16_1/]
+  };
+  const size = aiCfg().size, tiers = size === 'gross' ? ['gross', 'mittel', 'klein'] : size === 'mittel' ? ['mittel', 'klein'] : ['klein'];
+  let lastErr = null;
+  for (const tier of tiers) {
+    const id = pref[tier].map(rx => list.find(x => rx.test(x))).find(Boolean); if (!id) continue;
+    try {
+      devEngine = await webllm.CreateMLCEngine(id, { initProgressCallback: r => onProgress(r.progress || 0, r.text || '') });
+      ls.set('luise_ai_dev_ready', id); ls.set('luise_ai_dev_tier', tier);
+      return devEngine;
+    } catch (e) { lastErr = e; devEngine = null; }
+  }
+  throw new Error(lastErr ? 'Das Modell konnte nicht geladen werden (' + (lastErr.message || 'Fehler') + '). Wähle in den Einstellungen eine kleinere Stufe.' : 'In diesem Paket gibt es kein passendes Modell.');
 }
 async function deviceAsk(history, onDelta, signal, onProgress) {
   const eng = await deviceEngine(onProgress), cfg = aiCfg();
@@ -4844,25 +4858,21 @@ async function deviceAsk(history, onDelta, signal, onProgress) {
   }
 }
 function aiSettings() {
-  const cfg = aiCfg(), has = !!ls.get('luise_ai_key'), vals = { mode: modeLabel(cfg.mode), size: AI_SIZES.find(x => x[0] === cfg.size)[1], model: cfg.model, key: '' };
+  const cfg = aiCfg(), vals = { mode: modeLabel(cfg.mode), size: AI_SIZES.find(x => x[0] === cfg.size)[1] };
   AI_SHARE.forEach(([k]) => vals['sh_' + k] = !!cfg.share[k]);
-  openSheet({ title: 'Assistent einrichten', saveLabel: 'Sichern', values: vals, deleteLabel: 'Schlüssel entfernen',
+  openSheet({ title: 'Assistent einrichten', saveLabel: 'Sichern', values: vals,
     fields: [
-      { key: 'mode', label: 'Modus', type: 'select', options: AI_MODES.map(m => m[1]), hint: 'Lokal ist sofort bereit und kostet nichts. „Auf dem Gerät“ lädt einmalig ein kleines Sprachmodell (WLAN empfohlen) und läuft danach ohne Internet. Die Daten verlassen das iPhone in beiden Modi nicht.' },
-      { key: 'size', label: 'Modellgröße (nur „Auf dem Gerät“)', type: 'select', options: AI_SIZES.map(m => m[1]), hint: 'Starte mit „Klein“. Große Modelle können Safari auf dem iPhone zum Neuladen bringen.' },
-      { key: 'key', label: has ? 'Claude: neuer API-Schlüssel (leer = behalten)' : 'Claude: API-Schlüssel (nur für den Modus Claude)', type: 'password', ph: 'sk-ant-…', hint: 'Optional und kostenpflichtig. Erstellt auf console.anthropic.com. Bleibt nur auf diesem iPhone, nicht in Sicherungen.' },
-      { key: 'model', label: 'Claude-Modell', type: 'select', options: AI_MODELS },
+      { key: 'mode', label: 'Modus', type: 'select', options: AI_MODES.map(m => m[1]), hint: 'Lokal ist sofort bereit und kostet nichts. „Auf dem Gerät“ lädt einmalig ein Sprachmodell (WLAN empfohlen) und läuft danach ohne Internet. Die Daten verlassen das iPhone in beiden Modi nicht.' },
+      { key: 'size', label: 'Modellgröße (nur „Auf dem Gerät“)', type: 'select', options: AI_SIZES.map(m => m[1]), hint: 'Mittel läuft auf den meisten iPhones. Groß antwortet am besten, braucht aber ein neueres iPhone (ab Pro-Modell mit 8 GB Speicher) und mehr Zeit beim ersten Laden. Wenn es nicht klappt, nimmt die App automatisch die nächstkleinere Stufe.' },
       ...AI_SHARE.map(([k, l]) => ({ key: 'sh_' + k, label: l, type: 'checkbox' })),
-      { key: 'note', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Die Häkchen gelten für „Auf dem Gerät“ und Claude. Beim Modus Claude werden die gewählten Daten an Anthropic übertragen. Steuer-ID, Versichertennummer, Kontodaten und Telefonnummern werden nie an ein Modell gesendet.') }
+      { key: 'note', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Die Häkchen gelten für „Auf dem Gerät“. Die Daten bleiben auf dem iPhone, nur das Modell wird einmalig heruntergeladen. Steuer-ID, Versichertennummer, Kontodaten und Telefonnummern werden nie an ein Modell gegeben.') }
     ],
     onSave: async v => {
-      if (v.key) ls.set('luise_ai_key', v.key.trim());
       const share = {}; AI_SHARE.forEach(([k]) => share[k] = !!v['sh_' + k]);
-      const mode = (AI_MODES.find(m => m[1] === v.mode) || AI_MODES[0])[0], size = (AI_SIZES.find(m => m[1] === v.size) || AI_SIZES[0])[0];
+      const mode = (AI_MODES.find(m => m[1] === v.mode) || AI_MODES[0])[0], size = (AI_SIZES.find(m => m[1] === v.size) || AI_SIZES[1])[0];
       if (mode !== aiCfg().mode || size !== aiCfg().size) devEngine = null;
-      ls.set('luise_ai_cfg', JSON.stringify({ mode, size, model: v.model, share })); render();
-    },
-    onDelete: has ? async () => { ls.del('luise_ai_key'); render(); } : null });
+      ls.set('luise_ai_cfg', JSON.stringify({ mode, size, share })); render();
+    } });
 }
 const AI_SUGGEST = ['Was steht bei uns als Nächstes an?', 'Wie groß und schwer ist sie zuletzt?', 'Welche Vorsorgen und Impfungen sind fällig?', 'Wie war die Temperatur zuletzt?', 'Gib mir einen Überblick.'];
 function mdNodes(text) {
@@ -4876,10 +4886,10 @@ function mdNodes(text) {
   return frag;
 }
 function viewChat() {
-  const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg(), hasKey = !!ls.get('luise_ai_key');
+  const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg();
   wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'));
   wrap.append(pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
-  wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : cfg.mode === 'geraet' ? 'Auf dem Gerät · kostenlos' : 'Claude · eigener Schlüssel')));
+  wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos')));
   let msgs = chatLoad();
   const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
   const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden' }, '➤'), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
@@ -4898,13 +4908,11 @@ function viewChat() {
     draw(); scroll();
     const local = localAnswer(q);
     if (mode === 'lokal' || (mode === 'geraet' && local.matched)) { a.text = local.text; a.actions = local.actions; a.local = true; msgs[msgs.length - 2].local = true; chatSave(msgs.filter(m => m.text)); draw(); scroll(); return; }
-    if (mode === 'claude' && !hasKey) { a.err = true; a.text = 'Für den Modus Claude fehlt der API-Schlüssel. Tippe oben auf „Einstellungen“.'; draw(); return; }
     const ctl = new AbortController(); chatBusy = ctl; send.hidden = true; stop.hidden = false; stop.onclick = () => ctl.abort();
     const hist = msgs.slice(0, -1).filter(m => !m.err && !m.local && m.text);
     try {
       const onDelta = t => { a.progress = null; a.text += t; redraw(); scroll(); };
-      if (mode === 'geraet') await deviceAsk(hist, onDelta, ctl.signal, pr => { a.progress = pr; redraw(); });
-      else await aiAsk(hist.slice(-20), onDelta, ctl.signal);
+      await deviceAsk(hist, onDelta, ctl.signal, pr => { a.progress = pr; redraw(); });
       a.progress = null; if (!a.text) a.text = '(Keine Antwort erhalten.)';
     } catch (e) {
       a.progress = null;
@@ -5454,6 +5462,7 @@ const geldSub = it => {
 function viewInvest() {
   const p = S.profile, arr = p.invest, wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Geld', addBtn('Eintrag', addGeld)));
+  wrap.append(h('div', { class: 'card' }, li(() => go('offers'), '', h('span', { class: 'hubico emo' }, '🏷️'), liTxt('Angebote für Kinder', 'Junior-Depots, Förderung, aktuelle Meldungen'), chev())));
   const total = geldTotal(), monthly = arr.reduce((s, it) => s + monthlyOf(it), 0);
   const m = monthsTo18(), proj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null, ziel = eur2num(p.investZiel);
   const byKind = KINDS.map(([k, label, one, col]) => ({ k, label, one, col, items: arr.filter(it => kindOf(it) === k), sum: arr.filter(it => kindOf(it) === k).reduce((s, it) => s + valOf(it), 0) }));
@@ -5689,25 +5698,36 @@ function offlineCard() {
 
 Object.assign(WIDGETS, { erinnerung: { name: 'Erinnerungen', desc: 'Heute vor 1 Jahr und Monatsgeburtstag', render: wErinnerung } });
 
-/* ============ News: aktuelle Meldungen passend zum Alter ============ */
-const NEWS_KEY = 'luise_news_v1';
-const NEWS_TOPICS = [['gesundheit', 'Gesundheit'], ['entwicklung', 'Entwicklung'], ['familie', 'Familie & Geld'], ['sicherheit', 'Sicherheit']];
+/* ============ News: aktuelle Meldungen mit Bildern, passend zum Alter ============ */
+const NEWS_KEY = 'luise_news_v2';
+const NEWS_TOPICS = [['gesundheit', 'Gesundheit'], ['entwicklung', 'Entwicklung'], ['natur', 'Natur & Homöopathie'], ['recht', 'Gesetze & Finanzen'], ['sicherheit', 'Sicherheit']];
+const NEWS_EMO = { gesundheit: '🩺', entwicklung: '🧸', natur: '🌿', recht: '⚖️', sicherheit: '🛡️', geld: '💶' };
+const NEWS_RECHT = ['Kindergeld OR Elterngeld OR Kinderfreibetrag OR Familienleistungen Gesetz', 'Junior-Depot OR Kinderdepot OR Frühstart-Rente OR Kindersparen'];
 const NEWS_STAGES = [
-  { id: 'neu', max: 3, label: 'Neugeborenes', q: { gesundheit: 'Neugeborenes Gesundheit Impfung', entwicklung: 'Neugeborenes Entwicklung Schlaf Stillen', familie: 'Elterngeld Neugeborenes Kindergeld', sicherheit: 'Babyprodukt Rückruf Warnung' } },
-  { id: 'baby1', max: 6, label: 'Baby (3 bis 6 Monate)', q: { gesundheit: 'Baby Gesundheit Impfung Säugling', entwicklung: 'Baby Entwicklung Schlaf Beikost', familie: 'Elterngeld Eltern Baby', sicherheit: 'Babyprodukt Rückruf Warnung' } },
-  { id: 'baby2', max: 12, label: 'Baby (6 bis 12 Monate)', q: { gesundheit: 'Baby Gesundheit Zahnen Impfung', entwicklung: 'Baby Entwicklung Beikost krabbeln', familie: 'Elterngeld Kita-Platz Eltern', sicherheit: 'Babyprodukt Rückruf Warnung' } },
-  { id: 'klein', max: 36, label: 'Kleinkind', q: { gesundheit: 'Kleinkind Gesundheit Impfung Kinderarzt', entwicklung: 'Kleinkind Entwicklung Sprache Trotzphase', familie: 'Kita-Platz Kindergeld Eltern', sicherheit: 'Kinderprodukt Spielzeug Rückruf Warnung' } },
-  { id: 'kita', max: 72, label: 'Kita- und Vorschulkind', q: { gesundheit: 'Kindergartenkind Gesundheit Kinderarzt', entwicklung: 'Vorschulkind Entwicklung Schulreife', familie: 'Kita Kindergeld Einschulung Eltern', sicherheit: 'Spielzeug Rückruf Kinder Warnung' } },
-  { id: 'schule', max: 144, label: 'Grundschulkind', q: { gesundheit: 'Schulkinder Gesundheit Kinderarzt', entwicklung: 'Grundschule Kinder Lernen Medien', familie: 'Schule Kindergeld Eltern Bildung', sicherheit: 'Kinder Sicherheit Schulweg Rückruf' } },
-  { id: 'teen', max: 1e9, label: 'Jugendliche', q: { gesundheit: 'Jugendliche Gesundheit Kinderarzt', entwicklung: 'Jugendliche Pubertät Schule Medien', familie: 'Kindergeld Ausbildung Eltern Jugendliche', sicherheit: 'Jugendliche Sicherheit Internet Rückruf' } }
+  { id: 'neu', max: 3, label: 'Neugeborenes', q: { gesundheit: ['Neugeborenes Gesundheit Stillen Pflege Kinderarzt'], entwicklung: ['Neugeborenes Entwicklung Schlaf Bindung'], natur: ['(Homöopathie OR Naturheilkunde OR Hausmittel) Baby'], recht: NEWS_RECHT, sicherheit: ['Babyprodukt Rückruf Warnung'] } },
+  { id: 'baby1', max: 6, label: 'Baby (3 bis 6 Monate)', q: { gesundheit: ['Baby Gesundheit Säugling Pflege Kinderarzt'], entwicklung: ['Baby Entwicklung Schlaf Beikost'], natur: ['(Homöopathie OR Naturheilkunde OR Hausmittel) Baby'], recht: NEWS_RECHT, sicherheit: ['Babyprodukt Rückruf Warnung'] } },
+  { id: 'baby2', max: 12, label: 'Baby (6 bis 12 Monate)', q: { gesundheit: ['Baby Gesundheit Zahnen Kinderarzt Ernährung'], entwicklung: ['Baby Entwicklung Beikost krabbeln'], natur: ['(Homöopathie OR Naturheilkunde OR Hausmittel) Baby Zahnen'], recht: NEWS_RECHT, sicherheit: ['Babyprodukt Rückruf Warnung'] } },
+  { id: 'klein', max: 36, label: 'Kleinkind', q: { gesundheit: ['Kleinkind Gesundheit Kinderarzt Ernährung'], entwicklung: ['Kleinkind Entwicklung Sprache Trotzphase'], natur: ['(Homöopathie OR Naturheilkunde OR Heilpflanzen) Kleinkind Kinder'], recht: NEWS_RECHT, sicherheit: ['Kinderprodukt Spielzeug Rückruf Warnung'] } },
+  { id: 'kita', max: 72, label: 'Kita- und Vorschulkind', q: { gesundheit: ['Kindergartenkind Gesundheit Kinderarzt'], entwicklung: ['Vorschulkind Entwicklung Schulreife'], natur: ['(Naturkunde OR Naturheilkunde OR Homöopathie) Kinder Natur entdecken'], recht: NEWS_RECHT, sicherheit: ['Spielzeug Rückruf Kinder Warnung'] } },
+  { id: 'schule', max: 144, label: 'Grundschulkind', q: { gesundheit: ['Schulkinder Gesundheit Kinderarzt'], entwicklung: ['Grundschule Kinder Lernen Medien'], natur: ['(Naturkunde OR Naturheilkunde OR Homöopathie) Schulkinder'], recht: NEWS_RECHT, sicherheit: ['Kinder Sicherheit Schulweg Rückruf'] } },
+  { id: 'teen', max: 1e9, label: 'Jugendliche', q: { gesundheit: ['Jugendliche Gesundheit Kinderarzt'], entwicklung: ['Jugendliche Pubertät Schule Medien'], natur: ['(Naturheilkunde OR Homöopathie) Jugendliche'], recht: ['Kindergeld Ausbildung Jugendliche Gesetz', 'Taschengeld Jugendkonto Junior-Depot'], sicherheit: ['Jugendliche Sicherheit Internet Rückruf'] } }
 ];
 function newsStage() {
   const m = eduAgeMonths();
   if (m == null) return Object.assign({ unknown: true }, NEWS_STAGES[3]);
   return NEWS_STAGES.find(s => m < s.max) || NEWS_STAGES[0];
 }
-const newsQueryUrl = q => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q + ' when:30d') + '&hl=de&gl=DE&ceid=DE:de';
+const NEWS_BLOCK = /impf|stiko/i;
+const newsBingUrl = q => 'https://www.bing.com/news/search?q=' + encodeURIComponent(q) + '&format=rss&setlang=de&cc=DE&mkt=de-DE';
+const newsGoogleUrl = q => 'https://news.google.com/rss/search?q=' + encodeURIComponent(q + ' when:30d') + '&hl=de&gl=DE&ceid=DE:de';
 const newsSafeUrl = u => { try { const x = new URL(String(u)); return /^https?:$/.test(x.protocol) ? x.href : ''; } catch (e) { return ''; } };
+function newsImgUrl(u) {
+  try { const x = new URL(String(u).trim()); if (!/^https?:$/.test(x.protocol) || !x.hostname) return ''; x.protocol = 'https:'; return x.href; } catch (e) { return ''; }
+}
+function newsUnwrap(link) {
+  try { const x = new URL(link); if (/(^|\.)bing\.com$/.test(x.hostname)) { const t = x.searchParams.get('url'); if (t) return newsSafeUrl(t); } } catch (e) {}
+  return newsSafeUrl(link);
+}
 function newsSplitTitle(t, src) {
   t = String(t || '').replace(/\s+/g, ' ').trim();
   const i = t.lastIndexOf(' - ');
@@ -5715,11 +5735,13 @@ function newsSplitTitle(t, src) {
   if (src && t.endsWith(' - ' + src)) return { t: t.slice(0, -(src.length + 3)), s: src };
   return { t, s: src || '' };
 }
+const newsImgInHtml = html => { const m = /<img[^>]+src=["']([^"']+)["']/i.exec(String(html || '')); return m ? newsImgUrl(m[1]) : ''; };
 function newsFromJson(j) {
   if (!j || j.status !== 'ok' || !Array.isArray(j.items)) throw new Error('Antwort ohne Meldungen');
   return j.items.map(x => {
     const ts = x.pubDate ? Date.parse(String(x.pubDate).replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(x.pubDate) ? '' : 'Z')) : NaN;
-    const sp = newsSplitTitle(x.title, ''); return { t: sp.t, s: sp.s || (x.author || ''), u: newsSafeUrl(x.link), d: isNaN(ts) ? 0 : ts };
+    const sp = newsSplitTitle(x.title, ''), img = newsImgUrl(x.thumbnail || (x.enclosure && (x.enclosure.link || x.enclosure.url)) || '') || newsImgInHtml(x.description) || newsImgInHtml(x.content);
+    return { t: sp.t, s: sp.s || (x.author || ''), u: newsUnwrap(x.link), d: isNaN(ts) ? 0 : ts, i: img };
   });
 }
 function newsFromXml(text) {
@@ -5729,14 +5751,17 @@ function newsFromXml(text) {
   if (!items.length && !doc.querySelector('channel')) throw new Error('Kein gültiger Feed');
   return items.map(it => {
     const g = n => { const e = it.querySelector(n); return e ? e.textContent : ''; };
-    const sp = newsSplitTitle(g('title'), g('source').trim()), ts = Date.parse(g('pubDate'));
-    return { t: sp.t, s: sp.s, u: newsSafeUrl(g('link')), d: isNaN(ts) ? 0 : ts };
+    const ns = n => { const e = it.getElementsByTagNameNS('*', n)[0]; return e ? e.textContent : ''; };
+    const att = (n, a) => { const e = it.getElementsByTagNameNS('*', n)[0]; return e ? (e.getAttribute(a) || '') : ''; };
+    const sp = newsSplitTitle(g('title'), (g('source') || ns('Source')).trim()), ts = Date.parse(g('pubDate'));
+    const img = newsImgUrl(ns('Image') || att('thumbnail', 'url') || att('content', 'url') || (it.querySelector('enclosure') && it.querySelector('enclosure').getAttribute('url')) || '') || newsImgInHtml(g('description'));
+    return { t: sp.t, s: sp.s, u: newsUnwrap(g('link')), d: isNaN(ts) ? 0 : ts, i: img };
   });
 }
 const NEWS_PROXIES = [
-  { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) },
   { n: 'allorigins', url: f => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
-  { n: 'corsproxy', url: f => 'https://corsproxy.io/?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) }
+  { n: 'corsproxy', url: f => 'https://corsproxy.io/?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
+  { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) }
 ];
 async function newsFetchFeed(feedUrl) {
   let lastErr = null;
@@ -5752,12 +5777,31 @@ async function newsFetchFeed(feedUrl) {
   }
   throw lastErr || new Error('Keine Verbindung');
 }
-const newsRead = () => { try { const c = JSON.parse(ls.get(NEWS_KEY) || 'null'); return c && typeof c === 'object' ? c : null; } catch (e) { return null; } };
-const newsWrite = c => ls.set(NEWS_KEY, JSON.stringify(c));
-let newsTopic = 'alle', newsBusy = false, newsErr = '', newsTried = false, claudeBusy = false, claudeErr = '';
+async function newsFetchQuery(q) {
+  let items = [], err = null;
+  try { items = await newsFetchFeed(newsBingUrl(q)); } catch (e) { err = e; }
+  if (items.length < 3) { try { items = items.concat(await newsFetchFeed(newsGoogleUrl(q))); } catch (e) { err = e; if (!items.length) throw e; } }
+  return items;
+}
+async function newsFetchQueries(qs) {
+  const res = await Promise.allSettled(qs.map(newsFetchQuery)), ok = res.filter(r => r.status === 'fulfilled');
+  if (!ok.length) throw res[0].reason || new Error('Keine Verbindung');
+  return [].concat(...ok.map(r => r.value));
+}
+const newsRead = (k) => { try { const c = JSON.parse(ls.get(k || NEWS_KEY) || 'null'); return c && typeof c === 'object' ? c : null; } catch (e) { return null; } };
+const newsWrite = (c, k) => ls.set(k || NEWS_KEY, JSON.stringify(c));
+let newsTopic = 'alle', newsBusy = false, newsErr = '', newsTried = false;
+function newsClean(items, max) {
+  const now = Date.now(), seen = new Set(), out = [];
+  items.filter(x => x.t && x.u && !NEWS_BLOCK.test(x.t) && (!x.d || now - x.d < 45 * 864e5)).sort((a, b) => b.d - a.d).forEach(x => {
+    const k = x.t.toLowerCase().replace(/[^a-zäöüß0-9]/g, '').slice(0, 60);
+    if (seen.has(k) || out.length >= max) return; seen.add(k); out.push(x);
+  });
+  return out;
+}
 function newsMerge(byTopic) {
   const seen = new Set(), out = [];
-  Object.entries(byTopic).forEach(([topic, items]) => items.filter(x => x.t && x.u).sort((a, b) => b.d - a.d).slice(0, 12).forEach(x => {
+  Object.entries(byTopic).forEach(([topic, items]) => newsClean(items, 10).forEach(x => {
     const k = x.t.toLowerCase().replace(/[^a-zäöüß0-9]/g, '').slice(0, 60);
     if (seen.has(k)) return; seen.add(k); out.push(Object.assign({ topic }, x));
   }));
@@ -5769,12 +5813,11 @@ async function newsLoad(force) {
   if (!force && c && c.stage === st.id && c.items && Date.now() - c.ts < 6 * 36e5) { newsTried = true; return; }
   newsBusy = true; newsErr = ''; newsTried = true; if (tab === 'news') render();
   try {
-    const res = await Promise.allSettled(NEWS_TOPICS.map(([id]) => newsFetchFeed(newsQueryUrl(st.q[id]))));
+    const res = await Promise.allSettled(NEWS_TOPICS.map(([id]) => newsFetchQueries(st.q[id])));
     const by = {}; let ok = 0;
     res.forEach((r, i) => { if (r.status === 'fulfilled') { ok++; by[NEWS_TOPICS[i][0]] = r.value; } });
     if (!ok) throw new Error((res[0].reason && res[0].reason.message) || 'Keine Verbindung');
-    const prev = newsRead() || {};
-    newsWrite({ stage: st.id, ts: Date.now(), items: newsMerge(by), claude: prev.stage === st.id ? prev.claude : undefined });
+    newsWrite({ stage: st.id, ts: Date.now(), items: newsMerge(by) });
   } catch (e) {
     newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
   }
@@ -5790,35 +5833,6 @@ function newsAgoTxt(ts) {
   if (d < 14) return `vor ${d} Tagen`;
   const x = new Date(ts); return fmtD(`${x.getFullYear()}-${pad2(x.getMonth() + 1)}-${pad2(x.getDate())}`);
 }
-function newsAgeText() {
-  const m = eduAgeMonths(); if (m == null) return '';
-  const w = Math.floor(lifeDays(S.profile.geburtsdatum) / 7);
-  if (m < 3) return `${Math.max(w, 0)} Wochen`;
-  if (m < 24) return `${m} Monaten`;
-  return `${Math.floor(m / 12)} Jahren`;
-}
-async function newsAskClaude() {
-  if (claudeBusy) return;
-  const key = ls.get('luise_ai_key'); if (!key) { toast('Dafür braucht es einen API-Schlüssel (Mehr, KI-Assistent).'); return; }
-  const st = newsStage(), cfg = aiCfg(), age = newsAgeText();
-  claudeBusy = true; claudeErr = ''; render();
-  try {
-    const prompt = `Suche aktuelle deutschsprachige Nachrichten der letzten drei Wochen, die für Eltern eines Kindes im Alter von ${age || 'unbekannt'} (${st.label}) in Deutschland relevant sind: Gesundheit und Vorsorge, Entwicklung, Familienleistungen und Gesetze, Produktwarnungen. Nimm nur seriöse Quellen. Antworte ausschließlich mit JSON ohne weiteren Text: {"items":[{"titel":"...","quelle":"...","url":"https://...","datum":"JJJJ-MM-TT","kurz":"ein Satz, warum das für dieses Alter wichtig ist"}]} mit höchstens 6 Einträgen.`;
-    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({ model: cfg.model, max_tokens: 2500, tools: [{ type: 'web_search_20250305', name: 'web_search', max_uses: 4, user_location: { type: 'approximate', country: 'DE' } }], system: 'Du lieferst geprüfte, aktuelle Eltern-Nachrichten für Deutschland. Erfinde nichts, nenne nur Meldungen, die du per Websuche gefunden hast.', messages: [{ role: 'user', content: prompt }] }) });
-    if (!res.ok) {
-      let t = ''; try { t = (await res.json()).error.message; } catch (e) {}
-      throw new Error(({ 401: 'Der API-Schlüssel wird nicht akzeptiert.', 403: 'Der Zugriff wurde verweigert.', 429: 'Zu viele Anfragen oder das Limit ist erreicht.', 529: 'Der Dienst ist gerade überlastet.' })[res.status] || ('Fehler ' + res.status + (t ? ': ' + t : '')));
-    }
-    const j = await res.json(), txt = (j.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
-    const a = txt.indexOf('{'), z = txt.lastIndexOf('}'); if (a < 0 || z < a) throw new Error('Claude hat keine Liste geliefert.');
-    const items = (JSON.parse(txt.slice(a, z + 1)).items || []).map(x => ({ t: String(x.titel || '').trim(), s: String(x.quelle || '').trim(), u: newsSafeUrl(x.url), d: Date.parse(x.datum) || 0, k: String(x.kurz || '').trim() })).filter(x => x.t && x.u).slice(0, 6);
-    if (!items.length) throw new Error('Keine passenden Meldungen gefunden.');
-    const c = newsRead() || { stage: st.id, ts: 0, items: [] };
-    c.claude = { stage: st.id, ts: Date.now(), items }; newsWrite(c);
-  } catch (e) { claudeErr = e.name === 'SyntaxError' ? 'Die Antwort konnte nicht gelesen werden.' : (e.message || 'Fehler'); }
-  claudeBusy = false; if (tab === 'news') render();
-}
 function newsNextU() {
   const b = S.profile.geburtsdatum; if (!b) return null;
   let later = null;
@@ -5830,13 +5844,19 @@ function newsNextU() {
   }
   return later;
 }
-function newsItemRow(x, extra) {
-  const meta = [x.s, newsAgeTxtSafe(x.d)].filter(Boolean).join(' · ');
-  const tp = extra && NEWS_TOPICS.find(t => t[0] === x.topic);
-  return h('a', { class: 'li newsitem', href: x.u, target: '_blank', rel: 'noopener noreferrer' },
-    h('span', { class: 'li-txt' }, h('b', null, x.t), x.k ? h('small', { class: 'newsk' }, x.k) : null, h('small', null, [meta, tp && tp[1]].filter(Boolean).join(' · '))), chev());
+function newsThumb(x, topic) {
+  const ph = h('span', { class: 'newsph', 'aria-hidden': 'true' }, NEWS_EMO[topic] || '📰');
+  if (!x.i) return h('span', { class: 'newsth' }, ph);
+  const img = h('img', { src: x.i, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }), box = h('span', { class: 'newsth' }, img);
+  img.addEventListener('error', () => box.replaceChildren(ph));
+  return box;
 }
-const newsAgeTxtSafe = ts => ts ? newsAgoTxt(ts) : '';
+function newsItemRow(x, showTopic) {
+  const tp = NEWS_TOPICS.find(t => t[0] === x.topic), meta = [x.s, x.d ? newsAgoTxt(x.d) : ''].filter(Boolean).join(' · ');
+  return h('a', { class: 'li newsitem', href: x.u, target: '_blank', rel: 'noopener noreferrer' },
+    h('span', { class: 'li-txt' }, h('b', null, x.t), h('small', null, [meta, showTopic && tp && tp[1]].filter(Boolean).join(' · '))),
+    newsThumb(x, x.topic || 'geld'));
+}
 function viewNews() {
   const p = S.profile, wrap = h('div', { class: 'stack' }), st = newsStage(), c = newsRead();
   wrap.append(pageHead('News', ghostBtn(newsBusy ? 'Lädt …' : 'Aktualisieren', () => newsLoad(true))));
@@ -5852,10 +5872,7 @@ function viewNews() {
     wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum ein. Dann zeigt dir die App News passend zum Alter.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
   }
   wrap.append(h('div', { class: 'chips' }, [['alle', 'Alle'], ...NEWS_TOPICS].map(([id, nm]) => h('button', { class: 'fchip' + (newsTopic === id ? ' on' : ''), type: 'button', onclick: () => { newsTopic = id; render(); } }, nm))));
-  const cl = c && c.claude && c.claude.stage === st.id ? c.claude : null;
-  if (cl && newsTopic === 'alle') {
-    wrap.append(sectionHead('Von Claude ausgewählt'), h('div', { class: 'card' }, cl.items.map(x => newsItemRow(x, false))), h('small', { class: 'mute' }, `Gesucht ${newsAgoTxt(cl.ts)}. Bitte Quellen selbst prüfen.`));
-  }
+  if (newsTopic === 'natur') wrap.append(h('div', { class: 'card newsnote' }, h('small', null, 'Hinweis: Für Homöopathie ist keine Wirkung über den Placebo-Effekt hinaus nachgewiesen. Bei Fieber, Atemnot oder Trinkschwäche vor allem bei Babys bitte zum Kinderarzt (116117) oder bei Gefahr 112.')));
   const items = c && c.stage === st.id && c.items ? c.items.filter(x => newsTopic === 'alle' || x.topic === newsTopic) : [];
   wrap.append(sectionHead(newsTopic === 'alle' ? 'Aktuell für ' + st.label : (NEWS_TOPICS.find(t => t[0] === newsTopic) || [0, ''])[1]));
   if ((newsBusy || !newsTried) && !items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Lade aktuelle Meldungen …')));
@@ -5865,15 +5882,204 @@ function viewNews() {
   } else {
     wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
   }
-  const hasKey = !!ls.get('luise_ai_key');
-  wrap.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('b', null, 'Genau für dieses Alter suchen'),
-    h('small', { class: 'mute' }, hasKey ? 'Claude sucht im Web nach aktuellen Meldungen für Eltern von ' + (newsAgeText() ? 'einem Kind mit ' + newsAgeText() : 'Kindern dieser Altersphase') + '. Das nutzt deinen API-Schlüssel und kostet wenige Cent. Es wird nur das Alter gesendet.' : 'Mit einem eigenen API-Schlüssel (Mehr, KI-Assistent, Modus „Claude“) sucht Claude persönlich passende Meldungen.'),
-    h('button', { class: 'btn wide' + (hasKey ? '' : ' ghost'), type: 'button', disabled: claudeBusy || null, onclick: newsAskClaude }, claudeBusy ? 'Claude sucht …' : 'Mit Claude suchen'),
-    claudeErr ? h('small', { style: 'color:var(--bad)' }, claudeErr) : null));
-  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Google News und werden über einen Vermittlungsdienst geladen. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Die Meldungen ersetzen keine ärztliche Beratung.'));
+  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Bing News und Google News und werden über einen Vermittlungsdienst geladen, die Bilder direkt von den Servern der Anbieter. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit[0] + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Ohne Bild der Quelle zeigt die App ein Symbol. Die Meldungen ersetzen keine ärztliche Beratung.'));
   if (!newsTried && !newsBusy) setTimeout(() => newsLoad(false), 0);
   return wrap;
 }
+
+/* ============ Geld: Angebote für Kinder ============ */
+const OFFERS_STAND = '2026-10-01';
+const OFFERS_KEY = 'luise_news_geld_v1';
+const OFFERS_QUERIES = ['Junior-Depot OR Kinderdepot OR Kinderkonto OR Frühstart-Rente', 'Kindergeld OR Kinderfreibetrag Erhöhung Gesetz'];
+const OFFERS_DEPOT = [
+  { n: 'Scalable Capital', note: '5,0', order: '0,99 €', plan: '0 €', min: '1 €', hint: 'ETF-Sparpläne kostenlos, 2,5 % Zinsen auf Tagesgeld. Beide Elternteile brauchen ein Scalable-Depot.', url: 'https://de.scalable.capital' },
+  { n: 'Traders Place', note: '5,0', order: '0 €', plan: '0 €', min: '1 €', hint: 'Keine Depotgebühr, keine Ordergebühr im Vergleich.', url: '' },
+  { n: 'Trade Republic', note: '4,6', order: '1 €', plan: '0 €', min: '1 €', hint: 'Alle ETF-Sparpläne kostenlos, 2,5 % auf das Verrechnungskonto. Beide Elternteile brauchen ein Trade-Republic-Depot.', url: 'https://traderepublic.com' },
+  { n: 'finanzen.net zero', note: '4,6', order: '0 €', plan: '0 €', min: '1 €', hint: 'Keine Depotgebühr, keine Ordergebühr im Vergleich.', url: '' },
+  { n: 'ING', note: '3,8', order: '4,90 € + 0,25 %', plan: '0 €', min: '1 €', hint: 'Alle ETF-Sparpläne kostenlos, 0,75 % auf Tagesgeld.', url: 'https://www.ing.de' },
+  { n: 'DKB-Broker u18', note: '2,7', order: '10 €', plan: '1,50 €', min: '25 €', hint: 'Setzt ein DKB-Junior-Girokonto voraus, 1 % auf Tagesgeld.', url: 'https://www.dkb.de' }
+];
+let offBusy = false, offErr = '', offTried = false;
+async function offersLoad(force) {
+  if (offBusy) return;
+  const c = newsRead(OFFERS_KEY);
+  if (!force && c && c.items && Date.now() - c.ts < 6 * 36e5) { offTried = true; return; }
+  offBusy = true; offErr = ''; offTried = true; if (tab === 'offers') render();
+  try { newsWrite({ ts: Date.now(), items: newsClean(await newsFetchQueries(OFFERS_QUERIES), 12) }, OFFERS_KEY); }
+  catch (e) { offErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.'; }
+  offBusy = false; if (tab === 'offers') render();
+}
+const offLink = (label, url) => h('a', { class: 'btn ghost small', href: url, target: '_blank', rel: 'noopener noreferrer' }, label);
+function offersDepotCard(o, mine) {
+  const kv2 = (k, v) => h('span', { class: 'offkv' }, h('small', null, k), h('b', null, v));
+  return h('div', { class: 'card stack offcard', style: 'gap:8px' },
+    h('div', { class: 'offhead' }, h('b', null, o.n), mine ? h('span', { class: 'chip ok' }, 'Dein Depot') : null, h('span', { class: 'chip' }, 'Note ' + o.note)),
+    h('div', { class: 'offgrid' }, kv2('Depot', '0 €'), kv2('ETF-Sparplan', o.plan), kv2('Order', o.order), kv2('Ab', o.min)),
+    h('small', { class: 'mute' }, o.hint), o.url ? h('div', { class: 'btn-row' }, offLink('Zur Webseite', o.url)) : null);
+}
+function viewOffers() {
+  const p = S.profile, wrap = h('div', { class: 'stack' }), nm = p.vorname || 'dein Kind';
+  wrap.append(pageHead('Angebote', ghostBtn(offBusy ? 'Lädt …' : 'Aktualisieren', () => offersLoad(true))));
+  wrap.append(h('div', { class: 'card stack', style: 'gap:6px' }, h('b', null, 'Junior-Produkte im Überblick'),
+    h('small', { class: 'mute' }, `Eine kuratierte Übersicht für ${nm}. Die Konditionen stammen aus einem Vergleich vom ${fmtD(OFFERS_STAND)} und gelten für Neukunden. Sie ändern sich laufend, bitte vor dem Abschluss beim Anbieter prüfen. Das ist keine Anlage- oder Steuerberatung.`),
+    daysTo(OFFERS_STAND) < -60 ? h('small', { style: 'color:var(--bad)' }, 'Achtung: Die Daten sind älter als zwei Monate. Schau unten bei den aktuellen Meldungen oder beim Vergleich nach.') : null));
+  const mineTr = p.invest.some(it => /trade\s*republic/i.test((it.name || '') + ' ' + (it.institut || '')));
+  wrap.append(sectionHead('Junior-Depots'));
+  OFFERS_DEPOT.forEach(o => wrap.append(offersDepotCard(o, mineTr && o.n === 'Trade Republic')));
+  wrap.append(h('div', { class: 'card stack', style: 'gap:6px' }, h('small', { class: 'mute' }, 'Quelle: Junior-Depot-Vergleich von Finanzfluss, Stand 1. Oktober 2026. Note: 5,0 ist die beste. Gebühren je Order und Sparplan für Neukunden.'),
+    h('div', { class: 'btn-row' }, offLink('Ganzen Vergleich öffnen', 'https://www.finanzfluss.de/vergleich/junior-depot/'), offLink('Vergleich bei justETF', 'https://www.justetf.com/de/vergleiche/juniordepot/'))));
+  wrap.append(sectionHead('Staatliche Förderung'));
+  const b = p.geburtsdatum ? parseD(p.geburtsdatum) : null, sixth = b ? `${b.getFullYear() + 6}-${pad2(b.getMonth() + 1)}-${pad2(b.getDate())}` : '';
+  wrap.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('div', { class: 'offhead' }, h('b', null, 'Frühstart-Rente'), h('span', { class: 'chip' }, 'Gesetzentwurf')),
+    h('p', { style: 'margin:0' }, '10 € pro Monat vom Staat für Kinder vom 6. bis zum 18. Geburtstag, insgesamt bis zu 1.440 €. Eltern und Verwandte können zusätzlich bis zu 6.840 € pro Jahr einzahlen. Das Geld ist bis zum Rentenalter gebunden.'),
+    h('small', { class: 'mute' }, 'Der Entwurf der Bundesregierung vom 7. September 2026 ist noch nicht beschlossen. Geplanter Start: 1. Januar 2027.' + (sixth ? ` Für ${nm} wäre die Förderung ab dem 6. Geburtstag am ${fmtD(sixth)} vorgesehen.` : '')),
+    h('div', { class: 'btn-row' }, offLink('Mehr erfahren', 'https://extraetf.com/wissen/fruehstart-rente'))));
+  wrap.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('div', { class: 'offhead' }, h('b', null, 'Kindergeld'), h('span', { class: 'chip ok' }, '259 € pro Monat')),
+    h('p', { style: 'margin:0' }, 'Seit Januar 2026 gibt es 259 € pro Kind und Monat. Eine Erhöhung ab 2027 ist angekündigt, der Betrag ist noch nicht beschlossen. Für 2028 werden voraussichtlich 272 € genannt.'),
+    h('small', { class: 'mute' }, 'Stand der Berichte: 12. August 2026. Der Kinderfreibetrag soll ab 2027 ebenfalls steigen.'),
+    h('div', { class: 'btn-row' }, offLink('Bericht lesen', 'https://www.gegen-hartz.de/news/kindergelderhoehung-2027-so-steigt-das-kindergeld-mit-zwei-erhoehungsstufen'))));
+  wrap.append(h('div', { class: 'card stack', style: 'gap:6px' }, h('b', null, 'Gut zu wissen'),
+    h('small', { class: 'mute' }, 'Kapitalerträge sind bis 1.000 € pro Person und Jahr steuerfrei (Sparer-Pauschbetrag). Das gilt auch für Kinder. Mit einem Freistellungsauftrag für das Kind nutzt du den Betrag.'),
+    h('small', { class: 'mute' }, 'Geld auf dem Junior-Depot gehört rechtlich dem Kind. Die Eltern verwalten es, bis das Kind volljährig ist.')));
+  wrap.append(sectionHead('Aktuelle Meldungen zu Junior-Produkten'));
+  const c = newsRead(OFFERS_KEY), items = c && c.items ? c.items : [];
+  if ((offBusy || !offTried) && !items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Lade aktuelle Meldungen …')));
+  else if (items.length) {
+    wrap.append(h('div', { class: 'card' }, items.slice(0, 12).map(x => newsItemRow(x, false))));
+    wrap.append(h('small', { class: 'mute' }, `Stand ${newsAgoTxt(c.ts)}${offErr ? ' · ' + offErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
+  } else wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, offErr ? `${offErr} Mit Internet klappt es beim nächsten Versuch.` : 'Keine Meldungen gefunden.'), h('button', { class: 'btn wide', onclick: () => offersLoad(true) }, 'Erneut versuchen')));
+  wrap.append(h('small', { class: 'mute newsfoot' }, 'Die App ist nicht mit Anbietern verbunden und erhält keine Provision. Meldungen und Bilder kommen von Bing News und Google News. Es werden nur allgemeine Suchbegriffe gesendet.'));
+  if (!offTried && !offBusy) setTimeout(() => offersLoad(false), 0);
+  return wrap;
+}
+
+/* ============ Quiz & Coins ============ */
+const QUIZ_CATS = ['Schlaf & Sicherheit', 'Ernährung', 'Entwicklung', 'Gesundheit', 'Geld & Recht', 'Tierbabys & Natur'];
+// [Kategorie, Frage, [Antworten], richtiger Index, Erklärung]
+const QUIZ_RAW = [
+  [0, 'In welcher Position sollte ein Baby im ersten Lebensjahr schlafen?', ['Auf dem Bauch', 'Auf dem Rücken', 'Auf der Seite', 'Sitzend'], 1, 'Die Rückenlage senkt das Risiko für den plötzlichen Kindstod.'],
+  [0, 'Welche Raumtemperatur wird für das Schlafzimmer eines Babys empfohlen?', ['12 bis 14 °C', '16 bis 18 °C', '20 bis 22 °C', '24 bis 26 °C'], 1, 'Bei 16 bis 18 °C schläft das Baby sicher. Ein Schlafsack ersetzt die Decke.'],
+  [0, 'Wie sitzt ein Baby am sichersten im Auto?', ['Entgegen der Fahrtrichtung', 'In Fahrtrichtung auf dem Schoß', 'Im Arm der Mutter', 'Ohne Sitz, aber angeschnallt'], 0, 'Rückwärts gerichtete Sitze (Reboarder) schützen Kopf und Nacken bei einem Aufprall am besten.'],
+  [0, 'Was gehört nicht in das Babybett?', ['Feste Matratze', 'Schlafsack', 'Kopfkissen und dicke Decke', 'Spannbettlaken'], 2, 'Kissen, dicke Decken und Kuscheltiere können das Atmen behindern.'],
+  [0, 'Warum darf man ein Baby niemals schütteln?', ['Es wird davon müde', 'Es kann lebensgefährliche Hirnverletzungen geben', 'Es bekommt Schluckauf', 'Es verlernt das Lächeln'], 1, 'Das Schütteltrauma ist lebensgefährlich. Wenn die Nerven blank liegen: Baby sicher ablegen und kurz durchatmen.'],
+  [0, 'Welche Wassertemperatur ist beim Babybad richtig?', ['30 °C', '36 bis 37 °C', '40 bis 42 °C', '45 °C'], 1, 'Etwa Körpertemperatur. Die Temperatur mit einem Badethermometer oder dem Ellbogen prüfen.'],
+  [0, 'Was gilt am Wickeltisch?', ['Kurz allein lassen ist ok', 'Immer eine Hand am Baby', 'Nur bei Neugeborenen aufpassen', 'Ein Kissen als Schutz genügt'], 1, 'Babys können sich plötzlich drehen. Eine Hand bleibt immer am Kind.'],
+  [1, 'Wann wird Beikost üblicherweise eingeführt?', ['Ab der 2. Lebenswoche', 'Zwischen dem 5. und 7. Monat', 'Ab dem 10. Monat', 'Erst nach dem 1. Geburtstag'], 1, 'Frühestens zu Beginn des 5. und spätestens zu Beginn des 7. Monats, wenn das Baby Interesse zeigt.'],
+  [1, 'Warum bekommen Babys im ersten Lebensjahr keinen Honig?', ['Er ist zu teuer', 'Wegen der Gefahr von Botulismus', 'Er macht Karies', 'Er schmeckt Babys nicht'], 1, 'Honig kann Sporen enthalten, die bei Babys schwere Vergiftungen auslösen können.'],
+  [1, 'Ab wann ist Kuhmilch als Getränk geeignet?', ['Ab dem 1. Monat', 'Ab dem 3. Monat', 'Nach dem 1. Geburtstag', 'Erst ab 5 Jahren'], 2, 'Als Getränk empfiehlt man Kuhmilch erst nach dem 1. Geburtstag. Kleine Mengen im Brei sind früher möglich.'],
+  [1, 'Welches Vitamin bekommen Babys in Deutschland meist als Tablette für die Knochen?', ['Vitamin C', 'Vitamin D', 'Vitamin B12', 'Vitamin E'], 1, 'Vitamin D unterstützt den Knochenaufbau. Die Kinderärztin oder der Kinderarzt sagt, wie lange.'],
+  [1, 'Wie oft wird ein gestilltes Neugeborenes ungefähr in 24 Stunden angelegt?', ['2- bis 3-mal', '4- bis 5-mal', '8- bis 12-mal', '20-mal oder öfter'], 2, 'Neugeborene trinken oft und in kleinen Mengen: etwa 8- bis 12-mal am Tag.'],
+  [2, 'Ab wann lächeln Babys meist bewusst zurück?', ['Ab der Geburt', 'Mit etwa 6 bis 8 Wochen', 'Mit etwa 6 Monaten', 'Erst mit einem Jahr'], 1, 'Das soziale Lächeln zeigt sich meist mit 6 bis 8 Wochen. Ein Reflexlächeln gibt es schon früher.'],
+  [2, 'In welchem Abstand sehen Neugeborene am schärfsten?', ['5 cm', '20 bis 30 cm', '2 Meter', '10 Meter'], 1, 'Das ist ungefähr der Abstand zum Gesicht beim Stillen oder Kuscheln.'],
+  [2, 'Wie viel schläft ein Neugeborenes ungefähr pro Tag?', ['6 bis 8 Stunden', '10 bis 12 Stunden', '14 bis 17 Stunden', '20 bis 22 Stunden'], 2, 'Neugeborene schlafen 14 bis 17 Stunden, aber verteilt auf viele kurze Phasen.'],
+  [2, 'Wann drehen sich viele Babys vom Rücken auf den Bauch?', ['Im 1. Monat', 'Im 5. bis 7. Monat', 'Im 10. Monat', 'Im 2. Lebensjahr'], 1, 'Die Spanne ist groß. Manche Babys drehen sich früher, andere später.'],
+  [2, 'Wann kommt der erste Zahn meist?', ['Mit etwa 6 Monaten', 'Mit 2 Wochen', 'Mit 18 Monaten', 'Mit 3 Jahren'], 0, 'Meist um den 6. Monat. Es kann aber auch deutlich früher oder später passieren.'],
+  [2, 'Wann beginnt die Fremdelphase häufig?', ['Ab der Geburt', 'Ab 6 bis 8 Monaten', 'Mit 2 Jahren', 'Mit 5 Jahren'], 1, 'Mit etwa 6 bis 8 Monaten erkennen Babys Vertraute und werden bei Fremden vorsichtig. Das ist ein gutes Zeichen.'],
+  [2, 'Wann laufen viele Kinder frei?', ['Mit 3 Monaten', 'Um den 1. Geburtstag, zwischen 9 und 18 Monaten', 'Mit 3 Jahren', 'Mit 4 Jahren'], 1, 'Der Zeitraum ist weit. Jedes Kind hat sein eigenes Tempo.'],
+  [2, 'Wann schließt sich die große Fontanelle am Kopf meist?', ['In der 1. Woche', 'Im 2. Monat', 'Zwischen dem 9. und 18. Monat', 'Mit 5 Jahren'], 2, 'Die weiche Stelle am Kopf schließt sich meist im zweiten Halbjahr des ersten Lebensjahres oder danach.'],
+  [3, 'Ein Baby unter 3 Monaten hat Fieber. Was ist richtig?', ['Abwarten bis morgen', 'Sofort Kinderarzt oder Notdienst kontaktieren', 'Mit Wadenwickeln selbst behandeln', 'Warm einpacken'], 1, 'Bei Fieber in den ersten 3 Lebensmonaten immer ärztlich abklären lassen.'],
+  [3, 'Welche Nummer ist der europaweite Notruf?', ['110', '112', '116', '115'], 1, 'Die 112 erreicht Rettungsdienst und Feuerwehr. Die 110 ist die Polizei.'],
+  [3, 'Welche Nummer erreicht den ärztlichen Bereitschaftsdienst außerhalb der Sprechzeiten?', ['110', '112', '116117', '118'], 2, 'Die 116117 ist der ärztliche Bereitschaftsdienst. Bei Lebensgefahr gilt die 112.'],
+  [3, 'Wie viele Vorsorgeuntersuchungen (U1 bis U6) gibt es im 1. Lebensjahr?', ['Drei', 'Vier', 'Sechs', 'Zehn'], 2, 'U1 direkt nach der Geburt, dann U2 bis U6 bis zum Ende des ersten Lebensjahres.'],
+  [3, 'Wann fällt der Nabelschnurrest meist ab?', ['Nach 1 bis 3 Wochen', 'Nach 3 Monaten', 'Gleich nach der Geburt', 'Nach 1 Jahr'], 0, 'Meist nach etwa ein bis zwei Wochen. Trocken und luftig halten.'],
+  [3, 'Wie viel Zahnpasta braucht der erste Zahn?', ['Einen Erbsen-Klecks', 'Eine reiskorngroße Menge mit Fluorid', 'Ganz ohne Zahnpasta', 'Einen fingerlangen Strang'], 1, 'Ab dem ersten Zahn zweimal täglich putzen, mit einer reiskorngroßen Menge fluoridhaltiger Zahnpasta.'],
+  [3, 'Wie viel Gewicht verlieren Neugeborene in den ersten Tagen höchstens normalerweise?', ['Bis zu 1 %', 'Bis zu 10 %', 'Bis zu 30 %', 'Gar keins'], 1, 'Ein Verlust von bis zu etwa 10 % ist normal. Danach nehmen Babys wieder zu.'],
+  [4, 'Wie hoch ist das Kindergeld 2026 pro Kind und Monat?', ['219 €', '237 €', '259 €', '300 €'], 2, 'Seit Januar 2026 sind es 259 € pro Kind und Monat.'],
+  [4, 'Wie viele Monate Basiselterngeld gibt es, wenn beide Eltern Elternzeit nehmen?', ['6 Monate', '12 Monate', '14 Monate', '24 Monate'], 2, '12 Monate plus 2 Partnermonate, wenn beide Eltern Zeit nehmen.'],
+  [4, 'Wie lange dauert der Mutterschutz nach der Geburt in der Regel?', ['2 Wochen', '8 Wochen', '6 Monate', '1 Jahr'], 1, 'Nach der Geburt gelten 8 Wochen, bei Früh- und Mehrlingsgeburten 12 Wochen.'],
+  [4, 'Wie schnell muss eine Geburt beim Standesamt angezeigt werden?', ['Innerhalb einer Woche', 'Innerhalb eines Jahres', 'Innerhalb von 6 Monaten', 'Gar nicht'], 0, 'Die Anzeige beim Standesamt ist innerhalb einer Woche vorgesehen. Meist übernimmt das Krankenhaus das mit.'],
+  [4, 'Wie viele Kapitalerträge sind pro Person und Jahr steuerfrei (Sparer-Pauschbetrag)?', ['100 €', '500 €', '1.000 €', '5.000 €'], 2, 'Der Sparer-Pauschbetrag beträgt 1.000 € pro Person. Er gilt auch für Kinder.'],
+  [4, 'Wer verwaltet ein Junior-Depot, solange das Kind klein ist?', ['Die Bank', 'Die Eltern', 'Das Finanzamt', 'Niemand'], 1, 'Die Eltern verwalten das Depot für das Kind. Das Geld gehört rechtlich dem Kind.'],
+  [4, 'Wer zahlt das Kindergeld aus?', ['Die Familienkasse', 'Das Jugendamt', 'Die Krankenkasse', 'Die Schule'], 0, 'Das Kindergeld zahlt die Familienkasse der Bundesagentur für Arbeit.'],
+  [5, 'Wie heißt das Junge vom Pferd?', ['Kitz', 'Fohlen', 'Welpe', 'Lamm'], 1, 'Ein Fohlen steht oft schon kurz nach der Geburt auf.'],
+  [5, 'Wie heißt das Junge vom Reh?', ['Kitz', 'Küken', 'Ferkel', 'Kalb'], 0, 'Rehkitze haben ein geflecktes Fell als Tarnung.'],
+  [5, 'Was wird aus einer Kaulquappe?', ['Eine Eidechse', 'Ein Frosch', 'Ein Fisch', 'Eine Schlange'], 1, 'Kaulquappen bekommen Beine, verlieren den Schwanz und werden zu Fröschen oder Kröten.'],
+  [5, 'Was wird aus der Raupe nach der Verpuppung?', ['Ein Käfer', 'Eine Biene', 'Ein Schmetterling', 'Eine Spinne'], 2, 'Aus der Raupe wird in der Puppe ein Schmetterling.'],
+  [5, 'Wie heißt das Baby eines Kängurus?', ['Joey', 'Cub', 'Kalb', 'Fohlen'], 0, 'Ein Joey wächst im Beutel der Mutter auf.'],
+  [5, 'Wie viele Beine hat eine Spinne?', ['Sechs', 'Acht', 'Zehn', 'Zwölf'], 1, 'Spinnen haben acht Beine. Insekten haben sechs.']
+];
+const QUIZ = QUIZ_RAW.map((q, i) => ({ id: 'q' + String(i + 1).padStart(2, '0'), cat: QUIZ_CATS[q[0]], q: q[1], a: q[2], c: q[3], e: q[4] }));
+const QUIZ_LEN = 5, COIN_FIRST = 5, COIN_REPEAT = 1, COIN_PERFECT = 10, COIN_DAY = 5;
+function coinData() {
+  const p = S.profile, c = p.coins = p.coins || {};
+  c.total = c.total || 0; c.rounds = c.rounds || 0; c.perfect = c.perfect || 0; c.right = c.right || 0; c.done = c.done || {}; c.day = c.day || ''; c.log = c.log || [];
+  return c;
+}
+const coinName = () => (S.profile.vorname ? S.profile.vorname + '-Coins' : 'Coins');
+const quizMastered = () => { const c = coinData(); return QUIZ.filter(q => c.done[q.id]).length; };
+let qz = null, quizCat = 'alle';
+function quizShuffle(a) { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; }
+function quizStart() {
+  const c = coinData(), pool = QUIZ.filter(q => quizCat === 'alle' || q.cat === quizCat);
+  const fresh = quizShuffle(pool.filter(q => !c.done[q.id])), seen = quizShuffle(pool.filter(q => c.done[q.id]));
+  const qs = fresh.concat(seen).slice(0, QUIZ_LEN).map(q => { const order = quizShuffle(q.a.map((t, i) => i)); return { q, order }; });
+  qz = { qs, i: 0, picked: null, right: 0, earned: 0, phase: 'q', bonus: [] };
+  render();
+}
+async function quizPick(k) {
+  if (!qz || qz.picked != null) return;
+  const cur = qz.qs[qz.i], c = coinData(), ok = cur.order[k] === cur.q.c;
+  qz.picked = k;
+  if (ok) {
+    qz.right++; c.right++;
+    const gain = c.done[cur.q.id] ? COIN_REPEAT : COIN_FIRST; c.done[cur.q.id] = true; c.total += gain; qz.earned += gain; cur.gain = gain;
+  } else cur.gain = 0;
+  await persist('profile'); render();
+}
+async function quizNext() {
+  if (!qz || qz.picked == null) return;
+  if (qz.i + 1 < qz.qs.length) { qz.i++; qz.picked = null; render(); return; }
+  const c = coinData(), t = isoToday();
+  c.rounds++;
+  if (qz.right === qz.qs.length) { c.perfect++; c.total += COIN_PERFECT; qz.earned += COIN_PERFECT; qz.bonus.push(['Volltreffer', COIN_PERFECT]); }
+  if (c.day !== t) { c.day = t; c.total += COIN_DAY; qz.earned += COIN_DAY; qz.bonus.push(['Tagesbonus', COIN_DAY]); }
+  c.log = c.log.concat([{ d: t, n: qz.earned, r: qz.right }]).slice(-30);
+  qz.phase = 'done'; await persist('profile'); render();
+  if (qz.right === qz.qs.length) confetti();
+  setTimeout(announceBadges, 500);
+}
+function viewQuiz() {
+  const c = coinData(), wrap = h('div', { class: 'stack' }), nm = coinName();
+  if (!qz || qz.phase === 'menu') {
+    wrap.append(pageHead('Quiz'));
+    wrap.append(h('div', { class: 'hero2 gold' }, h('div', { class: 'top' }, h('div', { class: 'bigemoji' }, '🪙'), h('div', null, h('h1', null, c.total + ' ' + (c.total === 1 ? nm.replace(/Coins$/, 'Coin') : nm)), h('p', null, `${quizMastered()} von ${QUIZ.length} Fragen gemeistert`))),
+      h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, c.rounds), 'Runden'), h('div', { class: 'stat' }, h('b', null, c.perfect), 'Volltreffer'), h('div', { class: 'stat' }, h('b', null, c.right), 'Richtig'))));
+    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'So geht’s'),
+      h('small', { class: 'mute' }, `Jede Runde hat ${QUIZ_LEN} Fragen rund ums Baby. Für jede richtige Antwort gibt es ${COIN_FIRST} Coins, bei einer schon gemeisterten Frage ${COIN_REPEAT} Coin. Ein Volltreffer bringt ${COIN_PERFECT} Coins extra, die erste Runde am Tag ${COIN_DAY} Coins.`),
+      h('div', { class: 'chips' }, [['alle', 'Alle Themen'], ...QUIZ_CATS.map(x => [x, x])].map(([id, l]) => h('button', { class: 'fchip' + (quizCat === id ? ' on' : ''), type: 'button', onclick: () => { quizCat = id; render(); } }, l))),
+      h('button', { class: 'btn wide', type: 'button', onclick: quizStart }, 'Runde starten')));
+    wrap.append(h('p', { class: 'fine' }, 'Das Quiz ist zum Spaß und ersetzt keine ärztliche Beratung. Die Coins gibt es nur in der App und haben keinen Geldwert.'));
+    return wrap;
+  }
+  if (qz.phase === 'done') {
+    const perfect = qz.right === qz.qs.length;
+    wrap.append(pageHead('Runde geschafft'));
+    wrap.append(h('div', { class: 'card stack bigcard', style: 'text-align:center;gap:8px' }, h('div', { style: 'font-size:56px' }, perfect ? '🏆' : qz.right >= 3 ? '🎉' : '💪'),
+      h('h1', null, `${qz.right} von ${qz.qs.length} richtig`), h('b', { style: 'font-size:22px' }, `+${qz.earned} 🪙`),
+      qz.bonus.length ? h('small', { class: 'mute' }, qz.bonus.map(b => `${b[0]} +${b[1]}`).join(' · ')) : null,
+      h('small', { class: 'mute' }, `Jetzt ${c.total} ${nm}`)));
+    wrap.append(h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: quizStart }, 'Noch eine Runde'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { qz = null; render(); } }, 'Fertig')));
+    return wrap;
+  }
+  const cur = qz.qs[qz.i], answered = qz.picked != null;
+  wrap.append(pageHead('Quiz', h('span', { class: 'chip' }, `🪙 ${c.total}`)));
+  wrap.append(h('div', { class: 'bar dark' }, h('i', { style: `width:${Math.round((qz.i + (answered ? 1 : 0)) / qz.qs.length * 100)}%` })));
+  wrap.append(h('div', { class: 'card stack', style: 'gap:10px' }, h('small', { class: 'mute' }, `Frage ${qz.i + 1} von ${qz.qs.length} · ${cur.q.cat}`), h('h2', { style: 'margin:0' }, cur.q.q)));
+  wrap.append(h('div', { class: 'stack', style: 'gap:8px' }, cur.order.map((oi, k) => {
+    const isRight = oi === cur.q.c, isPick = qz.picked === k;
+    const cls = 'quizopt' + (answered ? (isRight ? ' right' : isPick ? ' wrong' : ' dim') : '');
+    return h('button', { class: cls, type: 'button', disabled: answered || null, onclick: () => quizPick(k) }, h('span', { class: 'qk' }, String.fromCharCode(65 + k)), h('span', null, cur.q.a[oi]), answered && isRight ? h('span', { class: 'qm', 'aria-label': 'richtig' }, '✓') : answered && isPick ? h('span', { class: 'qm', 'aria-label': 'falsch' }, '✕') : null);
+  })));
+  if (answered) {
+    const ok = cur.order[qz.picked] === cur.q.c;
+    wrap.append(h('div', { class: 'card stack quizfb ' + (ok ? 'ok' : 'bad'), style: 'gap:6px' }, h('b', null, ok ? `Richtig! +${cur.gain} 🪙` : 'Leider nicht'), h('small', null, cur.q.e)));
+    wrap.append(h('button', { class: 'btn wide', type: 'button', onclick: quizNext }, qz.i + 1 < qz.qs.length ? 'Weiter' : 'Ergebnis'));
+  }
+  wrap.append(h('button', { class: 'linkbtn', type: 'button', onclick: () => { qz = null; render(); } }, 'Quiz beenden'));
+  return wrap;
+}
+
+ls.del('luise_ai_key');
 
 /* ============ Navigation & Start ============ */
 const TABS = [
@@ -5884,13 +6090,14 @@ const TABS = [
   { id: 'news', label: 'News', icon: ICON.news },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary'];
+const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
+const withBackTo = (id, label, v) => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go(id) }, label), v);
 const views = {
   home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
-  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), search: viewSearch, chat: viewChat
+  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
 };
 let tab = 'home', lastTab = null;
 function go(id) { tab = id; render(); }
@@ -5945,7 +6152,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { newsFromJson, newsFromXml, newsMerge, newsStage, newsNextU, newsQueryUrl, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
