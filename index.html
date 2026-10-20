@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<meta name="app-version" content="15">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -456,6 +457,51 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .qrbox{background:#fff;border-radius:16px;padding:10px;display:grid;place-items:center;max-width:300px;width:100%;margin:0 auto;box-sizing:border-box}.qrbox svg{width:100%;height:auto;display:block}
 .sec-head .amt{color:var(--mute)}
 .memday{background:var(--accent-bg)}
+/* ===== v15: Glas-Menü, Runterziehen, News-Skeleton, Widget-Katalog ===== */
+#view{padding-bottom:calc(108px + env(safe-area-inset-bottom));scroll-padding-bottom:calc(112px + env(safe-area-inset-bottom));scroll-padding-top:16px}
+.tabbar{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));width:calc(100% - 16px);max-width:460px;padding:4px;gap:0;border:1px solid rgba(255,255,255,.7);border-radius:34px;
+  background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.5));-webkit-backdrop-filter:blur(26px) saturate(1.9);backdrop-filter:blur(26px) saturate(1.9);
+  box-shadow:0 12px 32px rgba(20,30,40,.18),0 2px 6px rgba(20,30,40,.08),inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(255,255,255,.3)}
+.tab{border-radius:28px;padding:7px 0 5px;gap:1px;transition:background .25s,color .2s,box-shadow .25s;position:relative;white-space:nowrap}
+.tab span:last-child{letter-spacing:-.25px}
+.tab .ico{padding:0;background:none!important}
+.tab.on{background:rgba(255,255,255,.78);box-shadow:0 2px 8px rgba(20,30,40,.14),inset 0 1px 0 rgba(255,255,255,.95)}
+:root[data-dark] .tabbar{border-color:rgba(255,255,255,.16);background:linear-gradient(180deg,rgba(70,70,80,.62),rgba(40,40,48,.55));box-shadow:0 14px 34px rgba(0,0,0,.5),0 2px 6px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(255,255,255,.05)}
+:root[data-dark] .tab.on{background:rgba(255,255,255,.17);box-shadow:0 2px 8px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.25)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.tabbar{background:var(--card)}}
+@media(max-width:400px){.tab{font-size:9.5px}}
+@media(max-width:350px){.tab{font-size:9px}}
+.chat-in{bottom:calc(84px + env(safe-area-inset-bottom));margin-bottom:-24px;padding-bottom:10px}
+#toast{bottom:calc(100px + env(safe-area-inset-bottom))}
+#ptr{position:fixed;top:calc(env(safe-area-inset-top) + 10px);left:50%;margin-left:-19px;width:38px;height:38px;border-radius:50%;background:var(--card);color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.2);display:grid;place-items:center;opacity:0;z-index:12;pointer-events:none;transform:translateY(-48px)}
+#ptr.anim{transition:transform .25s,opacity .25s}
+#ptr .arr{display:grid;place-items:center;width:20px;height:20px}
+#ptr svg{width:20px;height:20px}
+#ptr.ready{background:var(--accent);color:var(--accent-ink)}
+#ptr.spin .arr{animation:ptrspin .8s linear infinite}
+@keyframes ptrspin{to{transform:rotate(360deg)}}
+.skel{pointer-events:none;align-items:center;gap:12px}
+.sk{display:block;border-radius:6px;background:linear-gradient(90deg,var(--line) 25%,color-mix(in srgb,var(--line) 40%,var(--card)) 50%,var(--line) 75%);background-size:200% 100%;animation:skshim 1.3s linear infinite}
+i.sk{height:12px;margin:5px 0;font-style:normal}.sk.l1{width:92%}.sk.l2{width:60%}
+.newsth.sk{border-radius:10px}
+@keyframes skshim{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.sk,#ptr.spin .arr{animation:none}}
+.wphoto.wide{min-height:190px}.wphoto.big{min-height:320px}
+.wgsizes{position:absolute;left:50%;transform:translateX(-50%);bottom:5px;z-index:5;display:flex;gap:0;background:var(--card);border-radius:999px;padding:2px;box-shadow:var(--shadow),0 0 0 1px var(--line)}
+.wgsz{border:0;background:none;color:var(--ink);font:inherit;font-size:12px;font-weight:700;min-width:30px;height:26px;border-radius:999px;cursor:pointer}
+.wgsz.on{background:var(--accent);color:var(--accent-ink)}
+.wgrid.editing{padding-bottom:12px}
+.wcard{padding:14px}.wchead{display:flex;flex-direction:column;gap:2px}
+.wprevwrap{position:relative;border-radius:20px;background:var(--bg);border:1px solid var(--line);padding:10px;max-height:360px;overflow:hidden}
+.wprevwrap.half{width:calc(50% - 6px)}
+.wprevwrap.cut::after{content:'';position:absolute;left:0;right:0;bottom:0;height:40px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.wprev{pointer-events:none;user-select:none;-webkit-user-select:none}
+.wprev .btn,.wprev button{pointer-events:none}
+.wszchips{padding:2px 0}
+.wgrid.editing .wg>.wgsizes{pointer-events:auto}
+.wgrid.editing .wg.half .wgctl{gap:4px;right:4px}.wgrid.editing .wg.half .wgrip,.wgrid.editing .wg.half .wgbtn{min-width:32px;padding:0 6px}
+.wgrid.editing .wg.hassz{padding-bottom:36px}
+
 </style>
 </head>
 <body>
@@ -1316,11 +1362,11 @@ function wQuick() {
     tile('', ICON.docs, 'Dokument ablegen', 'Foto, Scan oder PDF', () => editDoc()),
     tile('', ICON.cal, 'Termine', nextT ? nextT.titel + ' · ' + rel(nextT.datum) : 'Mit Ort, Route, Erinnerung', () => go('dates')));
 }
-function wWeek() {
+function wWeek(w, sz) {
   const p = S.profile;
   if (!(p.geburtsdatum && curWeek(p.geburtsdatum) >= 1 && curWeek(p.geburtsdatum) <= 940)) return null;
   const wn = curWeek(p.geburtsdatum), wi = weekInfo(wn);
-  return h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text));
+  return h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, sz !== 'l' && wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text));
 }
 function wInstall() {
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
@@ -1344,14 +1390,14 @@ function wKontakte() {
   return h('div', { class: 'stack' }, sectionHead('Kontakte', addBtn('Kontakt', () => editContact())),
     h('div', { class: 'card' }, p.kontakte.length ? p.kontakte.map(c => li(() => editContact(c), '', contactAv(c), liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev())) : h('p', { class: 'empty' }, 'Noch keine Kontakte.')));
 }
-function wTermine() {
-  const up = S.school.termine.map(t => ({ t, d: nextOcc(t) })).filter(x => x.d && daysTo(x.d) >= 0).sort((a, b) => (a.d + (a.t.zeit || '')).localeCompare(b.d + (b.t.zeit || ''))).slice(0, 3);
+function wTermine(w, sz) {
+  const up = S.school.termine.map(t => ({ t, d: nextOcc(t) })).filter(x => x.d && daysTo(x.d) >= 0).sort((a, b) => (a.d + (a.t.zeit || '')).localeCompare(b.d + (b.t.zeit || ''))).slice(0, sz === 'l' ? 6 : 3);
   return h('div', { class: 'stack' }, sectionHead('Nächste Termine', addBtn('Termin', () => editTermin())),
     h('div', { class: 'card' }, up.length ? up.map(x => terminRow(x.t, false)) : h('p', { class: 'empty' }, 'Keine anstehenden Termine.')),
     h('button', { class: 'linkbtn', onclick: () => go('dates') }, 'Alle Termine und Fristen'));
 }
-function wFristen() {
-  const a = autoDeadlines().slice(0, 3);
+function wFristen(w, sz) {
+  const a = autoDeadlines().slice(0, sz === 'l' ? 6 : 3);
   return h('div', { class: 'stack' }, sectionHead('Fristen'), h('div', { class: 'card' }, a.length ? a.map(frisRow) : h('p', { class: 'empty' }, S.profile.geburtsdatum ? 'Gerade ist nichts fällig.' : 'Trage zuerst das Geburtsdatum ein.')));
 }
 function wHD() {
@@ -1384,10 +1430,10 @@ function wBday() {
   const d = daysTo(nb.iso);
   return miniCard('Nächster Geburtstag', d === 0 ? 'Heute! 🎉' : 'in ' + plural(d, 'Tag', 'Tagen'), `${nb.age}. Geburtstag · ${wd(nb.iso)}`, () => go('dates'));
 }
-function wPhoto() {
+function wPhoto(w, sz) {
   if (!S.photos.length) return miniCard('Foto des Tages', 'Noch keine Fotos', 'Zur Galerie', () => go('photos'));
   const key = isoToday().replace(/-/g, ''), idx = (+key) % S.photos.length, m = S.photos[idx];
-  return h('button', { class: 'card mini wphoto', type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, h('img', { src: m.thumb, alt: '' }), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
+  return h('button', { class: 'card mini wphoto' + (sz === 'l' ? ' big' : sz === 'm' ? ' wide' : ''), type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, h('img', { src: m.thumb, alt: '' }), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
 }
 function wSpot() {
   if (nowPlaying) return playerCard();
@@ -1414,7 +1460,7 @@ const WIDGETS = {
   zodiac: { name: 'Sternzeichen', desc: 'Sternzeichen, Tierzeichen und Mond', half: true, render: wZodiac },
   spot: { name: 'Spotify-Player', desc: 'Playlist und Lieblingslieder direkt abspielen', render: wSpot },
   photo: { name: 'Foto des Tages', desc: 'Jeden Tag ein anderes Foto aus der Galerie', half: true, render: wPhoto },
-  journey: { name: 'Journey', desc: 'Die letzten Momente und ein neuer Moment', render: () => wJourney() },
+  journey: { name: 'Journey', desc: 'Die letzten Momente und ein neuer Moment', render: (w, sz) => wJourney(sz) },
   growth: { name: 'Wachstum', desc: 'Letzte Größe und letztes Gewicht', half: true, render: wGrowth },
   invest: { name: 'Geld', desc: 'Gesamtvermögen mit Trade Republic, Konten und Bargeld', half: true, render: wInvest },
   badges: { name: 'Abzeichen', desc: 'Level und Fortschritt', half: true, render: wBadges },
@@ -1425,15 +1471,17 @@ const WIDGETS = {
   kontakte: { name: 'Kontakte', desc: 'Wichtige Personen mit Anruf-Knopf', render: wKontakte },
   install: { name: 'Installations-Hinweis', desc: 'Nur im Browser sichtbar', render: wInstall }
 };
+const WSIZES = { termine: ['m', 'l'], fristen: ['m', 'l'], journey: ['m', 'l'], week: ['m', 'l'], photo: ['s', 'm', 'l'] };
+Object.keys(WSIZES).forEach(k => { WIDGETS[k].sizes = WSIZES[k]; });
 const HOME_DEFAULT = [['hero', 2], ['clock', 2], ['quick', 2], ['week', 2], ['alerts', 2], ['erinnerung', 2], ['stamm', 2], ['kontakte', 2], ['install', 2]].map(([id, w]) => ({ id, w }));
 function homeLayout() {
   try {
     const l = JSON.parse(ls.get('luise_home_v2') || 'null');
-    if (Array.isArray(l)) { const out = l.filter(x => x && WIDGETS[x.id]).map(x => ({ id: x.id, w: x.w === 1 && WIDGETS[x.id].half ? 1 : 2 }));
+    if (Array.isArray(l)) { const out = l.filter(x => x && WIDGETS[x.id]).map(normItem);
       if (!ls.get('luise_mem_v11')) { ls.set('luise_mem_v11', '1'); if (!out.some(x => x.id === 'erinnerung')) { const i = out.findIndex(x => x.id === 'alerts'); out.splice(i >= 0 ? i + 1 : Math.min(out.length, 4), 0, { id: 'erinnerung', w: 2 }); saveLayout(out); } }
       return out; }
   } catch (e) {}
-  return HOME_DEFAULT.map(x => Object.assign({}, x));
+  return HOME_DEFAULT.map(normItem);
 }
 const saveLayout = l => ls.set('luise_home_v2', JSON.stringify(l));
 let homeEdit = false;
@@ -1473,33 +1521,68 @@ function startDrag(e, el, grid) {
   };
   window.addEventListener('pointermove', move); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
 }
+/* ============ Widgets: Größen und Katalog mit Vorschau ============ */
+const SIZE_INFO = { s: ['Klein', 'Halbe Breite'], m: ['Mittel', 'Volle Breite'], l: ['Groß', 'Volle Breite mit mehr Inhalt'] };
+const widgetSizes = id => { const d = WIDGETS[id]; return d.sizes || (d.half ? ['s', 'm'] : ['m']); };
+const normItem = x => {
+  const sizes = widgetSizes(x.id), sz = sizes.includes(x.sz) ? x.sz : (x.w === 1 && sizes.includes('s') ? 's' : (sizes.includes('m') ? 'm' : sizes[0]));
+  return { id: x.id, w: sz === 's' ? 1 : 2, sz };
+};
+const widgetDefSize = id => (WIDGETS[id].half ? 's' : widgetSizes(id).includes('m') ? 'm' : widgetSizes(id)[0]);
+const newWidgetItem = (id, sz) => { sz = sz || widgetDefSize(id); return { id, w: sz === 's' ? 1 : 2, sz }; };
+function widgetPreview(id, sz) {
+  const def = WIDGETS[id]; let el = null;
+  try { el = def.render(sz === 's' ? 1 : 2, sz); } catch (e) { el = null; }
+  return h('div', { class: 'wprev sz-' + sz }, el || h('div', { class: 'card wgempty' }, h('b', null, def.name), h('small', { class: 'mute' }, 'Sobald es Daten gibt, erscheint hier der Inhalt.')));
+}
+const markCut = w => setTimeout(() => { w.classList.toggle('cut', w.scrollHeight > w.clientHeight + 2); }, 90);
 function addWidgetSheet() {
   const used = new Set(homeLayout().map(x => x.id)), free = Object.keys(WIDGETS).filter(k => !used.has(k));
   if (!free.length) { toast('Alle Widgets sind schon auf der Startseite'); return; }
-  actionSheet('Widget hinzufügen', 'Das Widget erscheint ganz unten. Ziehe es danach an die gewünschte Stelle.', free.map(k => ({ label: WIDGETS[k].name + ' · ' + WIDGETS[k].desc, ghost: true, onclick: () => { const l = homeLayout(); l.push({ id: k, w: WIDGETS[k].half ? 1 : 2 }); saveLayout(l); render(); setTimeout(() => { const v = $('#view'); v.scrollTop = v.scrollHeight; }, 50); } })));
+  let lastAdded = null;
+  const body = h('div', { class: 'stack' }, h('p', { class: 'mute' }, 'So sieht das Widget mit deinen Daten aus. Wähle eine Größe und tippe auf „Hinzufügen“. Es erscheint ganz unten auf der Startseite, dort kannst du es verschieben.'));
+  free.forEach(id => {
+    const def = WIDGETS[id], sizes = widgetSizes(id); let sz = widgetDefSize(id);
+    const wrap = h('div', { class: 'wprevwrap' + (sz === 's' ? ' half' : '') }, widgetPreview(id, sz));
+    markCut(wrap);
+    const hint = h('small', { class: 'mute' }, SIZE_INFO[sz][1]);
+    const chips = sizes.length > 1 ? h('div', { class: 'chips wszchips' }, sizes.map(s => h('button', { class: 'fchip' + (s === sz ? ' on' : ''), type: 'button', 'data-sz': s, 'aria-label': def.name + ' ' + SIZE_INFO[s][0], onclick: () => {
+      sz = s; chips.querySelectorAll('.fchip').forEach(c => c.classList.toggle('on', c.dataset.sz === s));
+      wrap.classList.toggle('half', s === 's'); wrap.replaceChildren(widgetPreview(id, s)); hint.textContent = SIZE_INFO[s][1]; markCut(wrap);
+    } }, SIZE_INFO[s][0]))) : null;
+    const add = h('button', { class: 'btn wide', type: 'button', onclick: () => {
+      const l = homeLayout(); if (l.some(x => x.id === id)) return; l.push(newWidgetItem(id, sz)); saveLayout(l); lastAdded = id; render();
+      add.disabled = true; add.textContent = 'Hinzugefügt ✓'; toast(def.name + ' hinzugefügt');
+    } }, 'Hinzufügen');
+    body.append(h('div', { class: 'card stack wcard', 'data-id': id, style: 'gap:10px' }, h('div', { class: 'wchead' }, h('b', null, def.name), h('small', { class: 'mute' }, def.desc)), wrap, chips, hint, add));
+  });
+  openFull({ title: 'Widget hinzufügen', body, onClose: () => { if (lastAdded) setTimeout(() => { const el = document.querySelector('.wg[data-id=' + lastAdded + ']'); if (el && el.scrollIntoView) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 120); } });
 }
+
 function viewHome() {
   const wrap = h('div', { class: 'stack' }), ks = kidSwitcher();
   if (ks) wrap.append(ks);
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
     h('b', null, 'Startseite anpassen'),
-    h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit „Voll/Halb“ änderst du die Breite, mit − entfernst du es.'),
+    h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit S, M und L unter dem Widget änderst du die Größe, mit − entfernst du es.'),
     h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: templateSheet }, 'Vorlage'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
   const grid = h('div', { class: 'wgrid' + (homeEdit ? ' editing' : '') });
   homeLayout().forEach((item, i, arr) => {
     const def = WIDGETS[item.id];
     let el = null;
-    try { el = def.render(item.w); } catch (e) { console.error(e); el = h('div', { class: 'card' }, 'Widget-Fehler: ' + e.message); }
+    try { el = def.render(item.w, item.sz); } catch (e) { console.error(e); el = h('div', { class: 'card' }, 'Widget-Fehler: ' + e.message); }
     if (!el && !homeEdit) return;
-    const wg = h('div', { class: 'wg' + (item.w === 1 ? ' half' : ''), 'data-id': item.id }, el || h('div', { class: 'card wgempty' }, h('b', null, def.name), h('small', { class: 'mute' }, 'Gerade nichts anzuzeigen')));
+    const wg = h('div', { class: 'wg' + (item.sz === 's' ? ' half' : '') + ' sz-' + item.sz + (homeEdit && widgetSizes(item.id).length > 1 ? ' hassz' : ''), 'data-id': item.id }, el || h('div', { class: 'card wgempty' }, h('b', null, def.name), h('small', { class: 'mute' }, 'Gerade nichts anzuzeigen')));
     if (homeEdit) {
       const grip = h('button', { class: 'wgrip', type: 'button', 'aria-label': def.name + ' verschieben', html: ICON.grip,
         onpointerdown: ev => startDrag(ev, wg, grid),
         onkeydown: ev => { if (ev.key === 'ArrowUp') { ev.preventDefault(); moveWidget(item.id, -1); } else if (ev.key === 'ArrowDown') { ev.preventDefault(); moveWidget(item.id, 1); } } });
+      const szs = widgetSizes(item.id);
+      if (szs.length > 1) wg.append(h('div', { class: 'wgsizes', role: 'group', 'aria-label': def.name + ' Größe' }, szs.map(s => h('button', { class: 'wgsz' + (s === item.sz ? ' on' : ''), type: 'button', 'data-sz': s, 'aria-label': def.name + ' Größe ' + SIZE_INFO[s][0], 'aria-pressed': s === item.sz ? 'true' : 'false',
+        onclick: () => { const l = homeLayout(), x = l.find(y => y.id === item.id); x.sz = s; x.w = s === 's' ? 1 : 2; saveLayout(l); render(); } }, s.toUpperCase()))));
       wg.append(h('div', { class: 'wgctl' }, grip,
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' nach oben', onclick: () => moveWidget(item.id, -1) }, '▲'),
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' nach unten', onclick: () => moveWidget(item.id, 1) }, '▼'),
-        def.half ? h('button', { class: 'wgbtn', type: 'button', onclick: () => { const l = homeLayout(), x = l.find(y => y.id === item.id); x.w = x.w === 1 ? 2 : 1; saveLayout(l); render(); } }, item.w === 1 ? 'Halb' : 'Voll') : null,
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' entfernen', onclick: () => { saveLayout(homeLayout().filter(y => y.id !== item.id)); render(); } }, '−')));
     }
     grid.append(wg);
@@ -1550,8 +1633,8 @@ function viewJourney() {
   wrap.append(tl);
   return wrap;
 }
-function wJourney() {
-  const items = journeyFeed(true).slice(0, 3);
+function wJourney(sz) {
+  const items = journeyFeed(true).slice(0, sz === 'l' ? 6 : 3);
   return h('div', { class: 'stack' }, sectionHead('Journey', addBtn('Moment', () => editMoment())),
     h('div', { class: 'card' }, items.length ? items.map(e => li(() => e.open(), '', h('span', { class: 'hubico emo' }, e.emoji), liTxt(e.titel, [e.datum ? fmtD(e.datum) : '', e.fotos.length ? plural(e.fotos.length, 'Foto', 'Fotos') : ''].filter(Boolean).join(' · ')), chev())) : h('p', { class: 'empty' }, 'Noch keine Momente.')),
     h('button', { class: 'linkbtn', onclick: () => go('journey') }, 'Ganze Journey öffnen'));
@@ -3603,7 +3686,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 14'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 15'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4547,7 +4630,7 @@ const WIDGET_TEMPLATES = [
   ['Alles', 'Alle Widgets, nach Themen sortiert', Object.keys(WIDGETS)]
 ];
 function templateSheet() {
-  actionSheet('Vorlage wählen', 'Ersetzt die aktuelle Anordnung. Danach kannst du weiter verschieben.', WIDGET_TEMPLATES.map(([n, d, ids]) => ({ label: n + ' · ' + d, ghost: true, onclick: () => { saveLayout(ids.filter(id => WIDGETS[id]).map(id => ({ id, w: WIDGETS[id].half ? 1 : 2 }))); render(); } })));
+  actionSheet('Vorlage wählen', 'Ersetzt die aktuelle Anordnung. Danach kannst du weiter verschieben.', WIDGET_TEMPLATES.map(([n, d, ids]) => ({ label: n + ' · ' + d, ghost: true, onclick: () => { saveLayout(ids.filter(id => WIDGETS[id]).map(id => newWidgetItem(id))); render(); } })));
 }
 
 /* ============ Suche ============ */
@@ -5763,24 +5846,43 @@ const NEWS_PROXIES = [
   { n: 'corsproxy', url: f => 'https://corsproxy.io/?url=' + encodeURIComponent(f), parse: async r => newsFromXml(await r.text()) },
   { n: 'rss2json', url: f => 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(f), parse: async r => newsFromJson(await r.json()) }
 ];
-async function newsFetchFeed(feedUrl) {
-  let lastErr = null;
-  for (const p of NEWS_PROXIES) {
-    const ac = new AbortController(), to = setTimeout(() => ac.abort(), 9000);
-    try {
-      const r = await fetch(p.url(feedUrl), { signal: ac.signal, cache: 'no-store' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      const items = await p.parse(r);
-      clearTimeout(to);
-      return items;
-    } catch (e) { lastErr = e; clearTimeout(to); }
-  }
-  throw lastErr || new Error('Keine Verbindung');
+function newsProxyOrder() {
+  const a = NEWS_PROXIES.slice(), i = a.findIndex(p => p.n === ls.get('luise_news_px'));
+  if (i > 0) a.unshift(a.splice(i, 1)[0]);
+  return a;
+}
+/* Mehrere Vermittler gestaffelt starten: Der zuletzt erfolgreiche zuerst, der nächste nach 2,5 s oder sofort bei Fehler. Wer zuerst liefert, gewinnt. */
+function newsFetchFeed(feedUrl) {
+  return new Promise((resolve, reject) => {
+    const order = newsProxyOrder(), acs = []; let done = false, fails = 0, started = 0, timer = null, lastErr = null;
+    const startNext = () => {
+      clearTimeout(timer);
+      if (done || started >= order.length) return;
+      const p = order[started++], ac = new AbortController(), to = setTimeout(() => ac.abort(), 7000); acs.push(ac);
+      fetch(p.url(feedUrl), { signal: ac.signal, cache: 'no-store' })
+        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return p.parse(r); })
+        .then(items => {
+          clearTimeout(to); if (done) return; done = true; clearTimeout(timer);
+          acs.forEach(x => { if (x !== ac) { try { x.abort(); } catch (e) {} } });
+          ls.set('luise_news_px', p.n); resolve(items);
+        })
+        .catch(e => {
+          clearTimeout(to); lastErr = e; if (done) return; fails++;
+          if (fails >= order.length) { done = true; clearTimeout(timer); reject(lastErr); } else startNext();
+        });
+      if (started < order.length) timer = setTimeout(startNext, 2500);
+    };
+    startNext();
+  });
 }
 async function newsFetchQuery(q) {
-  let items = [], err = null;
-  try { items = await newsFetchFeed(newsBingUrl(q)); } catch (e) { err = e; }
-  if (items.length < 3) { try { items = items.concat(await newsFetchFeed(newsGoogleUrl(q))); } catch (e) { err = e; if (!items.length) throw e; } }
+  const bing = newsFetchFeed(newsBingUrl(q)).catch(() => null);
+  let google = null; const startG = () => google || (google = newsFetchFeed(newsGoogleUrl(q)).catch(() => null));
+  let bi = await Promise.race([bing, new Promise(r => setTimeout(() => r('slow'), 4000))]), gi;
+  if (bi === 'slow') { startG(); bi = await bing; }
+  let items = Array.isArray(bi) ? bi : [];
+  if (items.length < 3) { gi = await startG(); if (Array.isArray(gi)) items = items.concat(gi); }
+  if (!items.length && bi === null && gi === null) throw new Error('Keine Verbindung');
   return items;
 }
 async function newsFetchQueries(qs) {
@@ -5807,22 +5909,31 @@ function newsMerge(byTopic) {
   }));
   return out.sort((a, b) => b.d - a.d);
 }
+const NEWS_TTL = 45 * 6e4;
+function newsDedupe(items) {
+  const seen = new Set(), out = [];
+  items.forEach(x => { const k = x.t.toLowerCase().replace(/[^a-zäöüß0-9]/g, '').slice(0, 60); if (!seen.has(k)) { seen.add(k); out.push(x); } });
+  return out;
+}
+/* Zeigt gespeicherte Meldungen sofort, lädt im Hintergrund nach und füllt jedes Thema, sobald es da ist. */
 async function newsLoad(force) {
   if (newsBusy) return;
-  const st = newsStage(), c = newsRead();
-  if (!force && c && c.stage === st.id && c.items && Date.now() - c.ts < 6 * 36e5) { newsTried = true; return; }
+  const st = newsStage(), c = newsRead(), old = c && c.stage === st.id && Array.isArray(c.items) ? c.items : [];
+  if (!force && old.length && !c.partial && Date.now() - c.ts < NEWS_TTL) { newsTried = true; return; }
   newsBusy = true; newsErr = ''; newsTried = true; if (tab === 'news') render();
-  try {
-    const res = await Promise.allSettled(NEWS_TOPICS.map(([id]) => newsFetchQueries(st.q[id])));
-    const by = {}; let ok = 0;
-    res.forEach((r, i) => { if (r.status === 'fulfilled') { ok++; by[NEWS_TOPICS[i][0]] = r.value; } });
-    if (!ok) throw new Error((res[0].reason && res[0].reason.message) || 'Keine Verbindung');
-    newsWrite({ stage: st.id, ts: Date.now(), items: newsMerge(by) });
-  } catch (e) {
-    newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
-  }
+  const by = {}; let ok = 0;
+  const snap = fin => {
+    const items = newsDedupe(newsMerge(by).concat(old.filter(x => !(x.topic in by))).sort((a, b) => b.d - a.d));
+    newsWrite({ stage: st.id, ts: fin || !old.length ? Date.now() : c.ts, items, partial: !fin });
+  };
+  await Promise.all(NEWS_TOPICS.map(([id]) => newsFetchQueries(st.q[id]).then(v => { ok++; by[id] = v; snap(false); if (tab === 'news') render(); }, () => {})));
+  if (ok) snap(true);
+  else newsErr = navigator.onLine === false ? 'Du bist offline.' : 'Die Quellen sind gerade nicht erreichbar.';
   newsBusy = false; if (tab === 'news') render();
 }
+const newsSkeleton = n => h('div', { class: 'card newsskel', 'aria-busy': 'true' },
+  h('p', { class: 'empty', style: 'padding:10px 0 2px' }, 'Lade aktuelle Meldungen …'),
+  Array.from({ length: n }, () => h('div', { class: 'li skel', 'aria-hidden': 'true' }, h('span', { class: 'li-txt' }, h('i', { class: 'sk l1' }), h('i', { class: 'sk l2' })), h('span', { class: 'newsth sk' }))));
 function newsAgoTxt(ts) {
   if (!ts) return '';
   const m = Math.round((Date.now() - ts) / 6e4);
@@ -5875,10 +5986,10 @@ function viewNews() {
   if (newsTopic === 'natur') wrap.append(h('div', { class: 'card newsnote' }, h('small', null, 'Hinweis: Für Homöopathie ist keine Wirkung über den Placebo-Effekt hinaus nachgewiesen. Bei Fieber, Atemnot oder Trinkschwäche vor allem bei Babys bitte zum Kinderarzt (116117) oder bei Gefahr 112.')));
   const items = c && c.stage === st.id && c.items ? c.items.filter(x => newsTopic === 'alle' || x.topic === newsTopic) : [];
   wrap.append(sectionHead(newsTopic === 'alle' ? 'Aktuell für ' + st.label : (NEWS_TOPICS.find(t => t[0] === newsTopic) || [0, ''])[1]));
-  if ((newsBusy || !newsTried) && !items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Lade aktuelle Meldungen …')));
+  if ((newsBusy || !newsTried) && !items.length) wrap.append(newsSkeleton(5));
   else if (items.length) {
     wrap.append(h('div', { class: 'card' }, items.slice(0, newsTopic === 'alle' ? 30 : 20).map(x => newsItemRow(x, newsTopic === 'alle'))));
-    wrap.append(h('small', { class: 'mute' }, `Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
+    wrap.append(h('small', { class: 'mute' }, `${newsBusy ? 'Aktualisiere … · ' : ''}Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
   } else {
     wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
   }
@@ -5943,7 +6054,7 @@ function viewOffers() {
     h('small', { class: 'mute' }, 'Geld auf dem Junior-Depot gehört rechtlich dem Kind. Die Eltern verwalten es, bis das Kind volljährig ist.')));
   wrap.append(sectionHead('Aktuelle Meldungen zu Junior-Produkten'));
   const c = newsRead(OFFERS_KEY), items = c && c.items ? c.items : [];
-  if ((offBusy || !offTried) && !items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Lade aktuelle Meldungen …')));
+  if ((offBusy || !offTried) && !items.length) wrap.append(newsSkeleton(4));
   else if (items.length) {
     wrap.append(h('div', { class: 'card' }, items.slice(0, 12).map(x => newsItemRow(x, false))));
     wrap.append(h('small', { class: 'mute' }, `Stand ${newsAgoTxt(c.ts)}${offErr ? ' · ' + offErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
@@ -6081,6 +6192,64 @@ function viewQuiz() {
 
 ls.del('luise_ai_key');
 
+/* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
+const APP_VERSION = 15;
+async function appUpdateAvailable() {
+  try {
+    if (!/^https?:$/.test(location.protocol)) return false;
+    const r = await fetch(location.pathname.replace(/[^/]*$/, '') + 'index.html?v=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return false;
+    const m = /name="app-version" content="(\d+)"/.exec(await r.text());
+    return !!(m && +m[1] > APP_VERSION);
+  } catch (e) { return false; }
+}
+async function refreshView() {
+  if (tab === 'news') { await newsLoad(true); return newsErr ? newsErr : 'News aktualisiert'; }
+  if (tab === 'offers') { await offersLoad(true); return offErr ? offErr : 'Angebote aktualisiert'; }
+  if (await appUpdateAvailable()) {
+    toast('Neue Version gefunden, lade neu …');
+    try { const regs = await navigator.serviceWorker.getRegistrations(); await Promise.all(regs.map(r => r.update())); const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch (e) {}
+    setTimeout(() => location.reload(), 700); return '';
+  }
+  render(); return 'Aktualisiert';
+}
+const PTR_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg>';
+function initPull() {
+  const v = $('#view'); if (!v || v._ptr) return; v._ptr = true;
+  const arr = h('span', { class: 'arr', html: PTR_ICON }), ind = h('div', { id: 'ptr', 'aria-hidden': 'true' }, arr);
+  document.body.append(ind);
+  let y0 = null, pull = 0, busy = false;
+  const TRIGGER = 56;
+  const set = (p, anim) => {
+    ind.classList.toggle('anim', !!anim); ind.classList.toggle('ready', p >= TRIGGER);
+    ind.style.opacity = p > 4 ? String(Math.min(1, p / 36)) : '0'; ind.style.transform = `translateY(${p - 48}px)`;
+    if (!ind.classList.contains('spin')) arr.style.transform = `rotate(${Math.round(p * 4)}deg)`;
+    const c = v.firstElementChild; if (c) { c.style.transition = anim ? 'transform .25s' : 'none'; c.style.transform = p > 0 ? `translateY(${Math.round(p * 0.6)}px)` : ''; }
+  };
+  v.addEventListener('touchstart', e => {
+    const t = e.target, bad = t && t.closest && t.closest('textarea, input, select, .chat-in, .wgrid.editing');
+    if (busy || homeEdit || tab === 'chat' || e.touches.length !== 1 || v.scrollTop > 0 || bad) { y0 = null; return; }
+    y0 = e.touches[0].clientY; pull = 0;
+  }, { passive: true });
+  v.addEventListener('touchmove', e => {
+    if (y0 == null) return;
+    const dy = e.touches[0].clientY - y0;
+    if (v.scrollTop > 0 || (dy < 0 && pull === 0)) { y0 = null; return; }
+    if (dy <= 0) { pull = 0; set(0); return; }
+    pull = Math.min(96, dy * 0.5); if (e.cancelable) e.preventDefault(); set(pull);
+  }, { passive: false });
+  const end = async () => {
+    if (y0 == null) return; y0 = null;
+    if (pull < TRIGGER) { pull = 0; set(0, true); return; }
+    busy = true; ind.classList.add('spin'); arr.style.transform = ''; set(TRIGGER, true);
+    const t0 = Date.now(); let msg = '';
+    try { msg = await refreshView(); } catch (e) { msg = 'Aktualisieren fehlgeschlagen'; }
+    await new Promise(r => setTimeout(r, Math.max(0, 600 - (Date.now() - t0))));
+    ind.classList.remove('spin'); pull = 0; set(0, true); busy = false; if (msg) toast(msg);
+  };
+  v.addEventListener('touchend', end, { passive: true }); v.addEventListener('touchcancel', end, { passive: true });
+}
+
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
@@ -6143,6 +6312,8 @@ async function boot() {
   try { db = await openDB(); }
   catch (e) { document.body.replaceChildren(h('p', { style: 'padding:24px' }, 'Der Speicher ist nicht verfügbar. Bitte prüfe, ob privates Surfen aus ist, und lade die Seite neu.')); return; }
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+  try { initPull(); } catch (e) { console.error(e); }
+  setTimeout(() => { try { if (navigator.onLine !== false && S.profile.geburtsdatum && ls.get('luise_noboot_news') !== '1') newsLoad(false); } catch (e) {} }, 1800);
   try { if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
   window.addEventListener('offline', () => toast('Offline: Deine Daten sind trotzdem da'));
   window.addEventListener('online', () => toast('Wieder online'));
@@ -6152,7 +6323,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
