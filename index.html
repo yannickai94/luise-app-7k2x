@@ -2,11 +2,11 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="16">
+<meta name="app-version" content="17">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MyLuiseApp">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#f4f2ee" media="(prefers-color-scheme: light)">
@@ -594,6 +594,107 @@ body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .newshero p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .newshero .linkbtn{padding:4px 0;text-align:left}
 
+/* ===== v17: Glas-Chat, Statusleiste, Coin-Welt, Videos ===== */
+body::before{background:
+  radial-gradient(62% 36% at 10% 0%,color-mix(in srgb,var(--w1,var(--accent)) 30%,transparent),transparent 72%),
+  radial-gradient(55% 38% at 104% 26%,color-mix(in srgb,var(--w3,var(--g3)) 26%,transparent),transparent 72%),
+  radial-gradient(70% 42% at -4% 74%,color-mix(in srgb,var(--w2,var(--g2)) 24%,transparent),transparent 72%),
+  radial-gradient(55% 34% at 98% 102%,color-mix(in srgb,var(--w4,var(--accent)) 20%,transparent),transparent 72%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 90px);mask-image:linear-gradient(180deg,transparent 0,#000 90px)}
+:root[data-dark] body::before{background:
+  radial-gradient(62% 36% at 10% 0%,color-mix(in srgb,var(--w1,var(--accent)) 22%,transparent),transparent 72%),
+  radial-gradient(55% 38% at 104% 26%,color-mix(in srgb,var(--w3,var(--g3)) 16%,transparent),transparent 72%),
+  radial-gradient(70% 42% at -4% 74%,color-mix(in srgb,var(--w2,var(--g2)) 18%,transparent),transparent 72%),
+  radial-gradient(55% 34% at 98% 102%,color-mix(in srgb,var(--w4,var(--accent)) 14%,transparent),transparent 72%)}
+:root[data-bgw]:not([data-dark]) body::before{filter:saturate(1.25)}
+/* Statusleiste: Inhalt reicht bis ganz nach oben, weiche Glas-Kappe */
+body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top);z-index:29;pointer-events:none;
+  background:linear-gradient(180deg,rgba(24,26,34,.8),rgba(24,26,34,.5) 62%,rgba(24,26,34,0));-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+:root[data-dark] body::after{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent),color-mix(in srgb,var(--bg) 46%,transparent) 62%,transparent)}
+/* Chat-Leiste als Glas-Kapsel */
+.chat-in{align-items:center;gap:6px;padding:6px 6px 6px 8px;border-radius:32px;background:color-mix(in srgb,var(--card) 52%,transparent);border:1px solid rgba(255,255,255,.62);box-shadow:0 10px 30px rgba(20,30,40,.14),inset 0 1px 0 rgba(255,255,255,.7);-webkit-backdrop-filter:blur(24px) saturate(1.8);backdrop-filter:blur(24px) saturate(1.8)}
+:root[data-dark] .chat-in{border-color:rgba(255,255,255,.14);box-shadow:0 10px 30px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.1)}
+.chat-in .chat-text{border:0;background:transparent;padding:11px 10px;box-shadow:none;outline:none}
+.chat-in .chat-send{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 100%,#fff 18%),var(--accent));box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 40%,transparent),inset 0 1px 0 rgba(255,255,255,.45)}
+.fchip{background:color-mix(in srgb,var(--card) 58%,transparent);border-color:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.fchip.on{background:var(--accent);border-color:transparent}
+:root[data-dark] .fchip{border-color:rgba(255,255,255,.12)}
+.msg.ai{background:color-mix(in srgb,var(--card) 60%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-color:rgba(255,255,255,.5)}
+/* Profilrahmen */
+.avatar.fr-gold{box-shadow:0 0 0 3px #f6d365,0 0 0 5px rgba(255,255,255,.6),0 0 20px rgba(246,211,101,.75)}
+.avatar.fr-heart{box-shadow:0 0 0 3px #ff7eb3,0 0 0 5px rgba(255,255,255,.55),0 0 22px rgba(255,92,150,.7)}
+.avatar.fr-ice{box-shadow:0 0 0 3px #7fe3ff,0 0 0 5px rgba(255,255,255,.6),0 0 22px rgba(90,200,255,.7)}
+.avatar.fr-rainbow{box-shadow:0 0 0 2px #ff5d5d,0 0 0 4px #ffc93c,0 0 0 6px #4cd18a,0 0 0 8px #4aa3ff,0 0 18px rgba(255,255,255,.35)}
+.avatar.fr-stars{outline:3px dotted #ffd54f;outline-offset:3px;box-shadow:0 0 20px rgba(255,213,79,.65)}
+.hero2 .avatar[class*=fr-],.hero .avatar[class*=fr-]{margin:6px}
+/* Coin-Welt */
+.coinstart{margin-top:-4px}
+.coinrows .li{align-items:center}
+.cprog{margin-left:auto;font-weight:700;font-size:13px;color:var(--mute);background:color-mix(in srgb,var(--mute) 16%,transparent);border-radius:999px;padding:4px 11px;white-space:nowrap}
+.cprog.ok{color:var(--accent-ink);background:var(--accent)}
+.shopgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shopcard{display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;font:inherit;color:var(--ink);cursor:pointer;padding:10px;border-radius:20px;background:color-mix(in srgb,var(--card) 58%,transparent);border:1.5px solid rgba(255,255,255,.6);box-shadow:0 8px 22px rgba(20,30,40,.08),inset 0 1px 0 rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .12s}
+.shopcard:active{transform:scale(.97)}
+.shopcard.on{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent),0 8px 22px rgba(20,30,40,.08)}
+.shopcard.lock{opacity:.62}
+.shopcard small{color:var(--mute);font-size:12.5px}
+.shopcard.on small{color:var(--accent);font-weight:700}
+:root[data-dark] .shopcard{border-color:rgba(255,255,255,.12)}
+.shopprev{width:100%;height:84px;border-radius:14px;display:grid;place-items:center;overflow:hidden;background:color-mix(in srgb,var(--mute) 14%,transparent)}
+.shopprev.bg{font-size:26px}
+.shopav{display:grid;place-items:center}
+.shopprev .avatar{margin:0}
+/* Videos */
+.vwrap{position:fixed;inset:0;z-index:40;background:#000;color:#fff;overscroll-behavior:contain}
+.vfeed{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.vcard{position:relative;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.vbg{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(28px) brightness(.5) saturate(1.3)}
+.vbg.tbg{background:radial-gradient(80% 60% at 20% 10%,color-mix(in srgb,var(--tc) 80%,#000),transparent 70%),radial-gradient(90% 60% at 90% 90%,color-mix(in srgb,var(--tc) 60%,#223),transparent 70%),#10101a;filter:none;inset:0}
+.vmedia{position:relative;width:100%}
+.vmedia.own{height:100%}
+.vvid{width:100%;height:100%;object-fit:contain;display:block;background:transparent}
+.vmedia.yt{aspect-ratio:16/9;max-height:56dvh;background:#000;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.vytbtn{all:unset;display:block;position:relative;width:100%;height:100%;cursor:pointer}
+.vytbtn img{width:100%;height:100%;object-fit:cover;display:block}
+.vyframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vplaybig{position:absolute;left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:#fff;opacity:0;pointer-events:none;transition:opacity .2s}
+.vplaybig svg{width:34px;height:34px;margin-left:4px}
+.vplaybig.on,.vcard.paused .vplaybig{opacity:1}
+.vcard[data-k=own]:not(.paused) .vplaybig:not(.on){opacity:0}
+.vshade{position:absolute;left:0;right:0;bottom:0;height:46%;background:linear-gradient(180deg,transparent,rgba(0,0,0,.72));pointer-events:none}
+.vinfo{position:absolute;left:16px;right:84px;bottom:calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:6px;pointer-events:none}
+.vinfo b{font-size:17px;line-height:1.25;font-weight:700;text-shadow:0 1px 8px rgba(0,0,0,.6);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.vinfo small{opacity:.85;font-size:13px}
+.vtag{align-self:flex-start;font-style:normal;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--tc) 55%,rgba(0,0,0,.4));border:1px solid rgba(255,255,255,.3)}
+.vrail{position:absolute;right:12px;bottom:calc(34px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;align-items:center}
+.vbtn{all:unset;box-sizing:border-box;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;cursor:pointer;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.vbtn svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vbtn:active{transform:scale(.94)}
+.vprog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.2)}
+.vprog i{display:block;height:100%;width:0;background:#fff}
+.vflash{position:absolute;left:50%;top:50%;width:78px;height:78px;margin:-39px 0 0 -39px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;pointer-events:none}
+.vflash svg{width:38px;height:38px}
+.vflash.go{animation:vflash .6s ease-out}
+@keyframes vflash{0%{opacity:0;transform:scale(.7)}25%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.15)}}
+.vtop{position:absolute;top:0;left:0;right:0;z-index:5;padding:calc(8px + env(safe-area-inset-top)) 12px 18px;background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,0));pointer-events:none}
+.vtop>*{pointer-events:auto}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.vbar b{font-size:18px}
+.vchips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0;margin:0 -12px;padding:2px 12px}
+.vchips::-webkit-scrollbar{display:none}
+.vchips .fchip{flex:none;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.vchips .fchip.on{background:#fff;color:#111;border-color:#fff}
+.vstat{margin-top:8px;font-size:12.5px;opacity:.85;pointer-events:none}
+.vbig{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:0 32px;max-width:420px}
+.vbig .ve{font-size:72px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+.vbig h2{margin:0;font-size:26px}
+.vbig p{margin:0;opacity:.88;line-height:1.45}
+.vbig .vgo{width:100%;text-decoration:none;text-align:center;background:#fff;color:#111}
+.vbig .vgo2{width:100%;color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.12)}
+.hubtile.wide{grid-column:1/-1;min-height:0;flex-direction:row;align-items:center;gap:14px}
+.hubtile.wide .tx{display:flex;flex-direction:column;gap:2px}
+.hubtile.wide .ico{flex:none}
+
 </style>
 </head>
 <body>
@@ -713,7 +814,7 @@ const ICON = {
 let db;
 function openDB() {
   return new Promise((res, rej) => {
-    const r = indexedDB.open('luise-identitaet', 2);
+    const r = indexedDB.open('luise-identitaet', 3);
     r.onupgradeneeded = () => {
       const d = r.result;
       if (!d.objectStoreNames.contains('kv')) d.createObjectStore('kv');
@@ -721,6 +822,8 @@ function openDB() {
       if (!d.objectStoreNames.contains('files')) d.createObjectStore('files', { keyPath: 'id' });
       if (!d.objectStoreNames.contains('photos')) d.createObjectStore('photos', { keyPath: 'id' });
       if (!d.objectStoreNames.contains('photofiles')) d.createObjectStore('photofiles', { keyPath: 'id' });
+      if (!d.objectStoreNames.contains('videos')) d.createObjectStore('videos', { keyPath: 'id' });
+      if (!d.objectStoreNames.contains('videofiles')) d.createObjectStore('videofiles', { keyPath: 'id' });
     };
     r.onsuccess = () => res(r.result);
     r.onerror = () => rej(r.error);
@@ -752,6 +855,13 @@ const photoDel = id => tx('photos', 'readwrite', s => s.delete(id));
 const pfileGet = id => tx('photofiles', 'readonly', s => s.get(id));
 const pfilePut = f => tx('photofiles', 'readwrite', s => s.put(f));
 const pfileDel = id => tx('photofiles', 'readwrite', s => s.delete(id));
+const videosAll = () => tx('videos', 'readonly', s => s.getAll());
+const videoPut = m => tx('videos', 'readwrite', s => s.put(m));
+const videoDel = id => tx('videos', 'readwrite', s => s.delete(id));
+const vfileGet = id => tx('videofiles', 'readonly', s => s.get(id));
+const vfilePut = f => tx('videofiles', 'readwrite', s => s.put(f));
+const vfileDel = id => tx('videofiles', 'readwrite', s => s.delete(id));
+const clearVideos = () => Promise.all(['videos', 'videofiles'].map(n => tx(n, 'readwrite', s => s.clear())));
 const clearStores = () => Promise.all(['kv', 'docs', 'files', 'photos', 'photofiles'].map(n => tx(n, 'readwrite', s => s.clear())));
 const showImpf = () => ls.get('luise_show_impf') === '1';
 
@@ -764,15 +874,17 @@ async function loadState() {
   CH = ch;
   const want = ls.get('luise_child');
   CID = CH.some(c => c.id === want) ? want : CH[0].id;
-  const [profile, health, school, docs, photos] = await Promise.all([kvGet(ckey('profile')), kvGet(ckey('health')), kvGet(ckey('school')), docsAll(), photosAll()]);
+  const [profile, health, school, docs, photos, videos] = await Promise.all([kvGet(ckey('profile')), kvGet(ckey('health')), kvGet(ckey('school')), docsAll(), photosAll(), videosAll()]);
   const mine = x => (x.cid || 'main') === CID;
   S = {
     profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [], journey: [], familie: [], tagebuch: [] }, profile || {}),
     health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [], meds: [] }, health || {}),
     school: Object.assign({ abholer: [], termine: [], hiddenAuto: [], show: 'auto' }, school || {}),
     docs: (docs || []).filter(mine),
-    photos: (photos || []).filter(mine)
+    photos: (photos || []).filter(mine),
+    videos: (videos || []).filter(mine)
   };
+  try { applyBgw(); } catch (e) {}
 }
 const persist = async k => {
   await kvSet(ckey(k), S[k]);
@@ -971,7 +1083,7 @@ async function cooldown(sec) {
   lockScreen.busy(false);
 }
 async function wipeAll() {
-  try { await clearStores(); } catch (e) {}
+  try { await clearStores(); await clearVideos(); } catch (e) {}
   [LOCK_KEY, 'luise_nolock', 'luise_autolock', 'luise_lastbackup', 'luise_hint_off', 'luise_child', 'luise_maps'].forEach(ls.del);
   location.reload();
 }
@@ -1270,7 +1382,7 @@ function kv(label, value, opts = {}) {
 }
 function avatar(p, size) {
   const ini = ((p.vorname || 'L')[0] + (p.nachname ? p.nachname[0] : '')).toUpperCase();
-  return h('div', { class: 'avatar', style: `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.38)}px` }, p.foto ? h('img', { src: p.foto, alt: '' }) : ini);
+  return h('div', { class: 'avatar' + (p === S.profile && size >= 60 ? coinFrameCls() : ''), style: `width:${size}px;height:${size}px;font-size:${Math.round(size * 0.38)}px` }, p.foto ? h('img', { src: p.foto, alt: '' }) : ini);
 }
 function editListItem({ arr, key, title, fields, item, defaults }) {
   const isNew = !item;
@@ -1556,6 +1668,7 @@ const WIDGETS = {
   growth: { name: 'Wachstum', desc: 'Letzte Größe und letztes Gewicht', half: true, render: wGrowth },
   invest: { name: 'Geld', desc: 'Gesamtvermögen mit Trade Republic, Konten und Bargeld', half: true, render: wInvest },
   badges: { name: 'Abzeichen', desc: 'Level und Fortschritt', half: true, render: wBadges },
+  coins: { name: 'Coin-Welt', desc: 'Guthaben, Serie und Tagesbonus', half: true, render: wCoins },
   family: { name: 'Stammbuch', desc: 'Familienmitglieder und nächster Geburtstag', half: true, render: wFamily },
   bday: { name: 'Geburtstags-Countdown', desc: 'Tage bis zum nächsten Geburtstag', half: true, render: wBday },
   routen: { name: 'Routen', desc: 'Schnell zur Kita, zu Oma und zurück', render: wRouten },
@@ -2124,6 +2237,7 @@ async function addPhotos(files, opt = {}) {
       await photoPut(meta); S.photos.push(meta); ids.push(id); ok++;
     } catch (e) { console.error(e); }
   }
+  if (ok && !opt.silent) coinEarn('photo', ok);
   if (!opt.silent) render();
   toast(ok === files.length ? `${ok} ${ok === 1 ? 'Foto' : 'Fotos'} hinzugefügt` : `${ok} von ${files.length} hinzugefügt`);
   return ids;
@@ -3714,6 +3828,7 @@ function viewMore() {
   const dn = S.docs.length, exp = S.docs.filter(d => d.ablauf && daysTo(d.ablauf) <= 90).length;
   const bigTile = (ico, title, sub, to) => h('button', { class: 'tile hubtile', type: 'button', onclick: () => go(to) }, h('span', { class: 'ico', html: ico }), h('span', null, title), h('small', null, sub));
   wrap.append(h('div', { class: 'tiles' }, bigTile(ICON.chat, 'KI-Assistent', 'Fragen zu den App-Daten', 'chat'), bigTile(ICON.search, 'Suche', 'Alles in der App finden', 'search')));
+  wrap.append(h('button', { class: 'tile hubtile wide', type: 'button', onclick: () => openVideoFeed('alle') }, h('span', { class: 'ico', html: ICON.video }), h('span', { class: 'tx' }, h('span', null, 'Videos'), h('small', null, 'Eigene Videos und passende Baby-Videos im Feed'))));
   const grp = (title, cls, ...rows) => { wrap.append(sectionHead(title)); wrap.append(h('div', { class: 'card hubgrp ' + cls }, ...rows)); };
   grp('Organisation', 'gA',
     hubRow(ICON.docs, 'Dokumente', dn ? plural(dn, 'Dokument', 'Dokumente') + (exp ? ` · ${exp} läuft bald ab` : ' · Scannen, ablegen, suchen') : 'Urkunden, Impfpass, Versicherung', 'docs'),
@@ -3726,7 +3841,8 @@ function viewMore() {
     hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
-    hubRow(ICON.trophy, 'Abzeichen', 'Level, Quiz und Auszeichnungen', 'badges'));
+    hubRow(ICON.trophy, 'Abzeichen', 'Level, Quiz und Auszeichnungen', 'badges'),
+    li(() => go('coins'), '', h('span', { class: 'hubico emo' }, '🪙'), liTxt('Coin-Welt', `${coinBalance()} Coins · Verdienen, Laden, Wünsche`), chev()));
   grp('Entdecken', 'gC',
     hubRow(ICON.star, 'Human Design', 'Chart aus Geburtsdatum und Geburtszeit', 'hd'),
     hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Tierzeichen', 'spirit'),
@@ -3760,7 +3876,7 @@ function viewMore() {
     try { await importBackup(f); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); }
   } });
   wrap.append(h('div', { class: 'card stack' },
-    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab.' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
+    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Eigene Videos sind wegen ihrer Größe nicht in der Sicherung.' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
     backupFile
       ? h('button', { class: 'btn wide', onclick: async () => {
           const f = backupFile;
@@ -3784,7 +3900,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 16'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 17'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -3812,11 +3928,12 @@ function addChild() {
 }
 async function deleteChild(c) {
   if (CH.length < 2) { toast('Das letzte Profil kann nicht gelöscht werden'); return; }
-  if (!confirm(`„${kidName(c)}“ mit allen Dokumenten und Fotos löschen? Das kann nicht rückgängig gemacht werden.`)) return;
+  if (!confirm(`„${kidName(c)}“ mit allen Dokumenten, Fotos und Videos löschen? Das kann nicht rückgängig gemacht werden.`)) return;
   const sfx = kidSfx(c.id);
   for (const k of ['profile', 'health', 'school']) await tx('kv', 'readwrite', s => s.delete(k + sfx));
   for (const d of await docsAll()) if ((d.cid || 'main') === c.id) { await fileDel(d.id); await docDel(d.id); }
   for (const f of await photosAll()) if ((f.cid || 'main') === c.id) { await pfileDel(f.id); await photoDel(f.id); }
+  for (const f of await videosAll()) if ((f.cid || 'main') === c.id) { await vfileDel(f.id); await videoDel(f.id); }
   CH = CH.filter(x => x.id !== c.id); await kvSet('children', CH);
   if (CID === c.id) ls.set('luise_child', CH[0].id);
   await loadState(); render(); toast('Profil gelöscht');
@@ -4361,14 +4478,14 @@ function editNote(item) {
       if (!v.text && !v.temp && !v.stimmung) { toast('Bitte Notiz, Temperatur oder Stimmung eintragen'); return false; }
       if (v.temp && num(v.temp) == null) { toast('Die Temperatur ist keine Zahl'); return false; }
       const t = isNew ? { id: uid() } : item; Object.assign(t, v); if (isNew) arr.push(t);
-      await persist('profile'); render();
+      await persist('profile'); if (isNew) coinEarn('diary'); render();
     },
     onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
   });
 }
 async function quickMood(m) {
   notesAll().push({ id: uid(), datum: isoToday(), zeit: nowTime(), stimmung: m, kategorie: 'Allgemein', text: '' });
-  await persist('profile'); toast('Stimmung gespeichert'); render();
+  await persist('profile'); coinEarn('diary'); toast('Stimmung gespeichert'); render();
 }
 const noteTitle = n => n.text ? n.text.split('\n')[0].slice(0, 80) : (n.temp ? 'Temperatur ' + n.temp.replace('.', ',') + ' °C' : (n.stimmung ? n.stimmung.replace(/^\S+\s/, '') : 'Notiz'));
 function noteRow(n) {
@@ -4707,7 +4824,7 @@ function editMoment(item) {
       const t = isNew ? { id: uid() } : item;
       Object.assign(t, rest); t.fotos = (fotos || []).concat(ids);
       if (isNew) arr.push(t);
-      await persist('profile'); render();
+      await persist('profile'); if (isNew) coinEarn('journey'); render();
     },
     onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
   });
@@ -6328,7 +6445,8 @@ function viewQuiz() {
     wrap.append(h('div', { class: 'card stack' }, h('b', null, 'So geht’s'),
       h('small', { class: 'mute' }, `Jede Runde hat ${QUIZ_LEN} Fragen rund ums Baby. Für jede richtige Antwort gibt es ${COIN_FIRST} Coins, bei einer schon gemeisterten Frage ${COIN_REPEAT} Coin. Ein Volltreffer bringt ${COIN_PERFECT} Coins extra, die erste Runde am Tag ${COIN_DAY} Coins.`),
       h('div', { class: 'chips' }, [['alle', 'Alle Themen'], ...QUIZ_CATS.map(x => [x, x])].map(([id, l]) => h('button', { class: 'fchip' + (quizCat === id ? ' on' : ''), type: 'button', onclick: () => { quizCat = id; render(); } }, l))),
-      h('button', { class: 'btn wide', type: 'button', onclick: quizStart }, 'Runde starten')));
+      h('button', { class: 'btn wide', type: 'button', onclick: quizStart }, 'Runde starten'),
+      h('button', { class: 'btn ghost wide', type: 'button', onclick: () => go('coins') }, 'Zur Coin-Welt')));
     wrap.append(h('p', { class: 'fine' }, 'Das Quiz ist zum Spaß und ersetzt keine ärztliche Beratung. Die Coins gibt es nur in der App und haben keinen Geldwert.'));
     return wrap;
   }
@@ -6363,7 +6481,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 16;
+const APP_VERSION = 17;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6397,7 +6515,7 @@ function initPull() {
     const c = v.firstElementChild; if (c) { c.style.transition = anim ? 'transform .25s' : 'none'; c.style.transform = p > 0 ? `translateY(${Math.round(p * 0.6)}px)` : ''; }
   };
   v.addEventListener('touchstart', e => {
-    const t = e.target, bad = t && t.closest && t.closest('textarea, input, select, .chat-in, .wgrid.editing');
+    const t = e.target, bad = t && t.closest && t.closest('textarea, input, select, .chat-in, .wgrid.editing, .vwrap');
     if (busy || homeEdit || tab === 'chat' || e.touches.length !== 1 || v.scrollTop > 0 || bad) { y0 = null; return; }
     y0 = e.touches[0].clientY; pull = 0;
   }, { passive: true });
@@ -6428,11 +6546,11 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers'];
+const SUB = ['docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go(id) }, label), v);
 const views = {
-  home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
+  coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
@@ -6476,6 +6594,388 @@ function makeIcon() {
     ['apple-touch-icon', 'icon'].forEach(rel => { const l = document.createElement('link'); l.rel = rel; l.href = url; document.head.append(l); });
   } catch (e) {}
 }
+/* ============ Coin-Welt: Verdienen, Laden, Wünsche ============ */
+const COIN_START = 1, COIN_STREAK_BONUS = 10;
+const COIN_RULES = {
+  diary:    { n: 3, cap: 1, label: 'Tagesnotiz geschrieben', emoji: '📓', go: () => go('diary') },
+  photo:    { n: 1, cap: 3, label: 'Foto hinzugefügt', emoji: '📷', go: () => go('photos') },
+  journey:  { n: 3, cap: 2, label: 'Moment in der Journey', emoji: '🛤️', go: () => go('journey') },
+  vidup:    { n: 3, cap: 2, label: 'Video hochgeladen', emoji: '🎬', go: () => openVideoFeed('eigene') },
+  vidwatch: { n: 1, cap: 3, label: 'Video angesehen', emoji: '▶️', go: () => openVideoFeed('alle') }
+};
+const COIN_SHOP = [
+  { id: 'bg_sunset', kind: 'bg', name: 'Abendrot', emoji: '🌅', cost: 25, v: ['#ff8a65', '#ffb74d', '#f06292', '#ff7043'] },
+  { id: 'bg_ocean', kind: 'bg', name: 'Ozean', emoji: '🌊', cost: 25, v: ['#26c6da', '#4fc3f7', '#7e9bff', '#26a69a'] },
+  { id: 'bg_forest', kind: 'bg', name: 'Waldlicht', emoji: '🌲', cost: 25, v: ['#66bb6a', '#d4e157', '#26a69a', '#9ccc65'] },
+  { id: 'bg_candy', kind: 'bg', name: 'Zuckerwatte', emoji: '🍭', cost: 25, v: ['#f48fb1', '#ce93d8', '#90caf9', '#ffab91'] },
+  { id: 'bg_night', kind: 'bg', name: 'Sternenhimmel', emoji: '🌌', cost: 40, v: ['#5c6bc0', '#7e57c2', '#29b6f6', '#ab47bc'] },
+  { id: 'fr_gold', kind: 'fr', name: 'Goldrahmen', emoji: '🥇', cost: 20 },
+  { id: 'fr_heart', kind: 'fr', name: 'Herzglanz', emoji: '💗', cost: 20 },
+  { id: 'fr_ice', kind: 'fr', name: 'Eisblau', emoji: '🧊', cost: 20 },
+  { id: 'fr_rainbow', kind: 'fr', name: 'Regenbogen', emoji: '🌈', cost: 30 },
+  { id: 'fr_stars', kind: 'fr', name: 'Sternenkranz', emoji: '✨', cost: 30 }
+];
+const coinShopItem = id => COIN_SHOP.find(x => x.id === id);
+(function () {
+  const base = coinData;
+  coinData = function () {
+    const c = base();
+    c.spent = c.spent || 0; c.own = Array.isArray(c.own) ? c.own : []; c.bgw = c.bgw || ''; c.frame = c.frame || '';
+    c.streak = c.streak || 0; c.best = c.best || 0; c.lastStart = c.lastStart || ''; c.ledger = Array.isArray(c.ledger) ? c.ledger : [];
+    c.rewards = Array.isArray(c.rewards) ? c.rewards : []; c.redeemed = Array.isArray(c.redeemed) ? c.redeemed : [];
+    return c;
+  };
+})();
+const coinBalance = () => { const c = coinData(); return c.total - c.spent; };
+function coinToday(c) { const t = isoToday(); if (!c.today || c.today.d !== t) c.today = { d: t, k: {} }; return c.today; }
+function coinLog(c, n, label) { c.ledger = [{ d: isoToday(), n, t: label }].concat(c.ledger).slice(0, 60); }
+function coinStreakNow() {
+  const c = coinData(), y = new Date(); y.setDate(y.getDate() - 1);
+  const yi = `${y.getFullYear()}-${pad2(y.getMonth() + 1)}-${pad2(y.getDate())}`;
+  return c.lastStart === isoToday() || c.lastStart === yi ? c.streak : 0;
+}
+async function coinEarn(key, times, quiet) {
+  const r = COIN_RULES[key]; if (!r || !S) return 0;
+  const c = coinData(), td = coinToday(c); let gain = 0;
+  for (let i = 0; i < (times || 1); i++) { if ((td.k[key] || 0) >= r.cap) break; td.k[key] = (td.k[key] || 0) + 1; gain += r.n; }
+  if (!gain) return 0;
+  c.total += gain; coinLog(c, gain, r.label); await persist('profile');
+  if (!quiet) setTimeout(() => toast(`+${gain} 🪙 ${r.label}`), 1100);
+  return gain;
+}
+async function coinStart() {
+  const c = coinData(), t = isoToday(); if (c.lastStart === t) return;
+  const prev = coinStreakNow(); c.streak = prev + 1; c.lastStart = t; c.best = Math.max(c.best, c.streak);
+  const bonus = c.streak % 7 === 0 ? COIN_STREAK_BONUS : 0;
+  c.total += COIN_START + bonus; coinLog(c, COIN_START, 'Tagesbonus'); if (bonus) coinLog(c, bonus, c.streak + ' Tage in Folge');
+  await persist('profile'); if (bonus) confetti(); toast(`+${COIN_START + bonus} 🪙 Tagesbonus · ${c.streak} ${c.streak === 1 ? 'Tag' : 'Tage'} in Folge`); render();
+}
+async function coinBuy(it) {
+  const c = coinData();
+  if (c.own.includes(it.id)) return;
+  if (coinBalance() < it.cost) { toast(`Dir fehlen noch ${it.cost - coinBalance()} Coins`); return; }
+  c.spent += it.cost; c.own.push(it.id); coinLog(c, -it.cost, it.name);
+  if (it.kind === 'bg') c.bgw = it.id; else c.frame = it.id;
+  await persist('profile'); applyBgw(); confetti(); toast(`${it.name} freigeschaltet`); render();
+}
+async function coinEquip(kind, id) { const c = coinData(); if (kind === 'bg') c.bgw = id; else c.frame = id; await persist('profile'); applyBgw(); render(); }
+function applyBgw() {
+  const r = document.documentElement; let it = null;
+  try { if (S) it = coinShopItem(coinData().bgw); } catch (e) {}
+  if (it && it.kind === 'bg') { r.setAttribute('data-bgw', it.id); it.v.forEach((c, i) => r.style.setProperty('--w' + (i + 1), c)); }
+  else { r.removeAttribute('data-bgw'); [1, 2, 3, 4].forEach(i => r.style.removeProperty('--w' + i)); }
+}
+const coinFrameCls = () => { try { const f = S && coinData().frame; return f && coinShopItem(f) ? ' ' + f.replace('_', '-') : ''; } catch (e) { return ''; } };
+function editReward(item) {
+  const arr = coinData().rewards, isNew = !item;
+  openSheet({
+    title: isNew ? 'Wunsch hinzufügen' : 'Wunsch', values: item ? { name: item.name, cost: String(item.cost) } : { cost: '50' },
+    fields: [{ key: 'name', label: 'Was darf eingelöst werden?', required: true, cap: 'sentences', ph: 'z. B. Spaziergang zum Eis, Kuschelabend, Ausflug' },
+      { key: 'cost', label: 'Kosten in Coins', inputmode: 'numeric', required: true, hint: 'Die Belohnungen legst du selbst fest, zum Beispiel für die ganze Familie.' }],
+    onSave: async v => {
+      const n = Math.round(+String(v.cost).replace(',', '.')); if (!(n >= 1 && n <= 5000)) { toast('Bitte 1 bis 5000 Coins eintragen'); return false; }
+      if (isNew) arr.push({ id: uid(), name: v.name, cost: n }); else { item.name = v.name; item.cost = n; }
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+async function redeemReward(w) {
+  const c = coinData();
+  if (coinBalance() < w.cost) { toast(`Dir fehlen noch ${w.cost - coinBalance()} Coins`); return; }
+  if (!confirm(`„${w.name}“ für ${w.cost} Coins einlösen?`)) return;
+  c.spent += w.cost; coinLog(c, -w.cost, w.name); c.redeemed = [{ d: isoToday(), name: w.name, cost: w.cost }].concat(c.redeemed).slice(0, 30);
+  await persist('profile'); confetti(); toast('Eingelöst. Viel Freude!'); render();
+}
+let coinSeg = 'earn';
+function avPreview(cls) { return h('span', { class: 'avatar shopav' + cls, style: 'width:54px;height:54px;font-size:20px' }, ((S.profile.vorname || 'L')[0]).toUpperCase()); }
+function viewCoins() {
+  const c = coinData(), wrap = h('div', { class: 'stack coinpage' }), bal = coinBalance(), st = coinStreakNow(), done = c.lastStart === isoToday(), nm = coinName();
+  wrap.append(h('div', { class: 'hero2 gold' },
+    h('div', { class: 'top' }, h('div', { class: 'bigemoji' }, '🪙'), h('div', null, h('h1', null, bal + ' ' + (bal === 1 ? nm.replace(/Coins$/, 'Coin') : nm)), h('p', null, `${c.total} insgesamt gesammelt`))),
+    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, '🔥 ' + st), 'Serie'), h('div', { class: 'stat' }, h('b', null, c.best), 'Rekord'), h('div', { class: 'stat' }, h('b', null, c.own.length), 'Extras'))));
+  wrap.append(h('button', { class: 'btn wide coinstart' + (done ? ' ghost' : ''), type: 'button', disabled: done ? true : null, onclick: coinStart },
+    done ? 'Tagesbonus heute abgeholt ✓' : `Tagesbonus abholen (+${COIN_START}${(st + 1) % 7 === 0 ? ` und +${COIN_STREAK_BONUS} Serienbonus` : ''})`));
+  wrap.append(h('div', { class: 'chips' }, [['earn', 'Verdienen'], ['shop', 'Laden'], ['wish', 'Wünsche'], ['log', 'Verlauf']].map(([id, l]) => h('button', { class: 'fchip' + (coinSeg === id ? ' on' : ''), 'data-seg': id, type: 'button', onclick: () => { coinSeg = id; render(); } }, l))));
+  if (coinSeg === 'earn') {
+    const td = coinToday(c), qdone = c.day === isoToday();
+    wrap.append(h('div', { class: 'card coinrows' },
+      li(() => { qz = null; go('quiz'); }, '', h('span', { class: 'hubico emo' }, '🧠'), liTxt('Quiz-Runde', `Bis zu ${COIN_FIRST * QUIZ_LEN + COIN_PERFECT} Coins pro Runde, erste Runde am Tag +${COIN_DAY}`), h('span', { class: 'cprog' + (qdone ? ' ok' : '') }, qdone ? '✓' : 'Los')),
+      Object.keys(COIN_RULES).map(k => { const r = COIN_RULES[k], n = td.k[k] || 0, full = n >= r.cap;
+        return li(r.go, '', h('span', { class: 'hubico emo' }, r.emoji), liTxt(r.label, `+${r.n} 🪙 · bis zu ${r.cap}× am Tag`), h('span', { class: 'cprog' + (full ? ' ok' : '') }, full ? '✓' : `${n}/${r.cap}`)); })));
+    wrap.append(h('p', { class: 'fine' }, 'Alles zählt nur in dieser App. Die Coins haben keinen Geldwert und die Tageslimits fangen jeden Morgen neu an.'));
+  } else if (coinSeg === 'shop') {
+    const grp = (title, kind) => {
+      wrap.append(sectionHead(title));
+      const grid = h('div', { class: 'shopgrid' });
+      const none = { id: '', kind, name: 'Standard', emoji: '⚪', cost: 0 };
+      [none].concat(COIN_SHOP.filter(x => x.kind === kind)).forEach(it => {
+        const owned = !it.id || c.own.includes(it.id), on = (kind === 'bg' ? c.bgw : c.frame) === it.id, can = bal >= it.cost;
+        const prev = kind === 'bg'
+          ? h('span', { class: 'shopprev bg', style: it.v ? `background:radial-gradient(70% 70% at 15% 10%,${it.v[0]},transparent 70%),radial-gradient(70% 70% at 90% 30%,${it.v[2]},transparent 70%),radial-gradient(80% 80% at 30% 100%,${it.v[1]},transparent 70%),#2a2a32` : '' }, it.id ? '' : '⚪')
+          : h('span', { class: 'shopprev' }, avPreview(it.id ? ' ' + it.id.replace('_', '-') : ''));
+        grid.append(h('button', { class: 'shopcard' + (on ? ' on' : '') + (owned || can ? '' : ' lock'), type: 'button', 'data-id': it.id || (kind + '_none'),
+          onclick: () => { if (owned) coinEquip(kind, it.id); else coinBuy(it); } },
+          prev, h('b', null, it.emoji + ' ' + it.name), h('small', null, on ? 'Aktiv' : owned ? 'Anwenden' : `${it.cost} 🪙${can ? '' : ' · zu wenig'}`)));
+      });
+      wrap.append(grid);
+    };
+    grp('Hintergrundwelten', 'bg'); grp('Profilrahmen', 'fr');
+    wrap.append(h('p', { class: 'fine' }, 'Hintergründe färben das Glas-Design der ganzen App. Rahmen erscheinen um das Profilfoto.'));
+  } else if (coinSeg === 'wish') {
+    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'Eigene Belohnungen'), h('small', { class: 'mute' }, 'Lege selbst fest, wofür sich das Sparen lohnt, zum Beispiel einen Ausflug oder einen Kuschelabend. Löst du etwas ein, werden die Coins abgezogen.')));
+    wrap.append(c.rewards.length ? h('div', { class: 'card coinrows' }, c.rewards.map(w => li(() => editReward(w), '', h('span', { class: 'hubico emo' }, '🎁'), liTxt(w.name, `${w.cost} 🪙`),
+      h('button', { class: 'pill' + (bal >= w.cost ? '' : ' ghost'), type: 'button', onclick: e => { e.stopPropagation(); redeemReward(w); } }, bal >= w.cost ? 'Einlösen' : `Noch ${w.cost - bal}`)))) : h('p', { class: 'empty' }, 'Noch keine Wünsche eingetragen.'));
+    wrap.append(h('button', { class: 'btn wide', type: 'button', onclick: () => editReward(null) }, 'Wunsch hinzufügen'));
+    if (c.redeemed.length) { wrap.append(sectionHead('Schon eingelöst')); wrap.append(h('div', { class: 'card' }, c.redeemed.map(r => kv(r.name, `${fmtD(r.d)} · ${r.cost} 🪙`)))); }
+  } else {
+    wrap.append(c.ledger.length ? h('div', { class: 'card' }, c.ledger.map(r => kv(r.t, `${fmtD(r.d)} · ${r.n > 0 ? '+' : ''}${r.n} 🪙`))) : h('p', { class: 'empty' }, 'Noch nichts passiert. Hol dir den Tagesbonus oder spiele eine Quiz-Runde.'));
+  }
+  return wrap;
+}
+function wCoins() {
+  const c = coinData(), done = c.lastStart === isoToday(), st = coinStreakNow();
+  return miniCard('Coin-Welt', coinBalance() + ' 🪙', done ? `🔥 ${st} ${st === 1 ? 'Tag' : 'Tage'} in Folge` : 'Tagesbonus wartet', () => go('coins'));
+}
+
+/* ============ Videos: Reels-Feed mit eigenen Videos und YouTube ============ */
+const VID_TOPICS = [
+  { id: 'schlaf', name: 'Schlaf', emoji: '😴', col: '#6a73d8', q: ['Baby Schlaf sicher Tipps Eltern', 'Baby einschlafen Hebamme Tipps'] },
+  { id: 'essen', name: 'Ernährung', emoji: '🍼', col: '#e0903a', q: ['Stillen Anleitung Hebamme', 'Beikost Start Baby Anleitung'] },
+  { id: 'pflege', name: 'Pflege', emoji: '🛁', col: '#3fa8c4', q: ['Baby baden Anleitung Neugeborenes', 'Baby wickeln Anleitung'] },
+  { id: 'entwicklung', name: 'Entwicklung', emoji: '🧸', col: '#d9697f', q: ['Baby Entwicklung Meilensteine Kinderarzt', 'Baby fördern spielen Anleitung'] },
+  { id: 'hilfe', name: 'Erste Hilfe', emoji: '🚑', col: '#d6483f', q: ['Erste Hilfe Baby Säugling Anleitung', 'Baby verschluckt Erste Hilfe'] },
+  { id: 'tragen', name: 'Tragen', emoji: '👶', col: '#4fa36b', q: ['Baby tragen Tragetuch Anleitung', 'Babymassage Anleitung'] }
+];
+const VID_KEY = 'luise_vid_yt_v1', VID_BLOCK = /impf|stiko/i;
+const VIC = {
+  play: '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg>',
+  pause: '<svg viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z" fill="currentColor" stroke="none"/></svg>',
+  sound: '<svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12"/></svg>',
+  mute: '<svg viewBox="0 0 24 24"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>',
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  more: '<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg>',
+  yt: '<svg viewBox="0 0 24 24"><path d="M10 15l5-3-5-3z" fill="currentColor"/><rect x="3" y="6" width="18" height="12" rx="4"/></svg>',
+  back: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>'
+};
+const vidSearchUrl = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+function vidParseYt(u) {
+  try {
+    const x = new URL(String(u).trim()), host = x.hostname.replace(/^(www|m|music)\./, ''); let id = '';
+    if (host === 'youtu.be') id = x.pathname.slice(1).split('/')[0];
+    else if (/(^|\.)youtube(-nocookie)?\.com$/.test(host)) {
+      if (x.pathname === '/watch') id = x.searchParams.get('v') || '';
+      else { const m = /^\/(shorts|embed|live|v)\/([^/?]+)/.exec(x.pathname); if (m) id = m[2]; }
+    }
+    return /^[A-Za-z0-9_-]{11}$/.test(id) ? id : '';
+  } catch (e) { return ''; }
+}
+function vidSecs(s) { const p = String(s || '').split(':').map(Number); if (!p.length || p.some(isNaN)) return 0; return p.reduce((a, b) => a * 60 + b, 0); }
+function vidParseSearch(html) {
+  const out = [];
+  try {
+    html = String(html); let i = html.indexOf('ytInitialData'); if (i < 0) return out;
+    i = html.indexOf('{', i); const j = html.indexOf('<' + '/script>', i); const data = JSON.parse(html.slice(i, j).trim().replace(/;\s*$/, ''));
+    const walk = o => {
+      if (!o || typeof o !== 'object') return;
+      if (o.videoRenderer && o.videoRenderer.videoId) {
+        const v = o.videoRenderer, t = ((v.title && v.title.runs) || []).map(r => r.text).join(''), ch = (v.ownerText && v.ownerText.runs && v.ownerText.runs[0] && v.ownerText.runs[0].text) || '';
+        out.push({ vid: v.videoId, t, ch, len: (v.lengthText && v.lengthText.simpleText) || '' }); return;
+      }
+      (Array.isArray(o) ? o : Object.values(o)).forEach(walk);
+    };
+    walk(data);
+  } catch (e) {}
+  return out;
+}
+function vidFetchText(url) {
+  return new Promise((res, rej) => {
+    const ps = [u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u), u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)]; let fails = 0, done = false;
+    ps.forEach((p, i) => setTimeout(() => {
+      if (done) return; const ac = new AbortController(), to = setTimeout(() => ac.abort(), 9000);
+      fetch(p(url), { signal: ac.signal, cache: 'no-store' }).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+        .then(t => { clearTimeout(to); if (!done) { done = true; res(t); } })
+        .catch(e => { clearTimeout(to); if (++fails >= ps.length && !done) rej(e); });
+    }, i * 2500));
+  });
+}
+const vidCache = () => { try { const c = JSON.parse(ls.get(VID_KEY) || 'null'); return c && typeof c === 'object' ? c : { ts: 0, topics: {} }; } catch (e) { return { ts: 0, topics: {} }; } };
+let vidBusy = false, vidErr = '';
+async function vidLoadSuggest(force) {
+  const c = vidCache(); if (vidBusy) return; if (!force && Date.now() - c.ts < 12 * 36e5 && Object.keys(c.topics || {}).length) return;
+  vidBusy = true; vidErr = ''; if (vf) vfStatus();
+  try {
+    const topics = Object.assign({}, c.topics);
+    await Promise.all(VID_TOPICS.map(async t => {
+      const seen = new Set(), list = [];
+      const rs = await Promise.all(t.q.map(q => vidFetchText('https://www.youtube.com/results?hl=de&gl=DE&sp=EgIQAQ%253D%253D&search_query=' + encodeURIComponent(q)).then(vidParseSearch).catch(() => [])));
+      rs.forEach(a => a.forEach(x => { const s = vidSecs(x.len); if (seen.has(x.vid) || !x.t || VID_BLOCK.test(x.t) || !s || s > 1800) return; seen.add(x.vid); list.push({ vid: x.vid, t: x.t, ch: x.ch, len: x.len }); }));
+      if (list.length) topics[t.id] = list.slice(0, 6);
+    }));
+    if (Object.keys(topics).some(k => (topics[k] || []).length)) ls.set(VID_KEY, JSON.stringify({ ts: Date.now(), topics }));
+    else vidErr = 'Vorschläge sind gerade nicht erreichbar.';
+  } catch (e) { vidErr = 'Vorschläge sind gerade nicht erreichbar.'; }
+  vidBusy = false;
+  if (vf) { vfStatus(); if (vf.feed.scrollTop < 20) vfRebuild(); }
+}
+async function videoPoster(file) {
+  return new Promise(res => {
+    const v = document.createElement('video'), url = URL.createObjectURL(file); let done = false;
+    const fin = (p, d) => { if (done) return; done = true; try { URL.revokeObjectURL(url); } catch (e) {} res({ poster: p || '', dur: isFinite(d) ? d : 0 }); };
+    v.muted = true; v.playsInline = true; v.preload = 'metadata'; v.setAttribute('playsinline', '');
+    v.onloadedmetadata = () => { try { v.currentTime = Math.min(0.4, (v.duration || 1) / 2); } catch (e) { fin('', v.duration); } };
+    v.onseeked = () => { try { const w = 360, r = v.videoWidth ? v.videoHeight / v.videoWidth : 1.78, cv = document.createElement('canvas'); cv.width = w; cv.height = Math.round(w * r); cv.getContext('2d').drawImage(v, 0, 0, cv.width, cv.height); fin(cv.toDataURL('image/jpeg', 0.72), v.duration); } catch (e) { fin('', v.duration); } };
+    v.onerror = () => fin('', 0); setTimeout(() => fin('', v.duration || 0), 7000); v.src = url; try { v.load(); } catch (e) {}
+  });
+}
+const vidDurTxt = s => { s = Math.round(s || 0); return s ? `${Math.floor(s / 60)}:${pad2(s % 60)}` : ''; };
+function addVideo() {
+  openSheet({
+    title: 'Video hochladen', saveLabel: 'Hochladen',
+    fields: [
+      { key: 'datei', label: 'Video', type: 'file', accept: 'video/*', required: true, fillTitle: 'titel', hint: 'Aus der Mediathek wählen oder direkt aufnehmen. Das Video bleibt nur auf diesem iPhone und ist nicht in der Sicherung.' },
+      { key: 'titel', label: 'Titel', cap: 'words', ph: 'z. B. Erstes Lächeln' }
+    ],
+    onSave: async v => {
+      const f = v.datei;
+      if (!f || (!/^video\//.test(f.type || '') && !/\.(mp4|mov|m4v|webm|3gp)$/i.test(f.name || ''))) { toast('Bitte ein Video auswählen'); return false; }
+      if (f.size > 600 * 1048576) { toast('Das Video ist größer als 600 MB. Bitte kürzen.'); return false; }
+      toast('Video wird gespeichert …');
+      try {
+        const pm = await videoPoster(f), id = uid(), mime = f.type || 'video/mp4';
+        const meta = { id, cid: CID, titel: v.titel || ('Video vom ' + fmtD(isoToday())), datum: isoToday(), mime, size: f.size, dur: pm.dur, poster: pm.poster };
+        await vfilePut({ id, blob: new Blob([f], { type: mime }) }); await videoPut(meta); S.videos.push(meta);
+      } catch (e) { console.error(e); toast('Speichern fehlgeschlagen. Ist der Speicher voll?'); return false; }
+      toast('Video gespeichert'); coinEarn('vidup');
+      if (vf) { vf.filter = 'eigene'; vfRebuild(); } else render();
+    }
+  });
+}
+function addYtVideo() {
+  const arr = S.profile.ytVideos = S.profile.ytVideos || [];
+  openSheet({
+    title: 'YouTube-Video hinzufügen', saveLabel: 'Hinzufügen',
+    fields: [{ key: 'link', label: 'YouTube-Link', type: 'url', inputmode: 'url', required: true, ph: 'https://www.youtube.com/watch?v=…', hint: 'In YouTube auf „Teilen“ und „Link kopieren“ tippen, dann hier einfügen.' }],
+    onSave: async v => {
+      const vid = vidParseYt(v.link); if (!vid) { toast('Das ist kein YouTube-Link'); return false; }
+      if (arr.some(x => x.vid === vid)) { toast('Dieses Video ist schon dabei'); return false; }
+      const it = { id: uid(), vid, titel: 'YouTube-Video', kanal: '' }; arr.unshift(it); await persist('profile');
+      if (vf) { vf.filter = 'eigene'; vfRebuild(); } else render();
+      toast('Video hinzugefügt');
+      const ac = new AbortController(); setTimeout(() => ac.abort(), 8000);
+      fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + vid), { signal: ac.signal }).then(r => r.ok ? r.json() : null).then(async j => {
+        if (j && j.title) { it.titel = j.title; it.kanal = j.author_name || ''; await persist('profile'); if (vf && vf.filter === 'eigene') vfRebuild(); }
+      }).catch(() => {});
+    }
+  });
+}
+let vf = null, vidMuted = true;
+function vidItems(f) {
+  const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)).map(m => ({ k: 'own', m }));
+  const mine = (S.profile.ytVideos || []).map(y => ({ k: 'yt', vid: y.vid, t: y.titel || 'YouTube-Video', ch: y.kanal || '', y }));
+  const sug = vidCache().topics || {}, ytOf = tid => (sug[tid] || []).filter(x => !VID_BLOCK.test(x.t)).map(x => ({ k: 'yt', vid: x.vid, t: x.t, ch: x.ch, topic: tid })), card = tid => ({ k: 'topic', topic: tid });
+  if (f === 'eigene') { const a = own.concat(mine); return a.length ? a : [{ k: 'empty' }]; }
+  if (f !== 'alle') { const a = ytOf(f); a.push(card(f)); return a; }
+  const lists = VID_TOPICS.map(t => ytOf(t.id)), mixed = [];
+  for (let i = 0; i < 3; i++) lists.forEach(l => { if (l[i]) mixed.push(l[i]); });
+  const out = own.concat(mine, mixed);
+  if (!mixed.length) VID_TOPICS.forEach(t => out.push(card(t.id))); else out.push({ k: 'more' });
+  return out;
+}
+function vfFlash(card, ico) { const f = card.querySelector('.vflash'); if (!f) return; f.innerHTML = ico; f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
+function vfWatched(key) { if (!vf || vf.seen.has(key)) return; vf.seen.add(key); coinEarn('vidwatch'); }
+function vfCardShell(it, bgImg) {
+  return h('section', { class: 'vcard', 'data-k': it.k },
+    h('div', { class: 'vbg', style: bgImg ? `background-image:url("${bgImg}")` : '' }), h('div', { class: 'vflash', 'aria-hidden': 'true' }));
+}
+function vfOwnCard(it) {
+  const m = it.m, card = vfCardShell(it, m.poster);
+  const vd = h('video', { class: 'vvid', poster: m.poster || null, preload: 'none' });
+  vd.loop = true; vd.muted = vidMuted; vd.playsInline = true; vd.setAttribute('playsinline', ''); vd.setAttribute('webkit-playsinline', '');
+  const prog = h('i'); let url = null, tick = 0;
+  const load = async () => {
+    if (url) return true; const rec = await vfileGet(m.id); if (!rec || !rec.blob) { toast('Video nicht gefunden'); return false; }
+    url = URL.createObjectURL(rec.blob); vd.src = url; return true;
+  };
+  card._on = async () => { if (!(await load())) return; vd.muted = vidMuted; try { await vd.play(); } catch (e) { card.classList.add('paused'); } };
+  card._off = () => { vd.pause(); if (url) { vd.removeAttribute('src'); try { vd.load(); } catch (e) {} URL.revokeObjectURL(url); url = null; } card.classList.remove('paused'); prog.style.width = '0'; };
+  vd.addEventListener('timeupdate', () => { if (vd.duration) prog.style.width = (vd.currentTime / vd.duration * 100) + '%'; if (vd.currentTime > 3 && !tick) { tick = 1; vfWatched('o' + m.id); } });
+  vd.addEventListener('play', () => card.classList.remove('paused')); vd.addEventListener('pause', () => { if (url) card.classList.add('paused'); });
+  card.addEventListener('click', e => { if (e.target.closest('button,a')) return; if (!url) { card._on(); return; } if (vd.paused) { vd.play().catch(() => {}); vfFlash(card, VIC.play); } else { vd.pause(); vfFlash(card, VIC.pause); } });
+  const snd = h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Ton an oder aus', html: vidMuted ? VIC.mute : VIC.sound, onclick: () => { vidMuted = !vidMuted; vf.el.querySelectorAll('.vvid').forEach(x => { x.muted = vidMuted; }); vf.el.querySelectorAll('.vsnd').forEach(b => { b.innerHTML = vidMuted ? VIC.mute : VIC.sound; }); } });
+  snd.classList.add('vsnd');
+  const more = h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Mehr', html: VIC.more, onclick: () => actionSheet(m.titel, `${fmtD(m.datum)}${m.size ? ' · ' + fmtSize(m.size) : ''}`, [
+    { label: 'Umbenennen', onclick: () => openSheet({ title: 'Umbenennen', values: { titel: m.titel }, fields: [{ key: 'titel', label: 'Titel', required: true, cap: 'words' }], onSave: async v => { m.titel = v.titel; await videoPut(m); if (vf) vfRebuild(true); } }) },
+    { label: 'Löschen', ghost: true, onclick: async () => { if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]) });
+  card.append(h('div', { class: 'vmedia own' }, vd), h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }),
+    h('div', { class: 'vinfo' }, h('b', null, m.titel), h('small', null, ['Eigenes Video', fmtD(m.datum), vidDurTxt(m.dur)].filter(Boolean).join(' · '))),
+    h('div', { class: 'vrail' }, snd, more), h('div', { class: 'vprog' }, prog));
+  return card;
+}
+function vfYtCard(it) {
+  const thumb = `https://i.ytimg.com/vi/${it.vid}/hqdefault.jpg`, card = vfCardShell(it, thumb), tp = VID_TOPICS.find(t => t.id === it.topic);
+  const poster = () => [h('img', { src: thumb, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }), h('span', { class: 'vplaybig on', html: VIC.play })];
+  const media = h('div', { class: 'vmedia yt' }), btn = h('button', { class: 'vytbtn', type: 'button', 'aria-label': 'Video abspielen: ' + it.t }, poster());
+  media.append(btn);
+  const play = () => {
+    media.replaceChildren(h('iframe', { class: 'vyframe', src: `https://www.youtube-nocookie.com/embed/${it.vid}?autoplay=1&playsinline=1&rel=0&modestbranding=1`, title: it.t, allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: true, referrerpolicy: 'strict-origin-when-cross-origin' }));
+    card.classList.add('ytplay'); vfWatched('y' + it.vid);
+  };
+  btn.addEventListener('click', play);
+  card._off = () => { if (card.classList.contains('ytplay')) { card.classList.remove('ytplay'); const b = h('button', { class: 'vytbtn', type: 'button', 'aria-label': 'Video abspielen: ' + it.t }, poster()); b.addEventListener('click', play); media.replaceChildren(b); } };
+  const rail = [h('a', { class: 'vbtn', href: 'https://www.youtube.com/watch?v=' + it.vid, target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Auf YouTube öffnen', html: VIC.yt, onclick: () => { suppressLockUntil = Date.now() + 120000; } })];
+  if (it.y) rail.push(h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Entfernen', html: VIC.more, onclick: () => actionSheet(it.t, 'YouTube-Video aus dem Feed entfernen?', [{ label: 'Entfernen', ghost: true, onclick: async () => { const a = S.profile.ytVideos; a.splice(a.indexOf(it.y), 1); await persist('profile'); vfRebuild(true); } }]) }));
+  card.append(media, h('div', { class: 'vshade' }), h('div', { class: 'vinfo' }, tp ? h('em', { class: 'vtag', style: `--tc:${tp.col}` }, tp.emoji + ' ' + tp.name) : null, h('b', null, it.t), h('small', null, [it.ch, 'YouTube'].filter(Boolean).join(' · '))), h('div', { class: 'vrail' }, rail));
+  return card;
+}
+function vfTopicCard(it) {
+  const t = VID_TOPICS.find(x => x.id === it.topic), card = h('section', { class: 'vcard topic', 'data-k': 'topic', style: `--tc:${t.col}` });
+  card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, t.emoji), h('h2', null, t.name), h('p', null, 'Passende Videos zu diesem Thema findest du auf YouTube.'),
+    h('a', { class: 'btn vgo', href: vidSearchUrl(t.q[0]), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube ansehen'),
+    h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addYtVideo }, 'Link einfügen')));
+  return card;
+}
+function vfInfoCard(it) {
+  const card = h('section', { class: 'vcard topic', 'data-k': it.k, style: '--tc:#5b6bd6' });
+  if (it.k === 'empty') card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, '🎬'), h('h2', null, 'Noch nichts hier'), h('p', null, 'Lade ein eigenes Video hoch oder füge einen YouTube-Link ein.'),
+    h('button', { class: 'btn vgo', type: 'button', onclick: addVideo }, 'Video hochladen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addYtVideo }, 'YouTube-Link einfügen')));
+  else card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, '🔎'), h('h2', null, 'Mehr entdecken'), h('p', null, 'Wähle oben ein Thema oder suche selbst auf YouTube.'),
+    h('a', { class: 'btn vgo', href: vidSearchUrl('Baby Eltern Tipps Hebamme'), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube suchen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: () => { vf.filter = 'eigene'; vfRebuild(); } }, 'Zu meinen Videos')));
+  return card;
+}
+function vfStatus() {
+  if (!vf) return; const s = vf.el.querySelector('.vstat'); if (!s) return;
+  s.textContent = vidBusy ? 'Suche Videos …' : (vidErr && vf.filter !== 'eigene' ? vidErr + ' Es gibt Themen-Karten.' : ''); s.hidden = !s.textContent;
+}
+function vfRebuild(keepScroll) {
+  if (!vf) return; const keep = vf.feed.scrollTop;
+  vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); vf.io.unobserve(c); });
+  const items = vidItems(vf.filter);
+  vf.feed.replaceChildren(...items.map(it => it.k === 'own' ? vfOwnCard(it) : it.k === 'yt' ? vfYtCard(it) : it.k === 'topic' ? vfTopicCard(it) : vfInfoCard(it)));
+  vf.feed.querySelectorAll('.vcard').forEach(c => vf.io.observe(c));
+  vf.feed.scrollTop = keepScroll ? keep : 0;
+  vf.chips.querySelectorAll('.fchip').forEach(b => b.classList.toggle('on', b.dataset.f === vf.filter));
+  vfStatus();
+}
+function closeVideoFeed() {
+  if (!vf) return; vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); }); vf.io.disconnect(); vf.el.remove(); vf = null;
+}
+function openVideoFeed(filter) {
+  if (vf) closeVideoFeed();
+  const feed = h('div', { class: 'vfeed' }), chips = h('div', { class: 'vchips' });
+  const el = h('div', { class: 'vwrap', role: 'dialog', 'aria-label': 'Videos' });
+  const io = new IntersectionObserver(es => es.forEach(e => { const c = e.target; if (e.isIntersecting && e.intersectionRatio >= 0.6) { if (vf) vf.cur = c; if (c._on) c._on(); } else if (!e.isIntersecting || e.intersectionRatio < 0.3) { if (c._off) c._off(); } }), { root: feed, threshold: [0, 0.3, 0.6, 0.9] });
+  vf = { el, feed, chips, io, filter: filter || 'alle', seen: new Set(), cur: null };
+  [['alle', 'Für dich', '✨'], ['eigene', 'Eigene', '🎬']].concat(VID_TOPICS.map(t => [t.id, t.name, t.emoji])).forEach(([id, l, em]) => chips.append(h('button', { class: 'fchip', 'data-f': id, type: 'button', onclick: () => { vf.filter = id; vfRebuild(); } }, em + ' ' + l)));
+  el.append(feed,
+    h('div', { class: 'vtop' },
+      h('div', { class: 'vbar' }, h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Videos schließen', html: VIC.back, onclick: closeVideoFeed }), h('b', null, 'Videos'),
+        h('button', { class: 'vbtn vadd', type: 'button', 'aria-label': 'Video hinzufügen', html: VIC.plus, onclick: () => actionSheet('Video hinzufügen', 'Eigene Videos bleiben auf diesem iPhone.', [{ label: 'Eigenes Video hochladen', onclick: addVideo }, { label: 'YouTube-Link einfügen', ghost: true, onclick: addYtVideo }, { label: 'Neue Vorschläge laden', ghost: true, onclick: () => vidLoadSuggest(true) }]) })),
+      chips, h('div', { class: 'vstat', hidden: true })));
+  document.body.append(el); vfRebuild(); vidLoadSuggest(false);
+}
+
+Object.assign(ICON, { video: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10.5l5-2.5v8l-5-2.5"/></svg>' });
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
@@ -6492,7 +6992,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
