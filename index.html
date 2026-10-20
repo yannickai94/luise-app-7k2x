@@ -375,6 +375,38 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .ft-node.me{border:2px solid var(--accent);background:var(--accent-bg);cursor:default}
 .ft-node.sm{border-top:4px solid #e0719b}.ft-node.sv{border-top:4px solid #4f8fdc}
 .ft-g{font-style:normal;font-size:10px;color:var(--accent);font-weight:600}
+
+.hero2 .searchbtn{right:60px}
+.moods{display:flex;gap:8px;justify-content:space-between;margin-top:6px}.mood{flex:1;border:1px solid var(--line);background:var(--card);border-radius:14px;font-size:26px;padding:8px 0;cursor:pointer;transition:transform .12s}.mood:active{transform:scale(.9)}
+.searchbox{display:block}.searchin{width:100%;box-sizing:border-box;font:inherit;font-size:17px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.searchfake{display:flex;align-items:center;gap:10px;width:100%;font:inherit;color:var(--mute);cursor:pointer;text-align:left}.sfico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.chat{min-height:100%}.chat-in{margin-top:auto}
+.chat-list{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:10px 14px;border-radius:18px;line-height:1.45;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:6px;white-space:pre-wrap}
+.msg.ai{align-self:flex-start;background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px}
+.msg.ai p{margin:0 0 6px}.msg.ai p:last-child{margin:0}.msg.ai ul{margin:0 0 6px;padding-left:20px}
+.msg.err{background:var(--bad-bg);color:var(--bad);border-color:transparent}.typing{opacity:.6}
+.chat-in{position:sticky;bottom:-16px;display:flex;gap:8px;align-items:flex-end;background:var(--bg);padding:8px 0 14px;z-index:3}
+.chat-text{flex:1;resize:none;font:inherit;font-size:16px;padding:10px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);max-height:130px}
+.chat-send{width:44px;height:44px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);font-size:18px;cursor:pointer;flex:none}.chat-send[hidden]{display:none}
+.ftree{position:relative}
+.ft-row+.ft-row::before{display:none}
+.ft-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.ft-edge{fill:none;stroke:var(--line);stroke-width:2.5;transition:stroke .2s,opacity .2s,stroke-width .2s}.ft-edge.hl{stroke:var(--accent);stroke-width:4}
+.ft-label{position:relative;z-index:2;align-self:center;background:var(--card);padding:0 8px;border-radius:6px}
+.ft-node{position:relative;z-index:1;transition:transform .18s,box-shadow .18s,opacity .2s,border-color .2s}
+@media (hover:hover){.ft-node:not(.me):hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.16);border-color:var(--accent)}}
+.ft-node:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.ft-node.me{cursor:pointer}
+.ftree.has-focus .ft-node:not(.hl){opacity:.3}.ftree.has-focus .ft-edge:not(.hl){opacity:.12}
+.ft-node.hl{border-color:var(--accent)}.ft-node.sel{box-shadow:0 0 0 3px var(--accent)}
+.ft-tip{position:absolute;z-index:5;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:12px;padding:8px 12px;font-size:12px;display:none;flex-direction:column;gap:1px;max-width:230px;box-shadow:0 8px 24px rgba(0,0,0,.25)}.ft-tip.on{display:flex}
+.ft-bd{font-style:normal;font-size:10px}.dot.l{background:var(--accent)}
+.ft-detail{margin-top:6px}.ft-card{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}.ft-card-top{display:flex;gap:12px;align-items:center}.ft-card-top small{color:var(--mute);display:block}
+.mp-strip{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}.mp-th{position:relative;width:64px;height:64px}.mp-th img{width:100%;height:100%;object-fit:cover;border-radius:10px}.mp-th button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--bad);color:#fff;cursor:pointer;line-height:1}
+.pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pp-th{position:relative;border:0;padding:0;aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;background:var(--line)}.pp-th img{width:100%;height:100%;object-fit:cover;display:block}.pp-th.on{outline:4px solid var(--accent);outline-offset:-4px}.pp-th i{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;display:grid;place-items:center}
+.mm-emo{font-size:56px;text-align:center}.mm-text{white-space:pre-wrap;font-size:17px;line-height:1.5;margin:0}.mm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tl-th.big{width:100%;height:auto;aspect-ratio:1}
 </style>
 </head>
 <body>
@@ -547,7 +579,7 @@ async function loadState() {
   const [profile, health, school, docs, photos] = await Promise.all([kvGet(ckey('profile')), kvGet(ckey('health')), kvGet(ckey('school')), docsAll(), photosAll()]);
   const mine = x => (x.cid || 'main') === CID;
   S = {
-    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [], journey: [], familie: [] }, profile || {}),
+    profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [], journey: [], familie: [], tagebuch: [] }, profile || {}),
     health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [], meds: [] }, health || {}),
     school: Object.assign({ abholer: [], termine: [], hiddenAuto: [] }, school || {}),
     docs: (docs || []).filter(mine),
@@ -563,6 +595,11 @@ Object.assign(ICON, {
   journey: '<svg viewBox="0 0 24 24"><path d="M12 3v18"/><circle cx="12" cy="7" r="2.4"/><circle cx="12" cy="17" r="2.4"/><path d="M14.4 7H20M9.6 17H4"/></svg>',
   tree: '<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="M12 7.2V12M6 16.8V12h12v4.8"/></svg>',
   grip: '<svg viewBox="0 0 24 24"><path d="M5 8h14M5 12h14M5 16h14"/></svg>'
+});
+Object.assign(ICON, {
+  diary: '<svg viewBox="0 0 24 24"><path d="M6 3h11a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6z"/><path d="M6 3v18M10 8h6M10 12h6M10 16h3"/></svg>',
+  search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>',
+  chat: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M12 8.2l.9 1.9 1.9.9-1.9.9-.9 1.9-.9-1.9-1.9-.9 1.9-.9z"/></svg>'
 });
 /* ============ Sperre ============ */
 ICON.faceid = '<svg viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 9.5v1.5M15 9.5v1.5M12 9.5v3.5h-1M9 16c1.7 1.3 4.3 1.3 6 0"/></svg>';
@@ -843,6 +880,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
   const body = h('div', { class: 'sheet-body' });
   for (const f of fields) {
     if (f.showIf && !f.showIf(values)) continue;
+    if (f.type === 'custom') { const el = f.build(values); inputs[f.key] = el; body.append(el); continue; }
     let inp;
     const val = values[f.key] != null ? values[f.key] : (f.default != null ? f.default : '');
     if (f.type === 'textarea') { inp = h('textarea', { rows: 3, placeholder: f.ph || '' }); inp.value = val; }
@@ -892,7 +930,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
     const out = {};
     for (const f of fields) {
       const i = inputs[f.key]; if (!i) continue;
-      out[f.key] = f.type === 'file' ? (f.multiple ? Array.from(i.files || []) : (i._blob || (i.files && i.files[0]) || null)) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
+      out[f.key] = f.type === 'custom' ? (i._val ? i._val() : null) : f.type === 'file' ? (f.multiple ? Array.from(i.files || []) : (i._blob || (i.files && i.files[0]) || null)) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
     }
     try { const r = await onSave(out); if (r !== false) close(); }
     catch (err) { console.error(err); toast('Fehler: ' + (err.message || err)); }
@@ -1209,6 +1247,7 @@ function wHero() {
   const p = S.profile, name = [p.vorname, p.nachname].filter(Boolean).join(' '), nextT = nextTerminObj();
   return h('div', { class: 'hero2' },
     h('button', { class: 'editbtn', 'aria-label': 'Profil bearbeiten', onclick: editProfile, html: ICON.edit }),
+    h('button', { class: 'editbtn searchbtn', 'aria-label': 'Suche', onclick: () => go('search'), html: ICON.search }),
     h('div', { class: 'top' }, avatar(p, 76), h('div', null, h('h1', null, name || 'Neues Profil'),
       p.geburtsdatum ? h('p', null, `${ageText(p.geburtsdatum)} · geb. ${fmtD(p.geburtsdatum)}`) : h('p', null, name ? 'Geburtsdatum fehlt noch' : 'Tippe auf den Stift, um das Profil anzulegen'))),
     h('div', { class: 'stats' },
@@ -1397,7 +1436,7 @@ function viewHome() {
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
     h('b', null, 'Startseite anpassen'),
     h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit „Voll/Halb“ änderst du die Breite, mit − entfernst du es.'),
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: templateSheet }, 'Vorlage'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
   const grid = h('div', { class: 'wgrid' + (homeEdit ? ' editing' : '') });
   homeLayout().forEach((item, i, arr) => {
     const def = WIDGETS[item.id];
@@ -1410,6 +1449,8 @@ function viewHome() {
         onpointerdown: ev => startDrag(ev, wg, grid),
         onkeydown: ev => { if (ev.key === 'ArrowUp') { ev.preventDefault(); moveWidget(item.id, -1); } else if (ev.key === 'ArrowDown') { ev.preventDefault(); moveWidget(item.id, 1); } } });
       wg.append(h('div', { class: 'wgctl' }, grip,
+        h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' nach oben', onclick: () => moveWidget(item.id, -1) }, '▲'),
+        h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' nach unten', onclick: () => moveWidget(item.id, 1) }, '▼'),
         def.half ? h('button', { class: 'wgbtn', type: 'button', onclick: () => { const l = homeLayout(), x = l.find(y => y.id === item.id); x.w = x.w === 1 ? 2 : 1; saveLayout(l); render(); } }, item.w === 1 ? 'Halb' : 'Voll') : null,
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' entfernen', onclick: () => { saveLayout(homeLayout().filter(y => y.id !== item.id)); render(); } }, '−')));
     }
@@ -1425,7 +1466,7 @@ const J_EMOJI = ['⭐', '👶', '🍼', '👣', '🦷', '🗣️', '🎂', '🎉
 let journeyAuto = ls.get('luise_j_auto') !== '0';
 function journeyFeed(withAuto) {
   const p = S.profile, out = [], photoOf = ids => (ids || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean);
-  (p.journey || []).forEach(m => out.push({ key: m.id, datum: m.datum || '', titel: m.titel || 'Moment', text: m.text || '', emoji: m.emoji || '⭐', fotos: photoOf(m.fotos), auto: false, open: () => editMoment(m) }));
+  (p.journey || []).forEach(m => out.push({ key: m.id, datum: m.datum || '', titel: m.titel || 'Moment', text: m.text || '', emoji: m.emoji || '⭐', fotos: photoOf(m.fotos), auto: false, open: () => openMoment(m) }));
   if (withAuto) {
     if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, open: editProfile });
     S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
@@ -1433,29 +1474,6 @@ function journeyFeed(withAuto) {
     if (showImpf()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
   }
   return out.sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
-}
-function editMoment(item) {
-  const isNew = !item, arr = S.profile.journey = S.profile.journey || [];
-  openSheet({
-    title: isNew ? 'Moment hinzufügen' : 'Moment', saveLabel: 'Sichern', values: item || { datum: isoToday(), emoji: '⭐' },
-    fields: [
-      { key: 'titel', label: 'Titel', required: true, ph: 'z. B. Erster Zahn, Urlaub an der Ostsee' },
-      { key: 'datum', label: 'Datum', type: 'date', required: true },
-      { key: 'emoji', label: 'Symbol', type: 'select', options: J_EMOJI },
-      { key: 'text', label: 'Geschichte', type: 'textarea', ph: 'Was ist passiert?' },
-      { key: 'neu', label: 'Fotos hinzufügen', type: 'file', accept: 'image/*', multiple: true, hint: 'Die Fotos landen auch im Album „Journey“ der Galerie.' },
-      { key: 'lose', label: 'Alle Fotos von diesem Moment lösen (bleiben in der Galerie)', type: 'checkbox', showIf: v => !!(v.fotos && v.fotos.length) }
-    ],
-    onSave: async v => {
-      const { neu, lose, ...rest } = v;
-      const ids = neu && neu.length ? await addPhotos(neu, { album: 'Journey', datum: rest.datum, silent: true }) : [];
-      const t = isNew ? { id: uid(), fotos: [] } : item;
-      Object.assign(t, rest); t.fotos = (lose ? [] : (t.fotos || [])).concat(ids);
-      if (isNew) arr.push(t);
-      await persist('profile'); render();
-    },
-    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
-  });
 }
 function momentCard(e, p) {
   const ph = e.fotos, shown = ph.slice(0, 4), more = ph.length - shown.length, a = ageAt(p, e.datum);
@@ -1557,31 +1575,6 @@ function editMember(item, preset) {
   });
 }
 const famAv = m => avatar({ vorname: m.name || '?', foto: m.foto }, 44);
-function famNode(m) {
-  const role = famRole(m.rolle);
-  return h('button', { class: 'ft-node' + (m.gest ? ' gone' : '') + (famSide(m) === 'Mutterseite' ? ' sm' : famSide(m) === 'Vaterseite' ? ' sv' : ''), type: 'button', onclick: () => editMember(m), 'aria-label': `${m.name}, ${m.rolle}` },
-    famAv(m), h('b', null, m.name), h('small', null, m.rolle + (m.gest ? ' †' : '')), role.g < 9 ? h('i', { class: 'ft-g' }, role.g + '. Grad') : null);
-}
-function famTree(fam) {
-  const p = S.profile, rows = [[-3, 'Urgroßeltern'], [-2, 'Großeltern'], [-1, 'Eltern, Tanten & Onkel'], [0, 'Luise & Geschwister']];
-  const tree = h('div', { class: 'ftree' });
-  rows.forEach(([gen, label]) => {
-    const list = fam.filter(m => famRole(m.rolle).gen === gen);
-    const self = gen === 0;
-    if (!list.length && !self) return;
-    const key = m => { const s = famSide(m); return s === 'Mutterseite' ? 0 : s === 'Vaterseite' ? 2 : 1; };
-    list.sort((a, b) => key(a) - key(b) || FAM_ROLES.indexOf(famRole(a.rolle)) - FAM_ROLES.indexOf(famRole(b.rolle)));
-    const nodes = list.map(famNode);
-    if (self) {
-      const me = h('div', { class: 'ft-node me' }, avatar(p, 52), h('b', null, p.vorname || 'Ich'), h('small', null, 'Das bin ich'));
-      const sibs = nodes.filter((_, i) => famRole(list[i].rolle).g === 2 || famRole(list[i].rolle).r.startsWith('Stief')), rest = nodes.filter(n => !sibs.includes(n));
-      tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, me, sibs)), rest.length ? h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Cousins'), h('div', { class: 'ft-nodes' }, rest)) : null);
-    } else tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, nodes)));
-  });
-  const other = fam.filter(m => famRole(m.rolle).gen == null);
-  if (other.length) tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Weitere'), h('div', { class: 'ft-nodes' }, other.map(famNode))));
-  return h('div', { class: 'card ftwrap' }, h('div', { class: 'ft-legend' }, h('span', null, h('i', { class: 'dot m' }), 'Mutterseite'), h('span', null, h('i', { class: 'dot v' }), 'Vaterseite')), tree);
-}
 let famView = 'tree';
 function viewFamily() {
   const p = S.profile, fam = p.familie = p.familie || [], wrap = h('div', { class: 'stack' });
@@ -3523,6 +3516,9 @@ function viewMore() {
   const wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Mehr'));
   wrap.append(h('div', { class: 'card' },
+    hubRow(ICON.chat, 'KI-Assistent', 'Fragen zu Luises Daten und darüber hinaus', 'chat'),
+    hubRow(ICON.search, 'Suche', 'Alles in der App finden', 'search'),
+    hubRow(ICON.diary, 'Tagesnotizen', 'Stimmung, Essen, Schlaf, Temperatur', 'diary'),
     hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Termine & Fristen', 'Termine, Vorsorge, Impfungen, Ablaufdaten', 'dates'),
@@ -3536,6 +3532,7 @@ function viewMore() {
     hubRow(ICON.note, 'Lieblingslieder', 'Spotify-Links zu Luises Musik', 'songs'),
     hubRow(ICON.tag, 'Marken & Produkte', 'Was Luise nutzt und mag', 'products'),
     li(datasheetFlow, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Datenblatt als PDF', 'Für Kita, Arzt oder Babysitter'), chev()),
+    li(reviewStart, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Rückblick als PDF', 'Monats- oder Jahresrückblick mit Fotos'), chev()),
     hubRow(ICON.kids, 'Kinder & Profile', CH.length > 1 ? CH.length + ' Profile' : 'Weiteres Kind anlegen, Profil teilen', 'kids')));
   wrap.append(designCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
@@ -3583,7 +3580,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 8'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 9'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4248,6 +4245,625 @@ function datasheetFlow() {
 
 async function setSex(v) { S.profile.geschlecht = v; await persist('profile'); render(); }
 
+/* ============ Tagesnotizen ============ */
+const NOTE_MOODS = ['😊 Gut gelaunt', '🤩 Super drauf', '😴 Müde', '😢 Weinerlich', '😡 Trotzig', '🤒 Krank'];
+const NOTE_KATS = ['Allgemein', 'Essen', 'Schlaf', 'Kita', 'Gesundheit', 'Entwicklung', 'Ausflug'];
+let noteKat = 'Alle', noteSeg = 'log';
+const nowTime = () => { const d = new Date(); return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); };
+const moodEmoji = s => (s || '').split(' ')[0];
+const notesAll = () => (S.profile.tagebuch = S.profile.tagebuch || []);
+function editNote(item) {
+  const arr = notesAll(), isNew = !item;
+  openSheet({
+    title: isNew ? 'Tagesnotiz hinzufügen' : 'Tagesnotiz', values: item || { datum: isoToday(), zeit: nowTime(), kategorie: 'Allgemein', stimmung: NOTE_MOODS[0] },
+    fields: [
+      { key: 'datum', label: 'Datum', type: 'date', required: true },
+      { key: 'zeit', label: 'Uhrzeit', type: 'time' },
+      { key: 'stimmung', label: 'Stimmung', type: 'select', options: [''].concat(NOTE_MOODS) },
+      { key: 'kategorie', label: 'Thema', type: 'select', options: NOTE_KATS },
+      { key: 'temp', label: 'Temperatur (°C)', inputmode: 'decimal', ph: 'z. B. 38,2', hint: 'Optional. Daraus entsteht die Temperaturkurve.' },
+      { key: 'text', label: 'Notiz', type: 'textarea', ph: 'Was war heute? Was hat sie gegessen, wie hat sie geschlafen?' }
+    ],
+    onSave: async v => {
+      if (!v.text && !v.temp && !v.stimmung) { toast('Bitte Notiz, Temperatur oder Stimmung eintragen'); return false; }
+      if (v.temp && num(v.temp) == null) { toast('Die Temperatur ist keine Zahl'); return false; }
+      const t = isNew ? { id: uid() } : item; Object.assign(t, v); if (isNew) arr.push(t);
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+async function quickMood(m) {
+  notesAll().push({ id: uid(), datum: isoToday(), zeit: nowTime(), stimmung: m, kategorie: 'Allgemein', text: '' });
+  await persist('profile'); toast('Stimmung gespeichert'); render();
+}
+const noteTitle = n => n.text ? n.text.split('\n')[0].slice(0, 80) : (n.temp ? 'Temperatur ' + n.temp.replace('.', ',') + ' °C' : (n.stimmung ? n.stimmung.replace(/^\S+\s/, '') : 'Notiz'));
+function noteRow(n) {
+  const t = num(n.temp), hot = t != null && t >= 38;
+  return li(() => editNote(n), '', h('span', { class: 'hubico emo' }, moodEmoji(n.stimmung) || '📝'),
+    liTxt(noteTitle(n), [n.zeit, n.kategorie, t != null && n.text ? fmtNum(t) + ' °C' : ''].filter(Boolean).join(' · ')),
+    hot ? h('span', { class: 'chip bad' }, 'Fieber') : t != null && t >= 37.5 ? h('span', { class: 'chip warn' }, 'erhöht') : chev());
+}
+function viewDiary() {
+  const wrap = h('div', { class: 'stack' }), all = notesAll();
+  wrap.append(pageHead('Tagesnotizen', addBtn('Notiz', () => editNote())));
+  wrap.append(h('div', { class: 'card' }, h('small', { class: 'wk' }, 'Wie ist die Stimmung gerade?'), h('div', { class: 'moods' }, NOTE_MOODS.map(m => h('button', { class: 'mood', type: 'button', 'aria-label': m.replace(/^\S+\s/, ''), onclick: () => quickMood(m) }, moodEmoji(m))))));
+  wrap.append(seg([['log', 'Verlauf'], ['fever', 'Temperatur']], noteSeg, id => { noteSeg = id; render(); }));
+  if (noteSeg === 'fever') {
+    const pts = all.map(n => ({ n, t: num(n.temp), ms: parseD(n.datum).getTime() + ((n.zeit || '12:00').split(':')[0] * 36e5) + ((n.zeit || '12:00').split(':')[1] * 6e4) })).filter(x => x.t != null && x.n.datum).sort((a, b) => a.ms - b.ms);
+    const recent = pts.filter(x => x.ms >= Date.now() - 30 * 864e5);
+    if (recent.length >= 2) wrap.append(h('div', { class: 'card' }, h('h2', null, 'Temperatur, letzte 30 Tage'), h('div', { html: chartSvg(recent.map(x => ({ t: x.ms, y: x.t })), v => fmtNum(v) + '°') })));
+    else wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Für eine Kurve werden mindestens zwei Messungen in den letzten 30 Tagen gebraucht. Trage die Temperatur bei einer Notiz ein.')));
+    if (pts.length) {
+      const mx = pts.reduce((a, b) => b.t > a.t ? b : a);
+      wrap.append(h('div', { class: 'card' }, kv('Höchster Wert', `${fmtNum(mx.t)} °C am ${fmtD(mx.n.datum)}`), kv('Messungen insgesamt', String(pts.length))));
+      wrap.append(h('div', { class: 'card' }, pts.slice().reverse().slice(0, 12).map(x => noteRow(x.n))));
+    }
+    wrap.append(h('p', { class: 'mute', style: 'font-size:13px' }, 'Ab 38,0 °C spricht man von Fieber. Bei Babys unter 3 Monaten, hohem oder anhaltendem Fieber oder wenn dir etwas Sorgen macht, bitte ärztlich abklären lassen. Die App ersetzt keine Ärztin und keinen Arzt.'));
+    return wrap;
+  }
+  wrap.append(h('div', { class: 'chips' }, ['Alle'].concat(NOTE_KATS).map(k => h('button', { class: 'fchip' + (k === noteKat ? ' on' : ''), type: 'button', onclick: () => { noteKat = k; render(); } }, k))));
+  const list = all.filter(n => noteKat === 'Alle' || n.kategorie === noteKat).sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')));
+  if (!list.length) { wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Noch keine Notizen. Halte fest, wie der Tag war: Essen, Schlaf, Kita, Stimmung oder Temperatur.'), h('button', { class: 'btn wide', onclick: () => editNote() }, 'Erste Notiz schreiben'))); return wrap; }
+  let day = null, card = null;
+  list.slice(0, 200).forEach(n => {
+    if (n.datum !== day) { day = n.datum; wrap.append(sectionHead(day === isoToday() ? 'Heute' : wd(day) + ' ' + day.slice(0, 4))); card = h('div', { class: 'card' }); wrap.append(card); }
+    card.append(noteRow(n));
+  });
+  return wrap;
+}
+function wDiary() {
+  const all = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || ''))), td = all.filter(n => n.datum === isoToday());
+  return h('div', { class: 'stack' }, sectionHead('Tagesnotiz', addBtn('Notiz', () => editNote())),
+    h('div', { class: 'card stack' },
+      h('div', { class: 'moods' }, NOTE_MOODS.map(m => h('button', { class: 'mood', type: 'button', 'aria-label': m.replace(/^\S+\s/, ''), onclick: () => quickMood(m) }, moodEmoji(m)))),
+      td.length ? td.slice(0, 3).map(noteRow) : (all[0] ? [h('small', { class: 'mute' }, 'Zuletzt, ' + fmtD(all[0].datum)), noteRow(all[0])] : h('p', { class: 'empty' }, 'Heute noch keine Notiz.'))),
+    h('button', { class: 'linkbtn', onclick: () => go('diary') }, 'Alle Notizen und Temperaturkurve'));
+}
+
+/* ============ Rückblick (PDF) ============ */
+const MONTHS = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+function reviewPeriod(kind, key) {
+  if (kind === 'y') { const y = +key; return { kind, key, start: `${y}-01-01`, end: `${y}-12-31`, title: 'Jahresrückblick ' + y, short: String(y) }; }
+  const [y, m] = key.split('-').map(Number), last = new Date(y, m, 0).getDate();
+  return { kind, key, start: `${y}-${pad2(m)}-01`, end: `${y}-${pad2(m)}-${pad2(last)}`, title: 'Monatsrückblick ' + MONTHS[m - 1] + ' ' + y, short: MONTHS[m - 1] + ' ' + y };
+}
+function reviewData(per) {
+  const p = S.profile, hl = S.health, inP = d => !!d && d >= per.start && d <= per.end;
+  const gr = hl.wachstum.filter(e => e.datum).slice().sort((a, b) => a.datum.localeCompare(b.datum));
+  const inG = gr.filter(e => inP(e.datum)), before = gr.filter(e => e.datum < per.start).pop();
+  const delta = k => {
+    const vals = inG.filter(e => num(e[k]) != null); if (!vals.length) return null;
+    const last = num(vals[vals.length - 1][k]);
+    const first = before && num(before[k]) != null ? num(before[k]) : (vals.length > 1 ? num(vals[0][k]) : null);
+    return { last, delta: first != null ? last - first : null };
+  };
+  const feed = journeyFeed(true).filter(e => inP(e.datum)).sort((a, b) => a.datum.localeCompare(b.datum));
+  const photos = S.photos.filter(f => inP(f.datum));
+  const notes = notesAll().filter(n => inP(n.datum)), moods = {};
+  notes.forEach(n => { if (n.stimmung) moods[n.stimmung] = (moods[n.stimmung] || 0) + 1; });
+  const temps = notes.map(n => ({ n, t: num(n.temp) })).filter(x => x.t != null), maxT = temps.length ? temps.reduce((a, b) => b.t > a.t ? b : a) : null;
+  return {
+    h: delta('groesse'), w: delta('gewicht'), feed, photos, notes, moods, maxT, temps,
+    fever: new Set(temps.filter(x => x.t >= 38).map(x => x.n.datum)).size,
+    moments: feed.filter(e => !e.auto).length,
+    termine: S.school.termine.filter(t => t.wiederholung === 'einmalig' && inP(t.datum)).length,
+    docs: S.docs.filter(d => d.created && inP(isoOf(new Date(d.created)))).length
+  };
+}
+const pickPhotosFor = (arr, n) => {
+  const all = arr.filter(x => x.fav).concat(arr.filter(x => !x.fav));
+  if (all.length <= n) return all;
+  const fav = all.filter(x => x.fav).slice(0, n), rest = all.filter(x => !x.fav), need = n - fav.length, out = fav.slice();
+  for (let i = 0; i < need; i++) out.push(rest[Math.floor(i * rest.length / need)]);
+  return out;
+};
+async function buildReview(per) {
+  const p = S.profile, d = reviewData(per), W = 1240, H = 1754, M = 90, FONT = '-apple-system, "Helvetica Neue", Arial, sans-serif', pages = [];
+  const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Rückblick';
+  const endRef = per.end > isoToday() ? isoToday() : per.end;
+  let cv, cx, y;
+  const newPage = () => { cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, W, H); pages.push(cv); y = M; };
+  const wrapT = (t, maxW) => { const out = []; String(t).split('\n').forEach(par => { let line = ''; par.split(/\s+/).forEach(w => { const tst = line ? line + ' ' + w : w; if (cx.measureText(tst).width > maxW && line) { out.push(line); line = w; } else line = tst; }); out.push(line); }); return out; };
+  const need = hh => { if (y + hh > H - M - 50) newPage(); };
+  const section = t => { need(120); y += 30; cx.fillStyle = '#1f6b5b'; cx.font = `700 32px ${FONT}`; cx.fillText(t.toUpperCase(), M, y + 30); y += 44; cx.fillStyle = '#d9d9d9'; cx.fillRect(M, y, W - 2 * M, 2); y += 18; };
+  const rr = (x, yy, w, hh, r) => { cx.beginPath(); cx.moveTo(x + r, yy); cx.arcTo(x + w, yy, x + w, yy + hh, r); cx.arcTo(x + w, yy + hh, x, yy + hh, r); cx.arcTo(x, yy + hh, x, yy, r); cx.arcTo(x, yy, x + w, yy, r); cx.closePath(); };
+  const cover = (im, x, yy, w, hh) => { cx.save(); rr(x, yy, w, hh, 18); cx.clip(); const s = Math.max(w / im.naturalWidth, hh / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s; cx.drawImage(im, x + (w - dw) / 2, yy + (hh - dh) / 2, dw, dh); cx.restore(); };
+  const loadPh = async m => { try { const rec = await pfileGet(m.id); return rec ? await loadImg(new Blob([rec.data], { type: 'image/jpeg' })) : null; } catch (e) { return null; } };
+  const grid = async (list, cols, cellH, gap) => {
+    const cw = (W - 2 * M - gap * (cols - 1)) / cols;
+    for (let i = 0; i < list.length; i += cols) {
+      need(cellH + gap);
+      for (let c = 0; c < cols && i + c < list.length; c++) { const im = await loadPh(list[i + c]); if (im) cover(im, M + c * (cw + gap), y, cw, cellH); }
+      y += cellH + gap;
+    }
+  };
+  newPage();
+  const g = cx.createLinearGradient(0, 0, W, 560); g.addColorStop(0, '#1f6b5b'); g.addColorStop(1, '#4aa08e');
+  cx.fillStyle = g; cx.fillRect(0, 0, W, 520);
+  cx.fillStyle = 'rgba(255,255,255,.85)'; cx.font = `600 32px ${FONT}`; cx.fillText(per.kind === 'y' ? 'JAHRESRÜCKBLICK' : 'MONATSRÜCKBLICK', M, 150);
+  cx.fillStyle = '#fff'; cx.font = `800 110px ${FONT}`; cx.fillText(per.short, M, 280);
+  cx.font = `600 48px ${FONT}`; cx.fillText(name, M, 360);
+  cx.font = `400 34px ${FONT}`; cx.fillStyle = 'rgba(255,255,255,.9)';
+  if (p.geburtsdatum && endRef >= p.geburtsdatum) cx.fillText(`${ageText(p.geburtsdatum, endRef)} · Lebenswoche ${Math.max(1, Math.floor(Math.round((parseD(endRef) - parseD(p.geburtsdatum)) / 864e5) / 7) + 1)}`, M, 420);
+  cx.fillText(`${fmtD(per.start)} bis ${fmtD(per.end)}`, M, 470);
+  y = 570;
+  const cover6 = pickPhotosFor(d.photos, 6);
+  if (cover6.length) {
+    const cols = cover6.length >= 4 ? 3 : cover6.length >= 2 ? 2 : 1, rows = Math.ceil(cover6.length / cols), gap = 16, ch = (520 - gap * (rows - 1)) / rows;
+    await grid(cover6, cols, ch, gap); y += 10;
+  }
+  need(200);
+  const tiles = [[d.photos.length, 'Fotos'], [d.moments, 'Momente'], [d.notes.length, 'Notizen'], [d.fever ? d.fever : d.termine, d.fever ? 'Fiebertage' : 'Termine']];
+  const tw = (W - 2 * M - 3 * 16) / 4;
+  tiles.forEach(([n, l], i) => { const x = M + i * (tw + 16); cx.fillStyle = '#eef5f2'; rr(x, y, tw, 170, 20); cx.fill(); cx.fillStyle = '#1f6b5b'; cx.font = `800 70px ${FONT}`; cx.fillText(String(n), x + 24, y + 92); cx.fillStyle = '#555'; cx.font = `400 28px ${FONT}`; cx.fillText(l, x + 24, y + 138); });
+  y += 200;
+  const grow = [];
+  if (d.h) grow.push(['Größe', `${fmtNum(d.h.last)} cm` + (d.h.delta != null ? `  (${d.h.delta >= 0 ? '+' : ''}${fmtNum(d.h.delta)} cm)` : '')]);
+  if (d.w) grow.push(['Gewicht', `${fmtNum(d.w.last)} kg` + (d.w.delta != null ? `  (${d.w.delta >= 0 ? '+' : ''}${fmtNum(d.w.delta)} kg)` : '')]);
+  if (d.maxT) grow.push(['Höchste Temperatur', `${fmtNum(d.maxT.t)} °C am ${fmtD(d.maxT.n.datum)}`]);
+  if (d.docs) grow.push(['Neue Dokumente', String(d.docs)]);
+  if (d.termine && d.fever) grow.push(['Termine', String(d.termine)]);
+  if (grow.length) { section('Wachstum und Zahlen'); grow.forEach(([k, v]) => { need(50); cx.fillStyle = '#6b6b6b'; cx.font = `400 28px ${FONT}`; cx.fillText(k, M, y + 28); cx.fillStyle = '#111'; cx.font = `600 30px ${FONT}`; cx.fillText(v, M + 360, y + 28); y += 48; }); }
+  if (d.feed.length) {
+    section('Highlights');
+    for (const e of d.feed.slice(0, 40)) {
+      cx.font = `400 28px ${FONT}`; const lines = e.text ? wrapT(e.text, W - 2 * M - 200) : [];
+      need(60 + lines.length * 38);
+      cx.fillStyle = '#6b6b6b'; cx.font = `400 25px ${FONT}`; cx.fillText(fmtD(e.datum).slice(0, 6), M, y + 30);
+      cx.fillStyle = '#111'; cx.font = `700 30px ${FONT}`; cx.fillText(`${e.emoji}  ${e.titel}`, M + 200, y + 32);
+      cx.font = `400 28px ${FONT}`; cx.fillStyle = '#333'; lines.forEach((l, i) => cx.fillText(l, M + 200, y + 72 + i * 38));
+      y += 56 + lines.length * 38 + 14;
+    }
+    if (d.feed.length > 40) { need(50); cx.fillStyle = '#6b6b6b'; cx.font = `italic 400 26px ${FONT}`; cx.fillText(`… und ${d.feed.length - 40} weitere Einträge`, M + 200, y + 30); y += 50; }
+  }
+  const mk = Object.entries(d.moods).sort((a, b) => b[1] - a[1]);
+  if (mk.length) {
+    section('Stimmungen');
+    const mx = mk[0][1];
+    mk.forEach(([k, n]) => { need(56); cx.fillStyle = '#111'; cx.font = `400 28px ${FONT}`; cx.fillText(k, M, y + 32); cx.fillStyle = '#cfe6df'; rr(M + 360, y + 6, 560, 34, 17); cx.fill(); cx.fillStyle = '#1f6b5b'; rr(M + 360, y + 6, Math.max(34, 560 * n / mx), 34, 17); cx.fill(); cx.fillStyle = '#111'; cx.fillText(String(n), M + 940, y + 32); y += 56; });
+  }
+  const used = new Set(cover6.map(x => x.id)), more = pickPhotosFor(d.photos.filter(x => !used.has(x.id)), 12);
+  if (more.length) { section('Weitere Fotos'); await grid(more, 3, 340, 14); }
+  if (!d.feed.length && !d.photos.length && !d.notes.length) { need(80); cx.fillStyle = '#6b6b6b'; cx.font = `400 30px ${FONT}`; cx.fillText('In diesem Zeitraum gibt es noch keine Einträge.', M, y + 40); y += 70; }
+  pages.forEach((pg, i) => { const c = pg.getContext('2d'); c.fillStyle = '#9a9a9a'; c.font = `400 22px ${FONT}`; c.fillText(`Luises Identität · ${per.title}`, M, H - 50); const t = `Seite ${i + 1} von ${pages.length}`; c.fillText(t, W - M - c.measureText(t).width, H - 50); });
+  const blobs = await Promise.all(pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.88))));
+  return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
+}
+function showPdfResult(title, fileName, r, docTitle) {
+  const file = new File([r.pdf], fileName, { type: 'application/pdf' }), urls = r.pages.map(b => mkUrl(b));
+  const ov = openFull({ title, onClose: () => urls.forEach(rmUrl), body: h('div', { class: 'stack' },
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: () => shareOrDownload(file, file.name) }, 'Teilen / Sichern'),
+      h('button', { class: 'btn ghost', onclick: async () => {
+        const data = await r.pdf.arrayBuffer(), pg = await Promise.all(r.pages.map(b => b.arrayBuffer())), thumb = await blobToDataURL(await imageToJpeg(r.preview, 180, 0.7));
+        await createDoc(file, { titel: docTitle, kategorie: DOC_CATS[0] }, { mime: 'application/pdf', data, thumb, pages: pg });
+        render(); toast('Als Dokument abgelegt'); ov.close();
+      } }, 'Als Dokument ablegen')),
+    urls.map(u => h('img', { class: 'doc-prev', src: u, alt: title, onclick: () => openLightbox(u, title) }))) });
+}
+async function reviewRun(per) {
+  toast('Rückblick wird erstellt …');
+  try {
+    const r = await buildReview(per), nm = [S.profile.vorname, S.profile.nachname].filter(Boolean).join('-') || 'Kind';
+    showPdfResult(per.title, `Rueckblick-${nm}-${per.key}.pdf`, r, per.title);
+  } catch (e) { console.error(e); toast('Fehler: ' + (e.message || e)); }
+}
+function reviewStart() {
+  const now = new Date(), y = now.getFullYear(), m = now.getMonth(), pm = new Date(y, m - 1, 1), key = (yy, mm) => yy + '-' + pad2(mm + 1);
+  const birthY = S.profile.geburtsdatum ? +S.profile.geburtsdatum.slice(0, 4) : y;
+  const acts = [
+    { label: `Letzter Monat · ${MONTHS[pm.getMonth()]} ${pm.getFullYear()}`, onclick: () => reviewRun(reviewPeriod('m', key(pm.getFullYear(), pm.getMonth()))) },
+    { label: `Dieser Monat · ${MONTHS[m]} ${y}`, ghost: true, onclick: () => reviewRun(reviewPeriod('m', key(y, m))) },
+    { label: `Dieses Jahr · ${y}`, onclick: () => reviewRun(reviewPeriod('y', String(y))) }
+  ];
+  if (birthY <= y - 1) acts.push({ label: `Letztes Jahr · ${y - 1}`, ghost: true, onclick: () => reviewRun(reviewPeriod('y', String(y - 1))) });
+  acts.push({ label: 'Anderer Zeitraum …', ghost: true, onclick: () => {
+    const ms = []; for (let i = 0; i < 48; i++) { const d = new Date(y, m - i, 1); ms.push(`${MONTHS[d.getMonth()]} ${d.getFullYear()}`); }
+    const ys = []; for (let yy = y; yy >= Math.min(birthY, y); yy--) ys.push(String(yy));
+    openSheet({ title: 'Zeitraum wählen', saveLabel: 'Erstellen', values: { art: 'Monatsrückblick', monat: ms[0], jahr: ys[0] }, fields: [
+      { key: 'art', label: 'Art', type: 'select', options: ['Monatsrückblick', 'Jahresrückblick'] },
+      { key: 'monat', label: 'Monat (für den Monatsrückblick)', type: 'select', options: ms },
+      { key: 'jahr', label: 'Jahr (für den Jahresrückblick)', type: 'select', options: ys }],
+      onSave: async v => { if (v.art === 'Jahresrückblick') reviewRun(reviewPeriod('y', v.jahr)); else { const i = ms.indexOf(v.monat), d = new Date(y, m - i, 1); reviewRun(reviewPeriod('m', key(d.getFullYear(), d.getMonth()))); } } });
+  } });
+  actionSheet('Rückblick als PDF', 'Aus Fotos, Momenten, Wachstum und Notizen entsteht eine hübsche PDF.', acts);
+}
+function wRueckblick() {
+  const now = new Date(), pm = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  return miniCard('Rückblick', `${MONTHS[pm.getMonth()]} ${pm.getFullYear()}`, 'Als PDF erstellen', reviewStart);
+}
+
+/* ============ Stammbaum (interaktiv) ============ */
+function famEdges(fam) {
+  const E = [], mut = fam.find(m => m.rolle === 'Mutter'), vat = fam.find(m => m.rolle === 'Vater');
+  const parentOfSide = s => s === 'Mutterseite' ? (mut ? mut.id : 'me') : s === 'Vaterseite' ? (vat ? vat.id : 'me') : 'me';
+  const gp = s => fam.filter(m => (m.rolle === 'Großmutter' || m.rolle === 'Großvater') && famSide(m) === s);
+  const ggp = s => fam.filter(m => /^Urgroß/.test(m.rolle) && famSide(m) === s);
+  fam.forEach(m => {
+    const r = m.rolle, s = famSide(m);
+    if (['Mutter', 'Vater', 'Stiefmutter', 'Stiefvater'].includes(r)) E.push([m.id, 'me']);
+    else if (r === 'Schwester' || r === 'Bruder' || r.startsWith('Halb')) [mut, vat].filter(Boolean).forEach(p => E.push([p.id, m.id]));
+    else if (r === 'Stiefschwester' || r === 'Stiefbruder') fam.filter(x => x.rolle === 'Stiefmutter' || x.rolle === 'Stiefvater').forEach(p => E.push([p.id, m.id]));
+    else if (r === 'Großmutter' || r === 'Großvater') E.push([m.id, parentOfSide(s)]);
+    else if (/^Urgroß/.test(r)) { const g = gp(s)[0]; E.push([m.id, g ? g.id : parentOfSide(s)]); }
+    else if (r === 'Tante' || r === 'Onkel') gp(s).forEach(g => E.push([g.id, m.id]));
+    else if (r === 'Cousine' || r === 'Cousin') { const t = fam.find(x => (x.rolle === 'Tante' || x.rolle === 'Onkel') && famSide(x) === s); if (t) E.push([t.id, m.id]); }
+    else if (r === 'Großtante' || r === 'Großonkel') ggp(s).forEach(g => E.push([g.id, m.id]));
+  });
+  return E;
+}
+function famTree(fam) {
+  const p = S.profile, svgNS = 'http://www.w3.org/2000/svg', nodes = {}, rowsDef = [[-3, 'Urgroßeltern'], [-2, 'Großeltern'], [-1, 'Eltern, Tanten & Onkel'], [0, 'Luise, Geschwister & Cousins']];
+  rowsDef[3][1] = (p.vorname || 'Ich') + ', Geschwister & Cousins';
+  let sel = null, hov = null;
+  const tree = h('div', { class: 'ftree' }), tip = h('div', { class: 'ft-tip', role: 'tooltip' }), detail = h('div', { class: 'ft-detail' });
+  const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('class', 'ft-svg'); svg.setAttribute('aria-hidden', 'true');
+  tree.append(svg);
+  const byId = id => id === 'me' ? { id: 'me', name: p.vorname || 'Ich', rolle: 'Das bin ich' } : fam.find(m => m.id === id);
+  const sideKey = m => { const s = famSide(m); return s === 'Mutterseite' ? 0 : s === 'Vaterseite' ? 2 : 1; };
+  const roleIdx = m => FAM_ROLES.indexOf(famRole(m.rolle));
+  const mkNode = m => {
+    const role = famRole(m.rolle), na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
+    const el = h('button', { class: 'ft-node' + (m.gest ? ' gone' : '') + (famSide(m) === 'Mutterseite' ? ' sm' : famSide(m) === 'Vaterseite' ? ' sv' : ''), type: 'button', 'aria-label': `${m.name}, ${m.rolle}${role.g < 9 ? ', ' + role.t : ''}`,
+      onpointerenter: ev => { if (ev.pointerType === 'mouse') { hov = m.id; apply(el); } }, onpointerleave: ev => { if (ev.pointerType === 'mouse') { hov = null; apply(); } },
+      onfocus: () => { hov = m.id; apply(el); }, onblur: () => { hov = null; apply(); },
+      onclick: () => { sel = sel === m.id ? null : m.id; apply(); renderDetail(); } },
+      famAv(m), h('b', null, m.name), h('small', null, m.rolle + (m.gest ? ' †' : '')), role.g < 9 ? h('i', { class: 'ft-g' }, role.g + '. Grad') : null,
+      na && daysTo(na.iso) <= 30 ? h('i', { class: 'ft-bd' }, '🎂 ' + rel(na.iso)) : null);
+    nodes[m.id] = el; return el;
+  };
+  rowsDef.forEach(([gen, label]) => {
+    let list = fam.filter(m => famRole(m.rolle).gen === gen);
+    const self = gen === 0;
+    if (!list.length && !self) return;
+    list.sort((a, b) => sideKey(a) - sideKey(b) || roleIdx(a) - roleIdx(b));
+    const els = list.map(mkNode);
+    if (self) {
+      const me = h('button', { class: 'ft-node me', type: 'button', 'aria-label': (p.vorname || 'Ich') + ', das bin ich', onclick: () => { sel = sel === 'me' ? null : 'me'; apply(); renderDetail(); },
+        onpointerenter: ev => { if (ev.pointerType === 'mouse') { hov = 'me'; apply(me); } }, onpointerleave: ev => { if (ev.pointerType === 'mouse') { hov = null; apply(); } } },
+        avatar(p, 52), h('b', null, p.vorname || 'Ich'), h('small', null, 'Das bin ich'));
+      nodes.me = me;
+      const mid = els.filter((_, i) => sideKey(list[i]) === 1), left = els.filter((_, i) => sideKey(list[i]) === 0), right = els.filter((_, i) => sideKey(list[i]) === 2);
+      tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, left, me, mid, right)));
+    } else tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, label), h('div', { class: 'ft-nodes' }, els)));
+  });
+  const other = fam.filter(m => famRole(m.rolle).gen == null);
+  if (other.length) tree.append(h('div', { class: 'ft-row' }, h('small', { class: 'ft-label' }, 'Weitere'), h('div', { class: 'ft-nodes' }, other.map(mkNode))));
+  tree.append(tip);
+  const edges = famEdges(fam).filter(([a, b]) => nodes[a] && nodes[b]);
+  const par = {}, chi = {};
+  edges.forEach(([a, b]) => { (chi[a] = chi[a] || []).push(b); (par[b] = par[b] || []).push(a); });
+  const walk = (start, map) => { const seen = new Set(), st = [start]; while (st.length) { const k = st.pop(); (map[k] || []).forEach(n => { if (!seen.has(n)) { seen.add(n); st.push(n); } }); } return seen; };
+  const lineage = k => { const s = new Set([k]); walk(k, par).forEach(x => s.add(x)); walk(k, chi).forEach(x => s.add(x)); if (k !== 'me') { const pth = pathTo(k); pth.forEach(x => s.add(x)); } return s; };
+  function pathTo(k) {
+    const prev = { [k]: null }, q = [k];
+    while (q.length) { const c = q.shift(); if (c === 'me') break; (chi[c] || []).concat(par[c] || []).forEach(n => { if (!(n in prev)) { prev[n] = c; q.push(n); } }); }
+    const out = []; let c = 'me'; if (!(c in prev)) return out; while (c != null) { out.push(c); c = prev[c]; } return out.reverse();
+  }
+  const paths = [];
+  function draw() {
+    const tb = tree.getBoundingClientRect(); if (!tb.width) return;
+    svg.setAttribute('width', tb.width); svg.setAttribute('height', tb.height); svg.replaceChildren(); paths.length = 0;
+    edges.forEach(([a, b]) => {
+      const ra = nodes[a].getBoundingClientRect(), rb = nodes[b].getBoundingClientRect();
+      const x1 = ra.left + ra.width / 2 - tb.left, y1 = ra.bottom - tb.top, x2 = rb.left + rb.width / 2 - tb.left, y2 = rb.top - tb.top, my = (y1 + y2) / 2;
+      const pa = document.createElementNS(svgNS, 'path'); pa.setAttribute('d', `M${x1.toFixed(1)} ${y1.toFixed(1)} C${x1.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${my.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`);
+      pa.setAttribute('class', 'ft-edge'); pa._e = [a, b]; svg.append(pa); paths.push(pa);
+    });
+    apply();
+  }
+  function showTip(el, m) {
+    if (!m) { tip.classList.remove('on'); return; }
+    const role = m.id === 'me' ? null : famRole(m.rolle), tb = tree.getBoundingClientRect(), r = el.getBoundingClientRect();
+    tip.replaceChildren(h('b', null, m.name), h('span', null, role ? role.t : 'Das Kind'), m.geb ? h('span', null, 'geb. ' + fmtD(m.geb) + (m.gest ? ', † ' + fmtD(m.gest) : ' · ' + ageText(m.geb))) : null, m.ort ? h('span', null, m.ort) : null);
+    tip.classList.add('on');
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let x = r.left + r.width / 2 - tb.left - tw / 2; x = Math.max(4, Math.min(x, tb.width - tw - 4));
+    let yy = r.top - tb.top - th - 8; if (yy < 0) yy = r.bottom - tb.top + 8;
+    tip.style.left = x + 'px'; tip.style.top = yy + 'px';
+  }
+  function apply(hoverEl) {
+    const act = hov || sel, set = act ? lineage(act) : null;
+    tree.classList.toggle('has-focus', !!act);
+    Object.entries(nodes).forEach(([k, el]) => { el.classList.toggle('hl', !!set && set.has(k)); el.classList.toggle('sel', k === sel); });
+    paths.forEach(pa => pa.classList.toggle('hl', !!set && set.has(pa._e[0]) && set.has(pa._e[1])));
+    if (hov && hoverEl) showTip(hoverEl, byId(hov)); else showTip(null);
+  }
+  function renderDetail() {
+    detail.replaceChildren();
+    if (!sel) { detail.append(h('p', { class: 'mute', style: 'font-size:13px;text-align:center' }, 'Tippe auf eine Person, um die Verbindung zu sehen und Details zu öffnen.')); return; }
+    const m = byId(sel), role = sel === 'me' ? null : famRole(m.rolle), chain = pathTo(sel).map(k => byId(k).name), na = m.geb && !m.gest ? nextAnnual(m.geb) : null;
+    detail.append(h('div', { class: 'ft-card' },
+      h('div', { class: 'ft-card-top' }, sel === 'me' ? avatar(p, 52) : famAv(m), h('div', null, h('b', null, m.name), h('small', null, sel === 'me' ? 'Das bin ich' : [m.rolle, famSide(m) && role.side ? famSide(m) : ''].filter(Boolean).join(' · ')))),
+      role ? kv('Verwandtschaft', role.t) : null,
+      chain.length > 1 ? kv('Verbindung', chain.join(' → ')) : null,
+      m.geb ? kv('Geboren', fmtD(m.geb) + (m.gest ? '' : ' (' + ageText(m.geb) + ')')) : null,
+      m.gest ? kv('Verstorben', fmtD(m.gest)) : null,
+      na ? kv('Nächster Geburtstag', `${fmtD(na.iso)} · wird ${na.age} · ${rel(na.iso)}`) : null,
+      m.ort ? kv('Wohnort', m.ort) : null, m.notiz ? kv('Notiz', m.notiz) : null,
+      h('div', { class: 'btn-row' }, m.tel ? h('a', { class: 'btn', href: 'tel:' + m.tel.replace(/[^\d+]/g, '') }, 'Anrufen') : null,
+        h('button', { class: 'btn ghost', type: 'button', onclick: () => sel === 'me' ? editProfile() : editMember(m) }, sel === 'me' ? 'Profil bearbeiten' : 'Bearbeiten'))));
+  }
+  const wrapCard = h('div', { class: 'card ftwrap' }, h('div', { class: 'ft-legend' }, h('span', null, h('i', { class: 'dot m' }), 'Mutterseite'), h('span', null, h('i', { class: 'dot v' }), 'Vaterseite'), h('span', null, h('i', { class: 'dot l' }), 'Verbindung')), tree, detail);
+  renderDetail();
+  if (typeof ResizeObserver === 'function') new ResizeObserver(() => draw()).observe(tree); else requestAnimationFrame(draw);
+  return wrapCard;
+}
+
+/* ============ Journey: Galerie-Auswahl und Detailansicht ============ */
+function pickPhotos(cur, done) {
+  const sel = new Set(cur), grid = h('div', { class: 'pp-grid' }), cnt = h('small', { class: 'mute' }, '');
+  const draw = () => {
+    grid.replaceChildren(...S.photos.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || '')).map(m => h('button', { type: 'button', class: 'pp-th' + (sel.has(m.id) ? ' on' : ''), 'aria-pressed': sel.has(m.id) ? 'true' : 'false', 'aria-label': 'Foto ' + (m.titel || fmtD(m.datum)), onclick: () => { if (sel.has(m.id)) sel.delete(m.id); else sel.add(m.id); draw(); } }, h('img', { src: m.thumb, alt: '' }), sel.has(m.id) ? h('i', null, '✓') : null)));
+    cnt.textContent = sel.size + ' ausgewählt';
+  };
+  draw();
+  const ov = openFull({ title: 'Fotos wählen', right: h('button', { class: 'nav-btn strong', type: 'button', onclick: () => { done(Array.from(sel)); ov.close(); } }, 'Fertig'),
+    body: S.photos.length ? h('div', { class: 'stack' }, cnt, grid) : h('p', { class: 'empty' }, 'Noch keine Fotos in der Galerie.') });
+}
+function momentPhotosField(init) {
+  let ids = (init || []).slice();
+  const strip = h('div', { class: 'mp-strip' }), box = h('div', { class: 'field' });
+  const btn = h('button', { type: 'button', class: 'btn ghost wide', onclick: () => pickPhotos(ids, sel => { ids = sel; redraw(); }) }, 'Aus der Galerie wählen');
+  const redraw = () => {
+    strip.replaceChildren(...ids.map(id => S.photos.find(x => x.id === id)).filter(Boolean).map(m => h('div', { class: 'mp-th' }, h('img', { src: m.thumb, alt: '' }), h('button', { type: 'button', 'aria-label': 'Foto entfernen', onclick: () => { ids = ids.filter(x => x !== m.id); redraw(); } }, '×'))));
+    btn.textContent = ids.length ? `Aus der Galerie wählen (${ids.length} gewählt)` : 'Aus der Galerie wählen';
+  };
+  box.append(h('span', { class: 'lbl' }, 'Fotos dieses Moments'), strip, btn); redraw();
+  box._val = () => ids.filter(id => S.photos.some(x => x.id === id));
+  return box;
+}
+function editMoment(item) {
+  const isNew = !item, arr = S.profile.journey = S.profile.journey || [];
+  openSheet({
+    title: isNew ? 'Moment hinzufügen' : 'Moment', saveLabel: 'Sichern', values: item || { datum: isoToday(), emoji: '⭐' },
+    fields: [
+      { key: 'titel', label: 'Titel', required: true, ph: 'z. B. Erster Zahn, Urlaub an der Ostsee' },
+      { key: 'datum', label: 'Datum', type: 'date', required: true },
+      { key: 'emoji', label: 'Symbol', type: 'select', options: J_EMOJI },
+      { key: 'text', label: 'Geschichte', type: 'textarea', ph: 'Was ist passiert?' },
+      { key: 'fotos', type: 'custom', build: () => momentPhotosField(item && item.fotos) },
+      { key: 'neu', label: 'Neue Fotos hochladen', type: 'file', accept: 'image/*', multiple: true, hint: 'Sie landen auch im Album „Journey“ der Galerie.' }
+    ],
+    onSave: async v => {
+      const { neu, fotos, ...rest } = v;
+      const ids = neu && neu.length ? await addPhotos(neu, { album: 'Journey', datum: rest.datum, silent: true }) : [];
+      const t = isNew ? { id: uid() } : item;
+      Object.assign(t, rest); t.fotos = (fotos || []).concat(ids);
+      if (isNew) arr.push(t);
+      await persist('profile'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); await persist('profile'); render(); }
+  });
+}
+function openMoment(m) {
+  const p = S.profile, ph = (m.fotos || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean), a = ageAt(p, m.datum);
+  const ov = openFull({ title: m.titel || 'Moment', right: h('button', { class: 'nav-btn strong', type: 'button', onclick: () => { ov.close(); editMoment(m); } }, 'Bearbeiten'),
+    body: h('div', { class: 'stack' }, h('div', { class: 'mm-emo' }, m.emoji || '⭐'), h('small', { class: 'mute' }, [m.datum ? fmtD(m.datum) : '', a].filter(Boolean).join(' · ')),
+      m.text ? h('p', { class: 'mm-text' }, m.text) : null,
+      ph.length ? h('div', { class: 'mm-grid' }, ph.map((x, i) => h('button', { class: 'tl-th big', type: 'button', 'aria-label': 'Foto ansehen', onclick: () => openPhotoViewer(ph, i) }, h('img', { src: x.thumb, alt: '' })))) : null) });
+}
+
+/* ============ Widget-Vorlagen ============ */
+const WIDGET_TEMPLATES = [
+  ['Alltag', 'Uhr, Schnellzugriff, Termine, Tagesnotiz und Hinweise', ['hero', 'clock', 'quick', 'termine', 'diary', 'alerts', 'week', 'kontakte']],
+  ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'bday', 'family', 'journey', 'photo', 'zodiac', 'rueckblick', 'kontakte']],
+  ['Kompakt', 'Nur das Wichtigste', ['hero', 'clock', 'quick', 'chat']],
+  ['Alles', 'Alle Widgets, nach Themen sortiert', Object.keys(WIDGETS)]
+];
+function templateSheet() {
+  actionSheet('Vorlage wählen', 'Ersetzt die aktuelle Anordnung. Danach kannst du weiter verschieben.', WIDGET_TEMPLATES.map(([n, d, ids]) => ({ label: n + ' · ' + d, ghost: true, onclick: () => { saveLayout(ids.filter(id => WIDGETS[id]).map(id => ({ id, w: WIDGETS[id].half ? 1 : 2 }))); render(); } })));
+}
+
+/* ============ Suche ============ */
+let searchQ = '';
+const SKIP_KEYS = /^(id|cid|thumb|mime|foto|steuerid|versnr|iban)$/;
+const flatTxt = o => Object.entries(o || {}).filter(([k, v]) => !SKIP_KEYS.test(k) && (typeof v === 'string' || typeof v === 'number') && !/^data:/.test(String(v))).map(([, v]) => v).join(' ');
+function searchItems() {
+  const p = S.profile, hl = S.health, sc = S.school, out = [];
+  const add = (typ, ico, title, sub, text, open) => out.push({ typ, ico, title: title || '(ohne Titel)', sub: sub || '', text: (title + ' ' + sub + ' ' + text).toLowerCase(), open });
+  S.docs.forEach(d => add('Dokumente', ICON.docs, d.titel, [d.kategorie, d.ablauf && 'gültig bis ' + fmtD(d.ablauf)].filter(Boolean).join(' · '), flatTxt(d), () => { go('docs'); openDoc(d); }));
+  p.kontakte.forEach(c => add('Kontakte', ICON.kids, c.name, [c.rolle, c.tel].filter(Boolean).join(' · '), flatTxt(c), () => editContact(c)));
+  (p.familie || []).forEach(m => add('Stammbuch', ICON.tree, m.name, [m.rolle, m.ort].filter(Boolean).join(' · '), flatTxt(m), () => editMember(m)));
+  sc.termine.forEach(t => add('Termine', ICON.cal, t.titel, [t.datum && fmtD(t.datum), t.ort].filter(Boolean).join(' · '), flatTxt(t), () => editTermin(t)));
+  (p.journey || []).forEach(m => add('Journey', ICON.journey, m.titel, m.datum ? fmtD(m.datum) : '', flatTxt(m), () => openMoment(m)));
+  notesAll().forEach(n => add('Tagesnotizen', ICON.diary, noteTitle(n), [n.datum && fmtD(n.datum), n.kategorie].filter(Boolean).join(' · '), flatTxt(n), () => editNote(n)));
+  hl.meilensteine.forEach(m => add('Meilensteine', ICON.star, m.titel, m.datum ? fmtD(m.datum) : '', flatTxt(m), () => { healthSeg = 'entwicklung'; go('health'); }));
+  hl.impfungen.forEach(v => add('Impfungen', ICON.health, v.name, v.datum ? fmtD(v.datum) : '', flatTxt(v), () => { healthSeg = 'gesundheit'; go('health'); }));
+  hl.meds.forEach(m => add('Medikamente', ICON.health, m.name, [m.dosis, m.einnahme].filter(Boolean).join(' · '), flatTxt(m), () => { healthSeg = 'medikamente'; go('health'); }));
+  p.adressen.forEach(a => add('Adressen', ICON.pin, a.label, addrText(a), flatTxt(a), () => editAddress(a)));
+  (p.lieder || []).forEach(x => add('Lieder', ICON.note, x.titel, x.interpret, flatTxt(x), () => go('songs')));
+  (p.produkte || []).forEach(x => add('Produkte', ICON.tag, x.name || x.titel, x.marke || '', flatTxt(x), () => go('products')));
+  (p.extras || []).forEach(x => add('Stammdaten', ICON.sheet, x.label, '', flatTxt(x), () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true }, { key: 'value', label: 'Wert', required: true }], item: x })));
+  (sc.abholer || []).forEach(x => add('Kita / Schule', ICON.school, x.name, x.rolle || '', flatTxt(x), () => go('school')));
+  (p.invest || []).forEach(x => add('Investments', ICON.coins, x.name || x.titel, '', flatTxt(x), () => go('invest')));
+  [['Termine & Fristen', 'dates', ICON.cal], ['Adressen', 'addr', ICON.pin], ['Investments', 'invest', ICON.coins], ['Journey', 'journey', ICON.journey], ['Stammbuch', 'family', ICON.tree], ['Tagesnotizen', 'diary', ICON.diary], ['KI-Assistent', 'chat', ICON.chat], ['Abzeichen', 'badges', ICON.trophy], ['Spirituelles', 'spirit', ICON.moon], ['Human Design', 'hd', ICON.star], ['Wochen-Begleiter', 'weeks', ICON.cal], ['Lieblingslieder', 'songs', ICON.note], ['Marken & Produkte', 'products', ICON.tag], ['Kita / Schule', 'school', ICON.school], ['Kinder & Profile', 'kids', ICON.kids]]
+    .forEach(([n, id, ico]) => add('Seiten', ico, n, 'Öffnen', '', () => go(id)));
+  add('Seiten', ICON.cross, 'Notfallkarte', 'Öffnen', 'notfall sos', openEmergency);
+  add('Seiten', ICON.smile, 'Betreuungs-Zettel', 'Öffnen', 'betreuung babysitter', openCare);
+  add('Seiten', ICON.sheet, 'Datenblatt als PDF', 'Erstellen', 'pdf', datasheetFlow);
+  add('Seiten', ICON.sheet, 'Rückblick als PDF', 'Erstellen', 'monatsrückblick jahresrückblick', reviewStart);
+  return out;
+}
+function viewSearch() {
+  const wrap = h('div', { class: 'stack' }), res = h('div', { class: 'stack' });
+  const inp = h('input', { type: 'search', class: 'searchin', placeholder: 'Alles durchsuchen …', value: searchQ, autocomplete: 'off', autocapitalize: 'off', 'aria-label': 'Suche' });
+  let items = null;
+  const run = () => {
+    searchQ = inp.value; const q = searchQ.trim().toLowerCase(); res.replaceChildren();
+    if (!q) { res.append(h('p', { class: 'empty' }, 'Suche nach Dokumenten, Kontakten, Terminen, Momenten, Notizen, Familienmitgliedern, Adressen und mehr.')); return; }
+    items = items || searchItems();
+    const toks = q.split(/\s+/), hit = items.filter(it => toks.every(t => it.text.includes(t)));
+    if (!hit.length) { res.append(h('p', { class: 'empty' }, 'Nichts gefunden für „' + searchQ.trim() + '“.')); return; }
+    const groups = {}; hit.slice(0, 80).forEach(it => (groups[it.typ] = groups[it.typ] || []).push(it));
+    Object.entries(groups).forEach(([typ, l]) => res.append(sectionHead(typ + ' · ' + l.length), h('div', { class: 'card' }, l.map(it => li(it.open, '', h('span', { class: 'hubico', html: it.ico }), liTxt(it.title, it.sub), chev())))));
+  };
+  inp.addEventListener('input', run);
+  wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'), pageHead('Suche'), h('div', { class: 'searchbox' }, inp), res);
+  run(); setTimeout(() => { if (!searchQ) inp.focus(); }, 80);
+  return wrap;
+}
+
+/* ============ KI-Assistent ============ */
+const AI_MODELS = ['claude-sonnet-5-5', 'claude-haiku-5-5', 'claude-opus-5-5'];
+const AI_SHARE = [['health', 'Gesundheit: Wachstum, U-Heft, Impfungen, Medikamente, Meilensteine, Betreuungs-Infos'], ['family', 'Familie und Kontakte: Namen, Beziehung, Geburtstage (ohne Telefonnummern)'], ['journey', 'Journey und Tagesnotizen'], ['dates', 'Termine und Fristen'], ['finance', 'Investments und Geldanlagen'], ['addr', 'Adressen']];
+const aiCfg = () => {
+  let c = {}; try { c = JSON.parse(ls.get('luise_ai_cfg') || '{}') || {}; } catch (e) {}
+  return { model: AI_MODELS.includes(c.model) ? c.model : AI_MODELS[0], share: Object.assign({ health: true, family: true, journey: true, dates: true, finance: false, addr: false }, c.share || {}) };
+};
+const SENS_KEY = /steuer|versnr|iban|konto|passwort|pin|tel$|^tel/i;
+const kvTxt = o => Object.entries(o || {}).filter(([k, v]) => !SKIP_KEYS.test(k) && !SENS_KEY.test(k) && (typeof v === 'string' || typeof v === 'number') && String(v) !== '' && !/^data:/.test(String(v))).map(([k, v]) => k + ': ' + v).join('; ');
+function aiContext(sh) {
+  const p = S.profile, hl = S.health, L = [], nm = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'das Kind';
+  L.push(`Heute ist ${fmtD(isoToday())} (${wd(isoToday())}).`);
+  L.push(`Kind: ${nm}${p.geburtsdatum ? `, geboren am ${fmtD(p.geburtsdatum)}${p.geburtszeit ? ' um ' + p.geburtszeit + ' Uhr' : ''} (${ageText(p.geburtsdatum)}, Lebenswoche ${curWeek(p.geburtsdatum)})` : ''}${p.geschlecht ? ', ' + p.geschlecht : ''}${p.geburtsort ? ', geboren in ' + p.geburtsort : ''}.`);
+  if (p.geburtsdatum) { try { const z = zodiacOf(p.geburtsdatum), c = chineseOf(p.geburtsdatum); L.push(`Sternzeichen ${z.n}, chinesisches Tierzeichen ${c.animal}.`); const r = hdResult(); if (r) L.push(`Human Design: ${r.typ}, Profil ${r.profil}, Autorität ${r.auth}.`); } catch (e) {} }
+  if (sh.health) {
+    const g = hl.wachstum.filter(e => e.datum).sort((a, b) => a.datum.localeCompare(b.datum)).slice(-15);
+    if (g.length) L.push('Wachstum: ' + g.map(e => `${fmtD(e.datum)}: ${[e.groesse && e.groesse + ' cm', e.gewicht && e.gewicht + ' kg', e.kopf && 'Kopf ' + e.kopf + ' cm'].filter(Boolean).join(', ')}`).join(' | '));
+    const u = Object.entries(hl.u).filter(([, x]) => x && x.datum); if (u.length) L.push('U-Untersuchungen erledigt: ' + u.map(([c, x]) => `${c} am ${fmtD(x.datum)}${x.befund ? ' (' + x.befund + ')' : ''}`).join('; '));
+    if (showImpf() && hl.impfungen.length) L.push('Impfungen: ' + hl.impfungen.map(v => `${v.name}${v.datum ? ' ' + fmtD(v.datum) : ''}${v.naechste ? ' (nächste ' + fmtD(v.naechste) + ')' : ''}`).join('; '));
+    if (hl.meds.length) L.push('Medikamente: ' + hl.meds.map(kvTxt).join(' | '));
+    if (hl.meilensteine.length) L.push('Meilensteine: ' + hl.meilensteine.map(m => `${m.datum ? fmtD(m.datum) : ''} ${m.titel}${m.notiz ? ' (' + m.notiz + ')' : ''}`).join('; '));
+    const c = kvTxt(p.care); if (c) L.push('Betreuungs- und Gesundheitsinfos: ' + c);
+    if (p.krankenkasse) L.push('Krankenkasse: ' + p.krankenkasse);
+  }
+  if (sh.family) {
+    if ((p.familie || []).length) L.push('Familie: ' + p.familie.map(m => `${m.name} (${m.rolle}${famSide(m) ? ', ' + famSide(m) : ''}${m.geb ? ', geb. ' + fmtD(m.geb) : ''}${m.gest ? ', verstorben' : ''}${m.ort ? ', ' + m.ort : ''})`).join('; '));
+    if (p.kontakte.length) L.push('Kontakte: ' + p.kontakte.map(c => c.name + (c.rolle ? ' (' + c.rolle + ')' : '')).join('; '));
+    if ((S.school.abholer || []).length) L.push('Abholberechtigte: ' + S.school.abholer.map(a => a.name).join(', '));
+  }
+  if (sh.journey) {
+    const j = (p.journey || []).slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || '')).slice(0, 40);
+    if (j.length) L.push('Journey-Momente: ' + j.map(m => `${fmtD(m.datum)} ${m.titel}${m.text ? ': ' + m.text.slice(0, 200) : ''}`).join(' | '));
+    const n = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || ''))).slice(0, 50);
+    if (n.length) L.push('Tagesnotizen (neueste zuerst): ' + n.map(x => `${fmtD(x.datum)}${x.zeit ? ' ' + x.zeit : ''} [${x.kategorie || ''}${x.stimmung ? ', ' + x.stimmung : ''}${x.temp ? ', ' + x.temp + ' °C' : ''}] ${(x.text || '').slice(0, 200)}`).join(' | '));
+  }
+  if (sh.dates) {
+    const t = S.school.termine.map(x => ({ x, d: nextOcc(x) })).filter(o => o.d && daysTo(o.d) >= 0).sort((a, b) => a.d.localeCompare(b.d)).slice(0, 12);
+    if (t.length) L.push('Anstehende Termine: ' + t.map(o => `${fmtD(o.d)}${o.x.zeit ? ' ' + o.x.zeit : ''} ${o.x.titel}${o.x.ort ? ' (' + o.x.ort + ')' : ''}`).join('; '));
+    const f = autoDeadlines().slice(0, 12); if (f.length) L.push('Fristen und Hinweise: ' + f.map(x => `${x.title} (${x.status})`).join('; '));
+  }
+  if (sh.finance && (p.invest || []).length) L.push('Investments: ' + p.invest.map(kvTxt).join(' | ') + (p.investZiel ? '. Ziel: ' + p.investZiel : ''));
+  if (sh.addr && p.adressen.length) L.push('Adressen: ' + p.adressen.map(a => `${a.label}: ${addrText(a)}`).join('; '));
+  return L.join('\n');
+}
+const aiSystem = cfg => 'Du bist der freundliche Assistent in der privaten Eltern-App „Luises Identität“. Antworte auf Deutsch, klar und konkret, ohne unnötige Floskeln. Nutze die App-Daten unten, wenn die Frage dazu passt, und sage offen, wenn etwas dort nicht steht. Du darfst auch allgemeine Fragen beantworten (Erziehung, Entwicklung, Ideen, Organisation, Behörden). Du bist keine Ärztin und kein Arzt: Bei gesundheitlichen Sorgen, Fieber bei Babys, Verdacht auf Notfälle empfiehl den Kinderarzt, den ärztlichen Bereitschaftsdienst 116117 oder bei Gefahr den Notruf 112. Erfinde keine Daten, Fristen oder Beträge.\n\nAPP-DATEN:\n' + aiContext(cfg.share);
+async function aiAsk(history, onDelta, signal) {
+  const key = ls.get('luise_ai_key'); if (!key) throw new Error('Es ist noch kein API-Schlüssel hinterlegt.');
+  const cfg = aiCfg();
+  const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', signal, headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+    body: JSON.stringify({ model: cfg.model, max_tokens: 1500, stream: true, system: aiSystem(cfg), messages: history.map(m => ({ role: m.role, content: m.text })) }) });
+  if (!res.ok) {
+    let t = ''; try { t = (await res.json()).error.message; } catch (e) {}
+    const known = { 401: 'Der API-Schlüssel wird nicht akzeptiert.', 403: 'Der Zugriff wurde verweigert.', 429: 'Zu viele Anfragen oder das Limit ist erreicht.', 529: 'Der Dienst ist gerade überlastet.' }[res.status];
+    throw new Error(known || ('Fehler ' + res.status + (t ? ': ' + t : '')));
+  }
+  const rd = res.body.getReader(), dec = new TextDecoder(); let buf = '';
+  for (;;) {
+    const { done, value } = await rd.read(); if (done) break;
+    buf += dec.decode(value, { stream: true }); let i;
+    while ((i = buf.indexOf('\n')) >= 0) {
+      const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1);
+      if (!line.startsWith('data:')) continue;
+      const d = line.slice(5).trim(); if (!d || d === '[DONE]') continue;
+      let ev = null; try { ev = JSON.parse(d); } catch (e) { continue; }
+      if (ev.type === 'content_block_delta' && ev.delta && ev.delta.text) onDelta(ev.delta.text);
+      else if (ev.type === 'error') throw new Error((ev.error && ev.error.message) || 'Fehler beim Antworten');
+    }
+  }
+}
+const chatKey = () => 'luise_chat' + (CID === 'main' ? '' : '@' + CID);
+const chatLoad = () => { try { const a = JSON.parse(ls.get(chatKey()) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+const chatSave = m => ls.set(chatKey(), JSON.stringify(m.slice(-40)));
+let chatPrefill = null, chatBusy = null;
+function aiSettings() {
+  const cfg = aiCfg(), has = !!ls.get('luise_ai_key'), vals = { model: cfg.model, key: '' };
+  AI_SHARE.forEach(([k]) => vals['sh_' + k] = !!cfg.share[k]);
+  openSheet({ title: 'KI-Assistent einrichten', saveLabel: 'Sichern', values: vals, deleteLabel: 'Schlüssel entfernen',
+    fields: [
+      { key: 'key', label: has ? 'Neuer API-Schlüssel (leer lassen = behalten)' : 'API-Schlüssel von Anthropic', type: 'password', ph: 'sk-ant-…', hint: 'Du erstellst ihn auf console.anthropic.com unter „API Keys“. Er wird nur auf diesem iPhone gespeichert, nicht in Sicherungen. Die Nutzung kostet pro Frage ein paar Cent.' },
+      { key: 'model', label: 'Modell', type: 'select', options: AI_MODELS, hint: 'Sonnet: ausgewogen. Haiku: schnell und günstig. Opus: am gründlichsten.' },
+      ...AI_SHARE.map(([k, l]) => ({ key: 'sh_' + k, label: l, type: 'checkbox' })),
+      { key: 'note', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Beim Senden einer Frage werden die angehakten Daten an Anthropic übertragen. Steuer-ID, Versichertennummer, Kontodaten und Telefonnummern werden nie gesendet.'), }
+    ],
+    onSave: async v => {
+      if (v.key) ls.set('luise_ai_key', v.key.trim());
+      const share = {}; AI_SHARE.forEach(([k]) => share[k] = !!v['sh_' + k]);
+      ls.set('luise_ai_cfg', JSON.stringify({ model: v.model, share })); render();
+    },
+    onDelete: has ? async () => { ls.del('luise_ai_key'); render(); } : null });
+}
+const AI_SUGGEST = ['Was steht bei uns als Nächstes an?', 'Fasse Luises Entwicklung der letzten Monate zusammen.', 'Was ist in dieser Lebenswoche typisch?', 'Ideen für den nächsten Geburtstag', 'Wie bereite ich Luise auf die Kita vor?'];
+function mdNodes(text) {
+  const frag = [], inl = s => { const out = []; s.split(/(\*\*[^*]+\*\*)/).forEach(t => { if (/^\*\*[^*]+\*\*$/.test(t)) out.push(h('strong', null, t.slice(2, -2))); else if (t) out.push(t); }); return out; };
+  let list = null;
+  text.split('\n').forEach(line => {
+    const m = line.match(/^\s*(?:[-*•]|\d+[.)])\s+(.*)$/);
+    if (m) { if (!list) { list = h('ul', null); frag.push(list); } list.append(h('li', null, ...inl(m[1]))); }
+    else { list = null; if (line.trim()) frag.push(h('p', null, ...inl(line.replace(/^#+\s*/, '')))); }
+  });
+  return frag;
+}
+function viewChat() {
+  const wrap = h('div', { class: 'stack chat' }), has = !!ls.get('luise_ai_key');
+  wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'));
+  wrap.append(pageHead('KI-Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
+  if (!has) {
+    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'Fragen zu Luises Daten und darüber hinaus'),
+      h('p', { class: 'mute' }, 'Der Assistent kennt auf Wunsch Wachstum, Termine, Journey, Familie und mehr. Er kann aber auch allgemeine Fragen beantworten. Dafür braucht er einen eigenen API-Schlüssel von Anthropic. Der Schlüssel bleibt nur auf diesem iPhone.'),
+      h('button', { class: 'btn wide', onclick: aiSettings }, 'Schlüssel eingeben')));
+    return wrap;
+  }
+  let msgs = chatLoad();
+  const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
+  const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden' }, '➤'), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
+  const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') }, m.role === 'user' ? m.text : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…')));
+  const scroll = () => { const v = $('#view'); v.scrollTop = v.scrollHeight; };
+  const draw = () => { list.replaceChildren(...msgs.map(bubble)); sug.style.display = msgs.length ? 'none' : ''; };
+  AI_SUGGEST.forEach(q => sug.append(h('button', { class: 'fchip', type: 'button', onclick: () => ask(q) }, q)));
+  async function ask(q) {
+    q = (q || '').trim(); if (!q || chatBusy) return;
+    inp.value = ''; inp.style.height = '';
+    msgs.push({ role: 'user', text: q }); const a = { role: 'assistant', text: '' }; msgs.push(a); draw(); scroll();
+    const ctl = new AbortController(); chatBusy = ctl; send.hidden = true; stop.hidden = false; stop.onclick = () => ctl.abort();
+    const abubble = () => list.lastChild;
+    try {
+      await aiAsk(msgs.slice(0, -1).filter(m => !m.err).slice(-20), t => { a.text += t; abubble().replaceChildren(...mdNodes(a.text)); scroll(); }, ctl.signal);
+      if (!a.text) a.text = '(Keine Antwort erhalten.)';
+    } catch (e) {
+      if (e.name === 'AbortError') { if (!a.text) msgs.pop(); }
+      else { a.err = true; a.text = (a.text ? a.text + '\n\n' : '') + (e.message === 'Failed to fetch' ? 'Keine Verbindung. Bitte Internet prüfen.' : e.message); }
+    }
+    chatBusy = null; send.hidden = false; stop.hidden = true; chatSave(msgs.filter(m => m.text)); draw(); scroll();
+  }
+  send.onclick = () => ask(inp.value);
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(inp.value); } });
+  inp.addEventListener('input', () => { inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 130) + 'px'; });
+  draw();
+  wrap.append(list, sug, h('div', { class: 'chat-in' }, inp, send, stop));
+  if (msgs.length) wrap.append(h('button', { class: 'linkbtn', onclick: () => { if (confirm('Den Chatverlauf löschen?')) { ls.del(chatKey()); render(); } } }, 'Verlauf löschen'));
+  wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, 'KI-Antworten können Fehler enthalten. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
+  if (chatPrefill) { const q = chatPrefill; chatPrefill = null; setTimeout(() => ask(q), 120); }
+  setTimeout(scroll, 60);
+  return wrap;
+}
+function wChat() {
+  const has = !!ls.get('luise_ai_key');
+  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'KI-Assistent'), ghostBtn(has ? 'Chat öffnen' : 'Einrichten', () => go('chat'))),
+    h('p', { class: 'mute' }, has ? 'Frag zu Luises Daten oder allgemein:' : 'Fragen zu Luises Daten und darüber hinaus. Mit eigenem API-Schlüssel.'),
+    has ? h('div', { class: 'chips' }, AI_SUGGEST.slice(0, 3).map(q => h('button', { class: 'fchip', type: 'button', onclick: () => { chatPrefill = q; go('chat'); } }, q))) : null);
+}
+
+
+const wSearch = () => h('button', { class: 'card searchfake', type: 'button', onclick: () => go('search') }, h('span', { class: 'sfico', html: ICON.search }), 'Alles durchsuchen …');
+Object.assign(WIDGETS, {
+  diary: { name: 'Tagesnotiz', desc: 'Stimmung per Tipp und Notizen von heute', render: wDiary },
+  rueckblick: { name: 'Rückblick', desc: 'Monats- oder Jahresrückblick als PDF', half: true, render: wRueckblick },
+  search: { name: 'Suche', desc: 'Alles in der App durchsuchen', render: wSearch },
+  chat: { name: 'KI-Assistent', desc: 'Fragen zu Luises Daten und allgemein', render: wChat }
+});
+
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
@@ -4256,13 +4872,13 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family'];
+const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const views = {
   home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
-  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily())
+  dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), search: viewSearch, chat: viewChat
 };
 let tab = 'home', lastTab = null;
 function go(id) { tab = id; render(); }
@@ -4276,7 +4892,7 @@ function render() {
   catch (e) { console.error(e); v.replaceChildren(h('p', { class: 'empty' }, 'Anzeigefehler: ' + e.message)); }
   v.scrollTop = keep;
   setTimeout(announceBadges, 700);
-  $('#tabbar').replaceChildren(...TABS.map(t => h('button', { class: 'tab' + (t.id === (SUB.includes(tab) ? 'more' : tab) ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
+  $('#tabbar').replaceChildren(...TABS.map(t => h('button', { class: 'tab' + (t.id === (['search', 'chat'].includes(tab) ? 'home' : SUB.includes(tab) ? 'more' : tab) ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
 }
 function makeIcon() {
   try {
@@ -4314,7 +4930,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { exactAge, get state() { return S; }, go, render, buildBackup };
+window.__luise = { exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
