@@ -420,6 +420,13 @@ button.spotbtn{border:0;cursor:pointer;padding:0}
 .mp-strip{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}.mp-th{position:relative;width:64px;height:64px}.mp-th img{width:100%;height:100%;object-fit:cover;border-radius:10px}.mp-th button{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--bad);color:#fff;cursor:pointer;line-height:1}
 .pp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.pp-th{position:relative;border:0;padding:0;aspect-ratio:1;border-radius:10px;overflow:hidden;cursor:pointer;background:var(--line)}.pp-th img{width:100%;height:100%;object-fit:cover;display:block}.pp-th.on{outline:4px solid var(--accent);outline-offset:-4px}.pp-th i{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;display:grid;place-items:center}
 .mm-emo{font-size:56px;text-align:center}.mm-text{white-space:pre-wrap;font-size:17px;line-height:1.5;margin:0}.mm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tl-th.big{width:100%;height:auto;aspect-ratio:1}
+
+.ibanbig{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:17px;letter-spacing:.03em;word-break:break-word;line-height:1.5;cursor:pointer;padding:10px 12px;background:var(--bg);border-radius:12px}
+.ibanhead{display:flex;justify-content:space-between;align-items:center}
+.ibanhint{color:var(--mute)}.ibanhint.ok{color:var(--accent);font-weight:600}.ibanhint.bad{color:var(--bad);font-weight:600}
+.amt.pos{color:var(--accent);font-weight:600}.amt.neg{color:var(--bad);font-weight:600}
+.qrbox{background:#fff;border-radius:16px;padding:10px;display:grid;place-items:center;max-width:300px;width:100%;margin:0 auto;box-sizing:border-box}.qrbox svg{width:100%;height:auto;display:block}
+.sec-head .amt{color:var(--mute)}
 </style>
 </head>
 <body>
@@ -594,7 +601,7 @@ async function loadState() {
   S = {
     profile: Object.assign({ kontakte: [], extras: [], eigeneBadges: [], badgesSeen: [], spirit: {}, produkte: [], lieder: [], playlist: '', adressen: [], invest: [], journey: [], familie: [], tagebuch: [] }, profile || {}),
     health: Object.assign({ impfungen: [], u: {}, wachstum: [], meilensteine: [], meds: [] }, health || {}),
-    school: Object.assign({ abholer: [], termine: [], hiddenAuto: [] }, school || {}),
+    school: Object.assign({ abholer: [], termine: [], hiddenAuto: [], show: 'auto' }, school || {}),
     docs: (docs || []).filter(mine),
     photos: (photos || []).filter(mine)
   };
@@ -1272,7 +1279,7 @@ function wQuick() {
   const nextT = nextTerminObj();
   return h('div', { class: 'tiles' },
     tile('sos', ICON.cross, 'Notfallkarte', 'Alles Wichtige sofort', openEmergency),
-    tile('', ICON.smile, 'Betreuungs-Zettel', 'Für Oma, Babysitter, Kita', openCare),
+    tile('', ICON.smile, 'Betreuungs-Zettel', 'Für Oma, Babysitter' + (eduShow() ? ', ' + eduName() : ''), openCare),
     tile('gold', ICON.trophy, 'Abzeichen', badgeSub(), () => go('badges')),
     tile('violet', ICON.moon, 'Spirituelles', spiritSub(), () => go('spirit')),
     tile('', ICON.docs, 'Dokument ablegen', 'Foto, Scan oder PDF', () => editDoc()),
@@ -1333,11 +1340,6 @@ function wGrowth() {
   const sx = sexKey(), pn = sx && S.profile.geburtsdatum && num(l.groesse) != null ? pctNote(sx, 'h', S.profile.geburtsdatum, ent, 'groesse') : '';
   return miniCard('Wachstum', [l.groesse && l.groesse + ' cm', l.gewicht && l.gewicht + ' kg'].filter(Boolean).join(' · '), [fmtD(l.datum), pn && 'Größe ' + pn].filter(Boolean).join(' · '), () => { healthSeg = 'entwicklung'; go('health'); });
 }
-function wInvest() {
-  const arr = S.profile.invest, total = arr.reduce((s, it) => s + (eur2num(it.wert) || 0), 0), m = monthsTo18(), proj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null;
-  if (!arr.length) return miniCard('Investments', 'Noch leer', 'Anlage erfassen', () => go('invest'));
-  return miniCard('Investments', fmtEur(total), proj != null ? 'Mit 18: ' + fmtEur(proj) : plural(arr.length, 'Anlage', 'Anlagen'), () => go('invest'));
-}
 function wBadges() {
   const a = evalBadges(), st = badgeStats(a);
   return miniCard('Abzeichen', 'Level ' + st.lvl, `${st.got.length} von ${a.length}`, () => go('badges'), h('div', { class: 'bar dark' }, h('i', { style: `width:${st.pct}%` })));
@@ -1367,7 +1369,7 @@ function wSpot() {
 function wRouten() {
   const items = S.profile.adressen.filter(a => addrText(a)).slice(0, 3);
   return h('div', { class: 'stack' }, sectionHead('Routen', addBtn('Adresse', () => editAddress())),
-    h('div', { class: 'card' }, items.length ? items.map(a => li(() => go('addr'), '', h('span', { class: 'hubico', html: ICON.pin }), liTxt(a.label, addrText(a)), routeBtn(a.label, addrText(a)))) : h('p', { class: 'empty' }, 'Noch keine Adressen. Lege Zuhause, Kita und Co. an, dann startet die Route mit einem Tipp.')));
+    h('div', { class: 'card' }, items.length ? items.map(a => li(() => go('addr'), '', h('span', { class: 'hubico', html: ICON.pin }), liTxt(a.label, addrText(a)), routeBtn(a.label, addrText(a)))) : h('p', { class: 'empty' }, 'Noch keine Adressen. Lege Zuhause' + (eduShow() ? ', ' + eduName() : ', Oma und Opa') + ' und Co. an, dann startet die Route mit einem Tipp.')));
 }
 const WIDGETS = {
   hero: { name: 'Profilkarte', desc: 'Foto, Alter und Zähler', render: wHero },
@@ -1383,7 +1385,7 @@ const WIDGETS = {
   photo: { name: 'Foto des Tages', desc: 'Jeden Tag ein anderes Foto aus der Galerie', half: true, render: wPhoto },
   journey: { name: 'Journey', desc: 'Die letzten Momente und ein neuer Moment', render: () => wJourney() },
   growth: { name: 'Wachstum', desc: 'Letzte Größe und letztes Gewicht', half: true, render: wGrowth },
-  invest: { name: 'Investments', desc: 'Gesamtwert und Prognose mit 18', half: true, render: wInvest },
+  invest: { name: 'Geld', desc: 'Gesamtvermögen mit Trade Republic, Konten und Bargeld', half: true, render: wInvest },
   badges: { name: 'Abzeichen', desc: 'Level und Fortschritt', half: true, render: wBadges },
   family: { name: 'Stammbuch', desc: 'Familienmitglieder und nächster Geburtstag', half: true, render: wFamily },
   bday: { name: 'Geburtstags-Countdown', desc: 'Tage bis zum nächsten Geburtstag', half: true, render: wBday },
@@ -1632,7 +1634,7 @@ function viewDocs() {
   const list = h('div', { class: 'stack' });
   const chipsEl = h('div', { class: 'chips' });
   const fill = () => {
-    chipsEl.replaceChildren(...['Alle', ...DOC_CATS].map(c => h('button', { class: 'fchip' + (c === docFilter ? ' on' : ''), onclick: () => { docFilter = c; fill(); } }, c)));
+    chipsEl.replaceChildren(...['Alle', ...docCatsVis()].map(c => h('button', { class: 'fchip' + (c === docFilter ? ' on' : ''), onclick: () => { docFilter = c; fill(); } }, c)));
     const q = docQuery.trim().toLowerCase();
     const items = S.docs.filter(d => (docFilter === 'Alle' || d.kategorie === docFilter) &&
       (!q || (d.titel + ' ' + (d.notiz || '') + ' ' + d.kategorie + ' ' + (d.text || '')).toLowerCase().includes(q)))
@@ -1652,7 +1654,7 @@ function editDoc(d) {
   const fields = [
     ...(isNew ? [{ key: 'datei', label: 'Datei (Foto, Scan oder PDF)', type: 'file', accept: 'image/*,application/pdf', required: true, fillTitle: 'titel', crop: 'free' }] : []),
     { key: 'titel', label: 'Bezeichnung', required: true, ph: 'z. B. Geburtsurkunde' },
-    { key: 'kategorie', label: 'Kategorie', type: 'select', options: DOC_CATS },
+    { key: 'kategorie', label: 'Kategorie', type: 'select', options: docCatsVis() },
     { key: 'ablauf', label: 'Gültig bis (optional)', type: 'date', hint: 'Für Kinderreisepass, Ausweis usw. – du wirst vorher in der Übersicht erinnert.' },
     { key: 'notiz', label: 'Notiz', type: 'textarea' },
     ...(isNew ? [{ key: 'ocr', label: 'Text und Infos automatisch auslesen (braucht Internet)', type: 'checkbox', default: true }] : [])
@@ -1748,7 +1750,7 @@ const GROWTH_FIELDS = [
 ];
 const MILESTONES = ['Erstes Lächeln', 'Dreht sich', 'Sitzt allein', 'Krabbelt', 'Erster Zahn', 'Erste Worte', 'Erste Schritte', 'Läuft allein', 'Erster Haarschnitt', 'Trocken', 'Erster Kita-Tag', 'Fahrrad fahren', 'Schwimmen gelernt', 'Einschulung', 'Erster Zahnarztbesuch'];
 const MILE_FIELDS = [
-  { key: 'titel', label: 'Meilenstein', required: true, ph: 'z. B. Erste Schritte', list: MILESTONES },
+  { key: 'titel', label: 'Meilenstein', required: true, ph: 'z. B. Erste Schritte', get list() { return milestonesVis(); } },
   { key: 'datum', label: 'Datum', type: 'date', required: true },
   { key: 'notiz', label: 'Notiz', type: 'textarea' }
 ];
@@ -2013,6 +2015,7 @@ function evalBadges() {
   const find = re => hl.meilensteine.filter(m => re.test(m.titel || '')).sort((a, b) => (a.datum || '').localeCompare(b.datum || ''))[0];
   BADGE_MS.forEach(([id, emoji, title, desc, re]) => {
     const m = find(re);
+    if (!m && ((id === 'm_kita' && !eduShow()) || (id === 'm_school' && !(eduStage() === 'schule' || (eduAgeMonths() || 0) >= 48)))) return;
     list.push({ id, emoji, title, desc, group: 'Meilensteine', earned: !!m, date: m && m.datum, hint: `Trage in „Gesundheit › Entwicklung“ den Meilenstein „${title}“ ein.`, ms: title });
   });
   const add = (id, emoji, title, desc, hint, ok) => list.push({ id, emoji, title, desc, hint, group: 'Sammler', earned: !!ok });
@@ -3415,41 +3418,6 @@ async function openDoc(d) {
   ov = viewer = openFull({ title: d.titel, body, onClose: () => { rmUrl(url); extra.forEach(rmUrl); viewer = null; } });
 }
 
-/* ============ Ansicht: Kita/Schule ============ */
-const SCHOOL_FIELDS = [
-  { key: 'einrichtung', label: 'Einrichtung', ph: 'Name der Kita / Schule' },
-  { key: 'gruppe', label: 'Gruppe / Klasse' },
-  { key: 'ansprechpartner', label: 'Ansprechpartner/in' },
-  { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' },
-  { key: 'adresse', label: 'Adresse', type: 'textarea' },
-  { key: 'notiz', label: 'Notizen', type: 'textarea', ph: 'z. B. Bring- und Abholzeiten' }
-];
-const ABHOLER_FIELDS = [
-  { key: 'name', label: 'Name', required: true },
-  { key: 'rolle', label: 'Beziehung', ph: 'z. B. Oma' },
-  { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' }
-];
-function viewSchool() {
-  const sc = S.school, wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Kita / Schule', ghostBtn('Bearbeiten', () => openSheet({
-    title: 'Einrichtung', values: sc, fields: SCHOOL_FIELDS,
-    onSave: async v => { Object.assign(sc, v); await persist('school'); render(); }
-  }))));
-  const rows = [kv('Einrichtung', sc.einrichtung), kv('Gruppe / Klasse', sc.gruppe), kv('Ansprechpartner/in', sc.ansprechpartner), kv('Telefon', sc.tel, { tel: true }), kv('Adresse', sc.adresse), kv('Notizen', sc.notiz)].filter(Boolean);
-  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, 'Noch keine Angaben zur Einrichtung.')));
-  wrap.append(sectionHead('Abholberechtigte', addBtn('Person', () => editListItem({ arr: sc.abholer, key: 'school', title: 'Person', fields: ABHOLER_FIELDS }))));
-  wrap.append(h('div', { class: 'card' }, sc.abholer.length
-    ? sc.abholer.map(c => li(() => editListItem({ arr: sc.abholer, key: 'school', title: 'Person', fields: ABHOLER_FIELDS, item: c }), '', liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev()))
-    : h('p', { class: 'empty' }, 'Noch niemand eingetragen.')));
-  wrap.append(sectionHead('Termine & Fristen', addBtn('Termin', () => editListItem({ arr: sc.termine, key: 'school', title: 'Termin', fields: terminFields() }))));
-  const up = sc.termine.filter(t => t.datum && daysTo(t.datum) >= 0).sort((a, b) => a.datum.localeCompare(b.datum));
-  const past = sc.termine.filter(t => !t.datum || daysTo(t.datum) < 0).sort((a, b) => (b.datum || '').localeCompare(a.datum || '')).slice(0, 5);
-  const row = (t, dim) => li(() => editListItem({ arr: sc.termine, key: 'school', title: 'Termin', fields: terminFields(), item: t }), dim ? 'dim' : '',
-    liTxt(t.titel, t.datum ? `${fmtD(t.datum)} · ${rel(t.datum)}` : '', t.notiz ? h('small', null, t.notiz) : null), (!dim && t.datum) ? calBtn(t.titel, t.datum, t.notiz, 1) : null, chev());
-  wrap.append(h('div', { class: 'card' }, up.length || past.length ? [up.map(t => row(t, false)), past.map(t => row(t, true))] : h('p', { class: 'empty' }, 'Keine Termine.')));
-  return wrap;
-}
-
 /* ============ Ansicht: Mehr ============ */
 let backupFile = null;
 const ab2b64 = buf => { const b = new Uint8Array(buf); let s = ''; const C = 0x8000; for (let i = 0; i < b.length; i += C) s += String.fromCharCode.apply(null, b.subarray(i, i + C)); return btoa(s); };
@@ -3536,21 +3504,22 @@ function viewMore() {
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Termine & Fristen', 'Termine, Vorsorge, Impfungen, Ablaufdaten', 'dates'),
     hubRow(ICON.pin, 'Adressen', 'Mit Route in Karten', 'addr'),
-    hubRow(ICON.coins, 'Investments', 'Sparen, Anlagen und Hochrechnung', 'invest'),
-    hubRow(ICON.school, 'Kita / Schule', 'Einrichtung, Abholberechtigte', 'school'),
+    hubRow(ICON.coins, 'Geld', 'Trade Republic, Konten mit IBAN, Bargeld', 'invest'),
+    eduShow() ? hubRow(ICON.school, eduName(), eduSub(), 'school') : null,
     hubRow(ICON.trophy, 'Abzeichen', 'Level, Meilensteine und Auszeichnungen', 'badges'),
     hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
     hubRow(ICON.star, 'Human Design', 'Chart aus Geburtsdatum und Geburtszeit', 'hd'),
     hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Tierzeichen', 'spirit'),
     hubRow(ICON.note, 'Lieblingslieder', 'Spotify-Links zu Luises Musik', 'songs'),
     hubRow(ICON.tag, 'Marken & Produkte', 'Was Luise nutzt und mag', 'products'),
-    li(datasheetFlow, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Datenblatt als PDF', 'Für Kita, Arzt oder Babysitter'), chev()),
+    li(datasheetFlow, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Datenblatt als PDF', eduShow() ? 'Für Kita, Arzt oder Babysitter' : 'Für Arzt, Oma oder Babysitter'), chev()),
     li(reviewStart, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Rückblick als PDF', 'Monats- oder Jahresrückblick mit Fotos'), chev()),
     hubRow(ICON.kids, 'Kinder & Profile', CH.length > 1 ? CH.length + ' Profile' : 'Weiteres Kind anlegen, Profil teilen', 'kids')));
   wrap.append(designCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
+  wrap.append(eduSettingCard());
   const lock = getLock();
   wrap.append(sectionHead('Sperre'));
   wrap.append(h('div', { class: 'card stack' },
@@ -3593,7 +3562,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 10'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'Luises Identität · Version 11'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -3680,7 +3649,7 @@ async function createDoc(file, v, pre) {
 const ADR_TYPES = ['Zuhause', 'Kita / Schule', 'Arzt / Praxis', 'Familie & Freunde', 'Freizeit', 'Sonstiges'];
 const ADR_FIELDS = [
   { key: 'label', label: 'Bezeichnung', required: true, ph: 'z. B. Zuhause, Oma Anna, Kinderarzt', cap: 'words' },
-  { key: 'typ', label: 'Art', type: 'select', options: ADR_TYPES },
+  { key: 'typ', label: 'Art', type: 'select', get options() { return adrTypesVis(); } },
   { key: 'strasse', label: 'Straße und Hausnummer', cap: 'words' },
   { key: 'plz', label: 'PLZ', inputmode: 'numeric' },
   { key: 'ort', label: 'Ort', cap: 'words' },
@@ -3738,7 +3707,7 @@ function viewAddr() {
   const sc = S.school;
   if (sc.adresse && !items.some(x => x.text.toLowerCase() === sc.adresse.toLowerCase()))
     items.push({ a: { label: sc.einrichtung || 'Kita / Schule', typ: 'Kita / Schule', tel: sc.tel }, text: sc.adresse, edit: () => go('school') });
-  if (!items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Noch keine Adressen. Lege Zuhause, Kita, Kinderarzt, Oma und Opa an. Mit einem Tipp startet die Route in Karten.')));
+  if (!items.length) wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Noch keine Adressen. Lege Zuhause, ' + (eduShow() ? eduName() + ', ' : '') + 'Kinderarzt, Oma und Opa an. Mit einem Tipp startet die Route in Karten.')));
   ADR_TYPES.forEach(t => {
     const g = items.filter(x => (x.a.typ || 'Sonstiges') === t); if (!g.length) return;
     wrap.append(sectionHead(t));
@@ -3758,7 +3727,7 @@ const terminFields = () => [
   { key: 'datum', label: 'Datum', type: 'date', required: true },
   { key: 'zeit', label: 'Uhrzeit (optional)', type: 'time' },
   { key: 'ort', label: 'Ort / Adresse (optional)', ph: 'Adresse oder Name aus „Adressen“', list: (S.profile.adressen || []).map(a => a.label), hint: 'Mit Ort bekommt der Termin einen Routen-Knopf.' },
-  { key: 'kategorie', label: 'Art', type: 'select', options: TERMIN_KATS },
+  { key: 'kategorie', label: 'Art', type: 'select', options: terminKatsVis() },
   { key: 'wiederholung', label: 'Wiederholung', type: 'select', options: ['einmalig', 'jährlich'] },
   { key: 'erinnerung', label: 'Kalender-Erinnerung', type: 'select', options: ERINN.map(e => e[1]), default: '1 Tag vorher' },
   { key: 'notiz', label: 'Notiz', type: 'textarea' }
@@ -3906,117 +3875,6 @@ function viewDates() {
     const past = all.map(t => ({ t, d: nextOcc(t) })).filter(x => daysTo(x.d) < 0).sort((a, b) => b.d.localeCompare(a.d)).slice(0, 40);
     wrap.append(h('div', { class: 'card' }, past.length ? past.map(x => terminRow(x.t, true)) : h('p', { class: 'empty' }, 'Noch keine vergangenen Termine.')));
   }
-  return wrap;
-}
-
-/* ============ Investments ============ */
-const INV_TYPES = ['Tagesgeld', 'Sparbuch / Sparkonto', 'Kinderkonto / Girokonto', 'ETF-Sparplan', 'Fonds', 'Aktien', 'Bausparvertrag', 'Festgeld / Sparbrief', 'Kindervorsorge / Versicherung', 'Gold / Krypto', 'Sonstiges'];
-const INV_COL = ['#2f7d6b', '#c9973a', '#6b5bd2', '#d0684f', '#3b8fc4', '#8a9a4b', '#b05aa8', '#5b6b7a', '#a0522d', '#4aa08e', '#999999'];
-function eur2num(v) {
-  let s = String(v == null ? '' : v).replace(/[€\s]/g, '');
-  if (!s) return null;
-  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
-  else if ((s.match(/\./g) || []).length > 1) s = s.replace(/\./g, '');
-  const n = parseFloat(s); return Number.isFinite(n) ? n : null;
-}
-const fmtEur = n => (n == null ? '–' : n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: Math.abs(n) >= 1000 ? 0 : 2 }));
-const INV_FIELDS = [
-  { key: 'name', label: 'Bezeichnung', required: true, ph: 'z. B. ETF-Sparplan MSCI World', cap: 'words' },
-  { key: 'typ', label: 'Art der Anlage', type: 'select', options: INV_TYPES },
-  { key: 'institut', label: 'Bank / Anbieter', cap: 'words' },
-  { key: 'wert', label: 'Aktueller Wert (€)', inputmode: 'decimal', ph: 'z. B. 1.250,00' },
-  { key: 'einzahlung', label: 'Monatliche Einzahlung (€)', inputmode: 'decimal', ph: 'z. B. 25' },
-  { key: 'rendite', label: 'Erwartete Rendite / Zins (% pro Jahr, optional)', inputmode: 'decimal', ph: 'z. B. 3,5', hint: 'Nur für die Hochrechnung. Eine Prognose ist keine Garantie.' },
-  { key: 'start', label: 'Start / Eröffnung', type: 'date' },
-  { key: 'faellig', label: 'Fällig / Laufzeitende (optional)', type: 'date' },
-  { key: 'notiz', label: 'Notiz', type: 'textarea', ph: 'z. B. Ansprechpartner, Vertragsnummer (nur die letzten Stellen)' }
-];
-function invProject(it, months) {
-  const W = eur2num(it.wert) || 0, P = eur2num(it.einzahlung) || 0, r = (eur2num(it.rendite) || 0) / 100 / 12;
-  if (months <= 0) return W;
-  if (!r) return W + P * months;
-  const g = Math.pow(1 + r, months);
-  return W * g + P * (g - 1) / r;
-}
-const monthsTo18 = () => {
-  const b = S.profile.geburtsdatum; if (!b) return null;
-  const d = parseD(b); d.setFullYear(d.getFullYear() + 18);
-  return Math.max(0, Math.round((d - today0()) / 864e5 / 30.4375));
-};
-function editInvest(item) {
-  const p = S.profile, isNew = !item;
-  openSheet({
-    title: isNew ? 'Anlage hinzufügen' : 'Anlage bearbeiten', fields: INV_FIELDS, values: item || { typ: INV_TYPES[0], start: isoToday() },
-    onSave: async v => {
-      const w = eur2num(v.wert);
-      if (v.wert && w == null) { toast('Der Wert ist keine Zahl'); return false; }
-      if (isNew) {
-        const it = Object.assign({ id: uid(), verlauf: [] }, v);
-        if (w != null) it.verlauf.push({ datum: isoToday(), wert: w });
-        p.invest.push(it);
-      } else {
-        const old = eur2num(item.wert);
-        Object.assign(item, v);
-        if (w != null && w !== old) { item.verlauf = item.verlauf || []; item.verlauf.push({ datum: isoToday(), wert: w }); }
-      }
-      await persist('profile'); render();
-    },
-    onDelete: isNew ? null : async () => { p.invest.splice(p.invest.indexOf(item), 1); await persist('profile'); if (viewer) viewer.close(); render(); }
-  });
-}
-function newStand(it) {
-  openSheet({
-    title: 'Neuer Stand', values: { datum: isoToday(), wert: it.wert || '' },
-    fields: [{ key: 'datum', label: 'Datum', type: 'date', required: true }, { key: 'wert', label: 'Wert (€)', required: true, inputmode: 'decimal' }],
-    onSave: async v => {
-      const w = eur2num(v.wert); if (w == null) { toast('Der Wert ist keine Zahl'); return false; }
-      it.verlauf = (it.verlauf || []).filter(x => x.datum !== v.datum); it.verlauf.push({ datum: v.datum, wert: w });
-      it.verlauf.sort((a, b) => a.datum.localeCompare(b.datum));
-      it.wert = String(it.verlauf[it.verlauf.length - 1].wert).replace('.', ',');
-      await persist('profile'); if (viewer) viewer.close(); render(); openInvest(it);
-    }
-  });
-}
-function openInvest(it) {
-  const m = monthsTo18(), vl = (it.verlauf || []).slice().sort((a, b) => a.datum.localeCompare(b.datum));
-  const body = h('div', { class: 'stack' },
-    h('div', { class: 'card' }, h('div', { class: 'metric' },
-      h('div', null, h('small', null, 'Aktueller Wert'), h('b', null, fmtEur(eur2num(it.wert)))),
-      it.einzahlung ? h('div', null, h('small', null, 'Pro Monat'), h('b', null, fmtEur(eur2num(it.einzahlung)))) : null,
-      m != null && (eur2num(it.einzahlung) || eur2num(it.rendite)) ? h('div', null, h('small', null, 'Prognose mit 18'), h('b', null, fmtEur(invProject(it, m)))) : null)),
-    h('div', { class: 'card' }, kv('Art', it.typ), kv('Anbieter', it.institut), kv('Erwartete Rendite', it.rendite ? it.rendite + ' % p. a.' : ''), kv('Start', it.start ? fmtD(it.start) : ''), kv('Fällig', it.faellig ? fmtD(it.faellig) : ''), kv('Notiz', it.notiz)),
-    vl.length >= 2 ? h('div', { class: 'card' }, h('h2', null, 'Wertentwicklung'), h('div', { html: chartSvg(vl.map(x => ({ t: parseD(x.datum).getTime(), y: x.wert })), v => fmtEur(v)) })) : null,
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: () => newStand(it) }, 'Neuer Stand'), h('button', { class: 'btn ghost', onclick: () => editInvest(it) }, 'Bearbeiten')),
-    vl.length ? h('div', { class: 'card' }, h('h2', null, 'Verlauf'), vl.slice().reverse().map(x => li(async () => {
-      if (!confirm(`Stand vom ${fmtD(x.datum)} löschen?`)) return;
-      it.verlauf = it.verlauf.filter(y => y !== x && !(y.datum === x.datum && y.wert === x.wert)); await persist('profile'); if (viewer) viewer.close(); render(); openInvest(it);
-    }, '', liTxt(fmtD(x.datum), null), h('b', { class: 'amt' }, fmtEur(x.wert))))) : null);
-  viewer = openFull({ title: it.name, body, onClose: () => { viewer = null; } });
-}
-function viewInvest() {
-  const p = S.profile, arr = p.invest, wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Investments', addBtn('Anlage', () => editInvest())));
-  const total = arr.reduce((s, it) => s + (eur2num(it.wert) || 0), 0), monthly = arr.reduce((s, it) => s + (eur2num(it.einzahlung) || 0), 0);
-  const m = monthsTo18(), proj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null;
-  const ziel = eur2num(p.investZiel);
-  wrap.append(h('div', { class: 'card stack' },
-    h('div', { class: 'metric' }, h('div', null, h('small', null, 'Gesamtwert'), h('b', null, fmtEur(total))), h('div', null, h('small', null, 'Pro Monat'), h('b', null, fmtEur(monthly))),
-      proj != null && arr.length ? h('div', null, h('small', null, 'Prognose mit 18'), h('b', null, fmtEur(proj))) : null),
-    arr.length && total > 0 ? (() => {
-      const by = {}; arr.forEach(it => { const t = it.typ || 'Sonstiges'; by[t] = (by[t] || 0) + (eur2num(it.wert) || 0); });
-      const ent = Object.entries(by).filter(e => e[1] > 0).sort((a, b) => b[1] - a[1]);
-      return h('div', { class: 'stack', style: 'gap:8px' },
-        h('div', { class: 'stackbar' }, ent.map(([t, v]) => h('i', { style: `flex:${v};background:${INV_COL[INV_TYPES.indexOf(t) < 0 ? 10 : INV_TYPES.indexOf(t)]}`, title: t }))),
-        h('div', { class: 'legend' }, ent.map(([t, v]) => h('span', null, h('i', { style: `background:${INV_COL[INV_TYPES.indexOf(t) < 0 ? 10 : INV_TYPES.indexOf(t)]}` }), `${t} ${Math.round(v / total * 100)} %`))));
-    })() : null,
-    ziel ? h('div', { class: 'stack', style: 'gap:6px' }, h('small', { class: 'mute' }, `Sparziel ${fmtEur(ziel)}: ${Math.min(100, Math.round(total / ziel * 100))} % erreicht` + (proj != null ? `, Prognose ${Math.round(proj / ziel * 100)} %` : '')),
-      h('div', { class: 'bar dark' }, h('i', { style: `width:${Math.min(100, total / ziel * 100)}%` }))) : null,
-    h('button', { class: 'linkbtn', onclick: () => openSheet({ title: 'Sparziel', values: { investZiel: p.investZiel || '' }, fields: [{ key: 'investZiel', label: 'Zielbetrag (€), z. B. zum 18. Geburtstag', inputmode: 'decimal' }], onSave: async v => { p.investZiel = v.investZiel; await persist('profile'); render(); } }) }, ziel ? 'Sparziel ändern' : 'Sparziel festlegen')));
-  const sorted = arr.slice().sort((a, b) => (eur2num(b.wert) || 0) - (eur2num(a.wert) || 0));
-  wrap.append(h('div', { class: 'card' }, sorted.length ? sorted.map(it => li(() => openInvest(it), '', h('span', { class: 'hubico', html: ICON.coins }),
-    liTxt(it.name, [it.typ, it.institut, it.einzahlung ? fmtEur(eur2num(it.einzahlung)) + ' mtl.' : ''].filter(Boolean).join(' · ')), h('b', { class: 'amt' }, fmtEur(eur2num(it.wert))), chev()))
-    : h('p', { class: 'empty' }, 'Noch keine Anlagen. Erfasse Sparbuch, Tagesgeld, ETF-Sparplan oder Kindervorsorge mit Wert und monatlicher Einzahlung. Die App rechnet auf den 18. Geburtstag hoch.')));
-  wrap.append(h('p', { class: 'fine' }, 'Die Hochrechnung nutzt deine Angaben zur Rendite und ist nur eine Orientierung. Es ist keine Anlageberatung. Die Daten bleiben auf diesem iPhone und sind in der Sicherung enthalten.'));
   return wrap;
 }
 
@@ -4174,7 +4032,7 @@ function scanFlow() {
       const data = await pdf.arrayBuffer();
       ov.close();
       openSheet({ title: 'Scan speichern', values: { titel: 'Scan ' + fmtD(isoToday()), kategorie: DOC_CATS.includes(docFilter) ? docFilter : DOC_CATS[0], ocr: true },
-        fields: [{ key: 'titel', label: 'Bezeichnung', required: true }, { key: 'kategorie', label: 'Kategorie', type: 'select', options: DOC_CATS },
+        fields: [{ key: 'titel', label: 'Bezeichnung', required: true }, { key: 'kategorie', label: 'Kategorie', type: 'select', options: docCatsVis() },
           { key: 'ablauf', label: 'Gültig bis (optional)', type: 'date' }, { key: 'notiz', label: 'Notiz', type: 'textarea' },
           { key: 'ocr', label: 'Text und Infos automatisch auslesen (braucht Internet)', type: 'checkbox' }],
         onSave: async v => {
@@ -4223,7 +4081,7 @@ async function buildDatasheet(sel) {
   if (sel.steuer) block('Steuer', [['Steuer-ID', p.steuerid]]);
   if (sel.gesund) block('Gesundheit', [['Blutgruppe', hl.blutgruppe], ['Allergien', hl.allergien], ['Dauermedikation', hl.medikamente], ['Aktuelle Medikamente', medsText()], ['Wichtige Hinweise', hl.hinweise], ['Kinderarzt', [hl.kinderarzt, hl.kinderarzt_tel].filter(Boolean).join(', ')]]);
   if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name + (k.rolle ? ' (' + k.rolle + ')' : ''), k.tel || '–']));
-  if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
+  if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse], ['Bring- und Abholzeiten', sc.zeiten]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
   if (sel.betreuung) { const any = CARE_FIELDS.some(f => c[f.key]); if (any) { section('Betreuungs-Infos'); CARE_FIELDS.forEach(f => para(f.label, c[f.key])); } }
   if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
   if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
@@ -4233,10 +4091,10 @@ async function buildDatasheet(sel) {
   return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
 }
 function datasheetFlow() {
-  const vals = { stamm: true, vers: false, steuer: false, gesund: true, kontakte: true, kita: true, betreuung: true, adressen: false, familie: false };
+  const vals = { stamm: true, vers: false, steuer: false, gesund: true, kontakte: true, kita: eduShow(), betreuung: true, adressen: false, familie: false };
   openSheet({
     title: 'Datenblatt erstellen', saveLabel: 'Erstellen', values: vals,
-    fields: SHEET_SECS.map(([k, l]) => ({ key: k, label: l, type: 'checkbox' })),
+    fields: SHEET_SECS.filter(([k]) => k !== 'kita' || eduShow()).map(([k, l]) => ({ key: k, label: l, type: 'checkbox' })),
     onSave: async v => {
       if (!Object.values(v).some(Boolean)) { toast('Wähle mindestens einen Bereich'); return false; }
       toast('Datenblatt wird erstellt …');
@@ -4260,7 +4118,7 @@ async function setSex(v) { S.profile.geschlecht = v; await persist('profile'); r
 
 /* ============ Tagesnotizen ============ */
 const NOTE_MOODS = ['😊 Gut gelaunt', '🤩 Super drauf', '😴 Müde', '😢 Weinerlich', '😡 Trotzig', '🤒 Krank'];
-const NOTE_KATS = ['Allgemein', 'Essen', 'Schlaf', 'Kita', 'Gesundheit', 'Entwicklung', 'Ausflug'];
+const NOTE_KATS = ['Allgemein', 'Essen', 'Schlaf', 'Kita', 'Schule', 'Gesundheit', 'Entwicklung', 'Ausflug'];
 let noteKat = 'Alle', noteSeg = 'log';
 const nowTime = () => { const d = new Date(); return pad2(d.getHours()) + ':' + pad2(d.getMinutes()); };
 const moodEmoji = s => (s || '').split(' ')[0];
@@ -4273,7 +4131,7 @@ function editNote(item) {
       { key: 'datum', label: 'Datum', type: 'date', required: true },
       { key: 'zeit', label: 'Uhrzeit', type: 'time' },
       { key: 'stimmung', label: 'Stimmung', type: 'select', options: [''].concat(NOTE_MOODS) },
-      { key: 'kategorie', label: 'Thema', type: 'select', options: NOTE_KATS },
+      { key: 'kategorie', label: 'Thema', type: 'select', options: noteKatsVis() },
       { key: 'temp', label: 'Temperatur (°C)', inputmode: 'decimal', ph: 'z. B. 38,2', hint: 'Optional. Daraus entsteht die Temperaturkurve.' },
       { key: 'text', label: 'Notiz', type: 'textarea', ph: 'Was war heute? Was hat sie gegessen, wie hat sie geschlafen?' }
     ],
@@ -4315,9 +4173,9 @@ function viewDiary() {
     wrap.append(h('p', { class: 'mute', style: 'font-size:13px' }, 'Ab 38,0 °C spricht man von Fieber. Bei Babys unter 3 Monaten, hohem oder anhaltendem Fieber oder wenn dir etwas Sorgen macht, bitte ärztlich abklären lassen. Die App ersetzt keine Ärztin und keinen Arzt.'));
     return wrap;
   }
-  wrap.append(h('div', { class: 'chips' }, ['Alle'].concat(NOTE_KATS).map(k => h('button', { class: 'fchip' + (k === noteKat ? ' on' : ''), type: 'button', onclick: () => { noteKat = k; render(); } }, k))));
+  wrap.append(h('div', { class: 'chips' }, ['Alle'].concat(noteKatsVis()).map(k => h('button', { class: 'fchip' + (k === noteKat ? ' on' : ''), type: 'button', onclick: () => { noteKat = k; render(); } }, k))));
   const list = all.filter(n => noteKat === 'Alle' || n.kategorie === noteKat).sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')));
-  if (!list.length) { wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Noch keine Notizen. Halte fest, wie der Tag war: Essen, Schlaf, Kita, Stimmung oder Temperatur.'), h('button', { class: 'btn wide', onclick: () => editNote() }, 'Erste Notiz schreiben'))); return wrap; }
+  if (!list.length) { wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Noch keine Notizen. Halte fest, wie der Tag war: Essen, Schlaf, Stimmung oder Temperatur.'), h('button', { class: 'btn wide', onclick: () => editNote() }, 'Erste Notiz schreiben'))); return wrap; }
   let day = null, card = null;
   list.slice(0, 200).forEach(n => {
     if (n.datum !== day) { day = n.datum; wrap.append(sectionHead(day === isoToday() ? 'Heute' : wd(day) + ' ' + day.slice(0, 4))); card = h('div', { class: 'card' }); wrap.append(card); }
@@ -4672,8 +4530,8 @@ function searchItems() {
   (p.produkte || []).forEach(x => add('Produkte', ICON.tag, x.name || x.titel, x.marke || '', flatTxt(x), () => go('products')));
   (p.extras || []).forEach(x => add('Stammdaten', ICON.sheet, x.label, '', flatTxt(x), () => editListItem({ arr: p.extras, key: 'profile', title: 'Angabe', fields: [{ key: 'label', label: 'Bezeichnung', required: true }, { key: 'value', label: 'Wert', required: true }], item: x })));
   (sc.abholer || []).forEach(x => add('Kita / Schule', ICON.school, x.name, x.rolle || '', flatTxt(x), () => go('school')));
-  (p.invest || []).forEach(x => add('Investments', ICON.coins, x.name || x.titel, '', flatTxt(x), () => go('invest')));
-  [['Termine & Fristen', 'dates', ICON.cal], ['Adressen', 'addr', ICON.pin], ['Investments', 'invest', ICON.coins], ['Journey', 'journey', ICON.journey], ['Stammbuch', 'family', ICON.tree], ['Tagesnotizen', 'diary', ICON.diary], ['KI-Assistent', 'chat', ICON.chat], ['Abzeichen', 'badges', ICON.trophy], ['Spirituelles', 'spirit', ICON.moon], ['Human Design', 'hd', ICON.star], ['Wochen-Begleiter', 'weeks', ICON.cal], ['Lieblingslieder', 'songs', ICON.note], ['Marken & Produkte', 'products', ICON.tag], ['Kita / Schule', 'school', ICON.school], ['Kinder & Profile', 'kids', ICON.kids]]
+  (p.invest || []).forEach(x => add('Geld', ICON.coins, x.name || kindWord(x), geldSub(x), geldSearchTxt(x), () => { go('invest'); openGeld(x); }));
+  [['Termine & Fristen', 'dates', ICON.cal], ['Adressen', 'addr', ICON.pin], ['Geld & Anlagen', 'invest', ICON.coins], ['Journey', 'journey', ICON.journey], ['Stammbuch', 'family', ICON.tree], ['Tagesnotizen', 'diary', ICON.diary], ['KI-Assistent', 'chat', ICON.chat], ['Abzeichen', 'badges', ICON.trophy], ['Spirituelles', 'spirit', ICON.moon], ['Human Design', 'hd', ICON.star], ['Wochen-Begleiter', 'weeks', ICON.cal], ['Lieblingslieder', 'songs', ICON.note], ['Marken & Produkte', 'products', ICON.tag], ['Kita / Schule', 'school', ICON.school], ['Kinder & Profile', 'kids', ICON.kids]]
     .forEach(([n, id, ico]) => add('Seiten', ico, n, 'Öffnen', '', () => go(id)));
   add('Seiten', ICON.cross, 'Notfallkarte', 'Öffnen', 'notfall sos', openEmergency);
   add('Seiten', ICON.smile, 'Betreuungs-Zettel', 'Öffnen', 'betreuung babysitter', openCare);
@@ -4734,7 +4592,7 @@ function localAnswer(question) {
     ['familie', has('familie', 'verwandt', 'oma', 'opa', 'mama', 'papa', 'mutter', 'vater', 'tante', 'onkel', 'cousin', 'grad', 'stammbuch', 'geschwister', 'grosseltern', 'bruder', 'schwester')],
     ['kontakt', has('telefon', 'nummer', 'anrufen', 'kontakt', 'erreichen', 'notfall')],
     ['adresse', has('adresse', 'wohnt', 'route', 'wo ist', 'weg zu', 'anfahrt', 'navigier')],
-    ['geld', has('invest', 'geld', 'spar', 'anlage', 'vermoegen', 'etf', 'sparplan', 'rendite', 'mit 18')],
+    ['geld', has('invest', 'geld', 'spar', 'anlage', 'vermoegen', 'etf', 'sparplan', 'rendite', 'mit 18', 'bargeld', 'spardose', 'depot', 'trade republic', 'republic', 'konto', 'kontostand', 'iban', 'taschengeld', 'geschenk')],
     ['dokumente', has('dokument', 'pass ', 'ausweis', 'urkunde', 'versicherung', 'reisepass')],
     ['spirit', has('sternzeichen', 'human design', 'tierzeichen', 'horoskop', 'mondphase', 'sternbild', 'typ ')],
     ['woche', has('lebenswoche', 'wochen-begleiter', 'was ist normal', 'typisch', 'entwicklungsschritt', 'diese woche')],
@@ -4814,9 +4672,21 @@ function localAnswer(question) {
       return R(bullets(a.map(x => `**${x.label}**: ${addrText(x)}`)));
     }
     case 'geld': {
-      const arr = p.invest; A('Investments öffnen', () => go('invest')); if (!arr.length) return R('Es sind noch keine Anlagen erfasst.');
-      const tot = arr.reduce((s, it) => s + (eur2num(it.wert) || 0), 0), m = monthsTo18(), pj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null;
-      return R(`Aktuell angelegt: **${fmtEur(tot)}** in ${plural(arr.length, 'Anlage', 'Anlagen')}.` + (pj != null ? `\nHochrechnung bis zum 18. Geburtstag: **${fmtEur(pj)}** (aus den eingetragenen Renditen und Raten, keine Garantie).` : '') + '\n' + bullets(arr.map(it => `${it.name || 'Anlage'}: ${fmtEur(eur2num(it.wert) || 0)}`)));
+      const arr = p.invest; A('Geld öffnen', () => go('invest'));
+      if (!arr.length) return R('Es sind noch keine Konten, Depots oder Bargeld erfasst.');
+      const of = k => arr.filter(it => kindOf(it) === k), sum = a => a.reduce((s, it) => s + valOf(it), 0);
+      const m = monthsTo18(), pj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null, mo = arr.reduce((s, it) => s + monthlyOf(it), 0);
+      const L = [];
+      KINDS.forEach(([k, label]) => { if (of(k).length) L.push(`${label}: **${fmtEur(sum(of(k)))}**`); });
+      let t = `Gesamtvermögen: **${fmtEur(geldTotal())}**` + (mo ? `, gespart wird **${fmtEur(mo)}** pro Monat` : '') + '.\n' + bullets(L);
+      if (pj != null && (mo || arr.some(it => rateOf(it)))) t += `\nHochrechnung bis zum 18. Geburtstag: **${fmtEur(pj)}** (aus den eingetragenen Renditen und Raten, keine Garantie).`;
+      const pos = of('depot').flatMap(d => (d.positionen || []).filter(x => num0(x.rate) > 0));
+      if (has('sparplan', 'depot', 'trade', 'republic', 'etf') && pos.length) t += '\nSparpläne:\n' + bullets(pos.map(x => `${x.name}: ${fmtEur(num0(x.rate))} ${x.rhythmus || 'monatlich'}`));
+      const bar = of('bar').flatMap(b => (b.buchungen || []).map(x => Object.assign({ b }, x))).sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)).slice(0, 4);
+      if (has('bargeld', 'spardose', 'geschenk', 'taschengeld') && bar.length) t += '\nZuletzt gebucht:\n' + bullets(bar.map(x => `${fmtD(x.datum)}: ${x.betrag > 0 ? '+' : '−'}${fmtEur(Math.abs(x.betrag))} ${x.grund || ''}${x.von ? ' (' + x.von + ')' : ''}`));
+      const ib = arr.filter(it => it.iban && ibanCheck(it.iban).ok);
+      if (has('iban', 'konto') && ib.length) { t += '\nDie IBAN steht nicht im Chat. Tippe auf „IBAN kopieren“.'; ib.forEach(it => A('IBAN kopieren: ' + (it.name || 'Konto'), () => copyText(ibanFmt(it.iban)))); }
+      return R(t);
     }
     case 'dokumente': {
       A('Dokumente öffnen', () => go('docs')); const d = S.docs, ex = d.filter(x => x.ablauf).sort((a, b) => a.ablauf.localeCompare(b.ablauf));
@@ -4834,7 +4704,8 @@ function localAnswer(question) {
     }
     case 'badges': { const a = evalBadges(), st = badgeStats(a); A('Abzeichen öffnen', () => go('badges')); return R(`Level **${st.lvl}**: ${st.got.length} von ${a.length} Abzeichen erreicht (${st.pct} %).`); }
     case 'kita': {
-      A('Kita / Schule öffnen', () => go('school')); const L = [];
+      if (!eduShow() && has('kita', 'schule')) { A('Einstellung öffnen', () => go('more')); return R(`Kita und Schule sind für ${nm} noch kein Thema. Der Bereich erscheint automatisch ab dem 1. Geburtstag. Unter „Mehr“ kannst du ihn schon jetzt einblenden.`); }
+      if (eduShow()) A(eduName() + ' öffnen', () => go('school')); const L = [];
       if (sc.einrichtung) L.push('Einrichtung: ' + sc.einrichtung + (sc.gruppe ? ', ' + sc.gruppe : '')); if (sc.ansprechpartner) L.push('Ansprechpartner/in: ' + sc.ansprechpartner + (sc.tel ? ', ' + sc.tel : ''));
       if ((sc.abholer || []).length) L.push('Abholberechtigt: ' + sc.abholer.map(a => a.name).join(', ')); if (hl.allergien) L.push('Allergien: ' + hl.allergien);
       return R(L.length ? bullets(L) : 'Zu Kita, Schule und Betreuung ist noch nichts eingetragen.');
@@ -4902,7 +4773,7 @@ function aiContext(sh) {
     if (t.length) L.push('Anstehende Termine: ' + t.map(o => `${fmtD(o.d)}${o.x.zeit ? ' ' + o.x.zeit : ''} ${o.x.titel}${o.x.ort ? ' (' + o.x.ort + ')' : ''}`).join('; '));
     const f = autoDeadlines().slice(0, 12); if (f.length) L.push('Fristen und Hinweise: ' + f.map(x => `${x.title} (${x.status})`).join('; '));
   }
-  if (sh.finance && (p.invest || []).length) L.push('Investments: ' + p.invest.map(kvTxt).join(' | ') + (p.investZiel ? '. Ziel: ' + p.investZiel : ''));
+  if (sh.finance && (p.invest || []).length) L.push(geldAiText());
   if (sh.addr && p.adressen.length) L.push('Adressen: ' + p.adressen.map(a => `${a.label}: ${addrText(a)}`).join('; '));
   return L.join('\n');
 }
@@ -5057,6 +4928,672 @@ Object.assign(WIDGETS, {
   chat: { name: 'KI-Assistent', desc: 'Fragen zu Luises Daten und allgemein', render: wChat }
 });
 
+/* ============ QR-Code (Byte-Modus, Fehlerkorrektur M, Version 1–15) ============ */
+const QR_ECC = [0, 10, 16, 26, 18, 24, 16, 18, 22, 22, 26, 30, 22, 22, 24, 24];
+const QR_BLK = [0, 1, 1, 1, 2, 2, 4, 4, 4, 5, 5, 5, 8, 9, 9, 10];
+function qrEncode(text) {
+  const bytes = Array.from(new TextEncoder().encode(String(text)));
+  const rawMods = v => { let r = (16 * v + 128) * v + 64; if (v >= 2) { const n = Math.floor(v / 7) + 2; r -= (25 * n - 10) * n - 55; if (v >= 7) r -= 36; } return r; };
+  let ver = 0;
+  for (let v = 1; v <= 15; v++) {
+    const cap = (Math.floor(rawMods(v) / 8) - QR_ECC[v] * QR_BLK[v]) * 8;
+    if (4 + (v >= 10 ? 16 : 8) + bytes.length * 8 <= cap) { ver = v; break; }
+  }
+  if (!ver) throw new Error('Text für den QR-Code zu lang');
+  const size = ver * 4 + 17, raw = Math.floor(rawMods(ver) / 8), nb = QR_BLK[ver], el = QR_ECC[ver];
+  const dataCw = raw - el * nb;
+  const bits = [];
+  const put = (val, len) => { for (let i = len - 1; i >= 0; i--) bits.push((val >>> i) & 1); };
+  put(4, 4); put(bytes.length, ver >= 10 ? 16 : 8); bytes.forEach(b => put(b, 8));
+  put(0, Math.min(4, dataCw * 8 - bits.length));
+  while (bits.length % 8) bits.push(0);
+  const data = [];
+  for (let i = 0; i < bits.length; i += 8) { let b = 0; for (let j = 0; j < 8; j++) b = (b << 1) | bits[i + j]; data.push(b); }
+  for (let pad = 0xEC; data.length < dataCw; pad ^= 0xEC ^ 0x11) data.push(pad);
+  // Reed-Solomon
+  const mul = (x, y) => { let z = 0; for (let i = 7; i >= 0; i--) { z = (z << 1) ^ ((z >>> 7) * 0x11D); z ^= ((y >>> i) & 1) * x; } return z; };
+  const div = []; for (let i = 0; i < el; i++) div.push(0); div[el - 1] = 1;
+  let root = 1;
+  for (let i = 0; i < el; i++) { for (let j = 0; j < el; j++) { div[j] = mul(div[j], root); if (j + 1 < el) div[j] ^= div[j + 1]; } root = mul(root, 2); }
+  const rem = d => { const r = div.map(() => 0); d.forEach(b => { const f = b ^ r.shift(); r.push(0); div.forEach((c, i) => { r[i] ^= mul(c, f); }); }); return r; };
+  const nShort = nb - raw % nb, shortLen = Math.floor(raw / nb), blocks = [];
+  for (let i = 0, k = 0; i < nb; i++) {
+    const d = data.slice(k, k + shortLen - el + (i < nShort ? 0 : 1)); k += d.length;
+    const e = rem(d); if (i < nShort) d.push(0); blocks.push(d.concat(e));
+  }
+  const cw = [];
+  for (let i = 0; i < blocks[0].length; i++) blocks.forEach((b, j) => { if (i !== shortLen - el || j >= nShort) cw.push(b[i]); });
+  // Matrix
+  const M = [], F = [];
+  for (let y = 0; y < size; y++) { M.push(new Array(size).fill(false)); F.push(new Array(size).fill(false)); }
+  const setF = (x, y, d) => { M[y][x] = d; F[y][x] = true; };
+  const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const dist = Math.max(Math.abs(dx), Math.abs(dy)), x = cx + dx, y = cy + dy; if (x >= 0 && x < size && y >= 0 && y < size) setF(x, y, dist !== 2 && dist !== 4); } };
+  for (let i = 0; i < size; i++) { setF(6, i, i % 2 === 0); setF(i, 6, i % 2 === 0); }
+  finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+  if (ver > 1) {
+    const n = Math.floor(ver / 7) + 2, step = Math.ceil((ver * 4 + 4) / (n * 2 - 2)) * 2, pos = [6];
+    for (let p = size - 7; pos.length < n; p -= step) pos.splice(1, 0, p);
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+      if ((i === 0 && j === 0) || (i === 0 && j === n - 1) || (i === n - 1 && j === 0)) continue;
+      for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) setF(pos[i] + dx, pos[j] + dy, Math.max(Math.abs(dx), Math.abs(dy)) !== 1);
+    }
+  }
+  const bit = (v, i) => ((v >>> i) & 1) !== 0;
+  const drawFormat = mask => {
+    const d = mask; let r = d; for (let i = 0; i < 10; i++) r = (r << 1) ^ ((r >>> 9) * 0x537);
+    const b = ((d << 10) | r) ^ 0x5412;
+    for (let i = 0; i <= 5; i++) setF(8, i, bit(b, i));
+    setF(8, 7, bit(b, 6)); setF(8, 8, bit(b, 7)); setF(7, 8, bit(b, 8));
+    for (let i = 9; i < 15; i++) setF(14 - i, 8, bit(b, i));
+    for (let i = 0; i < 8; i++) setF(size - 1 - i, 8, bit(b, i));
+    for (let i = 8; i < 15; i++) setF(8, size - 15 + i, bit(b, i));
+    setF(8, size - 8, true);
+  };
+  drawFormat(0);
+  if (ver >= 7) {
+    let r = ver; for (let i = 0; i < 12; i++) r = (r << 1) ^ ((r >>> 11) * 0x1F25);
+    const b = (ver << 12) | r;
+    for (let i = 0; i < 18; i++) { const c = bit(b, i), a = size - 11 + i % 3, bb = Math.floor(i / 3); setF(a, bb, c); setF(bb, a, c); }
+  }
+  let k = 0;
+  for (let right = size - 1; right >= 1; right -= 2) {
+    if (right === 6) right = 5;
+    for (let vert = 0; vert < size; vert++) for (let j = 0; j < 2; j++) {
+      const x = right - j, up = ((right + 1) & 2) === 0, y = up ? size - 1 - vert : vert;
+      if (!F[y][x] && k < cw.length * 8) { M[y][x] = bit(cw[k >>> 3], 7 - (k & 7)); k++; }
+    }
+  }
+  const MASKS = [(x, y) => (x + y) % 2 === 0, (x, y) => y % 2 === 0, (x, y) => x % 3 === 0, (x, y) => (x + y) % 3 === 0, (x, y) => (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0, (x, y) => x * y % 2 + x * y % 3 === 0, (x, y) => (x * y % 2 + x * y % 3) % 2 === 0, (x, y) => ((x + y) % 2 + x * y % 3) % 2 === 0];
+  const applyMask = m => { for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) if (!F[y][x] && MASKS[m](x, y)) M[y][x] = !M[y][x]; };
+  const penalty = () => {
+    let p = 0;
+    const lines = [];
+    for (let y = 0; y < size; y++) lines.push(M[y].map(v => v ? 1 : 0));
+    for (let x = 0; x < size; x++) lines.push(M.map(r => r[x] ? 1 : 0));
+    lines.forEach(L => {
+      let run = 1;
+      for (let i = 1; i <= L.length; i++) { if (i < L.length && L[i] === L[i - 1]) run++; else { if (run >= 5) p += 3 + run - 5; run = 1; } }
+      const s = L.join('');
+      for (const pat of ['000010111010', '010111010000']) { let from = 0, at; while ((at = s.indexOf(pat, from)) >= 0) { p += 40; from = at + 1; } }
+    });
+    for (let y = 0; y < size - 1; y++) for (let x = 0; x < size - 1; x++) { const c = M[y][x]; if (c === M[y][x + 1] && c === M[y + 1][x] && c === M[y + 1][x + 1]) p += 3; }
+    let dark = 0; M.forEach(r => r.forEach(v => { if (v) dark++; }));
+    const tot = size * size; p += (Math.ceil(Math.abs(dark * 20 - tot * 10) / tot) - 1) * 10;
+    return p;
+  };
+  let best = 0, bestP = Infinity;
+  for (let m = 0; m < 8; m++) { applyMask(m); drawFormat(m); const p = penalty(); if (p < bestP) { bestP = p; best = m; } applyMask(m); }
+  applyMask(best); drawFormat(best);
+  return { size, ver, mask: best, modules: M };
+}
+function qrSvg(text, px) {
+  const q = qrEncode(text), b = 4, n = q.size + b * 2;
+  let d = '';
+  for (let y = 0; y < q.size; y++) { let x = 0; while (x < q.size) { if (q.modules[y][x]) { let e = x; while (e < q.size && q.modules[y][e]) e++; d += `M${x + b} ${y + b}h${e - x}v1h${-(e - x)}z`; x = e; } else x++; } }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" width="${px || 240}" height="${px || 240}" shape-rendering="crispEdges" role="img" aria-label="QR-Code"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+}
+
+/* ============ Geld: Trade Republic, Konten mit IBAN, Bargeld ============ */
+const INV_TYPES = ['Sparbuch / Sparkonto', 'ETF-Sparplan', 'Fonds', 'Aktien', 'Bausparvertrag', 'Festgeld / Sparbrief', 'Kindervorsorge / Versicherung', 'Gold / Krypto', 'Tagesgeld', 'Kinderkonto / Girokonto', 'Sonstiges'];
+const KINDS = [
+  ['depot', 'Trade Republic & Depots', 'Depot', '#6b5bd2'],
+  ['konto', 'Konten', 'Konto', '#2f7d6b'],
+  ['bar', 'Bargeld', 'Bargeld', '#c9973a'],
+  ['anlage', 'Weitere Anlagen', 'Anlage', '#5b6b7a']
+];
+const BANKS = ['Trade Republic', 'TARGOBANK', 'Sparkasse', 'Volksbank / Raiffeisenbank', 'ING', 'DKB', 'Commerzbank', 'Deutsche Bank', 'Postbank', 'comdirect', 'Consorsbank', 'N26', 'HypoVereinsbank', 'Santander', 'Scalable Capital'];
+const KONTO_ARTEN = ['Kinderkonto / Girokonto', 'Tagesgeld', 'Sparkonto', 'Festgeld', 'Bausparvertrag', 'Sonstiges'];
+const RHYTHMS = [['monatlich', 1], ['alle 2 Wochen', 26 / 12], ['wöchentlich', 52 / 12], ['vierteljährlich', 1 / 3]];
+const kindOf = it => (it && it.kind) || 'anlage';
+const kindCol = k => (KINDS.find(x => x[0] === k) || KINDS[3])[3];
+const kindWord = it => (KINDS.find(x => x[0] === kindOf(it)) || KINDS[3])[2];
+function eur2num(v) {
+  let s = String(v == null ? '' : v).replace(/[€\s]/g, '');
+  if (!s) return null;
+  if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+  else if ((s.match(/\./g) || []).length > 1) s = s.replace(/\./g, '');
+  const n = parseFloat(s); return Number.isFinite(n) ? n : null;
+}
+const fmtEur = n => (n == null ? '–' : n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: Math.abs(n) >= 1000 ? 0 : 2 }));
+const fmtEurX = n => (n == null ? '–' : n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' }));
+const num0 = v => eur2num(v) || 0;
+const numStr = n => String(Math.round(n * 100) / 100).replace('.', ',');
+const ownerName = () => [S.profile.vorname, S.profile.nachname].filter(Boolean).join(' ');
+const rhythmFactor = r => (RHYTHMS.find(x => x[0] === r) || RHYTHMS[0])[1];
+const posMonthly = x => num0(x.rate) * rhythmFactor(x.rhythmus || 'monatlich');
+const barSum = it => Math.round((it.buchungen || []).reduce((s, b) => s + (Number(b.betrag) || 0), 0) * 100) / 100;
+function valOf(it) {
+  const k = kindOf(it);
+  if (k === 'bar') return barSum(it);
+  if (k === 'depot') return num0(it.wert) + num0(it.cash);
+  return num0(it.wert);
+}
+function monthlyOf(it) {
+  const k = kindOf(it); if (k === 'bar') return 0;
+  const pos = it.positionen || [];
+  if (k === 'depot' && pos.some(x => num0(x.rate) > 0)) return pos.reduce((s, x) => s + posMonthly(x), 0);
+  return num0(it.einzahlung);
+}
+function rateOf(it) {
+  const r = eur2num(it.rendite); if (r != null) return r;
+  return kindOf(it) === 'depot' ? (eur2num(S.profile.investRate) || 0) : 0;
+}
+function projectGrow(W, P, ratePct, months) {
+  const r = ratePct / 100 / 12;
+  if (months <= 0) return W;
+  if (!r) return W + P * months;
+  const g = Math.pow(1 + r, months);
+  return W * g + P * (g - 1) / r;
+}
+function invProject(it, months) {
+  const k = kindOf(it);
+  if (k === 'bar') return valOf(it);
+  const W = k === 'depot' ? num0(it.wert) : valOf(it);
+  return projectGrow(W, monthlyOf(it), rateOf(it), months) + (k === 'depot' ? num0(it.cash) : 0);
+}
+const monthsTo18 = () => {
+  const b = S.profile.geburtsdatum; if (!b) return null;
+  const d = parseD(b); d.setFullYear(d.getFullYear() + 18);
+  return Math.max(0, Math.round((d - today0()) / 864e5 / 30.4375));
+};
+const geldTotal = () => S.profile.invest.reduce((s, it) => s + valOf(it), 0);
+function pushVerlauf(it, datum, wert) {
+  it.verlauf = (it.verlauf || []).filter(x => x.datum !== datum);
+  it.verlauf.push({ datum, wert: Math.round(wert * 100) / 100 });
+  it.verlauf.sort((a, b) => a.datum.localeCompare(b.datum));
+}
+
+/* ---- IBAN und ISIN ---- */
+const IBAN_LEN = { DE: 22, AT: 20, CH: 21, LI: 21, LU: 20, NL: 18, BE: 16, FR: 27, ES: 24, IT: 27, PT: 25, IE: 22, GB: 22, DK: 18, SE: 24, NO: 15, PL: 28, CZ: 24, FI: 18, GR: 27, HU: 28, HR: 21, SI: 19, SK: 24, LT: 20, LV: 21, EE: 20, MT: 31, CY: 28, BG: 22, RO: 24, TR: 26, IS: 26, MC: 27 };
+const IBAN_CC = { DE: 'Deutschland', AT: 'Österreich', CH: 'Schweiz', LI: 'Liechtenstein', LU: 'Luxemburg', NL: 'Niederlande', BE: 'Belgien', FR: 'Frankreich', ES: 'Spanien', IT: 'Italien', PT: 'Portugal', IE: 'Irland', GB: 'Vereinigtes Königreich', DK: 'Dänemark', SE: 'Schweden', NO: 'Norwegen', PL: 'Polen', CZ: 'Tschechien', FI: 'Finnland', GR: 'Griechenland', HU: 'Ungarn', HR: 'Kroatien' };
+const ibanClean = s => String(s || '').replace(/[\s-]+/g, '').toUpperCase();
+const ibanFmt = s => ibanClean(s).replace(/(.{4})(?=.)/g, '$1 ');
+function ibanMod97(c) {
+  const t = c.slice(4) + c.slice(0, 4); let rem = 0;
+  for (const ch of t) { const v = /\d/.test(ch) ? ch : String(ch.charCodeAt(0) - 55); for (const d of v) rem = (rem * 10 + Number(d)) % 97; }
+  return rem;
+}
+function ibanCheck(s) {
+  const c = ibanClean(s);
+  if (!c) return { ok: false, empty: true, state: '', msg: '' };
+  if (!/^[A-Z0-9]+$/.test(c) || !/^[A-Z]{0,2}$/.test(c.slice(0, 2)) || (c.length > 2 && !/^\d{1,2}$/.test(c.slice(2, 4)))) return { ok: false, state: 'bad', msg: 'Die IBAN beginnt mit zwei Buchstaben und zwei Ziffern, z. B. DE12 …' };
+  if (c.length < 5) return { ok: false, state: 'wip', msg: 'IBAN wird eingegeben …' };
+  if (!/^[A-Z]{2}\d{2}[A-Z0-9]+$/.test(c)) return { ok: false, state: 'bad', msg: 'Die IBAN beginnt mit zwei Buchstaben und zwei Ziffern, z. B. DE12 …' };
+  const cc = c.slice(0, 2), L = IBAN_LEN[cc];
+  if (L && c.length < L) return { ok: false, state: 'wip', msg: `${c.length} von ${L} Zeichen` };
+  if (L && c.length > L) return { ok: false, state: 'bad', msg: `Zu lang: ${IBAN_CC[cc] || cc} hat ${L} Zeichen, eingegeben sind ${c.length}.` };
+  if (!L && (c.length < 15 || c.length > 34)) return { ok: false, state: 'bad', msg: 'Eine IBAN hat 15 bis 34 Zeichen.' };
+  if (ibanMod97(c) !== 1) return { ok: false, state: 'bad', msg: 'Die Prüfziffer stimmt nicht. Bitte noch einmal prüfen.' };
+  return { ok: true, state: 'ok', msg: `✓ Gültige IBAN (${IBAN_CC[cc] || cc})`, cc };
+}
+function ibanField(values, label) {
+  const lab = label || 'IBAN';
+  const inp = h('input', { type: 'text', placeholder: 'DE00 0000 0000 0000 0000 00', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', 'aria-label': lab });
+  const hint = h('small', { class: 'ibanhint' });
+  inp.value = ibanFmt(values.iban || '');
+  const upd = () => { const r = ibanCheck(inp.value); hint.textContent = r.msg; hint.className = 'ibanhint ' + r.state; };
+  inp.addEventListener('input', () => {
+    const pos = inp.selectionStart == null ? inp.value.length : inp.selectionStart;
+    const before = inp.value.slice(0, pos).replace(/[\s-]/g, '').length, f = ibanFmt(inp.value);
+    inp.value = f;
+    let n = 0, i = 0; for (; i < f.length && n < before; i++) if (f[i] !== ' ') n++;
+    try { inp.setSelectionRange(i, i); } catch (e) { /* ignore */ }
+    upd();
+  });
+  upd();
+  const el = h('label', { class: 'field' }, h('span', { class: 'lbl' }, lab), inp, hint);
+  el._val = () => ibanClean(inp.value);
+  return el;
+}
+function isinOk(s) {
+  s = String(s || '').toUpperCase().replace(/\s/g, '');
+  if (!/^[A-Z]{2}[A-Z0-9]{9}\d$/.test(s)) return false;
+  const d = s.split('').map(c => /\d/.test(c) ? c : String(c.charCodeAt(0) - 55)).join('');
+  let sum = 0, alt = false;
+  for (let i = d.length - 1; i >= 0; i--) { let n = Number(d[i]); if (alt) { n *= 2; if (n > 9) n -= 9; } sum += n; alt = !alt; }
+  return sum % 10 === 0;
+}
+function nextMonthly(day) {
+  const d = Math.min(28, Math.max(1, Number(day) || 1)), t = today0();
+  let c = new Date(t.getFullYear(), t.getMonth(), d);
+  if (c < t) c = new Date(t.getFullYear(), t.getMonth() + 1, d);
+  return `${c.getFullYear()}-${pad2(c.getMonth() + 1)}-${pad2(c.getDate())}`;
+}
+
+/* ---- Eingabe ---- */
+function geldFields(kind, isNew) {
+  const nf = (key, label, extra) => Object.assign({ key, label, inputmode: 'decimal' }, extra || {});
+  const ib = lab => ({ key: 'iban', type: 'custom', build: v => ibanField(v, lab) });
+  const inh = { key: 'inhaber', label: 'Kontoinhaber', ph: ownerName() || 'Name des Inhabers', cap: 'words' };
+  if (kind === 'depot') return [
+    { key: 'name', label: 'Bezeichnung', required: true, cap: 'words' },
+    { key: 'institut', label: 'Broker / Bank', list: BANKS, cap: 'words' },
+    nf('wert', 'Depotwert (€)', { ph: 'z. B. 1.250,00', hint: 'Der Gesamtwert des Portfolios, so wie in der Trade-Republic-App angezeigt. Die App holt keine Kurse, du trägst den Stand selbst ein.' }),
+    nf('cash', 'Cash auf dem Verrechnungskonto (€, optional)', { ph: 'z. B. 40,00' }),
+    ib('IBAN des Verrechnungskontos (optional)'), inh,
+    nf('einzahlung', 'Sparrate gesamt pro Monat (€)', { ph: 'z. B. 25', hint: 'Nur nötig, wenn du unten keine einzelnen Sparpläne anlegst.' }),
+    nf('rendite', 'Erwartete Rendite (% pro Jahr, optional)', { ph: 'z. B. 5', hint: 'Nur für die Hochrechnung. Eine Prognose ist keine Garantie.' }),
+    { key: 'start', label: 'Depot eröffnet am', type: 'date' },
+    { key: 'notiz', label: 'Notiz', type: 'textarea' }
+  ];
+  if (kind === 'konto') return [
+    { key: 'name', label: 'Bezeichnung', required: true, ph: 'z. B. Kinderkonto', cap: 'words' },
+    { key: 'kontoart', label: 'Art des Kontos', type: 'select', options: KONTO_ARTEN },
+    { key: 'institut', label: 'Bank', list: BANKS, cap: 'words' },
+    ib('IBAN'), inh,
+    { key: 'bic', label: 'BIC (optional)', cap: 'characters', ph: 'z. B. TRBKDEBBXXX' },
+    nf('wert', 'Kontostand (€)', { ph: 'z. B. 350,00' }),
+    nf('einzahlung', 'Monatlicher Dauerauftrag (€, optional)', { ph: 'z. B. 25' }),
+    nf('rendite', 'Zins (% pro Jahr, optional)', { ph: 'z. B. 2' }),
+    { key: 'start', label: 'Eröffnet am', type: 'date' },
+    { key: 'notiz', label: 'Notiz', type: 'textarea' }
+  ];
+  if (kind === 'bar') return [
+    { key: 'name', label: 'Bezeichnung', required: true, ph: 'z. B. Spardose', cap: 'words' }
+  ].concat(isNew ? [nf('anfang', 'Aktueller Bestand (€)', { ph: 'z. B. 80', hint: 'Das wird als erste Buchung „Anfangsbestand“ eingetragen. Danach buchst du Geschenke und Ausgaben einzeln.' })] : [])
+    .concat([{ key: 'notiz', label: 'Notiz', type: 'textarea', ph: 'z. B. liegt im Tresor' }]);
+  return [
+    { key: 'name', label: 'Bezeichnung', required: true, ph: 'z. B. ETF-Sparplan MSCI World', cap: 'words' },
+    { key: 'typ', label: 'Art der Anlage', type: 'select', options: INV_TYPES },
+    { key: 'institut', label: 'Bank / Anbieter', list: BANKS, cap: 'words' },
+    nf('wert', 'Aktueller Wert (€)', { ph: 'z. B. 1.250,00' }),
+    nf('einzahlung', 'Monatliche Einzahlung (€)', { ph: 'z. B. 25' }),
+    nf('rendite', 'Erwartete Rendite / Zins (% pro Jahr, optional)', { ph: 'z. B. 3,5', hint: 'Nur für die Hochrechnung. Eine Prognose ist keine Garantie.' }),
+    { key: 'start', label: 'Start / Eröffnung', type: 'date' },
+    { key: 'faellig', label: 'Fällig / Laufzeitende (optional)', type: 'date' },
+    { key: 'notiz', label: 'Notiz', type: 'textarea', ph: 'z. B. Ansprechpartner, Vertragsnummer (nur die letzten Stellen)' }
+  ];
+}
+const GELD_DEFAULTS = {
+  depot: { name: 'Trade Republic Depot', institut: 'Trade Republic' },
+  konto: { name: 'Kinderkonto', kontoart: KONTO_ARTEN[0] },
+  bar: { name: 'Bargeld / Spardose' },
+  anlage: { typ: INV_TYPES[0] }
+};
+function editGeld(item, kindArg) {
+  const p = S.profile, isNew = !item, kind = isNew ? kindArg : kindOf(item), fields = geldFields(kind, isNew);
+  const word = { depot: 'Depot', konto: 'Konto', bar: 'Bargeld', anlage: 'Anlage' }[kind];
+  openSheet({
+    title: isNew ? word + ' hinzufügen' : word + ' bearbeiten', fields,
+    values: item || Object.assign({ start: isoToday() }, GELD_DEFAULTS[kind]),
+    onSave: async v => {
+      if (v.iban) { if (!ibanCheck(v.iban).ok) { toast('Die IBAN ist nicht gültig'); return false; } v.iban = ibanClean(v.iban); }
+      if (v.bic) v.bic = ibanClean(v.bic);
+      for (const f of fields) if (f.inputmode === 'decimal' && v[f.key] && eur2num(v[f.key]) == null) { toast('„' + f.label.replace(/ \(.*$/, '') + '“ ist keine Zahl'); return false; }
+      let it = item;
+      const anfang = eur2num(v.anfang); delete v.anfang;
+      if (isNew) {
+        it = Object.assign({ id: uid(), kind, verlauf: [] }, v);
+        if (kind === 'bar') { it.buchungen = []; if (anfang) it.buchungen.push({ id: uid(), datum: isoToday(), betrag: anfang, grund: 'Anfangsbestand', art: 'anfang' }); }
+        else { if (kind === 'depot') it.positionen = []; if (v.wert || v.cash) pushVerlauf(it, isoToday(), valOf(it)); }
+        p.invest.push(it);
+      } else {
+        const old = valOf(it); Object.assign(it, v);
+        if (kind !== 'bar') { const nu = valOf(it); if (Math.abs(nu - old) > 0.004) pushVerlauf(it, isoToday(), nu); }
+      }
+      await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
+    },
+    onDelete: isNew ? null : async () => { p.invest.splice(p.invest.indexOf(item), 1); await persist('profile'); if (viewer) viewer.close(); render(); }
+  });
+}
+function addGeld() {
+  actionSheet('Was möchtest du erfassen?', 'Du kannst später jederzeit weitere Einträge hinzufügen.', [
+    { label: 'Trade Republic Depot', onclick: () => editGeld(null, 'depot') },
+    { label: 'Konto mit IBAN', onclick: () => editGeld(null, 'konto') },
+    { label: 'Bargeld / Spardose', onclick: () => editGeld(null, 'bar') },
+    { label: 'Andere Anlage (Sparbuch, Bausparer …)', ghost: true, onclick: () => editGeld(null, 'anlage') }
+  ]);
+}
+function newStand(it) {
+  const k = kindOf(it), depot = k === 'depot';
+  openSheet({
+    title: 'Neuer Stand', values: { datum: isoToday(), wert: it.wert || '', cash: it.cash || '' },
+    fields: [{ key: 'datum', label: 'Datum', type: 'date', required: true }, { key: 'wert', label: depot ? 'Depotwert (€)' : k === 'konto' ? 'Kontostand (€)' : 'Wert (€)', required: true, inputmode: 'decimal' }]
+      .concat(depot ? [{ key: 'cash', label: 'Cash auf dem Verrechnungskonto (€)', inputmode: 'decimal' }] : []),
+    onSave: async v => {
+      const w = eur2num(v.wert); if (w == null) { toast('Der Wert ist keine Zahl'); return false; }
+      if (v.cash && eur2num(v.cash) == null) { toast('Das Cash ist keine Zahl'); return false; }
+      const last = (it.verlauf || []).length ? it.verlauf[it.verlauf.length - 1].datum : '';
+      const total = depot ? w + num0(v.cash) : w;
+      if (!last || v.datum >= last) { it.wert = v.wert; if (depot) it.cash = v.cash; }
+      pushVerlauf(it, v.datum, total);
+      await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
+    }
+  });
+}
+function posSheet(it, pos) {
+  const isNew = !pos;
+  openSheet({
+    title: isNew ? 'Position hinzufügen' : 'Position bearbeiten',
+    values: pos || { rhythmus: 'monatlich', tag: '1' },
+    fields: [
+      { key: 'name', label: 'Name', required: true, ph: 'z. B. iShares Core MSCI World', cap: 'words' },
+      { key: 'isin', label: 'ISIN (optional)', cap: 'characters', ph: 'z. B. IE00B4L5Y983', hint: 'Die zwölfstellige Kennung steht in der App beim Wertpapier. Die App prüft die Prüfziffer.' },
+      { key: 'wert', label: 'Aktueller Wert der Position (€, optional)', inputmode: 'decimal', ph: 'z. B. 800' },
+      { key: 'rate', label: 'Sparplan-Rate (€, optional)', inputmode: 'decimal', ph: 'z. B. 25' },
+      { key: 'rhythmus', label: 'Rhythmus', type: 'select', options: RHYTHMS.map(r => r[0]) },
+      { key: 'tag', label: 'Ausführung am (Tag im Monat, bei monatlich und vierteljährlich)', type: 'select', options: Array.from({ length: 28 }, (_, i) => String(i + 1)) },
+      { key: 'notiz', label: 'Notiz', type: 'textarea' }
+    ],
+    onSave: async v => {
+      if (v.isin) { v.isin = v.isin.toUpperCase().replace(/\s/g, ''); if (!isinOk(v.isin)) { toast('Die ISIN ist nicht gültig'); return false; } }
+      for (const k of ['wert', 'rate']) if (v[k] && eur2num(v[k]) == null) { toast('Bitte eine Zahl eingeben'); return false; }
+      it.positionen = it.positionen || [];
+      if (isNew) it.positionen.push(Object.assign({ id: uid() }, v)); else Object.assign(pos, v);
+      await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
+    },
+    onDelete: isNew ? null : async () => { it.positionen.splice(it.positionen.indexOf(pos), 1); await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it); }
+  });
+}
+const BAR_ANLAESSE = ['Geburtstag', 'Weihnachten', 'Ostern', 'Taufe', 'Taschengeld', 'Zahnfee', 'Sonstiges'];
+function editBuchung(it, b, preset) {
+  const isNew = !b, art = b ? b.art : preset;
+  const kontoZiele = S.profile.invest.filter(x => kindOf(x) === 'konto' || kindOf(x) === 'anlage');
+  const names = kontoZiele.map((x, i) => (x.name || 'Konto') + (kontoZiele.findIndex(y => (y.name || 'Konto') === (x.name || 'Konto')) < i ? ' (' + (i + 1) + ')' : ''));
+  const people = [...new Set([...(S.profile.familie || []).map(m => m.name), ...S.profile.kontakte.map(c => c.name)].filter(Boolean))];
+  const title = isNew ? { ein: 'Geld erhalten', aus: 'Ausgabe', konto: 'Aufs Konto einzahlen' }[art] : art === 'anfang' ? 'Anfangsbestand' : b.betrag < 0 ? 'Ausgabe' : 'Geld erhalten';
+  const fields = [{ key: 'betrag', label: 'Betrag (€)', required: true, inputmode: 'decimal', ph: 'z. B. 20' }, { key: 'datum', label: 'Datum', type: 'date', required: true }];
+  if (art === 'ein') fields.push({ key: 'von', label: 'Von wem', list: people, cap: 'words', ph: 'z. B. Oma' }, { key: 'grund', label: 'Anlass', list: BAR_ANLAESSE, cap: 'words', ph: 'z. B. Geburtstag' });
+  else if (art === 'aus') fields.push({ key: 'grund', label: 'Wofür', cap: 'words', ph: 'z. B. Spielzeug' });
+  else if (art === 'konto' && isNew) fields.push({ key: 'ziel', label: 'Einzahlen auf', type: 'select', options: names });
+  openSheet({
+    title, saveLabel: 'Sichern', fields,
+    values: b ? Object.assign({}, b, { betrag: numStr(Math.abs(b.betrag)) }) : { datum: isoToday() },
+    onSave: async v => {
+      const amt = eur2num(v.betrag);
+      if (amt == null || amt <= 0) { toast('Bitte einen Betrag größer als 0 eingeben'); return false; }
+      const sign = art === 'ein' || art === 'anfang' ? 1 : -1, signed = Math.round(amt * sign * 100) / 100;
+      if (isNew) {
+        const nb = { id: uid(), datum: v.datum, betrag: signed, art, von: v.von || '', grund: v.grund || '' };
+        if (art === 'konto') {
+          const tg = kontoZiele[names.indexOf(v.ziel)]; if (!tg) { toast('Lege zuerst ein Konto an'); return false; }
+          tg.wert = numStr(num0(tg.wert) + amt); pushVerlauf(tg, v.datum, valOf(tg));
+          nb.ziel = tg.id; nb.grund = 'Einzahlung auf ' + (tg.name || 'Konto');
+        }
+        it.buchungen.push(nb);
+      } else Object.assign(b, { datum: v.datum, betrag: signed, von: v.von != null ? v.von : b.von, grund: v.grund != null ? v.grund : b.grund });
+      await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
+    },
+    onDelete: isNew ? null : async () => { it.buchungen.splice(it.buchungen.indexOf(b), 1); await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it); }
+  });
+}
+
+/* ---- IBAN-Karte, Teilen, QR (GiroCode) ---- */
+function kontoText(it) {
+  const nm = childName();
+  return [`Kontoverbindung für ${nm}`, `Kontoinhaber: ${it.inhaber || ownerName() || nm}`, `IBAN: ${ibanFmt(it.iban)}`, it.bic ? `BIC: ${it.bic}` : '', it.institut ? `Bank: ${it.institut}` : '', `Verwendungszweck: Geschenk für ${nm}`].filter(Boolean).join('\n');
+}
+function epcPayload(it, amount, zweck) {
+  const a = eur2num(amount), name = (it.inhaber || ownerName() || it.name || 'Empfänger').slice(0, 70);
+  return ['BCD', '002', '1', 'SCT', ibanClean(it.bic || ''), name, ibanClean(it.iban), a != null && a > 0 && a < 1e9 ? 'EUR' + a.toFixed(2) : '', '', '', String(zweck || '').slice(0, 140), ''].join('\n');
+}
+function qrSheet(it) {
+  if (!ibanCheck(it.iban).ok) { toast('Keine gültige IBAN hinterlegt'); return; }
+  const box = h('div', { class: 'qrbox' });
+  const amount = h('input', { type: 'text', inputmode: 'decimal', placeholder: 'Betrag (optional)', autocomplete: 'off' });
+  const zweck = h('input', { type: 'text', autocomplete: 'off', value: 'Geschenk für ' + childName() });
+  const upd = () => { try { box.innerHTML = qrSvg(epcPayload(it, amount.value, zweck.value), 260); } catch (e) { box.textContent = 'QR-Code nicht möglich: ' + (e.message || e); } };
+  amount.addEventListener('input', upd); zweck.addEventListener('input', upd); upd();
+  openFull({ title: 'Überweisungs-QR', body: h('div', { class: 'stack' },
+    h('p', { class: 'mute' }, 'Familie und Freunde scannen den Code in ihrer Banking-App (GiroCode / „Überweisung per QR“). Name, IBAN und Verwendungszweck sind schon ausgefüllt.'),
+    box,
+    h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Betrag (€)'), amount),
+    h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Verwendungszweck'), zweck),
+    h('p', { class: 'fine' }, ibanFmt(it.iban))) });
+}
+function ibanCard(it) {
+  const r = ibanCheck(it.iban), c = ibanClean(it.iban);
+  return h('div', { class: 'card stack' },
+    h('div', { class: 'ibanhead' }, h('small', { class: 'mute' }, 'IBAN'), r.ok ? null : h('small', { class: 'ibanhint bad' }, 'Prüfziffer ungültig')),
+    h('div', { class: 'ibanbig', role: 'button', tabindex: '0', onclick: () => copyText(ibanFmt(c)) }, ibanFmt(c)),
+    h('div', { class: 'btn-row' },
+      h('button', { class: 'btn', type: 'button', onclick: () => copyText(ibanFmt(c)) }, 'IBAN kopieren'),
+      h('button', { class: 'btn ghost', type: 'button', onclick: () => shareText('Kontoverbindung', kontoText(it)) }, 'Teilen'),
+      r.ok ? h('button', { class: 'btn ghost', type: 'button', onclick: () => qrSheet(it) }, 'QR-Code') : null),
+    kv('Kontoinhaber', it.inhaber || ownerName()), kv('BIC', it.bic), kv('Bank', it.institut),
+    c.startsWith('DE') && c.length === 22 ? kv('Bankleitzahl · Konto', c.slice(4, 12) + ' · ' + c.slice(12).replace(/^0+(?=\d)/, '')) : null);
+}
+
+/* ---- Detailansichten ---- */
+function barChartPts(it) {
+  const bs = (it.buchungen || []).slice().sort((a, b) => a.datum.localeCompare(b.datum)); let cum = 0; const by = {};
+  bs.forEach(b => { cum += Number(b.betrag) || 0; by[b.datum] = cum; });
+  return Object.keys(by).sort().map(d => ({ t: parseD(d).getTime(), y: Math.round(by[d] * 100) / 100 }));
+}
+function verlaufCard(it) {
+  const vl = (it.verlauf || []).slice().sort((a, b) => a.datum.localeCompare(b.datum));
+  return [
+    vl.length >= 2 ? h('div', { class: 'card' }, h('h2', null, 'Wertentwicklung'), h('div', { html: chartSvg(vl.map(x => ({ t: parseD(x.datum).getTime(), y: x.wert })), v => fmtEur(v)) })) : null,
+    vl.length ? h('div', { class: 'card' }, h('h2', null, 'Verlauf'), vl.slice().reverse().map(x => li(async () => {
+      if (!confirm(`Stand vom ${fmtD(x.datum)} löschen?`)) return;
+      it.verlauf = it.verlauf.filter(y => y !== x && !(y.datum === x.datum && y.wert === x.wert)); await persist('profile'); if (viewer) viewer.close(); render(); openGeld(it);
+    }, '', liTxt(fmtD(x.datum), null), h('b', { class: 'amt' }, fmtEurX(x.wert))))) : null
+  ];
+}
+function metricsFor(it) {
+  const m = monthsTo18(), k = kindOf(it), mo = monthlyOf(it);
+  const cell = (l, v, wide) => h('div', wide ? { style: 'flex:1 1 100%' } : null, h('small', null, l), h('b', null, v));
+  const out = [cell(k === 'konto' ? 'Kontostand' : k === 'depot' ? 'Gesamt' : 'Aktueller Wert', fmtEurX(valOf(it)), true)];
+  if (k === 'depot') { out.push(cell('Depotwert', fmtEur(num0(it.wert)))); if (num0(it.cash)) out.push(cell('Cash', fmtEur(num0(it.cash)))); }
+  if (mo) out.push(cell('Pro Monat', fmtEurX(mo)));
+  if (m != null && k !== 'bar' && (mo || rateOf(it))) out.push(cell('Prognose mit 18', fmtEur(invProject(it, m))));
+  return h('div', { class: 'card' }, h('div', { class: 'metric' }, out));
+}
+function geldBody(it) {
+  const k = kindOf(it), stack = h('div', { class: 'stack' });
+  stack.append(metricsFor(it));
+  if (k === 'bar') {
+    const bs = (it.buchungen || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id));
+    const sums = {}; (it.buchungen || []).forEach(b => { if (b.art === 'ein' && b.von && b.betrag > 0) sums[b.von] = (sums[b.von] || 0) + b.betrag; });
+    const top = Object.entries(sums).sort((a, b) => b[1] - a[1]).slice(0, 8);
+    const ziele = S.profile.invest.some(x => kindOf(x) === 'konto' || kindOf(x) === 'anlage');
+    stack.append(h('div', { class: 'btn-row' },
+      h('button', { class: 'btn', type: 'button', onclick: () => editBuchung(it, null, 'ein') }, '+ Geld erhalten'),
+      h('button', { class: 'btn ghost', type: 'button', onclick: () => editBuchung(it, null, 'aus') }, '− Ausgabe'),
+      ziele ? h('button', { class: 'btn ghost', type: 'button', onclick: () => editBuchung(it, null, 'konto') }, 'Aufs Konto einzahlen') : null));
+    if (top.length) stack.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('h2', null, 'Geschenke nach Person'), h('div', { class: 'legend' }, top.map(([n, v]) => h('span', null, h('i', { style: 'background:' + kindCol('bar') }), `${n} ${fmtEur(v)}`)))));
+    const pts = barChartPts(it);
+    if (pts.length >= 2) stack.append(h('div', { class: 'card' }, h('h2', null, 'Bestand im Zeitverlauf'), h('div', { html: chartSvg(pts, v => fmtEur(v)) })));
+    stack.append(h('div', { class: 'card' }, h('h2', null, 'Buchungen'), bs.length ? bs.map(b => li(() => editBuchung(it, b), '', h('span', { class: 'hubico', html: ICON.coins }),
+      liTxt(b.grund || (b.betrag < 0 ? 'Ausgabe' : 'Einnahme'), [fmtD(b.datum), b.von].filter(Boolean).join(' · ')),
+      h('b', { class: 'amt ' + (b.art === 'konto' ? '' : b.betrag < 0 ? 'neg' : 'pos') }, (b.betrag > 0 ? '+' : '−') + fmtEurX(Math.abs(b.betrag)).replace('-', '')))) : h('p', { class: 'empty' }, 'Noch keine Buchungen.')));
+    stack.append(h('p', { class: 'fine' }, 'Eine Einzahlung aufs Konto bleibt dort gebucht, auch wenn du die Buchung hier löschst.'));
+    return stack;
+  }
+  if (k === 'depot' || k === 'konto') { if (it.iban) stack.append(ibanCard(it)); }
+  if (k === 'depot') {
+    const pos = it.positionen || [], withV = pos.filter(x => num0(x.wert) > 0), sumV = withV.reduce((s, x) => s + num0(x.wert), 0);
+    stack.append(sectionHead('Positionen & Sparpläne', addBtn('Position', () => posSheet(it))));
+    const nexts = pos.filter(x => num0(x.rate) > 0 && (x.rhythmus || 'monatlich') === 'monatlich').map(x => ({ x, d: nextMonthly(x.tag) })).sort((a, b) => a.d.localeCompare(b.d));
+    if (nexts.length) stack.append(h('div', { class: 'card stack', style: 'gap:3px' }, h('small', { class: 'mute' }, 'Nächster Sparplan'), h('b', null, `${fmtD(nexts[0].d)} · ${rel(nexts[0].d)}`), h('small', { class: 'mute' }, `${nexts[0].x.name}: ${fmtEurX(num0(nexts[0].x.rate))}`)));
+    if (withV.length >= 2) stack.append(h('div', { class: 'card stack', style: 'gap:8px' },
+      h('div', { class: 'stackbar' }, withV.map((x, i) => h('i', { style: `flex:${num0(x.wert)};background:${INV_POS_COL[i % INV_POS_COL.length]}`, title: x.name }))),
+      h('div', { class: 'legend' }, withV.map((x, i) => h('span', null, h('i', { style: 'background:' + INV_POS_COL[i % INV_POS_COL.length] }), `${x.name} ${Math.round(num0(x.wert) / sumV * 100)} %`)))));
+    stack.append(h('div', { class: 'card' }, pos.length ? pos.map(x => li(() => posSheet(it, x), '', h('span', { class: 'hubico', html: ICON.coins }),
+      liTxt(x.name, [x.isin, num0(x.rate) ? `${fmtEurX(num0(x.rate))} ${x.rhythmus || 'monatlich'}${(x.rhythmus || 'monatlich') === 'monatlich' || x.rhythmus === 'vierteljährlich' ? ' am ' + (x.tag || 1) + '.' : ''}` : ''].filter(Boolean).join(' · ')),
+      x.wert ? h('b', { class: 'amt' }, fmtEur(num0(x.wert))) : null, chev())) : h('p', { class: 'empty' }, 'Lege die ETFs, Aktien und Sparpläne an, die im Depot liegen. Mit Sparrate, Rhythmus und Ausführungstag. Die Werte sind optional.')));
+    if (sumV && Math.abs(sumV - num0(it.wert)) > 1 && num0(it.wert)) stack.append(h('p', { class: 'fine' }, `Positionen mit Wert: ${fmtEur(sumV)} von ${fmtEur(num0(it.wert))} Depotwert.`));
+  }
+  if (k === 'konto' || k === 'anlage') stack.append(h('div', { class: 'card' },
+    kv('Art', k === 'konto' ? it.kontoart : it.typ), kv('Bank / Anbieter', k === 'anlage' ? it.institut : ''), kv('Zins / Rendite', it.rendite ? it.rendite + ' % p. a.' : ''),
+    kv('Dauerauftrag', k === 'konto' && it.einzahlung ? fmtEurX(num0(it.einzahlung)) + ' pro Monat' : ''), kv('Start', it.start ? fmtD(it.start) : ''), kv('Fällig', it.faellig ? fmtD(it.faellig) : ''), kv('Notiz', it.notiz)));
+  if (k === 'depot') stack.append(h('div', { class: 'card' }, kv('Eröffnet', it.start ? fmtD(it.start) : ''), kv('Rendite-Annahme', it.rendite ? it.rendite + ' % p. a.' : (eur2num(S.profile.investRate) ? S.profile.investRate + ' % p. a. (Szenario)' : '')), kv('Notiz', it.notiz)));
+  stack.append(h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => newStand(it) }, 'Neuer Stand'), h('button', { class: 'btn ghost', type: 'button', onclick: () => editGeld(it) }, 'Bearbeiten')));
+  verlaufCard(it).forEach(x => x && stack.append(x));
+  if (k === 'depot') stack.append(h('p', { class: 'fine' }, 'Die App ist nicht mit Trade Republic verbunden und holt keine Kurse. Trage den Stand selbst ein, wenn du ihn festhalten möchtest.'));
+  return stack;
+}
+const INV_POS_COL = ['#6b5bd2', '#3b8fc4', '#c9973a', '#d0684f', '#2f7d6b', '#b05aa8', '#8a9a4b', '#5b6b7a'];
+function openGeld(it) {
+  if (viewer) viewer.close();
+  viewer = openFull({ title: it.name || kindWord(it), body: geldBody(it), right: h('button', { class: 'nav-btn', type: 'button', onclick: () => editGeld(it) }, 'Bearbeiten'), onClose: () => { viewer = null; } });
+}
+const geldSub = it => {
+  const k = kindOf(it), mo = monthlyOf(it);
+  if (k === 'bar') return plural((it.buchungen || []).length, 'Buchung', 'Buchungen');
+  if (k === 'depot') return [it.institut, (it.positionen || []).length ? plural(it.positionen.length, 'Position', 'Positionen') : '', mo ? fmtEur(mo) + ' mtl.' : ''].filter(Boolean).join(' · ');
+  if (k === 'konto') return [it.kontoart, it.iban ? 'IBAN …' + ibanClean(it.iban).slice(-4) : '', it.institut].filter(Boolean).join(' · ');
+  return [it.typ, it.institut, mo ? fmtEur(mo) + ' mtl.' : ''].filter(Boolean).join(' · ');
+};
+
+/* ---- Übersicht ---- */
+function viewInvest() {
+  const p = S.profile, arr = p.invest, wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Geld', addBtn('Eintrag', addGeld)));
+  const total = geldTotal(), monthly = arr.reduce((s, it) => s + monthlyOf(it), 0);
+  const m = monthsTo18(), proj = m != null ? arr.reduce((s, it) => s + invProject(it, m), 0) : null, ziel = eur2num(p.investZiel);
+  const byKind = KINDS.map(([k, label, one, col]) => ({ k, label, one, col, items: arr.filter(it => kindOf(it) === k), sum: arr.filter(it => kindOf(it) === k).reduce((s, it) => s + valOf(it), 0) }));
+  if (!arr.length) {
+    wrap.append(h('div', { class: 'card stack' },
+      h('p', { class: 'empty' }, 'Hier laufen alle Geldthemen zusammen: das Trade-Republic-Depot mit Sparplänen, Konten mit IBAN und das Bargeld aus Geschenken. Die App rechnet auf den 18. Geburtstag hoch.')));
+    wrap.append(h('div', { class: 'tiles' },
+      tile('violet', ICON.coins, 'Trade Republic Depot', 'Depotwert, Sparpläne, Cash', () => editGeld(null, 'depot')),
+      tile('', ICON.coins, 'Konto mit IBAN', 'IBAN prüfen, teilen, QR-Code', () => editGeld(null, 'konto')),
+      tile('gold', ICON.coins, 'Bargeld', 'Spardose und Geldgeschenke', () => editGeld(null, 'bar')),
+      tile('', ICON.coins, 'Andere Anlage', 'Sparbuch, Bausparer, Fonds', () => editGeld(null, 'anlage'))));
+  } else {
+    wrap.append(h('div', { class: 'card stack' },
+      h('div', { class: 'metric' }, h('div', { style: 'flex:1 1 100%' }, h('small', null, 'Gesamtvermögen'), h('b', null, fmtEurX(total))), monthly ? h('div', null, h('small', null, 'Sparen pro Monat'), h('b', null, fmtEur(monthly))) : null,
+        proj != null && (monthly || arr.some(it => rateOf(it))) ? h('div', null, h('small', null, 'Prognose mit 18'), h('b', null, fmtEur(proj))) : null),
+      total > 0 ? h('div', { class: 'stack', style: 'gap:8px' },
+        h('div', { class: 'stackbar' }, byKind.filter(x => x.sum > 0).map(x => h('i', { style: `flex:${x.sum};background:${x.col}`, title: x.label }))),
+        h('div', { class: 'legend' }, byKind.filter(x => x.sum > 0).map(x => h('span', null, h('i', { style: 'background:' + x.col }), `${x.one} ${fmtEur(x.sum)}`)))) : null,
+      ziel ? h('div', { class: 'stack', style: 'gap:6px' }, h('small', { class: 'mute' }, `Sparziel ${fmtEur(ziel)}: ${Math.min(100, Math.round(total / ziel * 100))} % erreicht` + (proj != null ? `, Prognose ${Math.round(proj / ziel * 100)} %` : '')),
+        h('div', { class: 'bar dark' }, h('i', { style: `width:${Math.min(100, total / ziel * 100)}%` }))) : null,
+      h('button', { class: 'linkbtn', onclick: () => openSheet({ title: 'Sparziel', values: { investZiel: p.investZiel || '' }, fields: [{ key: 'investZiel', label: 'Zielbetrag (€), z. B. zum 18. Geburtstag', inputmode: 'decimal' }], onSave: async v => { p.investZiel = v.investZiel; await persist('profile'); render(); } }) }, ziel ? 'Sparziel ändern' : 'Sparziel festlegen')));
+    byKind.forEach(g => {
+      if (!g.items.length) return;
+      wrap.append(sectionHead(g.label, h('b', { class: 'amt' }, fmtEur(g.sum))));
+      wrap.append(h('div', { class: 'card' }, g.items.slice().sort((a, b) => valOf(b) - valOf(a)).map(it => li(() => openGeld(it), '', h('span', { class: 'hubico', html: ICON.coins, style: `color:${g.col}` }),
+        liTxt(it.name || g.one, geldSub(it)), h('b', { class: 'amt' }, fmtEur(valOf(it))), chev()))));
+    });
+    if (arr.some(it => kindOf(it) === 'depot')) {
+      const cur = String(p.investRate || '');
+      wrap.append(h('div', { class: 'card stack', style: 'gap:8px' }, h('b', null, 'Rendite-Annahme für Depots'),
+        h('small', { class: 'mute' }, 'Gilt für Depots ohne eigene Rendite. Es ist ein Szenario und keine Vorhersage. Die Börse kann auch fallen.'),
+        h('div', { class: 'chips' }, [['', 'Keine'], ['3', '3 %'], ['5', '5 %'], ['7', '7 %']].map(([v, l]) => h('button', { class: 'fchip' + (cur === v ? ' on' : ''), type: 'button', onclick: async () => { p.investRate = v; await persist('profile'); render(); } }, l)))));
+    }
+  }
+  wrap.append(h('p', { class: 'fine' }, 'Die Hochrechnung nutzt deine Angaben zu Rendite und Sparraten und ist nur eine Orientierung. Es ist keine Anlageberatung. Die App ist nicht mit Banken verbunden. Alle Daten bleiben auf diesem iPhone und sind in der Sicherung enthalten. IBANs gehen nie an den KI-Assistenten.'));
+  return wrap;
+}
+function wInvest() {
+  const arr = S.profile.invest;
+  if (!arr.length) return miniCard('Geld', 'Noch leer', 'Depot, Konto oder Bargeld', () => go('invest'));
+  const parts = KINDS.map(([k, , one]) => [one, arr.filter(it => kindOf(it) === k).reduce((s, it) => s + valOf(it), 0)]).filter(x => x[1] > 0).slice(0, 2);
+  return miniCard('Geld', fmtEur(geldTotal()), parts.map(x => x[0] + ' ' + fmtEur(x[1])).join(' · ') || plural(arr.length, 'Eintrag', 'Einträge'), () => go('invest'));
+}
+function geldSearchTxt(it) {
+  return [it.name, it.institut, it.typ, it.kontoart, it.notiz, ...(it.positionen || []).map(x => [x.name, x.isin].join(' ')), ...(it.buchungen || []).map(b => [b.grund, b.von].join(' '))].filter(Boolean).join(' ');
+}
+function geldAiText() {
+  const p = S.profile; if (!p.invest.length) return '';
+  const L = p.invest.map(it => {
+    const k = kindOf(it), bits = [`${kindWord(it)} „${it.name || ''}“${it.institut ? ' (' + it.institut + ')' : ''}: ${fmtEur(valOf(it))}`];
+    if (monthlyOf(it)) bits.push(`${fmtEur(monthlyOf(it))} pro Monat`);
+    if (k === 'depot' && (it.positionen || []).length) bits.push('Positionen: ' + it.positionen.map(x => x.name + (num0(x.rate) ? ` (${fmtEur(num0(x.rate))} ${x.rhythmus || 'monatlich'})` : '')).join(', '));
+    if (k === 'bar') { const g = {}; (it.buchungen || []).forEach(b => { if (b.art === 'ein' && b.von) g[b.von] = (g[b.von] || 0) + b.betrag; }); const e = Object.entries(g); if (e.length) bits.push('Geschenke von ' + e.map(([n, v]) => `${n} ${fmtEur(v)}`).join(', ')); }
+    return bits.join(', ');
+  });
+  return 'Geld und Anlagen (Gesamt ' + fmtEur(geldTotal()) + '): ' + L.join(' | ') + (p.investZiel ? '. Sparziel: ' + p.investZiel + ' €' : '');
+}
+
+/* ============ Kita / Schule: erst relevant, wenn das Kind älter ist ============ */
+function eduAgeMonths() {
+  const b = S.profile.geburtsdatum; if (!b) return null;
+  const d = parseD(b), n = today0();
+  return (n.getFullYear() - d.getFullYear()) * 12 + n.getMonth() - d.getMonth() - (n.getDate() < d.getDate() ? 1 : 0);
+}
+function eduStage() {
+  const sc = S.school, am = eduAgeMonths(), t = isoToday();
+  if (sc.schulbeginn && sc.schulbeginn <= t) return 'schule';
+  if (am != null && am >= 72) return 'schule';
+  if (sc.kitastart && sc.kitastart <= t) return 'kita';
+  if (am == null || am >= 12) return 'kita';
+  return 'none';
+}
+const eduHasData = () => { const sc = S.school; return !!(sc.einrichtung || sc.gruppe || sc.ansprechpartner || sc.tel || sc.adresse || sc.notiz || sc.zeiten || (sc.abholer || []).length); };
+function eduShow() {
+  const m = S.school.show || 'auto';
+  if (m === 'an') return true;
+  if (m === 'aus') return false;
+  return eduStage() !== 'none' || eduHasData();
+}
+const eduName = () => { const s = eduStage(); return s === 'schule' ? 'Schule' : s === 'kita' ? 'Kita' : 'Kita / Schule'; };
+const eduSub = () => eduStage() === 'schule' ? 'Schule, Klasse, Abholberechtigte' : 'Kita, Gruppe, Abholberechtigte';
+function eduFirstBirthday() { const b = S.profile.geburtsdatum; if (!b) return ''; const d = parseD(b); return `${d.getFullYear() + 1}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; }
+function eduSchoolEstimate() {
+  const b = S.profile.geburtsdatum; if (!b) return '';
+  const d = parseD(b); return 'Sommer ' + (d.getFullYear() + 6 + (d.getMonth() > 8 ? 1 : 0));
+}
+const docCatsVis = () => DOC_CATS.filter(c => c !== 'Kita & Schule' || eduShow() || S.docs.some(d => d.kategorie === c));
+const terminKatsVis = () => TERMIN_KATS.filter(c => c !== 'Kita / Schule' || eduShow() || S.school.termine.some(t => t.kategorie === c));
+const adrTypesVis = () => ADR_TYPES.filter(c => c !== 'Kita / Schule' || eduShow() || S.profile.adressen.some(a => a.typ === c));
+function noteKatsVis() {
+  const used = c => notesAll().some(n => n.kategorie === c);
+  return NOTE_KATS.filter(c => c === 'Kita' ? (eduShow() || used(c)) : c === 'Schule' ? ((eduShow() && eduStage() === 'schule') || used(c)) : true);
+}
+const milestonesVis = () => MILESTONES.filter(t => t === 'Erster Kita-Tag' ? eduShow() : t === 'Einschulung' ? (eduStage() === 'schule' || (eduAgeMonths() || 0) >= 48) : true);
+function eduSettingCard() {
+  const sel = h('select', { 'aria-label': 'Kita und Schule anzeigen', onchange: async e => { S.school.show = e.target.value; await persist('school'); render(); } },
+    h('option', { value: 'auto' }, 'Automatisch (empfohlen)'), h('option', { value: 'an' }, 'Immer anzeigen'), h('option', { value: 'aus' }, 'Ausblenden'));
+  sel.value = S.school.show || 'auto';
+  const fb = eduFirstBirthday(), st = eduStage();
+  const hint = (S.school.show || 'auto') !== 'auto' ? 'Du hast die Anzeige selbst festgelegt.'
+    : st === 'none' && fb ? `Der Bereich erscheint automatisch am 1. Geburtstag (${fmtD(fb)}) oder sobald du etwas einträgst.`
+      : 'Der Bereich ist sichtbar, weil das Kind alt genug ist oder Angaben eingetragen sind.';
+  return h('div', { class: 'card stack', style: 'gap:8px' }, h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Kita und Schule'), sel, h('small', null, hint)));
+}
+
+const ABHOLER_FIELDS = [
+  { key: 'name', label: 'Name', required: true },
+  { key: 'rolle', label: 'Beziehung', ph: 'z. B. Oma' },
+  { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' }
+];
+function schoolFields() {
+  const sch = eduStage() === 'schule';
+  return [
+    { key: 'einrichtung', label: sch ? 'Schule' : 'Kita / Einrichtung', ph: sch ? 'Name der Schule' : 'Name der Kita' },
+    { key: 'gruppe', label: sch ? 'Klasse' : 'Gruppe' },
+    { key: 'ansprechpartner', label: sch ? 'Klassenlehrer/in' : 'Erzieher/in oder Ansprechpartner/in' },
+    { key: 'tel', label: 'Telefon', type: 'tel', inputmode: 'tel' },
+    { key: 'adresse', label: 'Adresse', type: 'textarea' },
+    { key: 'zeiten', label: 'Bring- und Abholzeiten', ph: 'z. B. Bringen bis 8:30, Abholen ab 15:00' },
+    { key: 'kitastart', label: 'In der Kita seit', type: 'date' },
+    { key: 'schulbeginn', label: 'Einschulung am', type: 'date', hint: 'Ab diesem Datum zeigt die App „Schule“ statt „Kita“.' },
+    { key: 'notiz', label: 'Notizen', type: 'textarea' }
+  ];
+}
+function viewSchool() {
+  const sc = S.school, wrap = h('div', { class: 'stack' }), st = eduStage(), nm = childName();
+  wrap.append(pageHead(eduName(), ghostBtn('Bearbeiten', () => openSheet({
+    title: st === 'schule' ? 'Schule' : 'Kita', values: sc, fields: schoolFields(),
+    onSave: async v => { Object.assign(sc, v); await persist('school'); render(); }
+  }))));
+  const est = eduSchoolEstimate(), am = eduAgeMonths();
+  wrap.append(h('div', { class: 'card stack', style: 'gap:6px' },
+    h('b', null, st === 'schule' ? 'Schulkind' : st === 'kita' ? 'Kita-Alter' : 'Noch nicht relevant'),
+    h('small', { class: 'mute' }, st === 'schule' ? `${nm} ist im Schulalter. Neue Angaben gelten ab jetzt für die Schule.`
+      : st === 'kita' ? `${nm} ist im Kita-Alter.${est ? ' Die Einschulung ist voraussichtlich im ' + est + ' (je nach Bundesland und Stichtag).' : ''} Trägst du „Einschulung am“ ein, wechselt die App auf „Schule“.`
+        : `${nm} ist noch nicht einmal ein Jahr alt${am != null ? ' (' + plural(am, 'Monat', 'Monate') + ')' : ''}. Der Bereich ist nur sichtbar, weil du ihn eingeschaltet oder etwas eingetragen hast.`)));
+  const rows = [kv(st === 'schule' ? 'Schule' : 'Einrichtung', sc.einrichtung), kv(st === 'schule' ? 'Klasse' : 'Gruppe', sc.gruppe), kv(st === 'schule' ? 'Klassenlehrer/in' : 'Ansprechpartner/in', sc.ansprechpartner), kv('Telefon', sc.tel, { tel: true }), kv('Adresse', sc.adresse), kv('Bring- und Abholzeiten', sc.zeiten),
+    kv('In der Kita seit', sc.kitastart ? fmtD(sc.kitastart) : ''), kv('Einschulung', sc.schulbeginn ? fmtD(sc.schulbeginn) : ''), kv('Notizen', sc.notiz)].filter(Boolean);
+  wrap.append(h('div', { class: 'card' }, rows.length ? rows : h('p', { class: 'empty' }, st === 'schule' ? 'Noch keine Angaben zur Schule.' : 'Noch keine Angaben zur Kita.')));
+  wrap.append(sectionHead('Abholberechtigte', addBtn('Person', () => editListItem({ arr: sc.abholer, key: 'school', title: 'Person', fields: ABHOLER_FIELDS }))));
+  wrap.append(h('div', { class: 'card' }, sc.abholer.length
+    ? sc.abholer.map(c => li(() => editListItem({ arr: sc.abholer, key: 'school', title: 'Person', fields: ABHOLER_FIELDS, item: c }), '', liTxt(c.name, [c.rolle, c.tel].filter(Boolean).join(' · ')), c.tel ? callBtn(c.tel) : chev()))
+    : h('p', { class: 'empty' }, 'Noch niemand eingetragen.')));
+  wrap.append(sectionHead('Termine & Fristen', addBtn('Termin', () => editListItem({ arr: sc.termine, key: 'school', title: 'Termin', fields: terminFields() }))));
+  const up = sc.termine.filter(t => t.datum && daysTo(t.datum) >= 0).sort((a, b) => a.datum.localeCompare(b.datum));
+  const past = sc.termine.filter(t => !t.datum || daysTo(t.datum) < 0).sort((a, b) => (b.datum || '').localeCompare(a.datum || '')).slice(0, 5);
+  const row = (t, dim) => li(() => editListItem({ arr: sc.termine, key: 'school', title: 'Termin', fields: terminFields(), item: t }), dim ? 'dim' : '',
+    liTxt(t.titel, t.datum ? `${fmtD(t.datum)} · ${rel(t.datum)}` : '', t.notiz ? h('small', null, t.notiz) : null), (!dim && t.datum) ? calBtn(t.titel, t.datum, t.notiz, 1) : null, chev());
+  wrap.append(h('div', { class: 'card' }, up.length || past.length ? [up.map(t => row(t, false)), past.map(t => row(t, true))] : h('p', { class: 'empty' }, 'Keine Termine.')));
+  wrap.append(eduSettingCard());
+  return wrap;
+}
+
+
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
@@ -5123,7 +5660,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
