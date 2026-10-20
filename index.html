@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="15">
+<meta name="app-version" content="16">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -501,6 +501,98 @@ i.sk{height:12px;margin:5px 0;font-style:normal}.sk.l1{width:92%}.sk.l2{width:60
 .wgrid.editing .wg>.wgsizes{pointer-events:auto}
 .wgrid.editing .wg.half .wgctl{gap:4px;right:4px}.wgrid.editing .wg.half .wgrip,.wgrid.editing .wg.half .wgbtn{min-width:32px;padding:0 6px}
 .wgrid.editing .wg.hassz{padding-bottom:36px}
+
+/* ===== v16: Nur Symbole im Menü, Glas überall, News-Magazin ===== */
+body{background:transparent}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(62% 36% at 10% 0%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 72%),
+  radial-gradient(55% 38% at 104% 26%,color-mix(in srgb,var(--g3) 26%,transparent),transparent 72%),
+  radial-gradient(70% 42% at -4% 74%,color-mix(in srgb,var(--g2) 24%,transparent),transparent 72%),
+  radial-gradient(55% 34% at 98% 102%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 72%)}
+:root[data-dark] body::before{background:
+  radial-gradient(62% 36% at 10% 0%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 72%),
+  radial-gradient(55% 38% at 104% 26%,color-mix(in srgb,var(--g3) 16%,transparent),transparent 72%),
+  radial-gradient(70% 42% at -4% 74%,color-mix(in srgb,var(--g2) 18%,transparent),transparent 72%),
+  radial-gradient(55% 34% at 98% 102%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 72%)}
+.tab span:last-child{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.tab{padding:13px 0;border-radius:30px}
+.tab .ico svg{width:26px;height:26px}
+.tab.on{font-weight:600}
+.card,.tile,.doc,.alert,.weekcard{-webkit-backdrop-filter:blur(18px) saturate(1.7);backdrop-filter:blur(18px) saturate(1.7)}
+.card,.tile,.doc{background:color-mix(in srgb,var(--card) 58%,transparent);border:1px solid rgba(255,255,255,.62);box-shadow:0 8px 26px rgba(20,30,40,.08),inset 0 1px 0 rgba(255,255,255,.75)}
+.alert{box-shadow:inset 0 1px 0 rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.4)}
+.weekcard,.hero2{box-shadow:0 10px 26px rgba(40,50,90,.22),inset 0 1px 0 rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.22)}
+:root[data-dark] .card,:root[data-dark] .tile,:root[data-dark] .doc{border-color:rgba(255,255,255,.1);box-shadow:0 8px 26px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.09)}
+:root[data-dark] .alert{border-color:rgba(255,255,255,.08)}
+.card.hint{background:color-mix(in srgb,var(--accent-bg) 72%,transparent)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.card,.tile,.doc{background:var(--card)}}
+.hubtile{min-height:112px;justify-content:space-between}
+.hubtile small{font-weight:500;color:var(--mute);font-size:12.5px;line-height:1.3}
+.hubtile .ico{width:44px;height:44px;border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+.hubgrp{--ac:var(--accent);padding:6px 16px}
+.hubgrp.gB{--ac:#e0705a}.hubgrp.gC{--ac:#8c68d8}.hubgrp.gD{--ac:#3f8fd6}
+.hubgrp .li:last-child{border-bottom:0}
+.hubgrp .hubico{color:var(--ac);background:linear-gradient(145deg,color-mix(in srgb,var(--ac) 26%,transparent),color-mix(in srgb,var(--ac) 10%,transparent));box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 2px 6px color-mix(in srgb,var(--ac) 18%,transparent)}
+/* News */
+.newschips{position:sticky;top:calc(-16px - env(safe-area-inset-top));z-index:6;margin:0 -16px;padding:calc(8px + env(safe-area-inset-top)) 16px 8px;background:color-mix(in srgb,var(--bg) 62%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6)}
+.newschips .fchip{display:inline-flex;align-items:center;gap:6px;background:color-mix(in srgb,var(--card) 70%,transparent);border-color:rgba(255,255,255,.55)}
+.newschips .fchip::before{content:attr(data-e);font-size:14px;line-height:1}
+.newschips .fchip.on{background:var(--accent);border-color:transparent}
+.newspage .sec-head{align-items:center}
+.nseg{display:flex;background:color-mix(in srgb,var(--card) 70%,transparent);border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:2px}
+.nseg button{border:0;background:none;color:var(--mute);width:34px;height:28px;border-radius:999px;display:grid;place-items:center;cursor:pointer;padding:0}
+.nseg button.on{background:var(--accent);color:var(--accent-ink)}
+.nseg svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ngrp{margin:6px 2px -4px;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);display:flex;gap:8px;align-items:center}
+.ngrp i{font-style:normal;font-weight:600;font-size:11px;background:color-mix(in srgb,var(--mute) 18%,transparent);border-radius:999px;padding:1px 8px;letter-spacing:0}
+.ngrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.nlist{display:flex;flex-direction:column;gap:10px}
+.ncard{position:relative;border-radius:20px;overflow:hidden;background:color-mix(in srgb,var(--card) 62%,transparent);border:1px solid rgba(255,255,255,.62);box-shadow:0 8px 24px rgba(20,30,40,.09),inset 0 1px 0 rgba(255,255,255,.7);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);animation:nrise .4s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 40ms)}
+:root[data-dark] .ncard{border-color:rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+@keyframes nrise{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ncard{animation:none}}
+.nlink{display:flex;flex-direction:column;height:100%;color:inherit;text-decoration:none;align-items:stretch;gap:0}
+.nimg{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex:none;background:linear-gradient(135deg,color-mix(in srgb,var(--tc,#888) 40%,var(--card)),color-mix(in srgb,var(--tc,#888) 12%,var(--card)))}
+.nimg img{width:100%;height:100%;object-fit:cover;display:block}
+.nimg .newsph{font-size:36px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+.nimg.thumb{width:88px;height:66px;border-radius:10px}.nimg.thumb .newsph{font-size:28px}
+.ngrid .nimg{height:104px}
+.nbody{display:flex;flex-direction:column;gap:5px;padding:10px 12px 12px;min-width:0;flex:1}
+.nbody b{font-size:14.5px;line-height:1.28;font-weight:650;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.nmeta1{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:0}
+.nmeta1:empty{display:none}
+.ntopic{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--tc);background:color-mix(in srgb,var(--tc) 14%,transparent);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.nnew{font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#ff6b6b,#ff9e4a);border-radius:999px;padding:2px 8px}
+.nmeta2{display:flex;align-items:center;gap:6px;color:var(--mute);font-size:11.5px;line-height:1.2;margin-top:auto}
+.nmeta2 span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nsrc{flex:none;width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;font-size:9px;font-weight:800;color:#fff;background:hsl(var(--h) 52% 46%)}
+.nlink.read b{color:var(--mute);font-weight:550}
+.nact{position:absolute;top:8px;right:8px;display:flex;gap:6px;z-index:2}
+.nbtn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(255,255,255,.72);color:#2b2b30;display:grid;place-items:center;cursor:pointer;padding:0;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.nbtn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.nbtn svg.fill{fill:currentColor}
+.nbtn.on{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.ncard.feat{border-radius:24px}
+.ncard.feat .nimg{height:218px}
+.ncard.feat .nlink{position:relative}
+.ncard.feat .nbody{position:absolute;left:0;right:0;bottom:0;padding:60px 16px 14px;color:#fff;background:linear-gradient(180deg,transparent,rgba(8,10,20,.78) 62%)}
+.ncard.feat .nbody b{font-size:19px;line-height:1.25;font-weight:750;-webkit-line-clamp:3}
+.ncard.feat .nmeta2{color:rgba(255,255,255,.82);margin-top:2px;font-size:12px}
+.ncard.feat .ntopic{color:#fff;background:rgba(255,255,255,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ncard.feat .nlink.read b{color:rgba(255,255,255,.75)}
+.nlist .nlink{flex-direction:row-reverse;align-items:center;gap:12px;padding:10px 12px}
+.nlist .nimg{width:92px;height:76px;border-radius:14px}
+.nlist .nbody{padding:0}
+.nlist .nbody b{font-size:14.5px;-webkit-line-clamp:3}
+.nlist .nact{top:auto;bottom:8px;right:8px}
+.nlist .nact .nbtn{width:28px;height:28px}.nlist .nact .nbtn svg{width:15px;height:15px}
+.nempty{align-items:center;text-align:center}
+.nbig{font-size:44px;display:block;text-align:center}
+.newshero{background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,var(--card)),color-mix(in srgb,var(--g3) 14%,var(--card)));background-color:transparent}
+.newsitem.li .nimg.thumb{margin-left:auto}
+.newschips .chips{margin:0 -16px;padding:0 16px 2px}
+.newshero p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.newshero .linkbtn{padding:4px 0;text-align:left}
 
 </style>
 </head>
@@ -3619,25 +3711,31 @@ async function removeLock() {
 function viewMore() {
   const wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Mehr'));
-  wrap.append(h('div', { class: 'card' },
-    hubRow(ICON.chat, 'KI-Assistent', 'Fragen zu Luises Daten und darüber hinaus', 'chat'),
-    hubRow(ICON.search, 'Suche', 'Alles in der App finden', 'search'),
-    hubRow(ICON.diary, 'Tagesnotizen', 'Stimmung, Essen, Schlaf, Temperatur', 'diary'),
-    hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
-    hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
+  const dn = S.docs.length, exp = S.docs.filter(d => d.ablauf && daysTo(d.ablauf) <= 90).length;
+  const bigTile = (ico, title, sub, to) => h('button', { class: 'tile hubtile', type: 'button', onclick: () => go(to) }, h('span', { class: 'ico', html: ico }), h('span', null, title), h('small', null, sub));
+  wrap.append(h('div', { class: 'tiles' }, bigTile(ICON.chat, 'KI-Assistent', 'Fragen zu den App-Daten', 'chat'), bigTile(ICON.search, 'Suche', 'Alles in der App finden', 'search')));
+  const grp = (title, cls, ...rows) => { wrap.append(sectionHead(title)); wrap.append(h('div', { class: 'card hubgrp ' + cls }, ...rows)); };
+  grp('Organisation', 'gA',
+    hubRow(ICON.docs, 'Dokumente', dn ? plural(dn, 'Dokument', 'Dokumente') + (exp ? ` · ${exp} läuft bald ab` : ' · Scannen, ablegen, suchen') : 'Urkunden, Impfpass, Versicherung', 'docs'),
     hubRow(ICON.cal, 'Termine & Fristen', 'Termine, Vorsorge, Impfungen, Ablaufdaten', 'dates'),
     hubRow(ICON.pin, 'Adressen', 'Mit Route in Karten', 'addr'),
     hubRow(ICON.coins, 'Geld', 'Trade Republic, Konten mit IBAN, Bargeld', 'invest'),
-    eduShow() ? hubRow(ICON.school, eduName(), eduSub(), 'school') : null,
-    hubRow(ICON.trophy, 'Abzeichen', 'Level, Meilensteine und Auszeichnungen', 'badges'),
+    eduShow() ? hubRow(ICON.school, eduName(), eduSub(), 'school') : null);
+  grp('Erinnern & Erleben', 'gB',
+    hubRow(ICON.diary, 'Tagesnotizen', 'Stimmung, Essen, Schlaf, Temperatur', 'diary'),
+    hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
+    hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
+    hubRow(ICON.trophy, 'Abzeichen', 'Level, Quiz und Auszeichnungen', 'badges'));
+  grp('Entdecken', 'gC',
     hubRow(ICON.star, 'Human Design', 'Chart aus Geburtsdatum und Geburtszeit', 'hd'),
     hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Tierzeichen', 'spirit'),
     hubRow(ICON.note, 'Lieblingslieder', 'Spotify-Links zu Luises Musik', 'songs'),
-    hubRow(ICON.tag, 'Marken & Produkte', 'Was Luise nutzt und mag', 'products'),
+    hubRow(ICON.tag, 'Marken & Produkte', 'Was Luise nutzt und mag', 'products'));
+  grp('Werkzeuge', 'gD',
     li(datasheetFlow, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Datenblatt als PDF', eduShow() ? 'Für Kita, Arzt oder Babysitter' : 'Für Arzt, Oma oder Babysitter'), chev()),
     li(reviewStart, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Rückblick als PDF', 'Monats- oder Jahresrückblick mit Fotos'), chev()),
-    hubRow(ICON.kids, 'Kinder & Profile', CH.length > 1 ? CH.length + ' Profile' : 'Weiteres Kind anlegen, Profil teilen', 'kids')));
+    hubRow(ICON.kids, 'Kinder & Profile', CH.length > 1 ? CH.length + ' Profile' : 'Weiteres Kind anlegen, Profil teilen', 'kids'));
   wrap.append(designCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
@@ -3686,7 +3784,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 15'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 16'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5955,21 +6053,78 @@ function newsNextU() {
   }
   return later;
 }
-function newsThumb(x, topic) {
+/* ============ News: Magazin-Ansicht mit Top-Story, Karten, Merkliste ============ */
+const NEWS_COL = { gesundheit: '#e0645a', entwicklung: '#e8a43a', natur: '#3fa56a', recht: '#5b7fd6', sicherheit: '#8c68d8', geld: '#d9a31f' };
+const NICON = {
+  bm: '<svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>',
+  bmOn: '<svg viewBox="0 0 24 24" class="fill"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-4-6 4V5a1 1 0 0 1 1-1z"/></svg>',
+  share: '<svg viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/></svg>',
+  grid: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>',
+  list: '<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'
+};
+let newsViewMode = ls.get('luise_news_view') === 'list' ? 'list' : 'cards';
+let newsVisitTs = null, newsVisitAt = 0;
+const lsJson = (k, d) => { try { const v = JSON.parse(ls.get(k) || 'null'); return v == null ? d : v; } catch (e) { return d; } };
+const newsSaved = () => { const a = lsJson('luise_news_saved', []); return Array.isArray(a) ? a.filter(x => x && x.u && x.t) : []; };
+const newsIsSaved = u => newsSaved().some(x => x.u === u);
+const newsReadList = () => { const a = lsJson('luise_news_read', []); return Array.isArray(a) ? a : []; };
+function newsMarkRead(u) { const a = newsReadList(); if (!a.includes(u)) { a.push(u); ls.set('luise_news_read', JSON.stringify(a.slice(-400))); } }
+function newsToggleSave(x) {
+  let a = newsSaved();
+  if (a.some(y => y.u === x.u)) a = a.filter(y => y.u !== x.u);
+  else a.unshift({ t: x.t, s: x.s || '', u: x.u, d: x.d || 0, i: x.i || '', topic: x.topic || '', saved: Date.now() });
+  a = a.slice(0, 80); ls.set('luise_news_saved', JSON.stringify(a));
+  return a.some(y => y.u === x.u);
+}
+const newsHue = s => { let n = 7; String(s).split('').forEach(c => { n = (n * 31 + c.charCodeAt(0)) % 360; }); return n; };
+const newsSrcAv = s => h('span', { class: 'nsrc', style: '--h:' + newsHue(s), 'aria-hidden': 'true' }, (String(s).trim()[0] || '·').toUpperCase());
+function newsDayGroup(d) {
+  if (!d) return 'Älter';
+  const t0 = new Date(); t0.setHours(0, 0, 0, 0); const x0 = new Date(d); x0.setHours(0, 0, 0, 0);
+  const n = Math.round((t0 - x0) / 864e5);
+  return n <= 0 ? 'Heute' : n === 1 ? 'Gestern' : n < 7 ? 'Diese Woche' : 'Älter';
+}
+function newsGroups(items) {
+  const g = [];
+  items.forEach(x => { const k = newsDayGroup(x.d); let last = g[g.length - 1]; if (!last || last.k !== k) { last = { k, items: [] }; g.push(last); } last.items.push(x); });
+  return g;
+}
+function newsImg(x, topic, cls) {
   const ph = h('span', { class: 'newsph', 'aria-hidden': 'true' }, NEWS_EMO[topic] || '📰');
-  if (!x.i) return h('span', { class: 'newsth' }, ph);
-  const img = h('img', { src: x.i, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }), box = h('span', { class: 'newsth' }, img);
+  const box = h('span', { class: 'nimg ' + (cls || ''), style: '--tc:' + (NEWS_COL[topic] || NEWS_COL.geld) });
+  if (!x.i) { box.append(ph); return box; }
+  const img = h('img', { src: x.i, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' });
   img.addEventListener('error', () => box.replaceChildren(ph));
-  return box;
+  box.append(img); return box;
+}
+function newsCard(x, i, feat) {
+  const tp = NEWS_TOPICS.find(t => t[0] === x.topic), isNew = !!(newsVisitTs && x.d && x.d > newsVisitTs), saved = newsIsSaved(x.u);
+  const link = h('a', { class: 'newsitem nlink' + (newsReadList().includes(x.u) ? ' read' : ''), href: x.u, target: '_blank', rel: 'noopener noreferrer',
+    onclick: e => { newsMarkRead(x.u); e.currentTarget.classList.add('read'); } },
+    newsImg(x, x.topic, feat ? 'big' : ''),
+    h('span', { class: 'nbody' },
+      h('span', { class: 'nmeta1' }, tp ? h('em', { class: 'ntopic' }, NEWS_EMO[x.topic] + ' ' + tp[1]) : null, isNew ? h('em', { class: 'nnew' }, 'Neu') : null),
+      h('b', null, x.t),
+      h('small', { class: 'nmeta2' }, x.s ? newsSrcAv(x.s) : null, h('span', null, [x.s, x.d ? newsAgoTxt(x.d) : ''].filter(Boolean).join(' · ')))));
+  const save = h('button', { class: 'nbtn nsave' + (saved ? ' on' : ''), type: 'button', 'aria-label': saved ? 'Aus der Merkliste entfernen' : 'Merken', 'aria-pressed': saved ? 'true' : 'false', html: saved ? NICON.bmOn : NICON.bm,
+    onclick: () => {
+      const on = newsToggleSave(x); save.classList.toggle('on', on); save.innerHTML = on ? NICON.bmOn : NICON.bm; save.setAttribute('aria-pressed', on ? 'true' : 'false'); save.setAttribute('aria-label', on ? 'Aus der Merkliste entfernen' : 'Merken');
+      toast(on ? 'Gemerkt' : 'Aus der Merkliste entfernt'); if (!on && newsTopic === 'gemerkt') render(); else if (on && newsSaved().length === 1) render();
+    } });
+  const share = feat && navigator.share ? h('button', { class: 'nbtn', type: 'button', 'aria-label': 'Teilen', html: NICON.share, onclick: () => { navigator.share({ title: x.t, url: x.u }).catch(() => {}); } }) : null;
+  return h('article', { class: 'ncard' + (feat ? ' feat' : ''), style: '--i:' + Math.min(i, 10) + ';--tc:' + (NEWS_COL[x.topic] || NEWS_COL.geld) }, link, h('div', { class: 'nact' }, share, save));
 }
 function newsItemRow(x, showTopic) {
   const tp = NEWS_TOPICS.find(t => t[0] === x.topic), meta = [x.s, x.d ? newsAgoTxt(x.d) : ''].filter(Boolean).join(' · ');
   return h('a', { class: 'li newsitem', href: x.u, target: '_blank', rel: 'noopener noreferrer' },
     h('span', { class: 'li-txt' }, h('b', null, x.t), h('small', null, [meta, showTopic && tp && tp[1]].filter(Boolean).join(' · '))),
-    newsThumb(x, x.topic || 'geld'));
+    newsImg(x, x.topic || 'geld', 'thumb'));
 }
 function viewNews() {
-  const p = S.profile, wrap = h('div', { class: 'stack' }), st = newsStage(), c = newsRead();
+  const p = S.profile, wrap = h('div', { class: 'stack newspage' }), st = newsStage(), c = newsRead(), saved = newsSaved();
+  const nowT = Date.now();
+  if (newsVisitTs === null || nowT - newsVisitAt > 10 * 6e4) newsVisitTs = +ls.get('luise_news_seen') || 0;
+  newsVisitAt = nowT; ls.set('luise_news_seen', String(nowT));
   wrap.append(pageHead('News', ghostBtn(newsBusy ? 'Lädt …' : 'Aktualisieren', () => newsLoad(true))));
   const wk = p.geburtsdatum ? curWeek(p.geburtsdatum) : 0;
   if (wk >= 1 && wk <= 940) {
@@ -5982,16 +6137,31 @@ function viewNews() {
   } else if (!p.geburtsdatum) {
     wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum ein. Dann zeigt dir die App News passend zum Alter.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
   }
-  wrap.append(h('div', { class: 'chips' }, [['alle', 'Alle'], ...NEWS_TOPICS].map(([id, nm]) => h('button', { class: 'fchip' + (newsTopic === id ? ' on' : ''), type: 'button', onclick: () => { newsTopic = id; render(); } }, nm))));
+  const tabs = [['alle', 'Alle', '✨'], ...NEWS_TOPICS.map(([id, nm]) => [id, nm, NEWS_EMO[id]]), ...(saved.length || newsTopic === 'gemerkt' ? [['gemerkt', 'Gemerkt', '🔖']] : [])];
+  wrap.append(h('div', { class: 'newschips' }, h('div', { class: 'chips' }, tabs.map(([id, nm, em]) => h('button', { class: 'fchip' + (newsTopic === id ? ' on' : ''), 'data-e': em, type: 'button', onclick: () => { newsTopic = id; render(); } }, nm)))));
   if (newsTopic === 'natur') wrap.append(h('div', { class: 'card newsnote' }, h('small', null, 'Hinweis: Für Homöopathie ist keine Wirkung über den Placebo-Effekt hinaus nachgewiesen. Bei Fieber, Atemnot oder Trinkschwäche vor allem bei Babys bitte zum Kinderarzt (116117) oder bei Gefahr 112.')));
-  const items = c && c.stage === st.id && c.items ? c.items.filter(x => newsTopic === 'alle' || x.topic === newsTopic) : [];
-  wrap.append(sectionHead(newsTopic === 'alle' ? 'Aktuell für ' + st.label : (NEWS_TOPICS.find(t => t[0] === newsTopic) || [0, ''])[1]));
-  if ((newsBusy || !newsTried) && !items.length) wrap.append(newsSkeleton(5));
+  const setView = m => { newsViewMode = m; ls.set('luise_news_view', m); render(); };
+  const seg = h('div', { class: 'nseg', role: 'group', 'aria-label': 'Ansicht' },
+    h('button', { class: newsViewMode === 'cards' ? 'on' : '', type: 'button', 'aria-label': 'Kartenansicht', 'aria-pressed': newsViewMode === 'cards' ? 'true' : 'false', html: NICON.grid, onclick: () => setView('cards') }),
+    h('button', { class: newsViewMode === 'list' ? 'on' : '', type: 'button', 'aria-label': 'Listenansicht', 'aria-pressed': newsViewMode === 'list' ? 'true' : 'false', html: NICON.list, onclick: () => setView('list') }));
+  wrap.append(sectionHead(newsTopic === 'alle' ? 'Aktuell für ' + st.label : newsTopic === 'gemerkt' ? 'Deine Merkliste' : (NEWS_TOPICS.find(t => t[0] === newsTopic) || [0, ''])[1], seg));
+  const items = newsTopic === 'gemerkt' ? saved : (c && c.stage === st.id && c.items ? c.items.filter(x => newsTopic === 'alle' || x.topic === newsTopic) : []);
+  if (newsTopic === 'gemerkt' && !items.length) {
+    wrap.append(h('div', { class: 'card nempty' }, h('span', { class: 'nbig', 'aria-hidden': 'true' }, '🔖'), h('p', { class: 'empty' }, 'Noch nichts gemerkt. Tippe bei einer Meldung auf das Lesezeichen, dann findest du sie hier wieder.')));
+  } else if ((newsBusy || !newsTried) && !items.length && newsTopic !== 'gemerkt') wrap.append(newsSkeleton(5));
   else if (items.length) {
-    wrap.append(h('div', { class: 'card' }, items.slice(0, newsTopic === 'alle' ? 30 : 20).map(x => newsItemRow(x, newsTopic === 'alle'))));
-    wrap.append(h('small', { class: 'mute' }, `${newsBusy ? 'Aktualisiere … · ' : ''}Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
+    let list = items.slice(0, newsTopic === 'alle' ? 36 : 24), feat = null;
+    if (newsViewMode === 'cards' && newsTopic !== 'gemerkt') { const fi = list.findIndex((x, i) => i < 6 && x.i); if (fi >= 0) feat = list.splice(fi, 1)[0]; }
+    let idx = 0;
+    if (feat) wrap.append(newsCard(feat, idx++, true));
+    const groups = newsTopic === 'gemerkt' ? [{ k: 'Gemerkt', items: list }] : newsGroups(list);
+    groups.filter(g => g.items.length).forEach(g => {
+      if (newsTopic !== 'gemerkt') wrap.append(h('h3', { class: 'ngrp' }, g.k, h('i', null, String(g.items.length))));
+      wrap.append(h('div', { class: newsViewMode === 'cards' ? 'ngrid' : 'nlist' }, g.items.map(x => newsCard(x, idx++, false))));
+    });
+    if (newsTopic !== 'gemerkt') wrap.append(h('small', { class: 'mute' }, `${newsBusy ? 'Aktualisiere … · ' : ''}Stand ${newsAgoTxt(c.ts)}${newsErr ? ' · ' + newsErr + ' Es werden die zuletzt geladenen Meldungen gezeigt.' : ''}`));
   } else {
-    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
+    wrap.append(h('div', { class: 'card stack nempty' }, h('span', { class: 'nbig', 'aria-hidden': 'true' }, '📰'), h('p', { class: 'empty' }, newsErr ? `${newsErr} Mit Internet klappt es beim nächsten Versuch.` : (c && c.stage === st.id ? 'Keine Meldungen gefunden.' : 'Noch keine Meldungen geladen.')), h('button', { class: 'btn wide', onclick: () => newsLoad(true) }, 'Erneut versuchen')));
   }
   wrap.append(h('small', { class: 'mute newsfoot' }, 'Die Überschriften kommen von Bing News und Google News und werden über einen Vermittlungsdienst geladen, die Bilder direkt von den Servern der Anbieter. Dabei werden nur allgemeine Suchbegriffe wie „' + st.q.gesundheit[0] + '“ gesendet, nie Name, Geburtsdatum oder Fotos. Ohne Bild der Quelle zeigt die App ein Symbol. Die Meldungen ersetzen keine ärztliche Beratung.'));
   if (!newsTried && !newsBusy) setTimeout(() => newsLoad(false), 0);
@@ -6193,7 +6363,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 15;
+const APP_VERSION = 16;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6253,17 +6423,16 @@ function initPull() {
 /* ============ Navigation & Start ============ */
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
-  { id: 'photos', label: 'Fotos', icon: ICON.photo },
-  { id: 'docs', label: 'Dokumente', icon: ICON.docs },
-  { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'news', label: 'News', icon: ICON.news },
+  { id: 'photos', label: 'Fotos', icon: ICON.photo },
+  { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers'];
+const SUB = ['docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers'];
 const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go(id) }, label), v);
 const views = {
-  home: viewHome, photos: viewPhotos, docs: viewDocs, health: viewHealth, news: viewNews, more: viewMore,
+  home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
