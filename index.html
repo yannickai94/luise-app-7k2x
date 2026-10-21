@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="19">
+<meta name="app-version" content="20">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1016,6 +1016,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 .vc-send{all:unset;cursor:pointer;color:#6fb0ff;font-weight:700;font-size:15px;padding:8px 4px}
 @media (prefers-reduced-motion:reduce){.vheart,.vact.pop .vai{animation-duration:.01s}.vcom{transition:none}}
 
+.hapt-sw{position:fixed;left:-60px;top:-60px;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
 </style>
 </head>
 <body>
@@ -1278,9 +1279,9 @@ const lockScreen = (() => {
   const upd = () => Array.from(d.children).forEach((c, i) => c.classList.toggle('on', i < val.length));
   function press(k) {
     if (!resolver) return;
-    if (k === 'del') { val = val.slice(0, -1); upd(); return; }
+    if (k === 'del') { if (val) Haptic.fire('light'); val = val.slice(0, -1); upd(); return; }
     if (val.length >= 6) return;
-    val += k; upd();
+    val += k; upd(); Haptic.fire(val.length === 6 ? 'medium' : 'select');
     if (val.length === 6) {
       const r = resolver, v = val; resolver = null;
       setTimeout(() => r(v), 120);
@@ -1307,7 +1308,7 @@ const lockScreen = (() => {
       t.textContent = title; setSub(err || sub, !!err);
       ex.replaceChildren(...(extra ? [extra] : []));
       val = ''; upd();
-      if (err) { d.classList.remove('shake'); void d.offsetWidth; d.classList.add('shake'); }
+      if (err) { d.classList.remove('shake'); void d.offsetWidth; d.classList.add('shake'); Haptic.fire('error'); }
       return new Promise(r => { resolver = r; });
     },
     cancel() { const r = resolver; resolver = null; if (r) r(null); },
@@ -1329,7 +1330,7 @@ async function createPin(skipLabel, title1, sub1) {
     if (p2 === null) continue;
     if (p1 !== p2) { err = 'Die Codes stimmen nicht überein'; continue; }
     await setPin(p1);
-    lockScreen.hide();
+    lockScreen.hide(); Haptic.fire('success');
     return true;
   }
 }
@@ -1392,7 +1393,7 @@ async function verifyPin(title) {
     first = false;
     if (p === FID_OK) return true;
     if (p === null) { lockScreen.hide(); return false; }
-    if (await checkPin(p)) return true;
+    if (await checkPin(p)) { Haptic.fire('success'); return true; }
     err = 'Falscher Code';
   }
   lockScreen.hide(); toast('Zu viele Fehlversuche');
@@ -1417,8 +1418,8 @@ async function unlockFlow() {
     const fn = fidHandler();
     const p = await lockScreen.prompt('MyLuiseApp', fn ? 'Mit Face ID oder Code entsperren' : 'Code eingeben', lockExtra(forgot), err, fn, first);
     first = false;
-    if (p === FID_OK) { lockScreen.hide(); return; }
-    if (p !== null && await checkPin(p)) { lockScreen.hide(); return; }
+    if (p === FID_OK) { lockScreen.hide(); Haptic.fire('success'); return; }
+    if (p !== null && await checkPin(p)) { lockScreen.hide(); Haptic.fire('success'); return; }
     fails++; err = 'Falscher Code';
     if (fails % 5 === 0) { await cooldown(30 * Math.min(8, 2 ** (fails / 5 - 1))); err = ''; }
   }
@@ -1553,7 +1554,7 @@ function openSheet({ title, fields, values = {}, saveLabel = 'Sichern', onSave, 
       const i = inputs[f.key]; if (!i) continue;
       out[f.key] = f.type === 'custom' ? (i._val ? i._val() : null) : f.type === 'file' ? (f.multiple ? Array.from(i.files || []) : (i._blob || (i.files && i.files[0]) || null)) : f.type === 'checkbox' ? i.checked : String(i.value).trim();
     }
-    try { const r = await onSave(out); if (r !== false) close(); }
+    try { const r = await onSave(out); if (r !== false) { close(); Haptic.fire('success'); } }
     catch (err) { console.error(err); toast('Fehler: ' + (err.message || err)); }
     saveBtn.disabled = false;
   } },
@@ -2028,7 +2029,7 @@ function moveWidget(id, dir) {
   [l[i], l[j]] = [l[j], l[i]]; saveLayout(l); render();
 }
 function startDrag(e, el, grid) {
-  e.preventDefault();
+  e.preventDefault(); Haptic.fire('medium');
   const r = el.getBoundingClientRect(), ph = h('div', { class: 'wph' }), view = $('#view');
   ph.style.height = r.height + 'px'; ph.style.gridColumn = el.classList.contains('half') ? 'span 1' : 'span 2';
   const offX = e.clientX - r.left, offY = e.clientY - r.top; let px = e.clientX, py = e.clientY;
@@ -2564,6 +2565,7 @@ function badgeStats(all) {
 }
 const badgeSub = () => { const a = evalBadges(), st = badgeStats(a); return `Level ${st.lvl} · ${st.got.length} von ${a.length}`; };
 function confetti() {
+  Haptic.fire('success');
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const box = h('div', { class: 'confetti' }), em = ['🎉', '⭐', '✨', '🎈', '💛', '🌈'];
   for (let i = 0; i < 26; i++) box.append(h('span', { style: `left:${Math.round(Math.random() * 100)}%;animation-delay:${(Math.random() * 0.6).toFixed(2)}s;animation-duration:${(1.6 + Math.random() * 1.4).toFixed(2)}s;font-size:${Math.round(16 + Math.random() * 16)}px` }, em[i % em.length]));
@@ -3943,7 +3945,7 @@ async function buildBackup(only) {
   for (const d of await docsAll()) { if (only && (d.cid || 'main') !== only) continue; const rec = await fileGet(d.id); docs.push({ meta: d, mime: rec ? rec.mime : d.mime, b64: rec ? ab2b64(rec.data) : null }); }
   const photos = [];
   for (const f of await photosAll()) { if (only && (f.cid || 'main') !== only) continue; const rec = await pfileGet(f.id); photos.push({ meta: f, b64: rec ? ab2b64(rec.data) : null }); }
-  const json = JSON.stringify({ app: 'luise-identitaet', version: 3, exportedAt: new Date().toISOString(), children: kids, docs, photos });
+  const json = JSON.stringify(Object.assign({ app: 'luise-identitaet', version: 4, exportedAt: new Date().toISOString(), appVersion: APP_VERSION, children: kids, docs, photos }, only ? {} : { settings: settingsSnapshot() }));
   const nm = only ? 'Profil-' + (kidName(CH.find(c => c.id === only)) || 'Kind') : 'MyLuiseApp-Sicherung';
   return new File([json], `${nm}-${isoToday()}.json`, { type: 'application/json' });
 }
@@ -3990,7 +3992,11 @@ async function importBackup(file, asNew) {
     if (f.b64) await pfilePut({ id: f.meta.id, data: b642ab(f.b64) });
     await photoPut(f.meta);
   }
-  await loadState(); render(); toast('Sicherung eingespielt');
+  const hadSettings = data.settings && typeof data.settings === 'object';
+  if (hadSettings) restoreSettings(data.settings);
+  await loadState(); render();
+  if (hadSettings) { toast('Sicherung eingespielt. Die App startet neu …'); Haptic.fire('success'); setTimeout(() => location.reload(), 1200); }
+  else toast('Sicherung eingespielt');
 }
 async function changeLock() {
   if (!(await verifyPin('Aktueller Code'))) return;
@@ -4037,6 +4043,7 @@ function viewMore() {
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
   wrap.append(eduSettingCard());
+  wrap.append(hapticCard());
   wrap.append(offlineCard());
   const lock = getLock();
   wrap.append(sectionHead('Sperre'));
@@ -4056,7 +4063,7 @@ function viewMore() {
     try { await importBackup(f); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); }
   } });
   wrap.append(h('div', { class: 'card stack' },
-    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Eigene Videos sind wegen ihrer Größe nicht in der Sicherung.' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
+    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Sie enthält Profile, Gesundheit, Fotos, Dokumente, Reels-Likes und Kommentare, Coins sowie Design, Anordnung der Widgets und alle Einstellungen. Nicht enthalten sind eigene Videos (zu groß) und der Sperr-Code (aus Sicherheitsgründen).' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
     backupFile
       ? h('button', { class: 'btn wide', onclick: async () => {
           const f = backupFile;
@@ -4080,7 +4087,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 19'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 20'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6577,7 +6584,7 @@ function quizStart() {
 async function quizPick(k) {
   if (!qz || qz.picked != null) return;
   const cur = qz.qs[qz.i], c = coinData(), ok = cur.order[k] === cur.q.c;
-  qz.picked = k;
+  qz.picked = k; Haptic.fire(ok ? 'success' : 'error');
   if (ok) {
     qz.right++; c.right++;
     const gain = c.done[cur.q.id] ? COIN_REPEAT : COIN_FIRST; c.done[cur.q.id] = true; c.total += gain; qz.earned += gain; cur.gain = gain;
@@ -6641,7 +6648,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 19;
+const APP_VERSION = 20;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6689,7 +6696,7 @@ function initPull() {
   const end = async () => {
     if (y0 == null) return; y0 = null;
     if (pull < TRIGGER) { pull = 0; set(0, true); return; }
-    busy = true; ind.classList.add('spin'); arr.style.transform = ''; set(TRIGGER, true);
+    busy = true; Haptic.fire('medium'); ind.classList.add('spin'); arr.style.transform = ''; set(TRIGGER, true);
     const t0 = Date.now(); let msg = '';
     try { msg = await refreshView(); } catch (e) { msg = 'Aktualisieren fehlgeschlagen'; }
     await new Promise(r => setTimeout(r, Math.max(0, 600 - (Date.now() - t0))));
@@ -7735,6 +7742,7 @@ async function vfLike(it, card, only) {
   if (card._paintRail) card._paintRail();
   const b = card.querySelector('.vact.like'); if (b && on) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
   if (on && !only) vfHeart(card);
+  if (on && only) Haptic.fire('medium');
   if (pr) await pr;
 }
 async function vfSave(it, card) {
@@ -7966,6 +7974,54 @@ function openVideoFeed(filter) {
   vidLoadRepo().then(ok => { if (vf && ok && vf.feed.scrollTop < 20) vfRebuild(); if (!ok || !vidShorts('schlaf').length) vidLoadSuggest(false); }).catch(() => vidLoadSuggest(false));
 }
 
+/* ============ v20: Haptisches Feedback ============ */
+const Haptic = (() => {
+  let lab = null;
+  const enabled = () => ls.get('luise_haptic') !== '0';
+  const build = () => {
+    if (lab) return lab;
+    lab = document.createElement('label'); lab.setAttribute('aria-hidden', 'true'); lab.className = 'hapt-sw';
+    const i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1;
+    lab.append(i); document.body.append(lab); return lab;
+  };
+  const tick = () => { try { build().click(); } catch (e) {} };
+  const PAT = { select: [7], light: [10], medium: [18], success: [12, 55, 12], warn: [18, 60, 18], error: [28, 45, 28, 45, 28] };
+  const TICKS = { select: 1, light: 1, medium: 1, success: 2, warn: 2, error: 3 };
+  function fire(kind) {
+    kind = PAT[kind] ? kind : 'light';
+    if (!enabled()) return false;
+    if (typeof navigator.vibrate === 'function') { try { return navigator.vibrate(PAT[kind]); } catch (e) { return false; } }
+    // iPhone: Safari hat kein vibrate. Ein umgeschalteter Safari-Schalter (iOS 17.4+) gibt einen Tick.
+    tick(); for (let i = 1; i < TICKS[kind]; i++) setTimeout(tick, i * 90);
+    return true;
+  }
+  return { fire, enabled, set: on => ls.set('luise_haptic', on ? '1' : '0') };
+})();
+(() => {
+  const SEL = 'button, a[href], .tab, .li, .tile, .fchip, .swatch, .shopcard, .ph, .pha, .phm, select, summary, [role=button], label.field.check, input[type=checkbox]';
+  document.addEventListener('click', e => {
+    if (!e.isTrusted || !e.target || !e.target.closest) return;
+    if (e.target.closest('.hapt-sw')) return;
+    const t = e.target.closest(SEL);
+    if (!t || t.disabled || t.closest('#lock .key:not(.fid)')) return;
+    Haptic.fire(t.matches('.tab, .fchip, .swatch, .pha, select, input[type=checkbox], label.field.check') ? 'select' : t.matches('.btn:not(.ghost), .pill:not(.ghost), .sheet-head .strong, .nav-btn.strong, .coinstart') ? 'medium' : 'light');
+  }, true);
+})();
+function hapticCard() {
+  const cb = h('input', { type: 'checkbox', onchange: e => { Haptic.set(e.target.checked); if (e.target.checked) Haptic.fire('success'); } });
+  cb.checked = Haptic.enabled();
+  return h('div', { class: 'card stack' }, h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback (kleine Vibration bei Tippen, Code, Erfolg)')),
+    h('p', { class: 'mute small' }, 'Auf dem iPhone funktioniert das über einen Safari-Trick ab iOS 17.4 und nur bei eingeschalteten Systemhaptiken (Einstellungen › Töne & Haptik › Systemhaptik).'));
+}
+/* ============ v20: Vollständige Sicherung ============ */
+const BK_SKIP = new Set(['luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
+const bkKeys = () => { const out = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('luise_') && !BK_SKIP.has(k)) out.push(k); } } catch (e) {} return out; };
+function settingsSnapshot() { const o = {}; bkKeys().forEach(k => { const v = ls.get(k); if (typeof v === 'string') o[k] = v; }); return o; }
+function restoreSettings(st) {
+  bkKeys().forEach(k => ls.del(k));
+  Object.keys(st || {}).forEach(k => { if (/^luise_[A-Za-z0-9_@.-]+$/.test(k) && !BK_SKIP.has(k) && typeof st[k] === 'string') ls.set(k, st[k]); });
+}
+
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
@@ -7982,7 +8038,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { Haptic, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
