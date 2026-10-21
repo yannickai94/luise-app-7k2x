@@ -144,6 +144,106 @@ def fetch_query(q, cache):
     return items
 
 
+# ---------- Reels: YouTube Shorts je Thema ----------
+VID_TOPICS = {
+    'schlaf': ['Baby Schlaf sicher Tipps Eltern', 'Baby einschlafen Hebamme Tipps'],
+    'essen': ['Stillen Anleitung Hebamme', 'Beikost Start Baby Anleitung'],
+    'pflege': ['Baby baden Anleitung Neugeborenes', 'Baby wickeln Anleitung'],
+    'entwicklung': ['Baby Entwicklung Meilensteine Kinderarzt', 'Baby fördern spielen Anleitung'],
+    'hilfe': ['Erste Hilfe Baby Säugling Anleitung', 'Baby verschluckt Erste Hilfe'],
+    'tragen': ['Baby tragen Tragetuch Anleitung', 'Babymassage Anleitung'],
+}
+VID_MAX_SECS = 95
+CHROME = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'
+
+
+def secs(txt):
+    try:
+        p = [int(x) for x in str(txt).split(':')]
+    except ValueError:
+        return 0
+    n = 0
+    for x in p:
+        n = n * 60 + x
+    return n
+
+
+def parse_yt(page):
+    """Liest Videos aus der YouTube-Suchseite (videoRenderer, reelItemRenderer, shortsLockupViewModel)."""
+    out, seen = [], set()
+    i = page.find('ytInitialData')
+    if i < 0:
+        return out
+    j = page.find('{', i)
+    try:
+        data, _ = json.JSONDecoder().raw_decode(page[j:])
+    except ValueError:
+        return out
+
+    def txt(o):
+        if not isinstance(o, dict):
+            return ''
+        return o.get('simpleText') or ''.join(r.get('text', '') for r in o.get('runs', [])) or o.get('content', '')
+
+    def add(vid, t, ch, ln):
+        if not re.fullmatch(r'[A-Za-z0-9_-]{11}', vid or '') or vid in seen:
+            return
+        seen.add(vid)
+        out.append({'vid': vid, 't': t.strip(), 'ch': ch, 'len': ln})
+
+    def walk(o):
+        if isinstance(o, dict):
+            v = o.get('videoRenderer')
+            if isinstance(v, dict) and v.get('videoId'):
+                add(v['videoId'], txt(v.get('title')), txt(v.get('ownerText')), txt(v.get('lengthText')))
+                return
+            v = o.get('reelItemRenderer')
+            if isinstance(v, dict) and v.get('videoId'):
+                add(v['videoId'], txt(v.get('headline')), '', '')
+                return
+            v = o.get('shortsLockupViewModel')
+            if isinstance(v, dict):
+                ep = ((v.get('onTap') or {}).get('innertubeCommand') or {}).get('reelWatchEndpoint') or {}
+                vid = ep.get('videoId') or str(v.get('entityId', '')).replace('shorts-shelf-item-', '')
+                add(vid, txt((v.get('overlayMetadata') or {}).get('primaryText')) or v.get('accessibilityText', ''), '', '')
+                return
+            for x in o.values():
+                walk(x)
+        elif isinstance(o, list):
+            for x in o:
+                walk(x)
+
+    walk(data)
+    return out
+
+
+def yt_search(q):
+    url = 'https://www.youtube.com/results?hl=de&gl=DE&sp=EgIYAQ%253D%253D&search_query=' + urllib.parse.quote(q + ' #shorts')
+    req = urllib.request.Request(url, headers={'User-Agent': CHROME, 'Accept-Language': 'de-DE,de;q=0.9', 'Cookie': 'CONSENT=YES+cb; SOCS=CAI'})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return parse_yt(r.read().decode('utf-8', 'ignore'))
+
+
+def fetch_videos():
+    topics = {}
+    for tid, qs in VID_TOPICS.items():
+        seen, lst = set(), []
+        for q in qs:
+            try:
+                for x in yt_search(q):
+                    ln = secs(x['len']) if x['len'] else 0
+                    if x['vid'] in seen or not x['t'] or BLOCK.search(x['t']) or (x['len'] and (ln <= 0 or ln > VID_MAX_SECS)):
+                        continue
+                    seen.add(x['vid'])
+                    lst.append(x)
+            except Exception as e:
+                print('  Fehler YouTube', q, e, file=sys.stderr)
+            time.sleep(1.5)
+        if lst:
+            topics[tid] = lst[:12]
+    return topics
+
+
 def main(out_path='news.json', fast=False):
     cache, stages = {}, {}
     gd = {}
@@ -184,9 +284,25 @@ def main(out_path='news.json', fast=False):
     if total == 0 and not geld:
         print('Keine Meldungen erhalten, news.json bleibt unverändert.', file=sys.stderr)
         return 1
+    out = {'ts': int(time.time() * 1000), 'stages': result, 'geld': geld}
+    try:
+        vids = fetch_videos() if not fast else {}
+    except Exception as e:
+        print('  Fehler Videos', e, file=sys.stderr)
+        vids = {}
+    if vids:
+        out['videos'] = {'ts': out['ts'], 'topics': vids}
+    else:
+        try:  # alte Videos behalten, wenn YouTube gerade nichts liefert
+            with open(out_path, encoding='utf-8') as f:
+                old = json.load(f).get('videos')
+            if old:
+                out['videos'] = old
+        except Exception:
+            pass
     with open(out_path, 'w', encoding='utf-8') as f:
-        json.dump({'ts': int(time.time() * 1000), 'stages': result, 'geld': geld}, f, ensure_ascii=False, separators=(',', ':'))
-    print('Fertig:', {k: len(v) for k, v in result.items()}, 'geld', len(geld))
+        json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
+    print('Fertig:', {k: len(v) for k, v in result.items()}, 'geld', len(geld), 'videos', {k: len(v) for k, v in out.get('videos', {}).get('topics', {}).items()})
     return 0
 
 

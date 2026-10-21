@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="18">
+<meta name="app-version" content="19">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -819,6 +819,203 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 /* News: Chip-Leiste klebt unter der Glas-Kappe, ohne Leerraum im Ruhezustand */
 .newschips{top:-16px;padding:8px 16px 8px}
 
+/* ===== v19: Kontrast in allen Designs ===== */
+:root{--hg:linear-gradient(135deg,var(--g1),color-mix(in srgb,var(--g1) 68%,var(--g2)))}
+:root[data-dark]{--hg:linear-gradient(135deg,var(--g1),var(--g2) 62%,color-mix(in srgb,var(--g2) 58%,var(--g3)))}
+.hero2:not(.gold):not(.cosmic){background:var(--hg)}
+.card.clockw,.clockw{background:var(--hg) !important;color:#fff;border:0}
+.clockw .wk{color:rgba(255,255,255,.92)}
+.hero2.gold{background:linear-gradient(135deg,#6a430b,#8f5c12 58%,#a46612)}
+.hdoc{background:var(--hg)}
+.hdoc .hbtn.main{color:var(--g1)}
+.hdoc-tx small,.hdoc-sub,.hdoc-hrs{opacity:1;color:rgba(255,255,255,.94)}
+:root:not([data-dark]) .ntopic{color:color-mix(in srgb,var(--tc) 55%,#1a1a1a)}
+.nsrc{background:hsl(var(--h) 55% 34%)}
+.ngrp,.ngrp i{color:color-mix(in srgb,var(--mute) 75%,var(--ink))}
+.hdoc .hbtn:not(.main){background:rgba(0,0,0,.24);border-color:rgba(255,255,255,.45);color:#fff}
+.ck-time i,.ck-time .sec{opacity:.9}
+.ck-lab{opacity:.92}
+
+/* ===== v19 Fotos ===== */
+.phi{display:inline-grid;place-items:center;line-height:0}
+.phi svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.phi svg.fill,.phi.on svg,.ph-fav svg{fill:currentColor}
+.phhead-r{display:flex;gap:8px;align-items:center}
+.phsub{margin:-6px 0 0;color:var(--mute);font-size:13px}
+.phempty{text-align:center;align-items:center;padding:28px 20px}
+.phempty-e{font-size:46px}
+.phmem{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:2px 16px 6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.phmem::-webkit-scrollbar{display:none}
+.phm{all:unset;box-sizing:border-box;position:relative;flex:none;width:68%;max-width:260px;aspect-ratio:4/5;border-radius:20px;overflow:hidden;scroll-snap-align:start;cursor:pointer;background:var(--line);box-shadow:var(--shadow)}
+.phm:active{transform:scale(.985)}
+.phm img{width:100%;height:100%;object-fit:cover;display:block}
+.phm-cap{position:absolute;left:0;right:0;bottom:0;padding:44px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;display:flex;flex-direction:column;gap:2px}
+.phm-cap b{font-size:16px;text-shadow:0 1px 6px rgba(0,0,0,.5)}.phm-cap small{opacity:.9;font-size:12.5px}
+.phalb{display:flex;gap:10px;overflow-x:auto;margin:0 -16px;padding:2px 16px 4px;scrollbar-width:none}
+.phalb::-webkit-scrollbar{display:none}
+.pha{all:unset;box-sizing:border-box;flex:none;width:84px;display:flex;flex-direction:column;gap:3px;cursor:pointer;text-align:left}
+.pha-img{display:block;width:84px;height:84px;border-radius:18px;overflow:hidden;background:var(--line);outline:2px solid transparent;outline-offset:2px;transition:outline-color .15s}
+.pha-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pha.on .pha-img{outline-color:var(--accent)}
+.pha b{font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pha.on b{color:var(--accent)}
+.pha small{font-size:11.5px;color:var(--mute);line-height:1;margin-top:-1px}
+.phtools{display:flex;gap:8px;align-items:center}
+.phsearchw{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:42px;padding:0 12px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:var(--mute)}
+.phsearchw .phi svg{width:18px;height:18px}
+.phsearch{all:unset;flex:1;min-width:0;font-size:15px;color:var(--ink)}
+.phsearch::placeholder{color:var(--mute)}
+.phtb{all:unset;box-sizing:border-box;flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;cursor:pointer;background:var(--card);border:1px solid var(--line);color:var(--ink)}
+.phtb:active{transform:scale(.94)}
+.phtb.show{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.phalbhead{display:flex;align-items:center;justify-content:space-between}
+.phalbhead b{font-size:18px}
+.ph-group{display:flex;flex-direction:column;gap:6px}
+.ph-month{display:flex;align-items:baseline;gap:8px;text-transform:none;letter-spacing:0;font-size:15px;color:var(--ink);font-weight:700}
+.ph-month small{font-weight:500;color:var(--mute);font-size:12.5px}
+.ph-month i{margin-left:auto;font-style:normal;font-weight:600;font-size:12px;color:var(--mute)}
+.ph-grid{gap:3px}.ph-grid.c2{grid-template-columns:repeat(2,1fr)}.ph-grid.c3{grid-template-columns:repeat(3,1fr)}.ph-grid.c4{grid-template-columns:repeat(4,1fr)}
+.ph{transition:transform .15s}
+.ph:active{transform:scale(.97)}
+.ph img{transition:transform .2s,opacity .2s}
+.ph.sel img{transform:scale(.86);border-radius:10px}
+.ph.sel{outline:3px solid var(--accent);outline-offset:-3px;background:var(--accent-bg)}
+.ph-fav{right:5px;bottom:4px;color:#fff;font-size:0;display:grid;filter:drop-shadow(0 1px 3px rgba(0,0,0,.7))}
+.ph-fav svg{width:15px;height:15px}
+.ph-chk{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,.25);color:#fff;font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.ph.sel .ph-chk{background:var(--accent);color:var(--accent-ink)}
+.ph-hov{position:absolute;left:0;right:0;bottom:0;padding:16px 6px 4px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:11px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .15s}
+@media (hover:hover){.ph:hover .ph-hov{opacity:1}}
+.photopage:has(.phbar){padding-bottom:110px}
+.phbar{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:30;border-radius:22px;padding:10px 10px 8px;background:var(--card);background:color-mix(in srgb,var(--card) 88%,transparent);-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8);border:1px solid var(--line);box-shadow:0 10px 34px rgba(0,0,0,.22);color:var(--ink);max-width:560px;margin:0 auto}
+.phbar-top{display:flex;align-items:center;gap:4px;padding:0 6px 4px}
+.phbar-top b{flex:1;font-size:15px}
+.phbar-acts{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.phb{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:14px;cursor:pointer;color:var(--ink)}
+.phb small{font-size:11.5px;font-weight:600}
+.phb:active{background:var(--accent-bg)}
+.phb[disabled]{opacity:.35;pointer-events:none}
+.phb.danger{color:var(--bad)}
+/* Foto-Ansicht */
+.lb.ui-off .pv-top,.lb.ui-off .pv-bar,.lb.ui-off .lb-close,.lb.ui-off .lb-nav{opacity:0;pointer-events:none}
+.lb .pv-top,.lb .pv-bar,.lb .lb-close,.lb .lb-nav{transition:opacity .25s}
+.pv-top{position:absolute;top:0;left:0;right:0;padding:calc(14px + env(safe-area-inset-top)) 64px 22px;text-align:center;color:#fff;font-size:14px;font-weight:600;background:linear-gradient(rgba(0,0,0,.55),transparent);pointer-events:none;z-index:2}
+.pv-bar{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:34px 12px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(0,0,0,.82) 38%);color:#fff;display:flex;flex-direction:column;gap:8px}
+.pv-info{display:none;flex-direction:column;gap:4px;padding:0 6px;font-size:14px}
+.pv-info.on{display:flex}
+.pv-info p{margin:0;opacity:.85;font-size:13px}
+.pv-info .pvi-t{font-size:17px}
+.pvi-chips{display:flex;gap:6px;flex-wrap:wrap}
+.pvi-chips .chip{background:rgba(255,255,255,.2);color:#fff;margin:0}
+.pv-info .linkbtn{align-self:flex-start;color:#fff;text-decoration:underline;padding:6px 0;font-size:14px}
+.pv-strip{display:flex;gap:6px;overflow-x:auto;padding:2px 6px;scrollbar-width:none}
+.pv-strip::-webkit-scrollbar{display:none}
+.pv-th{all:unset;box-sizing:border-box;flex:none;width:46px;height:46px;border-radius:9px;overflow:hidden;opacity:.55;cursor:pointer;border:2px solid transparent;transition:opacity .15s,transform .15s}
+.pv-th img{width:100%;height:100%;object-fit:cover;display:block}
+.pv-th.on{opacity:1;border-color:#fff;transform:scale(1.08)}
+.pv-acts{display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
+.pvb{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:12px;cursor:pointer;color:#fff}
+.pvb small{font-size:11px;font-weight:600;opacity:.9}
+.pvb:active{background:rgba(255,255,255,.18)}
+.pvb.on{color:#ffd1e0}
+.pvb.heart.on{color:#ff5c8a}
+.pvb.heart.on .phi svg{fill:#ff5c8a;stroke:#ff5c8a}
+.pv-pop{position:absolute;left:50%;top:44%;width:110px;height:110px;margin:-55px 0 0 -55px;color:#fff;opacity:0;pointer-events:none;z-index:4}
+.pv-pop svg{width:100%;height:100%;fill:#ff5c8a;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+.pv-pop.go{animation:pvpop .75s ease-out}
+@keyframes pvpop{0%{opacity:0;transform:scale(.4)}25%{opacity:1;transform:scale(1.15)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05) translateY(-18px)}}
+.lb.show .lb-stage img{animation:kenburns 4.2s ease-out both}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.lb.show .lb-stage img{animation:none}.pv-pop.go{animation-duration:.01s}}
+
+/* ===== v19 Reels ===== */
+.vwrap{touch-action:manipulation}
+.vcard{background:#000}
+.vmedia.short{position:absolute;inset:0;width:100%;height:100%}
+.vposter{position:absolute;left:0;top:50%;transform:translateY(-50%);width:100%;height:auto;max-height:100%;object-fit:contain;display:block}
+.vcard.playing .vposter,.vcard.loading .vposter{opacity:1}
+.vcard.playing .vposter{opacity:0;transition:opacity .4s .2s}
+.vyframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.vtap{position:absolute;inset:0;z-index:2;-webkit-tap-highlight-color:transparent}
+.vshade{z-index:1;height:52%}
+.vplaybig{z-index:2}
+.vcard[data-k=yt]:not(.paused) .vplaybig{opacity:0}
+.vcard[data-k=yt].paused .vplaybig{opacity:1}
+.vcard[data-k=yt]:not(.playing):not(.paused):not(.loading) .vplaybig{opacity:1}
+.vcard.loading:not(.playing)::after{content:'';position:absolute;left:50%;top:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;animation:vspin .8s linear infinite;z-index:2;pointer-events:none}
+@keyframes vspin{to{transform:rotate(360deg)}}
+.vslow{display:none;position:absolute;left:50%;top:calc(50% + 40px);transform:translateX(-50%);z-index:4;color:#fff;font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.4);text-decoration:none;white-space:nowrap}
+.vcard.slow:not(.playing) .vslow{display:block}
+.verrbox{display:none;position:absolute;left:24px;right:24px;top:50%;transform:translateY(-50%);z-index:4;text-align:center;flex-direction:column;gap:12px;align-items:center;padding:18px;border-radius:20px;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.25)}
+.verrbox .btn{text-decoration:none;background:#fff;color:#111}
+.vcard.verr .verrbox{display:flex}
+.vcard.verr .vtap{display:none}
+/* Info unten (Reels-Stil) */
+.vinfo{z-index:3;left:14px;right:86px;bottom:calc(22px + env(safe-area-inset-bottom));gap:8px}
+.vwho{display:flex;align-items:center;gap:9px;pointer-events:auto;flex-wrap:wrap}
+.vav{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;background:#555;border:2px solid #fff;flex:none}
+.vwho>b{font-size:15px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.6);display:block;-webkit-line-clamp:1;max-width:46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vcap{margin:0;font-size:14.5px;line-height:1.35;text-shadow:0 1px 6px rgba(0,0,0,.65);pointer-events:auto;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.vcap.open{-webkit-line-clamp:unset;display:block;max-height:34dvh;overflow:auto}
+.vaud{font-size:12.5px;opacity:.92;display:flex;gap:4px;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.vtag{margin:0}
+/* Rechte Leiste: Like, Kommentar, Teilen, Merken */
+.vrail{z-index:4;right:6px;bottom:calc(20px + env(safe-area-inset-bottom));gap:16px}
+.vact{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:52px;padding:2px 0;color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vact .vai{display:grid;place-items:center;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));transition:transform .15s}
+.vact .vai svg{width:31px;height:31px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.vact small{font-size:12px;font-weight:700;text-shadow:0 1px 5px rgba(0,0,0,.75);line-height:1.1}
+.vact:active .vai{transform:scale(.88)}
+.vact.like.on{color:#ff3b5c}.vact.like.on .vai svg{fill:#ff3b5c;stroke:#ff3b5c}
+.vact.sv.on .vai svg{fill:#fff}
+.vact.more small{display:none}
+.vact.pop .vai{animation:vpop .45s ease-out}
+@keyframes vpop{0%{transform:scale(1)}35%{transform:scale(1.45)}65%{transform:scale(.92)}100%{transform:scale(1)}}
+.vheart{position:absolute;z-index:5;width:104px;height:104px;margin:-52px 0 0 -52px;pointer-events:none;color:#ff3b5c;animation:vheart .9s ease-out forwards}
+.vheart svg{width:100%;height:100%;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+@keyframes vheart{0%{opacity:0;transform:scale(.3) rotate(-12deg)}18%{opacity:1;transform:scale(1.2) rotate(6deg)}40%{transform:scale(1) rotate(0)}80%{opacity:1;transform:scale(1.05) translateY(-14px)}100%{opacity:0;transform:scale(1.1) translateY(-40px)}}
+.vprog{z-index:4;height:3px}
+/* Kopfzeile */
+.vtop{z-index:6}
+.vbar b{font-size:20px;font-weight:800;letter-spacing:-.01em;flex:1}
+.vbar-r{display:flex;gap:10px}
+.vbtn{width:42px;height:42px}
+.vchips .fchip.on{background:#fff;color:#111}
+/* Instagram-Karte */
+.vcard.ig .vbig{z-index:1}
+.vcard.ig.igplay .vbig{display:none}
+.vigbox{display:none;position:absolute;left:12px;right:74px;top:calc(112px + env(safe-area-inset-top));bottom:calc(10px + env(safe-area-inset-bottom));z-index:1;border-radius:18px;overflow:hidden;background:#fff}
+.vcard.igplay .vigbox{display:block}
+.vigframe{width:100%;height:100%;border:0;background:#fff}
+.vcard.ig.igplay .vinfo{display:none}
+.vcard.ig.igplay .vrail{bottom:calc(40px + env(safe-area-inset-bottom))}
+/* Kommentare */
+.vcom-back{position:absolute;left:0;right:0;top:0;height:100%;z-index:20;background:rgba(0,0,0,0);display:flex;align-items:flex-end;justify-content:center;transition:background .2s}
+.vcom-back.in{background:rgba(0,0,0,.5)}
+.vcom{width:100%;max-width:560px;height:68%;max-height:100%;background:#1c1c1f;color:#fff;border-radius:22px 22px 0 0;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .25s ease-out;padding-bottom:env(safe-area-inset-bottom)}
+.vcom-back.in .vcom{transform:none}
+.vc-grab{width:38px;height:4px;border-radius:99px;background:rgba(255,255,255,.35);margin:8px auto 2px;flex:none}
+.vc-head{display:flex;align-items:center;justify-content:center;position:relative;padding:8px 16px 10px;border-bottom:1px solid rgba(255,255,255,.12);flex:none}
+.vc-head b{font-size:15.5px}
+.vc-x{all:unset;position:absolute;right:14px;top:6px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;cursor:pointer;color:#fff;font-size:16px}
+.vc-list{flex:1;overflow-y:auto;padding:10px 16px;display:flex;flex-direction:column;gap:14px;-webkit-overflow-scrolling:touch}
+.vc-row{display:flex;gap:10px;align-items:flex-start}
+.vc-av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--accent),#7b5cff)}
+.vc-tx{flex:1;min-width:0}
+.vc-tx div{display:flex;gap:8px;align-items:baseline}
+.vc-tx b{font-size:13.5px}.vc-tx small{opacity:.6;font-size:12px}
+.vc-tx p{margin:2px 0 0;font-size:15px;line-height:1.35;word-break:break-word;white-space:pre-wrap}
+.vc-del{all:unset;cursor:pointer;opacity:.5;font-size:13px;padding:6px}
+.vc-empty{margin:auto;text-align:center;opacity:.7;font-size:14px;line-height:1.45;padding:0 20px}
+.vc-emo{display:flex;justify-content:space-between;padding:8px 14px 2px;flex:none}
+.vc-emo button{all:unset;font-size:26px;cursor:pointer;padding:4px 6px}
+.vc-emo button:active{transform:scale(1.25)}
+.vc-form{display:flex;align-items:center;gap:10px;padding:8px 14px 10px;flex:none}
+.vc-in{all:unset;box-sizing:border-box;flex:1;min-width:0;height:42px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);font-size:16px;color:#fff}
+.vc-in::placeholder{color:rgba(255,255,255,.55)}
+.vc-send{all:unset;cursor:pointer;color:#6fb0ff;font-weight:700;font-size:15px;padding:8px 4px}
+@media (prefers-reduced-motion:reduce){.vheart,.vact.pop .vai{animation-duration:.01s}.vcom{transition:none}}
+
 </style>
 </head>
 <body>
@@ -1389,7 +1586,7 @@ function openLightbox(src, title, opts) {
     h('button', { class: 'lb-close', 'aria-label': 'Schließen', onclick: close }, '✕'),
     opts.extra || null, opts.bar || null,
     opts.hint === '' ? null : h('div', { class: 'lb-hint' }, opts.hint || 'Mit zwei Fingern zoomen · doppelt tippen für 2,5×'));
-  let scale = 1, tx = 0, ty = 0, mode = null, st = {}, lastTap = 0, sx = 0, sy = 0, pinched = false;
+  let scale = 1, tx = 0, ty = 0, mode = null, st = {}, lastTap = 0, sx = 0, sy = 0, pinched = false, tapTimer = null, tapMoved = false;
   const apply = () => { img.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`; };
   const limit = () => {
     if (scale <= 1) { tx = 0; ty = 0; return; }
@@ -1403,7 +1600,7 @@ function openLightbox(src, title, opts) {
     e.preventDefault();
     if (e.touches.length === 2) { mode = 'pinch'; pinched = true; st = { d: dist(e.touches), s: scale }; }
     else if (e.touches.length === 1) {
-      pinched = false; sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+      pinched = false; sx = e.touches[0].clientX; sy = e.touches[0].clientY; clearTimeout(tapTimer); tapMoved = false;
       mode = 'pan'; st = { x: sx - tx, y: sy - ty };
       const now = Date.now();
       if (now - lastTap < 300) { toggle(); mode = null; pinched = true; }
@@ -1412,6 +1609,7 @@ function openLightbox(src, title, opts) {
   }, { passive: false });
   stage.addEventListener('touchmove', e => {
     e.preventDefault();
+    if (e.touches.length === 1 && Math.hypot(e.touches[0].clientX - sx, e.touches[0].clientY - sy) > 10) tapMoved = true;
     if (mode === 'pinch' && e.touches.length === 2) { scale = Math.min(6, Math.max(1, st.s * dist(e.touches) / st.d)); limit(); apply(); }
     else if (mode === 'pan' && e.touches.length === 1 && scale > 1) { tx = e.touches[0].clientX - st.x; ty = e.touches[0].clientY - st.y; limit(); apply(); }
   }, { passive: false });
@@ -1422,9 +1620,15 @@ function openLightbox(src, title, opts) {
       const dx = t.clientX - sx, dy = t.clientY - sy;
       if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) opts.onSwipe(dx < 0 ? 1 : -1);
     }
+    if (!pinched && scale <= 1.02 && e.touches.length === 0 && t) {
+      const ddx = t.clientX - sx, ddy = t.clientY - sy;
+      if (opts.onSwipeDown && ddy > 110 && ddy > Math.abs(ddx) * 1.5) opts.onSwipeDown();
+      else if (opts.onTap && !tapMoved && Math.abs(ddx) < 10 && Math.abs(ddy) < 10) { clearTimeout(tapTimer); tapTimer = setTimeout(opts.onTap, 280); }
+    }
     if (e.touches.length === 1) { mode = 'pan'; st = { x: e.touches[0].clientX - tx, y: e.touches[0].clientY - ty }; } else mode = null;
   });
-  stage.addEventListener('dblclick', toggle);
+  stage.addEventListener('dblclick', () => { clearTimeout(tapTimer); toggle(); });
+  stage.addEventListener('click', () => { if (opts.onTap) { clearTimeout(tapTimer); tapTimer = setTimeout(opts.onTap, 280); } });
   document.body.append(back);
   return { close, el: back, setSrc: u => { img.src = u; scale = 1; tx = 0; ty = 0; apply(); } };
 }
@@ -2262,38 +2466,6 @@ let photoAlbum = 'Alle';
 const FAV = '♥ Favoriten';
 const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 const albumNames = () => Array.from(new Set(S.photos.map(f => f.album).filter(Boolean))).sort((a, b) => a.localeCompare(b, 'de'));
-function viewPhotos() {
-  const wrap = h('div', { class: 'stack' });
-  const input = h('input', { type: 'file', accept: 'image/*', multiple: true, style: 'display:none', onchange: async e => {
-    let files = Array.from(e.target.files || []); e.target.value = '';
-    if (files.length === 1) {
-      const b = await cropFile(files[0], { optional: true, title: 'Foto zuschneiden' });
-      if (!b) return;
-      files = [new File([b], files[0].name || 'foto.jpg', { type: 'image/jpeg', lastModified: files[0].lastModified || Date.now() })];
-    }
-    if (files.length) await addPhotos(files);
-  } });
-  wrap.append(pageHead('Fotos', h('button', { class: 'pill', onclick: () => { suppressLockUntil = Date.now() + 180000; input.click(); } }, '+ Fotos')), input);
-  const albums = albumNames();
-  if (photoAlbum !== 'Alle' && photoAlbum !== FAV && !albums.includes(photoAlbum)) photoAlbum = 'Alle';
-  if (S.photos.length) wrap.append(h('div', { class: 'chips' }, ['Alle', FAV, ...albums].map(a =>
-    h('button', { class: 'fchip' + (a === photoAlbum ? ' on' : ''), onclick: () => { photoAlbum = a; render(); } }, a))));
-  const list = S.photos.filter(f => photoAlbum === 'Alle' || (photoAlbum === FAV ? f.fav : f.album === photoAlbum))
-    .sort((a, b) => (b.datum || '').localeCompare(a.datum || '') || b.created - a.created);
-  if (!list.length) {
-    wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, S.photos.length ? 'Keine Fotos in dieser Ansicht.' : 'Noch keine Fotos. Sammle hier Luises schönste Momente. Du kannst mehrere Fotos auf einmal auswählen.')));
-    return wrap;
-  }
-  const groups = new Map();
-  list.forEach((f, idx) => { const key = f.datum ? f.datum.slice(0, 7) : ''; if (!groups.has(key)) groups.set(key, []); groups.get(key).push(idx); });
-  groups.forEach((idxs, key) => {
-    const label = key ? new Date(+key.slice(0, 4), +key.slice(5, 7) - 1, 1).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' }) : 'Ohne Datum';
-    wrap.append(h('div', { class: 'ph-group' }, h('div', { class: 'ph-month' }, label),
-      h('div', { class: 'ph-grid' }, idxs.map(i => h('button', { class: 'ph', 'aria-label': list[i].titel || 'Foto', onclick: () => openPhotoViewer(list, i) },
-        h('img', { src: list[i].thumb, alt: list[i].titel || '' }), list[i].fav ? h('span', { class: 'ph-fav' }, '♥') : null)))));
-  });
-  return wrap;
-}
 async function addPhotos(files, opt = {}) {
   let ok = 0; const ids = [];
   for (let i = 0; i < files.length; i++) {
@@ -2311,68 +2483,6 @@ async function addPhotos(files, opt = {}) {
   if (!opt.silent) render();
   toast(ok === files.length ? `${ok} ${ok === 1 ? 'Foto' : 'Fotos'} hinzugefügt` : `${ok} von ${files.length} hinzugefügt`);
   return ids;
-}
-async function openPhotoViewer(list, start) {
-  let i = start, url = null, blob = null;
-  const cap = h('div', { class: 'ph-cap' });
-  const count = h('div', { class: 'lb-count' });
-  const favBtn = h('button', { class: 'lb-act', type: 'button' }, '♡ Favorit');
-  const shareBtn = h('button', { class: 'lb-act', type: 'button' }, 'Teilen');
-  const profBtn = h('button', { class: 'lb-act', type: 'button' }, 'Profilbild');
-  const editBtn = h('button', { class: 'lb-act', type: 'button' }, 'Bearbeiten');
-  const cropBtn = h('button', { class: 'lb-act', type: 'button' }, 'Zuschneiden');
-  const bar = h('div', { class: 'lb-bar' }, cap, h('div', { class: 'lb-acts' }, favBtn, shareBtn, profBtn, cropBtn, editBtn));
-  const step = d => { const n = i + d; if (n < 0 || n >= list.length) return; i = n; load(); };
-  const api = openLightbox(BLANK, '', { bar, hint: '', extra: [count, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => step(-1) }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => step(1) }, '›')], onSwipe: step, onClose: () => { if (url) rmUrl(url); } });
-  const load = async () => {
-    const m = list[i];
-    count.textContent = `${i + 1} / ${list.length}`;
-    cap.replaceChildren(m.titel || '', h('small', null, [m.datum ? fmtD(m.datum) : '', m.album].filter(Boolean).join(' · ')));
-    favBtn.textContent = m.fav ? '♥ Favorit' : '♡ Favorit';
-    const rec = await pfileGet(m.id);
-    if (!rec) { toast('Datei nicht gefunden'); return; }
-    if (list[i] !== m) return;
-    if (url) rmUrl(url);
-    blob = new Blob([rec.data], { type: 'image/jpeg' });
-    url = mkUrl(blob); api.setSrc(url);
-  };
-  favBtn.onclick = async () => { const m = list[i]; m.fav = !m.fav; await photoPut(m); favBtn.textContent = m.fav ? '♥ Favorit' : '♡ Favorit'; render(); };
-  shareBtn.onclick = () => {
-    if (!blob) return;
-    const f = new File([blob], `Foto-${list[i].datum || 'Luise'}.jpg`, { type: 'image/jpeg' });
-    if (navigator.canShare && navigator.canShare({ files: [f] })) navigator.share({ files: [f] }).catch(() => {});
-    else { const u = mkUrl(f), a = h('a', { href: u, download: f.name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => rmUrl(u), 15000); }
-  };
-  profBtn.onclick = async () => {
-    if (!blob) return;
-    try { S.profile.foto = await blobToDataURL(await imageToJpeg(blob, 400, 0.82)); await persist('profile'); render(); toast('Profilbild gesetzt'); }
-    catch (e) { toast('Fehler: ' + (e.message || e)); }
-  };
-  cropBtn.onclick = async () => {
-    if (!blob) return;
-    const b = await cropFile(blob, { title: 'Foto zuschneiden' });
-    if (!b) return;
-    try {
-      const m = list[i];
-      const big = await imageToJpeg(b, 2000, 0.85), th = await imageToJpeg(b, 360, 0.75);
-      await pfilePut({ id: m.id, data: await big.arrayBuffer() });
-      m.thumb = await blobToDataURL(th); m.size = big.size; await photoPut(m);
-      await load(); render(); toast('Ausschnitt gespeichert');
-    } catch (e) { toast('Fehler: ' + (e.message || e)); }
-  };
-  editBtn.onclick = () => {
-    const m = list[i];
-    openSheet({ top: true, title: 'Foto', values: m,
-      fields: [{ key: 'titel', label: 'Beschreibung', ph: 'z. B. Erster Schnee' }, { key: 'datum', label: 'Aufnahmedatum', type: 'date' }, { key: 'album', label: 'Album', ph: 'z. B. Urlaub 2026', list: albumNames() }],
-      onSave: async v => { Object.assign(m, v); await photoPut(m); load(); render(); },
-      onDelete: async () => {
-        await pfileDel(m.id); await photoDel(m.id);
-        S.photos = S.photos.filter(x => x !== m); list.splice(i, 1);
-        if (!list.length) api.close(); else { i = Math.min(i, list.length - 1); load(); }
-        render();
-      } });
-  };
-  await load();
 }
 
 /* ============ Abzeichen ============ */
@@ -3344,7 +3454,7 @@ function viewHD() {
 }
 
 /* ============ Designs ============ */
-const BASE_L = { bg: '#f4f2ee', card: '#ffffff', ink: '#1c1b19', mute: '#7a766f', line: '#e6e2db', bad: '#c8372d', 'bad-bg': '#fbe4e1', warn: '#a8530a', 'warn-bg': '#fdefd9', shadow: '0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05)' };
+const BASE_L = { bg: '#f4f2ee', card: '#ffffff', ink: '#1c1b19', mute: '#66625b', line: '#e6e2db', bad: '#c8372d', 'bad-bg': '#fbe4e1', warn: '#a8530a', 'warn-bg': '#fdefd9', shadow: '0 1px 2px rgba(0,0,0,.04),0 4px 14px rgba(0,0,0,.05)' };
 const BASE_D = { bg: '#121214', card: '#1c1c20', ink: '#f2f0ec', mute: '#9a968f', line: '#2c2c31', bad: '#e5564b', 'bad-bg': '#3b1b18', warn: '#f0b36a', 'warn-bg': '#3a2a12', shadow: 'none' };
 const DESIGNS = {
   standard: { name: 'Salbei', c1: '#2a7567', c2: '#e8a07c',
@@ -3357,7 +3467,7 @@ const DESIGNS = {
     l: { accent: '#2b6fd6', 'accent-ink': '#ffffff', 'accent-bg': '#e3edfb', g1: '#1d4fa8', g2: '#3f8ae8', g3: '#6ad1c9', bg: '#eff3f9', line: '#dde5f0' },
     d: { accent: '#6aa5ff', 'accent-ink': '#0a1426', 'accent-bg': '#14243f', g1: '#173e80', g2: '#2a62b4', g3: '#2f8f8a', bg: '#0f1319', card: '#181e27', line: '#273140' } },
   gold: { name: 'Gold', c1: '#8a5a14', c2: '#f0cf72',
-    l: { accent: '#a8741a', 'accent-ink': '#ffffff', 'accent-bg': '#f8eccd', g1: '#8a5a14', g2: '#c98a24', g3: '#f0cf72', bg: '#f7f2e7', line: '#eadfc6' },
+    l: { accent: '#98660f', 'accent-ink': '#ffffff', 'accent-bg': '#f8eccd', g1: '#8a5a14', g2: '#c98a24', g3: '#f0cf72', bg: '#f7f2e7', line: '#eadfc6' },
     d: { accent: '#e5b94f', 'accent-ink': '#1a1203', 'accent-bg': '#33280d', g1: '#5c3d0c', g2: '#9a6a1a', g3: '#c9a24a', bg: '#131109', card: '#1e1a0f', ink: '#f4eedf', line: '#342d18' } }
 };
 function applyTheme() {
@@ -3898,7 +4008,7 @@ function viewMore() {
   const dn = S.docs.length, exp = S.docs.filter(d => d.ablauf && daysTo(d.ablauf) <= 90).length;
   const bigTile = (ico, title, sub, to) => h('button', { class: 'tile hubtile', type: 'button', onclick: () => go(to) }, h('span', { class: 'ico', html: ico }), h('span', null, title), h('small', null, sub));
   wrap.append(h('div', { class: 'tiles' }, bigTile(ICON.chat, 'KI-Assistent', 'Fragen zu den App-Daten', 'chat'), bigTile(ICON.search, 'Suche', 'Alles in der App finden', 'search')));
-  wrap.append(h('button', { class: 'tile hubtile wide', type: 'button', onclick: () => openVideoFeed('alle') }, h('span', { class: 'ico', html: ICON.video }), h('span', { class: 'tx' }, h('span', null, 'Videos'), h('small', null, 'Eigene Videos und passende Baby-Videos im Feed'))));
+  wrap.append(h('button', { class: 'tile hubtile wide', type: 'button', onclick: () => openVideoFeed('alle') }, h('span', { class: 'ico', html: ICON.video }), h('span', { class: 'tx' }, h('span', null, 'Reels'), h('small', null, 'Eigene Videos, YouTube Shorts und Instagram-Links'))));
   const grp = (title, cls, ...rows) => { wrap.append(sectionHead(title)); wrap.append(h('div', { class: 'card hubgrp ' + cls }, ...rows)); };
   grp('Organisation', 'gA',
     hubRow(ICON.docs, 'Dokumente', dn ? plural(dn, 'Dokument', 'Dokumente') + (exp ? ` · ${exp} läuft bald ab` : ' · Scannen, ablegen, suchen') : 'Urkunden, Impfpass, Versicherung', 'docs'),
@@ -3970,7 +4080,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 18'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 19'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4075,6 +4185,7 @@ function mapsUrl(q, mode, prov) {
 }
 function actionSheet(title, sub, actions) {
   const back = h('div', { class: 'back' });
+  if (document.querySelector('.lb')) back.style.zIndex = '95';
   const close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); };
   back.append(h('div', { class: 'sheet' },
     h('div', { class: 'sheet-head' }, h('button', { class: 'nav-btn', type: 'button', onclick: close }, 'Schließen'), h('b', null, title), h('span', { class: 'nav-spacer' })),
@@ -6530,7 +6641,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 18;
+const APP_VERSION = 19;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6605,7 +6716,7 @@ const views = {
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
 };
 let tab = 'home', lastTab = null;
-function go(id) { tab = id; render(); }
+function go(id) { if (id !== 'photos') phSel = null; tab = id; render(); }
 function render() {
   if (!S) return;
   const v = $('#view');
@@ -6650,6 +6761,7 @@ const COIN_RULES = {
   photo:    { n: 1, cap: 3, label: 'Foto hinzugefügt', emoji: '📷', go: () => go('photos') },
   journey:  { n: 3, cap: 2, label: 'Moment in der Journey', emoji: '🛤️', go: () => go('journey') },
   vidup:    { n: 3, cap: 2, label: 'Video hochgeladen', emoji: '🎬', go: () => openVideoFeed('eigene') },
+  fav:      { n: 1, cap: 3, label: 'Foto als Favorit markiert', emoji: '💗', go: () => go('photos') },
   vidwatch: { n: 1, cap: 3, label: 'Video angesehen', emoji: '▶️', go: () => openVideoFeed('alle') }
 };
 const COIN_SHOP = [
@@ -6796,7 +6908,7 @@ const VID_TOPICS = [
   { id: 'hilfe', name: 'Erste Hilfe', emoji: '🚑', col: '#d6483f', q: ['Erste Hilfe Baby Säugling Anleitung', 'Baby verschluckt Erste Hilfe'] },
   { id: 'tragen', name: 'Tragen', emoji: '👶', col: '#4fa36b', q: ['Baby tragen Tragetuch Anleitung', 'Babymassage Anleitung'] }
 ];
-const VID_KEY = 'luise_vid_yt_v1', VID_BLOCK = /impf|stiko/i;
+const VID_KEY = 'luise_vid_yt_v2', VID_BLOCK = /impf|stiko/i;
 const VIC = {
   play: '<svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/></svg>',
   pause: '<svg viewBox="0 0 24 24"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z" fill="currentColor" stroke="none"/></svg>',
@@ -6820,23 +6932,6 @@ function vidParseYt(u) {
   } catch (e) { return ''; }
 }
 function vidSecs(s) { const p = String(s || '').split(':').map(Number); if (!p.length || p.some(isNaN)) return 0; return p.reduce((a, b) => a * 60 + b, 0); }
-function vidParseSearch(html) {
-  const out = [];
-  try {
-    html = String(html); let i = html.indexOf('ytInitialData'); if (i < 0) return out;
-    i = html.indexOf('{', i); const j = html.indexOf('<' + '/script>', i); const data = JSON.parse(html.slice(i, j).trim().replace(/;\s*$/, ''));
-    const walk = o => {
-      if (!o || typeof o !== 'object') return;
-      if (o.videoRenderer && o.videoRenderer.videoId) {
-        const v = o.videoRenderer, t = ((v.title && v.title.runs) || []).map(r => r.text).join(''), ch = (v.ownerText && v.ownerText.runs && v.ownerText.runs[0] && v.ownerText.runs[0].text) || '';
-        out.push({ vid: v.videoId, t, ch, len: (v.lengthText && v.lengthText.simpleText) || '' }); return;
-      }
-      (Array.isArray(o) ? o : Object.values(o)).forEach(walk);
-    };
-    walk(data);
-  } catch (e) {}
-  return out;
-}
 function vidFetchText(url) {
   return new Promise((res, rej) => {
     const ps = [u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u), u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)]; let fails = 0, done = false;
@@ -6850,23 +6945,6 @@ function vidFetchText(url) {
 }
 const vidCache = () => { try { const c = JSON.parse(ls.get(VID_KEY) || 'null'); return c && typeof c === 'object' ? c : { ts: 0, topics: {} }; } catch (e) { return { ts: 0, topics: {} }; } };
 let vidBusy = false, vidErr = '';
-async function vidLoadSuggest(force) {
-  const c = vidCache(); if (vidBusy) return; if (!force && Date.now() - c.ts < 12 * 36e5 && Object.keys(c.topics || {}).length) return;
-  vidBusy = true; vidErr = ''; if (vf) vfStatus();
-  try {
-    const topics = Object.assign({}, c.topics);
-    await Promise.all(VID_TOPICS.map(async t => {
-      const seen = new Set(), list = [];
-      const rs = await Promise.all(t.q.map(q => vidFetchText('https://www.youtube.com/results?hl=de&gl=DE&sp=EgIQAQ%253D%253D&search_query=' + encodeURIComponent(q)).then(vidParseSearch).catch(() => [])));
-      rs.forEach(a => a.forEach(x => { const s = vidSecs(x.len); if (seen.has(x.vid) || !x.t || VID_BLOCK.test(x.t) || !s || s > 1800) return; seen.add(x.vid); list.push({ vid: x.vid, t: x.t, ch: x.ch, len: x.len }); }));
-      if (list.length) topics[t.id] = list.slice(0, 6);
-    }));
-    if (Object.keys(topics).some(k => (topics[k] || []).length)) ls.set(VID_KEY, JSON.stringify({ ts: Date.now(), topics }));
-    else vidErr = 'Vorschläge sind gerade nicht erreichbar.';
-  } catch (e) { vidErr = 'Vorschläge sind gerade nicht erreichbar.'; }
-  vidBusy = false;
-  if (vf) { vfStatus(); if (vf.feed.scrollTop < 20) vfRebuild(); }
-}
 async function videoPoster(file) {
   return new Promise(res => {
     const v = document.createElement('video'), url = URL.createObjectURL(file); let done = false;
@@ -6900,129 +6978,9 @@ function addVideo() {
     }
   });
 }
-function addYtVideo() {
-  const arr = S.profile.ytVideos = S.profile.ytVideos || [];
-  openSheet({
-    title: 'YouTube-Video hinzufügen', saveLabel: 'Hinzufügen',
-    fields: [{ key: 'link', label: 'YouTube-Link', type: 'url', inputmode: 'url', required: true, ph: 'https://www.youtube.com/watch?v=…', hint: 'In YouTube auf „Teilen“ und „Link kopieren“ tippen, dann hier einfügen.' }],
-    onSave: async v => {
-      const vid = vidParseYt(v.link); if (!vid) { toast('Das ist kein YouTube-Link'); return false; }
-      if (arr.some(x => x.vid === vid)) { toast('Dieses Video ist schon dabei'); return false; }
-      const it = { id: uid(), vid, titel: 'YouTube-Video', kanal: '' }; arr.unshift(it); await persist('profile');
-      if (vf) { vf.filter = 'eigene'; vfRebuild(); } else render();
-      toast('Video hinzugefügt');
-      const ac = new AbortController(); setTimeout(() => ac.abort(), 8000);
-      fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + vid), { signal: ac.signal }).then(r => r.ok ? r.json() : null).then(async j => {
-        if (j && j.title) { it.titel = j.title; it.kanal = j.author_name || ''; await persist('profile'); if (vf && vf.filter === 'eigene') vfRebuild(); }
-      }).catch(() => {});
-    }
-  });
-}
 let vf = null, vidMuted = true;
-function vidItems(f) {
-  const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)).map(m => ({ k: 'own', m }));
-  const mine = (S.profile.ytVideos || []).map(y => ({ k: 'yt', vid: y.vid, t: y.titel || 'YouTube-Video', ch: y.kanal || '', y }));
-  const sug = vidCache().topics || {}, ytOf = tid => (sug[tid] || []).filter(x => !VID_BLOCK.test(x.t)).map(x => ({ k: 'yt', vid: x.vid, t: x.t, ch: x.ch, topic: tid })), card = tid => ({ k: 'topic', topic: tid });
-  if (f === 'eigene') { const a = own.concat(mine); return a.length ? a : [{ k: 'empty' }]; }
-  if (f !== 'alle') { const a = ytOf(f); a.push(card(f)); return a; }
-  const lists = VID_TOPICS.map(t => ytOf(t.id)), mixed = [];
-  for (let i = 0; i < 3; i++) lists.forEach(l => { if (l[i]) mixed.push(l[i]); });
-  const out = own.concat(mine, mixed);
-  if (!mixed.length) VID_TOPICS.forEach(t => out.push(card(t.id))); else out.push({ k: 'more' });
-  return out;
-}
 function vfFlash(card, ico) { const f = card.querySelector('.vflash'); if (!f) return; f.innerHTML = ico; f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
 function vfWatched(key) { if (!vf || vf.seen.has(key)) return; vf.seen.add(key); coinEarn('vidwatch'); }
-function vfCardShell(it, bgImg) {
-  return h('section', { class: 'vcard', 'data-k': it.k },
-    h('div', { class: 'vbg', style: bgImg ? `background-image:url("${bgImg}")` : '' }), h('div', { class: 'vflash', 'aria-hidden': 'true' }));
-}
-function vfOwnCard(it) {
-  const m = it.m, card = vfCardShell(it, m.poster);
-  const vd = h('video', { class: 'vvid', poster: m.poster || null, preload: 'none' });
-  vd.loop = true; vd.muted = vidMuted; vd.playsInline = true; vd.setAttribute('playsinline', ''); vd.setAttribute('webkit-playsinline', '');
-  const prog = h('i'); let url = null, tick = 0;
-  const load = async () => {
-    if (url) return true; const rec = await vfileGet(m.id); if (!rec || !rec.blob) { toast('Video nicht gefunden'); return false; }
-    url = URL.createObjectURL(rec.blob); vd.src = url; return true;
-  };
-  card._on = async () => { if (!(await load())) return; vd.muted = vidMuted; try { await vd.play(); } catch (e) { card.classList.add('paused'); } };
-  card._off = () => { vd.pause(); if (url) { vd.removeAttribute('src'); try { vd.load(); } catch (e) {} URL.revokeObjectURL(url); url = null; } card.classList.remove('paused'); prog.style.width = '0'; };
-  vd.addEventListener('timeupdate', () => { if (vd.duration) prog.style.width = (vd.currentTime / vd.duration * 100) + '%'; if (vd.currentTime > 3 && !tick) { tick = 1; vfWatched('o' + m.id); } });
-  vd.addEventListener('play', () => card.classList.remove('paused')); vd.addEventListener('pause', () => { if (url) card.classList.add('paused'); });
-  card.addEventListener('click', e => { if (e.target.closest('button,a')) return; if (!url) { card._on(); return; } if (vd.paused) { vd.play().catch(() => {}); vfFlash(card, VIC.play); } else { vd.pause(); vfFlash(card, VIC.pause); } });
-  const snd = h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Ton an oder aus', html: vidMuted ? VIC.mute : VIC.sound, onclick: () => { vidMuted = !vidMuted; vf.el.querySelectorAll('.vvid').forEach(x => { x.muted = vidMuted; }); vf.el.querySelectorAll('.vsnd').forEach(b => { b.innerHTML = vidMuted ? VIC.mute : VIC.sound; }); } });
-  snd.classList.add('vsnd');
-  const more = h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Mehr', html: VIC.more, onclick: () => actionSheet(m.titel, `${fmtD(m.datum)}${m.size ? ' · ' + fmtSize(m.size) : ''}`, [
-    { label: 'Umbenennen', onclick: () => openSheet({ title: 'Umbenennen', values: { titel: m.titel }, fields: [{ key: 'titel', label: 'Titel', required: true, cap: 'words' }], onSave: async v => { m.titel = v.titel; await videoPut(m); if (vf) vfRebuild(true); } }) },
-    { label: 'Löschen', ghost: true, onclick: async () => { if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]) });
-  card.append(h('div', { class: 'vmedia own' }, vd), h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }),
-    h('div', { class: 'vinfo' }, h('b', null, m.titel), h('small', null, ['Eigenes Video', fmtD(m.datum), vidDurTxt(m.dur)].filter(Boolean).join(' · '))),
-    h('div', { class: 'vrail' }, snd, more), h('div', { class: 'vprog' }, prog));
-  return card;
-}
-function vfYtCard(it) {
-  const thumb = `https://i.ytimg.com/vi/${it.vid}/hqdefault.jpg`, card = vfCardShell(it, thumb), tp = VID_TOPICS.find(t => t.id === it.topic);
-  const poster = () => [h('img', { src: thumb, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }), h('span', { class: 'vplaybig on', html: VIC.play })];
-  const media = h('div', { class: 'vmedia yt' }), btn = h('button', { class: 'vytbtn', type: 'button', 'aria-label': 'Video abspielen: ' + it.t }, poster());
-  media.append(btn);
-  const play = () => {
-    media.replaceChildren(h('iframe', { class: 'vyframe', src: `https://www.youtube-nocookie.com/embed/${it.vid}?autoplay=1&playsinline=1&rel=0&modestbranding=1`, title: it.t, allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: true, referrerpolicy: 'strict-origin-when-cross-origin' }));
-    card.classList.add('ytplay'); vfWatched('y' + it.vid);
-  };
-  btn.addEventListener('click', play);
-  card._off = () => { if (card.classList.contains('ytplay')) { card.classList.remove('ytplay'); const b = h('button', { class: 'vytbtn', type: 'button', 'aria-label': 'Video abspielen: ' + it.t }, poster()); b.addEventListener('click', play); media.replaceChildren(b); } };
-  const rail = [h('a', { class: 'vbtn', href: 'https://www.youtube.com/watch?v=' + it.vid, target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Auf YouTube öffnen', html: VIC.yt, onclick: () => { suppressLockUntil = Date.now() + 120000; } })];
-  if (it.y) rail.push(h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Entfernen', html: VIC.more, onclick: () => actionSheet(it.t, 'YouTube-Video aus dem Feed entfernen?', [{ label: 'Entfernen', ghost: true, onclick: async () => { const a = S.profile.ytVideos; a.splice(a.indexOf(it.y), 1); await persist('profile'); vfRebuild(true); } }]) }));
-  card.append(media, h('div', { class: 'vshade' }), h('div', { class: 'vinfo' }, tp ? h('em', { class: 'vtag', style: `--tc:${tp.col}` }, tp.emoji + ' ' + tp.name) : null, h('b', null, it.t), h('small', null, [it.ch, 'YouTube'].filter(Boolean).join(' · '))), h('div', { class: 'vrail' }, rail));
-  return card;
-}
-function vfTopicCard(it) {
-  const t = VID_TOPICS.find(x => x.id === it.topic), card = h('section', { class: 'vcard topic', 'data-k': 'topic', style: `--tc:${t.col}` });
-  card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, t.emoji), h('h2', null, t.name), h('p', null, 'Passende Videos zu diesem Thema findest du auf YouTube.'),
-    h('a', { class: 'btn vgo', href: vidSearchUrl(t.q[0]), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube ansehen'),
-    h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addYtVideo }, 'Link einfügen')));
-  return card;
-}
-function vfInfoCard(it) {
-  const card = h('section', { class: 'vcard topic', 'data-k': it.k, style: '--tc:#5b6bd6' });
-  if (it.k === 'empty') card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, '🎬'), h('h2', null, 'Noch nichts hier'), h('p', null, 'Lade ein eigenes Video hoch oder füge einen YouTube-Link ein.'),
-    h('button', { class: 'btn vgo', type: 'button', onclick: addVideo }, 'Video hochladen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addYtVideo }, 'YouTube-Link einfügen')));
-  else card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, '🔎'), h('h2', null, 'Mehr entdecken'), h('p', null, 'Wähle oben ein Thema oder suche selbst auf YouTube.'),
-    h('a', { class: 'btn vgo', href: vidSearchUrl('Baby Eltern Tipps Hebamme'), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube suchen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: () => { vf.filter = 'eigene'; vfRebuild(); } }, 'Zu meinen Videos')));
-  return card;
-}
-function vfStatus() {
-  if (!vf) return; const s = vf.el.querySelector('.vstat'); if (!s) return;
-  s.textContent = vidBusy ? 'Suche Videos …' : (vidErr && vf.filter !== 'eigene' ? vidErr + ' Es gibt Themen-Karten.' : ''); s.hidden = !s.textContent;
-}
-function vfRebuild(keepScroll) {
-  if (!vf) return; const keep = vf.feed.scrollTop;
-  vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); vf.io.unobserve(c); });
-  const items = vidItems(vf.filter);
-  vf.feed.replaceChildren(...items.map(it => it.k === 'own' ? vfOwnCard(it) : it.k === 'yt' ? vfYtCard(it) : it.k === 'topic' ? vfTopicCard(it) : vfInfoCard(it)));
-  vf.feed.querySelectorAll('.vcard').forEach(c => vf.io.observe(c));
-  vf.feed.scrollTop = keepScroll ? keep : 0;
-  vf.chips.querySelectorAll('.fchip').forEach(b => b.classList.toggle('on', b.dataset.f === vf.filter));
-  vfStatus();
-}
-function closeVideoFeed() {
-  if (!vf) return; vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); }); vf.io.disconnect(); vf.el.remove(); vf = null;
-}
-function openVideoFeed(filter) {
-  if (vf) closeVideoFeed();
-  const feed = h('div', { class: 'vfeed' }), chips = h('div', { class: 'vchips' });
-  const el = h('div', { class: 'vwrap', role: 'dialog', 'aria-label': 'Videos' });
-  const io = new IntersectionObserver(es => es.forEach(e => { const c = e.target; if (e.isIntersecting && e.intersectionRatio >= 0.6) { if (vf) vf.cur = c; if (c._on) c._on(); } else if (!e.isIntersecting || e.intersectionRatio < 0.3) { if (c._off) c._off(); } }), { root: feed, threshold: [0, 0.3, 0.6, 0.9] });
-  vf = { el, feed, chips, io, filter: filter || 'alle', seen: new Set(), cur: null };
-  [['alle', 'Für dich', '✨'], ['eigene', 'Eigene', '🎬']].concat(VID_TOPICS.map(t => [t.id, t.name, t.emoji])).forEach(([id, l, em]) => chips.append(h('button', { class: 'fchip', 'data-f': id, type: 'button', onclick: () => { vf.filter = id; vfRebuild(); } }, em + ' ' + l)));
-  el.append(feed,
-    h('div', { class: 'vtop' },
-      h('div', { class: 'vbar' }, h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Videos schließen', html: VIC.back, onclick: closeVideoFeed }), h('b', null, 'Videos'),
-        h('button', { class: 'vbtn vadd', type: 'button', 'aria-label': 'Video hinzufügen', html: VIC.plus, onclick: () => actionSheet('Video hinzufügen', 'Eigene Videos bleiben auf diesem iPhone.', [{ label: 'Eigenes Video hochladen', onclick: addVideo }, { label: 'YouTube-Link einfügen', ghost: true, onclick: addYtVideo }, { label: 'Neue Vorschläge laden', ghost: true, onclick: () => vidLoadSuggest(true) }]) })),
-      chips, h('div', { class: 'vstat', hidden: true })));
-  document.body.append(el); vfRebuild(); vidLoadSuggest(false);
-}
 
 Object.assign(ICON, { video: '<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="M16 10.5l5-2.5v8l-5-2.5"/></svg>' });
 /* ============ v18: News sofort und zuverlässig ============ */
@@ -7459,6 +7417,555 @@ function viewGrowth() {
   return wrap;
 }
 
+/* ============ v19: Fotos neu ============ */
+Object.assign(ICON, {
+  heartO: '<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg>',
+  heartF: '<svg viewBox="0 0 24 24" class="fill"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg>',
+  shareI: '<svg viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/></svg>',
+  infoI: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>',
+  moreI: '<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>',
+  slideI: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/></svg>',
+  selI: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.5"/></svg>',
+  albumI: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 15l4.5-4.5 4 4 3-3L20 16"/></svg>',
+  trashI: '<svg viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M7 7l1 12h8l1-12"/></svg>',
+  sortI: '<svg viewBox="0 0 24 24"><path d="M7 5v14M7 19l-3-3M7 19l3-3M17 19V5M17 5l-3 3M17 5l3 3"/></svg>',
+  colsI: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1.2"/><rect x="14" y="4" width="6" height="6" rx="1.2"/><rect x="4" y="14" width="6" height="6" rx="1.2"/><rect x="14" y="14" width="6" height="6" rx="1.2"/></svg>'
+});
+let phSearch = '', phSort = 'new', phCols = +(ls.get('luise_ph_cols') || 3), phSel = null;
+const phIcon = (k, cls) => h('span', { class: 'phi' + (cls ? ' ' + cls : ''), 'aria-hidden': 'true', html: ICON[k] });
+const phMonthLabel = key => key ? new Date(+key.slice(0, 4), +key.slice(5, 7) - 1, 1).toLocaleDateString('de-DE', { month: 'long', year: 'numeric' }) : 'Ohne Datum';
+function phFiltered() {
+  const q = phSearch.trim().toLowerCase();
+  let list = S.photos.filter(f => photoAlbum === 'Alle' || (photoAlbum === FAV ? f.fav : f.album === photoAlbum));
+  if (q) list = list.filter(f => [f.titel, f.album, f.datum ? fmtD(f.datum) : '', f.datum ? phMonthLabel(f.datum.slice(0, 7)) : '', f.fav ? 'favorit' : ''].join(' ').toLowerCase().includes(q));
+  const cmp = (a, b) => (b.datum || '').localeCompare(a.datum || '') || b.created - a.created;
+  return list.sort(phSort === 'new' ? cmp : (a, b) => cmp(b, a));
+}
+function phMemories() {
+  const t = new Date(), out = [];
+  S.photos.forEach(f => {
+    if (!f.datum) return; const d = parseD(f.datum);
+    const mo = (t.getFullYear() - d.getFullYear()) * 12 + t.getMonth() - d.getMonth();
+    if (mo < 1 || Math.abs(d.getDate() - t.getDate()) > 1) return;
+    const yrs = mo / 12;
+    if (mo % 12 === 0) out.push({ f, label: `Heute vor ${yrs} ${yrs === 1 ? 'Jahr' : 'Jahren'}`, pr: 0 });
+    else if ([1, 2, 3, 6, 9].includes(mo)) out.push({ f, label: `Heute vor ${mo} ${mo === 1 ? 'Monat' : 'Monaten'}`, pr: 1 });
+  });
+  out.sort((a, b) => a.pr - b.pr);
+  if (S.photos.length >= 3) {
+    const key = +isoToday().replace(/-/g, ''), f = S.photos[key % S.photos.length];
+    if (!out.some(x => x.f === f)) out.push({ f, label: 'Zufälliger Moment', pr: 2 });
+  }
+  return out.slice(0, 8);
+}
+async function phShareFiles(ids) {
+  const files = [];
+  for (const id of ids.slice(0, 10)) { const m = S.photos.find(x => x.id === id), rec = await pfileGet(id); if (rec) files.push(new File([new Blob([rec.data], { type: 'image/jpeg' })], `Foto-${(m && m.datum) || 'Luise'}-${files.length + 1}.jpg`, { type: 'image/jpeg' })); }
+  if (!files.length) { toast('Keine Datei gefunden'); return; }
+  if (navigator.canShare && navigator.canShare({ files })) navigator.share({ files }).catch(() => {});
+  else { files.forEach(f => { const u = mkUrl(f), a = h('a', { href: u, download: f.name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => rmUrl(u), 15000); }); }
+}
+async function phDelete(ids) {
+  for (const id of ids) { await pfileDel(id); await photoDel(id); }
+  S.photos = S.photos.filter(x => !ids.includes(x.id));
+}
+function phBulkBar() {
+  const ids = Array.from(phSel), n = ids.length, sel = () => ids.map(id => S.photos.find(x => x.id === id)).filter(Boolean);
+  const btn = (ico, label, fn, cls) => h('button', { class: 'phb ' + (cls || ''), type: 'button', disabled: n ? null : true, onclick: fn }, phIcon(ico), h('small', null, label));
+  return h('div', { class: 'phbar' }, h('div', { class: 'phbar-top' }, h('b', null, n ? `${n} ausgewählt` : 'Tippe auf Fotos'),
+    h('button', { class: 'linkbtn', type: 'button', onclick: () => { const all = phFiltered(); phSel = new Set(all.length === n ? [] : all.map(x => x.id)); render(); } }, 'Alle'),
+    h('button', { class: 'linkbtn', type: 'button', onclick: () => { phSel = null; render(); } }, 'Fertig')),
+  h('div', { class: 'phbar-acts' },
+    btn('heartO', 'Favorit', async () => { const ms = sel(), all = ms.every(m => m.fav); for (const m of ms) { m.fav = !all; await photoPut(m); } toast(all ? 'Favoriten entfernt' : 'Zu Favoriten hinzugefügt'); render(); }),
+    btn('albumI', 'Album', () => openSheet({ title: 'Zu Album hinzufügen', saveLabel: 'Sichern', values: { album: '' }, fields: [{ key: 'album', label: 'Album', ph: 'z. B. Urlaub 2026', list: albumNames() }],
+      onSave: async v => { for (const m of sel()) { m.album = (v.album || '').trim(); await photoPut(m); } toast(v.album ? `In „${v.album.trim()}“ verschoben` : 'Aus dem Album entfernt'); phSel = new Set(); render(); } })),
+    btn('shareI', 'Teilen', () => phShareFiles(ids)),
+    btn('trashI', 'Löschen', async () => { if (!confirm(`${n} ${n === 1 ? 'Foto' : 'Fotos'} wirklich löschen?`)) return; await phDelete(ids); phSel = new Set(); toast('Gelöscht'); render(); }, 'danger')));
+}
+function viewPhotos() {
+  const wrap = h('div', { class: 'stack photopage' }), p = S.profile;
+  const input = h('input', { type: 'file', accept: 'image/*', multiple: true, style: 'display:none', onchange: async e => {
+    let files = Array.from(e.target.files || []); e.target.value = '';
+    if (files.length === 1) {
+      const b = await cropFile(files[0], { optional: true, title: 'Foto zuschneiden' });
+      if (!b) return;
+      files = [new File([b], files[0].name || 'foto.jpg', { type: 'image/jpeg', lastModified: files[0].lastModified || Date.now() })];
+    }
+    if (files.length) await addPhotos(files);
+  } });
+  const addBtnEl = h('button', { class: 'pill', type: 'button', onclick: () => { suppressLockUntil = Date.now() + 180000; input.click(); } }, '+ Fotos');
+  const n = S.photos.length;
+  wrap.append(pageHead('Fotos', h('div', { class: 'phhead-r' }, n ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { phSel = phSel ? null : new Set(); render(); } }, phSel ? 'Fertig' : 'Auswählen') : null, addBtnEl)), input);
+  const albums = albumNames();
+  if (photoAlbum !== 'Alle' && photoAlbum !== FAV && !albums.includes(photoAlbum)) photoAlbum = 'Alle';
+  if (!n) {
+    wrap.append(h('div', { class: 'card stack phempty' }, h('div', { class: 'phempty-e', 'aria-hidden': 'true' }, '📸'), h('h2', null, 'Luises Galerie'),
+      h('p', { class: 'mute' }, 'Sammle hier die schönsten Momente. Du kannst viele Fotos auf einmal auswählen. Danach gibt es Erinnerungen wie „Heute vor einem Jahr“, Alben, Suche und eine Diashow.'),
+      h('button', { class: 'btn wide', type: 'button', onclick: () => addBtnEl.click() }, 'Erste Fotos hinzufügen')));
+    return wrap;
+  }
+  const first = S.photos.map(f => f.datum).filter(Boolean).sort()[0];
+  wrap.append(h('p', { class: 'phsub' }, `${plural(n, 'Foto', 'Fotos')}${albums.length ? ' · ' + plural(albums.length, 'Album', 'Alben') : ''}${S.photos.filter(f => f.fav).length ? ' · ' + S.photos.filter(f => f.fav).length + ' ♥' : ''}${first ? ' · seit ' + fmtD(first) : ''}`));
+  // Erinnerungen
+  const mem = phMemories();
+  if (mem.length && !phSel && photoAlbum === 'Alle' && !phSearch) {
+    wrap.append(sectionHead('Erinnerungen'));
+    wrap.append(h('div', { class: 'phmem' }, mem.map((m, i) => h('button', { class: 'phm', type: 'button', 'data-i': i, onclick: () => openPhotoViewer(mem.map(x => x.f), i), 'aria-label': m.label },
+      h('img', { src: m.f.thumb, alt: '' }), h('span', { class: 'phm-cap' }, h('b', null, m.label), h('small', null, m.f.datum ? fmtD(m.f.datum) + (ageAt(p, m.f.datum) ? ' · ' + ageAt(p, m.f.datum) : '') : ''))))));
+  }
+  // Alben
+  const cover = list => list.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || ''))[0];
+  const cards = [['Alle', S.photos]];
+  const favs = S.photos.filter(f => f.fav); if (favs.length) cards.push([FAV, favs]);
+  albums.forEach(a => cards.push([a, S.photos.filter(f => f.album === a)]));
+  if (cards.length > 1) wrap.append(h('div', { class: 'phalb' }, cards.map(([name, l]) => h('button', { class: 'pha' + (name === photoAlbum ? ' on' : ''), type: 'button', 'data-album': name, onclick: () => { photoAlbum = name; render(); } },
+    h('span', { class: 'pha-img' }, h('img', { src: cover(l).thumb, alt: '' })), h('b', null, name === FAV ? '♥ Favoriten' : name), h('small', null, String(l.length))))));
+  // Werkzeugleiste
+  const search = h('input', { type: 'search', class: 'phsearch', placeholder: 'Suchen: Titel, Album, Monat', value: phSearch, 'aria-label': 'Fotos suchen', oninput: e => { phSearch = e.target.value; const pos = e.target.selectionStart; render(); const el = document.querySelector('.phsearch'); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (x) {} } } });
+  const list = phFiltered();
+  const tools = h('div', { class: 'phtools' }, h('label', { class: 'phsearchw' }, phIcon('search'), search),
+    h('button', { class: 'phtb', type: 'button', 'aria-label': phSort === 'new' ? 'Neueste zuerst' : 'Älteste zuerst', title: phSort === 'new' ? 'Neueste zuerst' : 'Älteste zuerst', onclick: () => { phSort = phSort === 'new' ? 'old' : 'new'; render(); } }, phIcon('sortI')),
+    h('button', { class: 'phtb', type: 'button', 'aria-label': 'Spalten ändern', title: 'Größe der Vorschau', onclick: () => { phCols = phCols === 3 ? 4 : phCols === 4 ? 2 : 3; ls.set('luise_ph_cols', String(phCols)); render(); } }, phIcon('colsI')),
+    list.length > 1 ? h('button', { class: 'phtb show', type: 'button', 'aria-label': 'Diashow starten', title: 'Diashow', onclick: () => openPhotoViewer(list, 0, { slideshow: true }) }, phIcon('slideI')) : null);
+  wrap.append(tools);
+  if (photoAlbum !== 'Alle' && photoAlbum !== FAV) wrap.append(h('div', { class: 'phalbhead' }, h('b', null, photoAlbum), h('button', { class: 'linkbtn', type: 'button', onclick: () => actionSheet(photoAlbum, 'Die Fotos bleiben erhalten.', [
+    { label: 'Album umbenennen', onclick: () => openSheet({ title: 'Album umbenennen', values: { name: photoAlbum }, fields: [{ key: 'name', label: 'Name', required: true }], onSave: async v => { const nn = v.name.trim(), old = photoAlbum; for (const m of S.photos.filter(x => x.album === old)) { m.album = nn; await photoPut(m); } photoAlbum = nn; render(); } }) },
+    { label: 'Album auflösen', ghost: true, onclick: async () => { for (const m of S.photos.filter(x => x.album === photoAlbum)) { m.album = ''; await photoPut(m); } photoAlbum = 'Alle'; render(); toast('Album aufgelöst'); } }]) }, 'Verwalten')));
+  if (!list.length) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, phSearch ? `Nichts gefunden für „${phSearch}“.` : 'Keine Fotos in dieser Ansicht.'))); if (phSel) wrap.append(phBulkBar()); return wrap; }
+  const groups = new Map();
+  list.forEach((f, idx) => { const key = f.datum ? f.datum.slice(0, 7) : ''; if (!groups.has(key)) groups.set(key, []); groups.get(key).push(idx); });
+  groups.forEach((idxs, key) => {
+    const age = key && p.geburtsdatum ? ageText(p.geburtsdatum, key + '-15') : '';
+    wrap.append(h('div', { class: 'ph-group' }, h('div', { class: 'ph-month' }, h('span', null, phMonthLabel(key)), age ? h('small', null, 'mit ' + age) : null, h('i', null, String(idxs.length))),
+      h('div', { class: 'ph-grid c' + phCols }, idxs.map(i => { const f = list[i], on = phSel && phSel.has(f.id);
+        return h('button', { class: 'ph' + (on ? ' sel' : ''), type: 'button', 'data-id': f.id, 'aria-label': f.titel || 'Foto', 'aria-pressed': phSel ? (on ? 'true' : 'false') : null, title: [f.titel, f.datum ? fmtD(f.datum) : ''].filter(Boolean).join(' · '),
+          onclick: () => { if (phSel) { if (phSel.has(f.id)) phSel.delete(f.id); else phSel.add(f.id); render(); } else openPhotoViewer(list, i); } },
+          h('img', { src: f.thumb, alt: f.titel || '', loading: 'lazy', decoding: 'async' }), f.fav ? h('span', { class: 'ph-fav', html: ICON.heartF }) : null,
+          phSel ? h('span', { class: 'ph-chk' }, on ? '✓' : '') : h('span', { class: 'ph-hov' }, f.titel || (f.datum ? fmtD(f.datum) : ''))); }))));
+  });
+  if (phSel) wrap.append(phBulkBar());
+  return wrap;
+}
+const phViewerKey = {};
+async function openPhotoViewer(list, start, vopts) {
+  vopts = vopts || {};
+  let i = Math.max(0, Math.min(start || 0, list.length - 1)), url = null, blob = null, timer = null, infoOn = false, alive = true;
+  const cnt = h('span', { class: 'pv-count' });
+  const heartBtn = h('button', { class: 'pvb heart', type: 'button', 'aria-label': 'Favorit' }), shareBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Teilen' }, phIcon('shareI'), h('small', null, 'Teilen')),
+    infoBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Info' }, phIcon('infoI'), h('small', null, 'Info')), showBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Diashow' }, phIcon('slideI'), h('small', null, 'Diashow')),
+    moreBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Mehr' }, phIcon('moreI'), h('small', null, 'Mehr'));
+  const strip = h('div', { class: 'pv-strip' }, list.map((m, k) => h('button', { class: 'pv-th', type: 'button', 'aria-label': 'Foto ' + (k + 1), onclick: () => { stopShow(); i = k; load(); } }, h('img', { src: m.thumb, alt: '' }))));
+  const info = h('div', { class: 'pv-info' });
+  const pop = h('div', { class: 'pv-pop', 'aria-hidden': 'true', html: ICON.heartF });
+  const bar = h('div', { class: 'pv-bar' }, info, strip, h('div', { class: 'pv-acts' }, heartBtn, shareBtn, infoBtn, showBtn, moreBtn));
+  const top = h('div', { class: 'pv-top' }, cnt);
+  const step = d => { const n = i + d; if (n < 0 || n >= list.length) { if (timer && list.length > 1) { i = d > 0 ? 0 : list.length - 1; load(); } return; } i = n; load(); };
+  const stopShow = () => { if (timer) { clearInterval(timer); timer = null; } api.el.classList.remove('show', 'ui-off'); showBtn.classList.remove('on'); };
+  const startShow = () => { stopShow(); if (list.length < 2) { toast('Für die Diashow braucht es mindestens 2 Fotos'); return; } api.el.classList.add('show', 'ui-off'); showBtn.classList.add('on'); timer = setInterval(() => step(1), 3600); };
+  const api = openLightbox(BLANK, '', { bar, hint: '', extra: [top, pop, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => { stopShow(); step(-1); } }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => { stopShow(); step(1); } }, '›')],
+    onSwipe: d => { stopShow(); step(d); }, onSwipeDown: () => api.close(), onTap: () => { if (timer) stopShow(); else api.el.classList.toggle('ui-off'); },
+    onClose: () => { alive = false; stopShow(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
+  const onKey = e => { if (!alive) return; if (e.key === 'ArrowLeft') { stopShow(); step(-1); } else if (e.key === 'ArrowRight') { stopShow(); step(1); } else if (e.key === 'Escape') api.close(); else if (e.key === 'l' || e.key === 'L') favToggle(); };
+  document.addEventListener('keydown', onKey);
+  const paintHeart = () => { const m = list[i]; heartBtn.replaceChildren(phIcon(m.fav ? 'heartF' : 'heartO', m.fav ? 'on' : ''), h('small', null, m.fav ? 'Favorit' : 'Merken')); heartBtn.classList.toggle('on', !!m.fav); };
+  const paintInfo = () => {
+    const m = list[i], a = ageAt(S.profile, m.datum);
+    info.classList.toggle('on', infoOn);
+    info.replaceChildren(h('b', { class: 'pvi-t' }, m.titel || 'Ohne Beschreibung'),
+      h('p', null, [m.datum ? fmtD(m.datum) : 'Ohne Datum', a ? 'Luise war ' + a + ' alt' : ''].filter(Boolean).join(' · ')),
+      h('div', { class: 'pvi-chips' }, m.album ? h('span', { class: 'chip' }, '📁 ' + m.album) : null, m.fav ? h('span', { class: 'chip' }, '♥ Favorit') : null, m.size ? h('span', { class: 'chip' }, Math.round(m.size / 1024) + ' KB') : null),
+      h('button', { class: 'linkbtn', type: 'button', onclick: () => edit() }, 'Beschreibung, Datum, Album ändern'));
+  };
+  const load = async () => {
+    const m = list[i]; cnt.textContent = `${i + 1} / ${list.length}`;
+    paintHeart(); paintInfo();
+    strip.querySelectorAll('.pv-th').forEach((b, k) => b.classList.toggle('on', k === i));
+    const cur = strip.children[i]; if (cur && cur.scrollIntoView) { try { strip.scrollTo({ left: cur.offsetLeft - strip.clientWidth / 2 + cur.clientWidth / 2, behavior: 'smooth' }); } catch (e) {} }
+    api.setSrc(m.thumb);
+    const rec = await pfileGet(m.id);
+    if (!rec) { toast('Datei nicht gefunden'); return; }
+    if (list[i] !== m || !alive) return;
+    if (url) rmUrl(url);
+    blob = new Blob([rec.data], { type: 'image/jpeg' }); url = mkUrl(blob); api.setSrc(url);
+  };
+  const favToggle = async () => { const m = list[i]; m.fav = !m.fav; await photoPut(m); paintHeart(); paintInfo(); if (m.fav) { pop.classList.remove('go'); void pop.offsetWidth; pop.classList.add('go'); coinEarn('fav', 1, true); } render(); };
+  heartBtn.onclick = favToggle;
+  shareBtn.onclick = () => phShareFiles([list[i].id]);
+  infoBtn.onclick = () => { infoOn = !infoOn; infoBtn.classList.toggle('on', infoOn); paintInfo(); };
+  showBtn.onclick = () => { if (timer) stopShow(); else startShow(); };
+  const edit = () => { const m = list[i];
+    openSheet({ top: true, title: 'Foto', values: m,
+      fields: [{ key: 'titel', label: 'Beschreibung', ph: 'z. B. Erster Schnee' }, { key: 'datum', label: 'Aufnahmedatum', type: 'date' }, { key: 'album', label: 'Album', ph: 'z. B. Urlaub 2026', list: albumNames() }],
+      onSave: async v => { Object.assign(m, v); await photoPut(m); paintInfo(); render(); } }); };
+  const del = async () => { const m = list[i]; if (!confirm('Dieses Foto wirklich löschen?')) return; await phDelete([m.id]); list.splice(i, 1); strip.children[i] && strip.children[i].remove(); render(); if (!list.length) api.close(); else { i = Math.min(i, list.length - 1); load(); } };
+  moreBtn.onclick = () => { stopShow(); actionSheet('Foto', null, [
+    { label: 'Als Profilbild verwenden', onclick: async () => { if (!blob) return; try { S.profile.foto = await blobToDataURL(await imageToJpeg(blob, 400, 0.82)); await persist('profile'); render(); toast('Profilbild gesetzt'); } catch (e) { toast('Fehler: ' + (e.message || e)); } } },
+    { label: 'Zuschneiden', ghost: true, onclick: async () => { if (!blob) return; const b = await cropFile(blob, { title: 'Foto zuschneiden' }); if (!b) return; try { const m = list[i], big = await imageToJpeg(b, 2000, 0.85), th = await imageToJpeg(b, 360, 0.75); await pfilePut({ id: m.id, data: await big.arrayBuffer() }); m.thumb = await blobToDataURL(th); m.size = big.size; await photoPut(m); const im = strip.children[i] && strip.children[i].querySelector('img'); if (im) im.src = m.thumb; await load(); render(); toast('Ausschnitt gespeichert'); } catch (e) { toast('Fehler: ' + (e.message || e)); } } },
+    { label: 'Beschreibung, Datum, Album', ghost: true, onclick: edit },
+    { label: 'Foto löschen', ghost: true, onclick: del }]); };
+  if (vopts.info) { infoOn = true; infoBtn.classList.add('on'); }
+  await load();
+  if (vopts.slideshow) startShow();
+  return api;
+}
+
+/* ============ v19: Reels (Like, Kommentar, Teilen, Merken) mit YouTube Shorts ============ */
+Object.assign(VIC, {
+  heart: '<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg>',
+  heartF: '<svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z" fill="currentColor"/></svg>',
+  comment: '<svg viewBox="0 0 24 24"><path d="M20.5 11.6c0 4.2-3.8 7.4-8.5 7.4-1.2 0-2.3-.2-3.3-.6L4 19.5l1.4-3.7c-1.2-1.3-1.9-2.8-1.9-4.2C3.5 7.4 7.3 4.2 12 4.200s8.5 3.2 8.5 7.400z"/></svg>',
+  send: '<svg viewBox="0 0 24 24"><path d="M21 3.5L3 10.8l7 2.9 2.9 7z"/><path d="M10 13.700L21 3.5"/></svg>',
+  bookmark: '<svg viewBox="0 0 24 24"><path d="M6.5 4h11v16.500L12 16.2 6.5 20.500z"/></svg>',
+  ig: '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r=".9" fill="currentColor"/></svg>'
+});
+const VID_SHORT_MAX = 95;
+const VID_REPO_KEY = 'luise_vid_repo_v2';
+const vidSocAll = () => (S.profile.vidSocial = S.profile.vidSocial || {});
+const vsoc = key => { const x = vidSocAll()[key]; return x ? { like: x.like ? 1 : 0, save: x.save ? 1 : 0, c: Array.isArray(x.c) ? x.c : [], snap: x.snap || null } : { like: 0, save: 0, c: [], snap: null }; };
+async function vsocSet(key, patch, snap) {
+  const o = vidSocAll(), cur = Object.assign({ like: 0, save: 0, c: [] }, o[key] || {}, patch);
+  if (snap && !cur.snap) cur.snap = snap;
+  if (!cur.like && !cur.save && !(cur.c || []).length) delete o[key]; else o[key] = cur;
+  await persist('profile');
+}
+const vidKey = it => it.k === 'own' ? 'o:' + it.m.id : it.k === 'ig' ? 'i:' + it.code : 'y:' + it.vid;
+const vidSnap = it => it.k === 'yt' ? { k: 'yt', vid: it.vid, t: it.t, ch: it.ch || '', topic: it.topic || '' } : it.k === 'ig' ? { k: 'ig', code: it.code, t: it.t || 'Instagram-Reel' } : { k: 'own' };
+const vidAgo = ts => { const m = Math.max(0, Math.round((Date.now() - ts) / 6e4)); if (m < 1) return 'gerade eben'; if (m < 60) return `vor ${m} Min.`; const h2 = Math.round(m / 60); if (h2 < 24) return `vor ${h2} Std.`; const d = Math.round(h2 / 24); return d < 7 ? `vor ${d} ${d === 1 ? 'Tag' : 'Tagen'}` : fmtD(new Date(ts).toISOString().slice(0, 10)); };
+function vidTopicScore() {
+  const sc = {};
+  Object.values(vidSocAll()).forEach(x => { const t = x.snap && x.snap.topic; if (t) sc[t] = (sc[t] || 0) + (x.like ? 2 : 0) + (x.save ? 2 : 0) + Math.min(2, (x.c || []).length); });
+  return sc;
+}
+function vidParseIg(u) {
+  try {
+    const x = new URL(String(u).trim()), host = x.hostname.replace(/^(www|m)\./, '');
+    if (host !== 'instagram.com' && host !== 'instagr.am') return '';
+    const m = /\/(?:reels?|p|tv)\/([A-Za-z0-9_-]{5,})/.exec(x.pathname);
+    return m ? m[1] : '';
+  } catch (e) { return ''; }
+}
+function vidParseSearch(html) {
+  const out = [], seen = new Set();
+  const add = (vid, t, ch, len) => { if (!/^[A-Za-z0-9_-]{11}$/.test(vid || '') || seen.has(vid)) return; seen.add(vid); out.push({ vid, t: String(t || '').trim(), ch: ch || '', len: len || '' }); };
+  try {
+    html = String(html); let i = html.indexOf('ytInitialData'); if (i < 0) return out;
+    i = html.indexOf('{', i); const j = html.indexOf('<' + '/script>', i); const data = JSON.parse(html.slice(i, j).trim().replace(/;\s*$/, ''));
+    const txt = o => !o ? '' : (o.simpleText || (o.runs || []).map(r => r.text).join('') || o.content || '');
+    const walk = o => {
+      if (!o || typeof o !== 'object') return;
+      if (o.videoRenderer && o.videoRenderer.videoId) { const v = o.videoRenderer; add(v.videoId, txt(v.title), txt(v.ownerText), txt(v.lengthText)); return; }
+      if (o.reelItemRenderer && o.reelItemRenderer.videoId) { const v = o.reelItemRenderer; add(v.videoId, txt(v.headline), '', ''); return; }
+      if (o.shortsLockupViewModel) {
+        const v = o.shortsLockupViewModel, ep = v.onTap && v.onTap.innertubeCommand && v.onTap.innertubeCommand.reelWatchEndpoint;
+        const id = (ep && ep.videoId) || String(v.entityId || '').replace(/^shorts-shelf-item-/, '');
+        add(id, txt(v.overlayMetadata && v.overlayMetadata.primaryText) || txt(v.accessibilityText), '', ''); return;
+      }
+      (Array.isArray(o) ? o : Object.values(o)).forEach(walk);
+    };
+    walk(data);
+  } catch (e) {}
+  return out;
+}
+const vidOkItem = x => x && x.t && !VID_BLOCK.test(x.t) && /^[A-Za-z0-9_-]{11}$/.test(x.vid || '') && (!x.len || (vidSecs(x.len) > 0 && vidSecs(x.len) <= VID_SHORT_MAX));
+async function vidLoadSuggest(force) {
+  const c = vidCache(); if (vidBusy) return;
+  if (!force && Date.now() - c.ts < 12 * 36e5 && Object.keys(c.topics || {}).length) return;
+  vidBusy = true; vidErr = ''; if (vf) vfStatus();
+  try {
+    const topics = Object.assign({}, c.topics);
+    await Promise.all(VID_TOPICS.map(async t => {
+      const seen = new Set(), list = [];
+      const rs = await Promise.all(t.q.map(q => vidFetchText('https://www.youtube.com/results?hl=de&gl=DE&sp=EgIYAQ%253D%253D&search_query=' + encodeURIComponent(q + ' #shorts')).then(vidParseSearch).catch(() => [])));
+      rs.forEach(a => a.forEach(x => { if (seen.has(x.vid) || !vidOkItem(x)) return; seen.add(x.vid); list.push({ vid: x.vid, t: x.t, ch: x.ch, len: x.len }); }));
+      if (list.length) topics[t.id] = list.slice(0, 10);
+    }));
+    if (Object.keys(topics).some(k => (topics[k] || []).length)) ls.set(VID_KEY, JSON.stringify({ ts: Date.now(), topics }));
+    else vidErr = 'Shorts sind gerade nicht erreichbar.';
+  } catch (e) { vidErr = 'Shorts sind gerade nicht erreichbar.'; }
+  vidBusy = false;
+  if (vf) { vfStatus(); if (vf.feed.scrollTop < 20) vfRebuild(); }
+}
+const vidRepoCache = () => { try { const c = JSON.parse(ls.get(VID_REPO_KEY) || 'null'); return c && typeof c === 'object' && c.topics ? c : { ts: 0, topics: {} }; } catch (e) { return { ts: 0, topics: {} }; } };
+async function vidLoadRepo() {
+  const c = vidRepoCache(); if (Date.now() - c.ts < 2 * 36e5 && Object.keys(c.topics).length) return true;
+  const j = await newsRepo(false); const tp = j && j.videos && j.videos.topics;
+  if (!tp || typeof tp !== 'object' || !Object.keys(tp).some(k => Array.isArray(tp[k]) && tp[k].length)) return Object.keys(c.topics).length > 0;
+  ls.set(VID_REPO_KEY, JSON.stringify({ ts: Date.now(), topics: tp })); return true;
+}
+function vidShorts(tid) {
+  const seen = new Set(), out = [];
+  [(vidRepoCache().topics || {})[tid] || [], (vidCache().topics || {})[tid] || []].forEach(l => l.forEach(x => { if (!vidOkItem(x) || seen.has(x.vid)) return; seen.add(x.vid); out.push({ k: 'yt', vid: x.vid, t: x.t, ch: x.ch || '', topic: tid }); }));
+  return out;
+}
+function vidItems(f) {
+  const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)).map(m => ({ k: 'own', m }));
+  const mine = (S.profile.ytVideos || []).map(y => y.ig ? { k: 'ig', code: y.ig, t: y.titel || 'Instagram-Reel', y } : { k: 'yt', vid: y.vid, t: y.titel || 'YouTube-Video', ch: y.kanal || '', y });
+  const card = tid => ({ k: 'topic', topic: tid });
+  if (f === 'eigene') { const a = own.concat(mine); return a.length ? a : [{ k: 'empty' }]; }
+  if (f === 'gemerkt') {
+    const out = [];
+    Object.entries(vidSocAll()).forEach(([key, x]) => {
+      if (!x.save) return;
+      if (key.startsWith('o:')) { const m = (S.videos || []).find(v => 'o:' + v.id === key); if (m) out.push({ k: 'own', m }); }
+      else if (x.snap && x.snap.k === 'yt' && x.snap.vid) out.push({ k: 'yt', vid: x.snap.vid, t: x.snap.t || 'YouTube-Video', ch: x.snap.ch || '', topic: x.snap.topic || '' });
+      else if (x.snap && x.snap.k === 'ig' && x.snap.code) out.push({ k: 'ig', code: x.snap.code, t: x.snap.t || 'Instagram-Reel' });
+    });
+    return out.length ? out : [{ k: 'nosaved' }];
+  }
+  if (f !== 'alle') { const a = vidShorts(f); a.push(card(f)); return a; }
+  const sc = vidTopicScore(), order = VID_TOPICS.slice().sort((a, b) => (sc[b.id] || 0) - (sc[a.id] || 0));
+  const lists = order.map(t => vidShorts(t.id)), mixed = [], used = new Set();
+  for (let i = 0; i < 6; i++) lists.forEach(l => { if (l[i] && !used.has(l[i].vid)) { used.add(l[i].vid); mixed.push(l[i]); } });
+  const seenMine = new Set(mine.map(x => x.vid || x.code));
+  const out = own.concat(mine, mixed.filter(x => !seenMine.has(x.vid)));
+  if (!mixed.length) VID_TOPICS.forEach(t => out.push(card(t.id))); else out.push({ k: 'more' });
+  return out;
+}
+function vfCardShell(it, bgImg) {
+  return h('section', { class: 'vcard', 'data-k': it.k },
+    h('div', { class: 'vbg', style: bgImg ? `background-image:url("${bgImg}")` : '' }), h('div', { class: 'vflash', 'aria-hidden': 'true' }));
+}
+function vfHeart(card, x, y) {
+  const r = card.getBoundingClientRect(), e = h('div', { class: 'vheart', 'aria-hidden': 'true', html: VIC.heartF, style: `left:${(x == null ? r.width / 2 : x - r.left)}px;top:${(y == null ? r.height / 2 : y - r.top)}px` });
+  card.append(e); setTimeout(() => e.remove(), 950);
+}
+async function vfLike(it, card, only) {
+  const key = vidKey(it), s = vsoc(key), on = only ? 1 : (s.like ? 0 : 1);
+  const pr = on !== s.like ? vsocSet(key, { like: on }, vidSnap(it)) : null;
+  if (card._paintRail) card._paintRail();
+  const b = card.querySelector('.vact.like'); if (b && on) { b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); }
+  if (on && !only) vfHeart(card);
+  if (pr) await pr;
+}
+async function vfSave(it, card) {
+  const key = vidKey(it), s = vsoc(key), on = s.save ? 0 : 1;
+  const pr = vsocSet(key, { save: on }, vidSnap(it)); if (card._paintRail) card._paintRail();
+  toast(on ? 'Gemerkt. Du findest es oben unter „Gemerkt“.' : 'Nicht mehr gemerkt');
+  await pr; if (!on && vf && vf.filter === 'gemerkt') vfRebuild(true);
+}
+async function vfShare(it) {
+  if (it.k === 'own') {
+    try {
+      const rec = await vfileGet(it.m.id);
+      if (rec && rec.blob) { const ext = /quicktime/.test(rec.blob.type) ? 'mov' : /webm/.test(rec.blob.type) ? 'webm' : 'mp4', f = new File([rec.blob], (it.m.titel || 'Video').replace(/[^\wäöüÄÖÜß -]/g, '') + '.' + ext, { type: rec.blob.type || 'video/mp4' });
+        if (navigator.canShare && navigator.canShare({ files: [f] })) { navigator.share({ files: [f], title: it.m.titel }).catch(() => {}); return; } }
+    } catch (e) {}
+    toast('Teilen ist auf diesem Gerät nicht möglich'); return;
+  }
+  const url = it.k === 'ig' ? `https://www.instagram.com/reel/${it.code}/` : `https://www.youtube.com/shorts/${it.vid}`;
+  shareText(it.t || 'Reel', url);
+}
+function vfComments(it, card) {
+  if (!vf) return; const key = vidKey(it);
+  const list = h('div', { class: 'vc-list' }), inp = h('input', { class: 'vc-in', type: 'text', placeholder: 'Kommentieren …', maxlength: 400, enterkeyhint: 'send', 'aria-label': 'Kommentar schreiben' }), cnt = h('b');
+  const close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); if (vv) { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); } };
+  const paint = () => {
+    const c = vsoc(key).c; cnt.textContent = c.length ? `Kommentare · ${c.length}` : 'Kommentare';
+    list.replaceChildren(...(c.length ? c.map(x => h('div', { class: 'vc-row' }, h('span', { class: 'vc-av' }, (S.profile.vorname || 'D').slice(0, 1).toUpperCase()),
+      h('div', { class: 'vc-tx' }, h('div', null, h('b', null, S.profile.vorname || 'Du'), h('small', null, vidAgo(x.ts))), h('p', null, x.t)),
+      h('button', { class: 'vc-del', type: 'button', 'aria-label': 'Kommentar löschen', onclick: async () => { await vsocSet(key, { c: vsoc(key).c.filter(y => y.id !== x.id) }); paint(); } }, '✕')))
+      : [h('p', { class: 'vc-empty' }, 'Noch keine Kommentare. Schreib eine Notiz zu diesem Video. Kommentare sind privat und bleiben auf diesem Gerät.')]));
+    if (card._paintRail) card._paintRail();
+  };
+  const send = async t => { t = String(t || '').trim(); if (!t) return; const c = vsoc(key).c.slice(); c.push({ id: uid(), t, ts: Date.now() }); inp.value = ''; await vsocSet(key, { c }, vidSnap(it)); paint(); list.scrollTop = list.scrollHeight; };
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); send(inp.value); } });
+  const sheet = h('div', { class: 'vcom', role: 'dialog', 'aria-label': 'Kommentare' },
+    h('div', { class: 'vc-grab' }), h('div', { class: 'vc-head' }, cnt, h('button', { class: 'vc-x', type: 'button', 'aria-label': 'Schließen', onclick: close }, '✕')),
+    list, h('div', { class: 'vc-emo' }, ['❤️', '🙌', '😍', '😂', '👏', '🥰'].map(e => h('button', { type: 'button', 'aria-label': 'Reaktion ' + e, onclick: () => send(e) }, e))),
+    h('div', { class: 'vc-form' }, h('span', { class: 'vc-av' }, (S.profile.vorname || 'D').slice(0, 1).toUpperCase()), inp, h('button', { class: 'vc-send', type: 'button', onclick: () => send(inp.value) }, 'Senden')));
+  const back = h('div', { class: 'vcom-back' }, sheet);
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  const vv = window.visualViewport, fit = () => { if (!vv) return; back.style.height = vv.height + 'px'; back.style.transform = `translateY(${vv.offsetTop}px)`; };
+  if (vv) { vv.addEventListener('resize', fit); vv.addEventListener('scroll', fit); fit(); }
+  vf.el.append(back); paint(); requestAnimationFrame(() => back.classList.add('in'));
+}
+function vfRail(card, it, moreFn) {
+  const key = vidKey(it);
+  const mk = (cls, aria, ico, label, fn) => { const lab = h('small', null, label), b = h('button', { class: 'vact ' + cls, type: 'button', 'aria-label': aria, onclick: e => { e.stopPropagation(); fn(); } }, h('span', { class: 'vai', html: ico }), lab); b._lab = lab; return b; };
+  const like = mk('like', 'Gefällt mir', VIC.heart, 'Like', () => vfLike(it, card)), com = mk('com', 'Kommentare', VIC.comment, 'Kommentar', () => vfComments(it, card)),
+    sh = mk('sh', 'Teilen', VIC.send, 'Teilen', () => vfShare(it)), sv = mk('sv', 'Merken', VIC.bookmark, 'Merken', () => vfSave(it, card)), more = mk('more', 'Mehr', VIC.more, '', moreFn);
+  card._paintRail = () => { const s = vsoc(key); like.classList.toggle('on', !!s.like); like.setAttribute('aria-pressed', s.like ? 'true' : 'false'); like._lab.textContent = s.like ? '1' : 'Like'; com._lab.textContent = s.c.length ? String(s.c.length) : 'Kommentar'; sv.classList.toggle('on', !!s.save); sv.setAttribute('aria-pressed', s.save ? 'true' : 'false'); sv._lab.textContent = s.save ? 'Gemerkt' : 'Merken'; };
+  card._paintRail(); card._like = () => vfLike(it, card);
+  return h('div', { class: 'vrail' }, like, com, sh, sv, more);
+}
+function vfTap(card, it, single) {
+  const t = h('div', { class: 'vtap' }); let last = 0, tm = 0;
+  t.addEventListener('click', e => {
+    const now = Date.now();
+    if (now - last < 320) { clearTimeout(tm); last = 0; vfHeart(card, e.clientX, e.clientY); vfLike(it, card, true); }
+    else { last = now; tm = setTimeout(single, 320); }
+  });
+  return t;
+}
+function vfInfo(name, initial, col, title, audio, tag) {
+  return h('div', { class: 'vinfo' },
+    h('div', { class: 'vwho' }, h('span', { class: 'vav', style: col ? `background:${col}` : '' }, initial), h('b', null, name), tag || null),
+    title ? h('p', { class: 'vcap', onclick: e => e.currentTarget.classList.toggle('open') }, title) : null,
+    h('div', { class: 'vaud' }, h('span', { 'aria-hidden': 'true' }, '♪'), ' ' + audio));
+}
+function vfOwnCard(it) {
+  const m = it.m, card = vfCardShell(it, m.poster);
+  const vd = h('video', { class: 'vvid', poster: m.poster || null, preload: 'none' });
+  vd.loop = true; vd.muted = vidMuted; vd.playsInline = true; vd.setAttribute('playsinline', ''); vd.setAttribute('webkit-playsinline', '');
+  const prog = h('i'); let url = null, tick = 0;
+  const load = async () => {
+    if (url) return true; const rec = await vfileGet(m.id); if (!rec || !rec.blob) { toast('Video nicht gefunden'); return false; }
+    url = URL.createObjectURL(rec.blob); vd.src = url; return true;
+  };
+  card._on = async () => { if (!(await load())) return; vd.muted = vidMuted; try { await vd.play(); } catch (e) { card.classList.add('paused'); } };
+  card._off = () => { vd.pause(); if (url) { vd.removeAttribute('src'); try { vd.load(); } catch (e) {} URL.revokeObjectURL(url); url = null; } card.classList.remove('paused'); prog.style.width = '0'; };
+  card._mute = mu => { vd.muted = mu; };
+  vd.addEventListener('timeupdate', () => { if (vd.duration) prog.style.width = (vd.currentTime / vd.duration * 100) + '%'; if (vd.currentTime > 3 && !tick) { tick = 1; vfWatched('o' + m.id); } });
+  vd.addEventListener('play', () => card.classList.remove('paused')); vd.addEventListener('pause', () => { if (url) card.classList.add('paused'); });
+  const toggle = () => { if (!url) { card._on(); return; } if (vd.paused) { vd.play().catch(() => {}); vfFlash(card, VIC.play); } else { vd.pause(); vfFlash(card, VIC.pause); } };
+  const more = () => actionSheet(m.titel, `${fmtD(m.datum)}${m.size ? ' · ' + fmtSize(m.size) : ''}`, [
+    { label: 'Umbenennen', onclick: () => openSheet({ title: 'Umbenennen', values: { titel: m.titel }, fields: [{ key: 'titel', label: 'Titel', required: true, cap: 'words' }], onSave: async v => { m.titel = v.titel; await videoPut(m); if (vf) vfRebuild(true); } }) },
+    { label: 'Löschen', ghost: true, onclick: async () => { if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); await vsocSet('o:' + m.id, { like: 0, save: 0, c: [] }); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]);
+  card.append(h('div', { class: 'vmedia own' }, vd), h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }), vfTap(card, it, toggle),
+    vfInfo(S.profile.vorname || 'Wir', (S.profile.vorname || 'W').slice(0, 1).toUpperCase(), 'linear-gradient(135deg,#f58529,#dd2a7b,#8134af)', m.titel, `Eigenes Video · ${[fmtD(m.datum), vidDurTxt(m.dur)].filter(Boolean).join(' · ')}`),
+    vfRail(card, it, more), h('div', { class: 'vprog' }, prog));
+  return card;
+}
+function vfYtCard(it) {
+  const thumb = `https://i.ytimg.com/vi/${it.vid}/hqdefault.jpg`, card = vfCardShell(it, thumb), tp = VID_TOPICS.find(t => t.id === it.topic);
+  const media = h('div', { class: 'vmedia short' }, h('img', { class: 'vposter', src: thumb, alt: '', loading: 'lazy', referrerpolicy: 'no-referrer' }));
+  const prog = h('i'); let frame = null, timer = 0, tick = 0;
+  const cmd = f => { try { frame && frame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: f, args: [] }), '*'); } catch (e) {} };
+  const listen = () => { try { frame && frame.contentWindow.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), '*'); } catch (e) {} };
+  const ytUrl = `https://www.youtube.com/shorts/${it.vid}`;
+  card._on = () => {
+    if (frame) return;
+    frame = h('iframe', { class: 'vyframe', src: `https://www.youtube-nocookie.com/embed/${it.vid}?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=${it.vid}&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}`, title: it.t, allow: 'autoplay; encrypted-media; picture-in-picture', referrerpolicy: 'strict-origin-when-cross-origin' });
+    card._frame = frame; frame.addEventListener('load', () => { listen(); setTimeout(listen, 700); setTimeout(listen, 2000); });
+    media.append(frame); card.classList.add('loading'); timer = setTimeout(() => card.classList.add('slow'), 7000);
+  };
+  card._off = () => { clearTimeout(timer); if (frame) { frame.remove(); frame = null; card._frame = null; } card.classList.remove('playing', 'loading', 'slow', 'paused', 'verr'); prog.style.width = '0'; };
+  card._mute = mu => cmd(mu ? 'mute' : 'unMute');
+  card._msg = d => {
+    if (!d || typeof d !== 'object') return;
+    const info = d.info && typeof d.info === 'object' ? d.info : {}, st = d.event === 'onStateChange' ? d.info : info.playerState;
+    if (card.classList.contains('verr') && d.event !== 'onError') return;
+    if (d.event === 'onError') { clearTimeout(timer); card.classList.remove('loading', 'slow'); card.classList.add('verr'); return; }
+    if (st === 1) { card.classList.add('playing'); card.classList.remove('loading', 'slow', 'paused', 'verr'); clearTimeout(timer); if (!vidMuted) cmd('unMute'); }
+    else if (st === 2) card.classList.add('paused');
+    if (typeof info.currentTime === 'number' && info.duration > 0) { prog.style.width = Math.min(100, info.currentTime / info.duration * 100) + '%'; if (info.currentTime > 3 && !tick) { tick = 1; vfWatched('y' + it.vid); } }
+  };
+  const toggle = () => { if (!frame) { card._on(); return; } if (card.classList.contains('paused')) { cmd('playVideo'); card.classList.remove('paused'); vfFlash(card, VIC.play); } else { cmd('pauseVideo'); card.classList.add('paused'); vfFlash(card, VIC.pause); } };
+  const more = () => actionSheet(it.t, it.ch || 'YouTube', [
+    { label: 'Auf YouTube öffnen', href: ytUrl },
+    { label: 'Link kopieren', ghost: true, onclick: () => copyText(ytUrl) }].concat(it.y ? [{ label: 'Aus dem Feed entfernen', ghost: true, onclick: async () => { const a = S.profile.ytVideos; a.splice(a.indexOf(it.y), 1); await persist('profile'); vfRebuild(true); } }] : []));
+  card.append(media, h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }),
+    h('div', { class: 'verrbox' }, h('b', null, 'Das Video lässt sich hier nicht abspielen.'), h('a', { class: 'btn', href: ytUrl, target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube öffnen')),
+    h('a', { class: 'vslow', href: ytUrl, target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Lädt nicht? Auf YouTube öffnen'),
+    vfTap(card, it, toggle),
+    vfInfo(it.ch || 'YouTube', (it.ch || 'Y').slice(0, 1).toUpperCase(), tp ? tp.col : '#d6483f', it.t, `Originalton${it.ch ? ' · ' + it.ch : ''}`, tp ? h('em', { class: 'vtag', style: `--tc:${tp.col}` }, tp.emoji + ' ' + tp.name) : null),
+    vfRail(card, it, more), h('div', { class: 'vprog' }, prog));
+  return card;
+}
+function vfIgCard(it) {
+  const card = h('section', { class: 'vcard ig', 'data-k': 'ig', style: '--tc:#c13584' }), url = `https://www.instagram.com/reel/${it.code}/`;
+  let frame = null;
+  const body = h('div', { class: 'vbig' }, h('span', { class: 've', html: VIC.ig }), h('h2', null, it.t || 'Instagram-Reel'),
+    h('p', null, 'Instagram erlaubt keine Anmeldung und keinen eigenen Feed in anderen Apps. Dieses Reel kannst du hier einbetten oder direkt in Instagram öffnen.'),
+    h('button', { class: 'btn vgo', type: 'button', onclick: () => card._on(true) }, 'Reel hier ansehen'),
+    h('a', { class: 'btn ghost vgo2', href: url, target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'In Instagram öffnen'));
+  const box = h('div', { class: 'vigbox' });
+  card._on = manual => { if (!manual || frame) return; frame = h('iframe', { class: 'vigframe', src: `https://www.instagram.com/reel/${it.code}/embed/`, title: it.t || 'Instagram-Reel', allow: 'autoplay; encrypted-media; fullscreen', loading: 'lazy' }); box.replaceChildren(frame); card.classList.add('igplay'); };
+  card._off = () => { if (frame) { frame.remove(); frame = null; box.replaceChildren(); card.classList.remove('igplay'); } };
+  const more = () => actionSheet(it.t || 'Instagram-Reel', 'Instagram', [{ label: 'In Instagram öffnen', href: url }, { label: 'Link kopieren', ghost: true, onclick: () => copyText(url) }].concat(it.y ? [{ label: 'Aus dem Feed entfernen', ghost: true, onclick: async () => { const a = S.profile.ytVideos; a.splice(a.indexOf(it.y), 1); await persist('profile'); vfRebuild(true); } }] : []));
+  card.append(h('div', { class: 'vbg tbg' }), body, box, vfInfo('Instagram', 'I', 'linear-gradient(135deg,#f58529,#dd2a7b,#8134af)', '', 'Reel-Link'), vfRail(card, it, more));
+  return card;
+}
+function vfTopicCard(it) {
+  const t = VID_TOPICS.find(x => x.id === it.topic), card = h('section', { class: 'vcard topic', 'data-k': 'topic', style: `--tc:${t.col}` });
+  card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, t.emoji), h('h2', null, t.name), h('p', null, 'Gerade konnten keine Shorts geladen werden. Du findest sie auf YouTube oder fügst einen Link ein.'),
+    h('a', { class: 'btn vgo', href: vidSearchUrl(t.q[0] + ' #shorts'), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube ansehen'),
+    h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addLink }, 'Link einfügen')));
+  return card;
+}
+function vfInfoCard(it) {
+  const card = h('section', { class: 'vcard topic', 'data-k': it.k, style: '--tc:#5b6bd6' });
+  const big = (e, hd, p, btns) => card.append(h('div', { class: 'vbg tbg' }), h('div', { class: 'vbig' }, h('span', { class: 've' }, e), h('h2', null, hd), h('p', null, p), btns));
+  if (it.k === 'empty') big('🎬', 'Noch nichts hier', 'Lade ein eigenes Video hoch oder füge einen YouTube- oder Instagram-Link ein.', [h('button', { class: 'btn vgo', type: 'button', onclick: addVideo }, 'Video hochladen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: addLink }, 'Link einfügen')]);
+  else if (it.k === 'nosaved') big('🔖', 'Noch nichts gemerkt', 'Tippe bei einem Video auf „Merken“. Dann findest du es hier wieder.', h('button', { class: 'btn vgo', type: 'button', onclick: () => { vf.filter = 'alle'; vfRebuild(); } }, 'Zurück zu „Für dich“'));
+  else big('🔎', 'Mehr entdecken', 'Wähle oben ein Thema oder suche selbst auf YouTube.', [h('a', { class: 'btn vgo', href: vidSearchUrl('Baby Eltern Tipps Hebamme #shorts'), target: '_blank', rel: 'noopener noreferrer', onclick: () => { suppressLockUntil = Date.now() + 120000; } }, 'Auf YouTube suchen'), h('button', { class: 'btn ghost vgo2', type: 'button', onclick: () => { vf.filter = 'eigene'; vfRebuild(); } }, 'Zu meinen Videos')]);
+  return card;
+}
+function vfStatus() {
+  if (!vf) return; const s = vf.el.querySelector('.vstat'); if (!s) return;
+  s.textContent = vidBusy ? 'Suche Shorts …' : (vidErr && vf.filter !== 'eigene' && vf.filter !== 'gemerkt' ? vidErr : ''); s.hidden = !s.textContent;
+}
+function vfRebuild(keepScroll) {
+  if (!vf) return; const keep = vf.feed.scrollTop;
+  vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); vf.io.unobserve(c); });
+  const items = vidItems(vf.filter);
+  vf.feed.replaceChildren(...items.map(it => it.k === 'own' ? vfOwnCard(it) : it.k === 'yt' ? vfYtCard(it) : it.k === 'ig' ? vfIgCard(it) : it.k === 'topic' ? vfTopicCard(it) : vfInfoCard(it)));
+  vf.feed.querySelectorAll('.vcard').forEach(c => vf.io.observe(c));
+  vf.feed.scrollTop = keepScroll ? keep : 0;
+  vf.chips.querySelectorAll('.fchip').forEach(b => { const on = b.dataset.f === vf.filter; b.classList.toggle('on', on); if (on && b.scrollIntoView && !keepScroll) { try { vf.chips.scrollTo({ left: b.offsetLeft - 40, behavior: 'smooth' }); } catch (e) {} } });
+  vfStatus();
+}
+function vfSetMuted(m) {
+  vidMuted = m; if (!vf) return;
+  vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._mute) c._mute(m); });
+  const b = vf.el.querySelector('.vsndtop'); if (b) b.innerHTML = m ? VIC.mute : VIC.sound;
+}
+function vidOnMsg(e) {
+  if (!vf || typeof e.data !== 'string' || e.data.charAt(0) !== '{') return;
+  const c = Array.from(vf.feed.querySelectorAll('.vcard')).find(x => x._frame && x._frame.contentWindow === e.source);
+  if (!c || !c._msg) return;
+  try { c._msg(JSON.parse(e.data)); } catch (x) {}
+}
+let vidMsgOn = false, vidKeyFn = null;
+function closeVideoFeed() {
+  if (!vf) return; vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); }); vf.io.disconnect(); vf.el.remove(); vf = null;
+  if (vidKeyFn) { document.removeEventListener('keydown', vidKeyFn); vidKeyFn = null; }
+}
+function addLink() {
+  const arr = S.profile.ytVideos = S.profile.ytVideos || [];
+  openSheet({
+    title: 'Link einfügen', saveLabel: 'Hinzufügen', top: true,
+    fields: [{ key: 'link', label: 'YouTube- oder Instagram-Link', type: 'url', inputmode: 'url', required: true, ph: 'https://…', hint: 'In YouTube oder Instagram auf „Teilen“ und „Link kopieren“ tippen, dann hier einfügen. Das Video bleibt in deinem Feed.' },
+      { key: 'titel', label: 'Titel (optional)', cap: 'words' }],
+    onSave: async v => {
+      const yt = vidParseYt(v.link), ig = yt ? '' : vidParseIg(v.link);
+      if (!yt && !ig) { toast('Das ist kein YouTube- oder Instagram-Link'); return false; }
+      if (arr.some(x => (yt && x.vid === yt) || (ig && x.ig === ig))) { toast('Dieses Video ist schon dabei'); return false; }
+      const it = ig ? { id: uid(), ig, titel: (v.titel || '').trim() || 'Instagram-Reel' } : { id: uid(), vid: yt, titel: (v.titel || '').trim() || 'YouTube-Video', kanal: '' };
+      arr.unshift(it); await persist('profile');
+      if (vf) { vf.filter = 'eigene'; vfRebuild(); } else render();
+      toast('Video hinzugefügt');
+      if (yt && !(v.titel || '').trim()) {
+        const ac = new AbortController(); setTimeout(() => ac.abort(), 8000);
+        fetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent('https://www.youtube.com/watch?v=' + yt), { signal: ac.signal }).then(r => r.ok ? r.json() : null).then(async j => {
+          if (j && j.title) { it.titel = j.title; it.kanal = j.author_name || ''; await persist('profile'); if (vf && vf.filter === 'eigene') vfRebuild(true); }
+        }).catch(() => {});
+      }
+    }
+  });
+}
+function addYtVideo() { addLink(); }
+function openVideoFeed(filter) {
+  if (vf) closeVideoFeed();
+  const feed = h('div', { class: 'vfeed' }), chips = h('div', { class: 'vchips' });
+  const el = h('div', { class: 'vwrap', role: 'dialog', 'aria-label': 'Reels' });
+  const io = new IntersectionObserver(es => es.forEach(e => { const c = e.target; if (e.isIntersecting && e.intersectionRatio >= 0.6) { if (vf) vf.cur = c; if (c._on) c._on(); } else if (!e.isIntersecting || e.intersectionRatio < 0.3) { if (c._off) c._off(); } }), { root: feed, threshold: [0, 0.3, 0.6, 0.9] });
+  vf = { el, feed, chips, io, filter: filter || 'alle', seen: new Set(), cur: null };
+  if (!vidMsgOn) { vidMsgOn = true; window.addEventListener('message', vidOnMsg); }
+  [['alle', 'Für dich', '✨'], ['gemerkt', 'Gemerkt', '🔖'], ['eigene', 'Eigene', '🎬']].concat(VID_TOPICS.map(t => [t.id, t.name, t.emoji])).forEach(([id, l, em]) => chips.append(h('button', { class: 'fchip', 'data-f': id, type: 'button', onclick: () => { vf.filter = id; vfRebuild(); } }, em + ' ' + l)));
+  el.append(feed,
+    h('div', { class: 'vtop' },
+      h('div', { class: 'vbar' }, h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Reels schließen', html: VIC.back, onclick: closeVideoFeed }), h('b', null, 'Reels'),
+        h('span', { class: 'vbar-r' },
+          h('button', { class: 'vbtn vsndtop', type: 'button', 'aria-label': 'Ton an oder aus', html: vidMuted ? VIC.mute : VIC.sound, onclick: () => vfSetMuted(!vidMuted) }),
+          h('button', { class: 'vbtn vadd', type: 'button', 'aria-label': 'Video hinzufügen', html: VIC.plus, onclick: () => actionSheet('Video hinzufügen', 'Eigene Videos bleiben auf diesem iPhone. Instagram und YouTube lassen sich nur über Links einbinden.', [{ label: 'Eigenes Video hochladen', onclick: addVideo }, { label: 'YouTube- oder Instagram-Link einfügen', ghost: true, onclick: addLink }, { label: 'Neue Shorts laden', ghost: true, onclick: async () => { vidBusy = false; ls.set(VID_REPO_KEY, ''); await vidLoadRepo(); vidLoadSuggest(true); vfRebuild(); } }]) }))),
+      chips, h('div', { class: 'vstat', hidden: true })));
+  document.body.append(el); vfRebuild();
+  vidKeyFn = e => { if (!vf) return; if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return; if (e.key === 'Escape') { if (vf.el.querySelector('.vcom-back')) vf.el.querySelector('.vcom-back').click(); else closeVideoFeed(); } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); vf.feed.scrollBy({ top: (e.key === 'ArrowDown' ? 1 : -1) * vf.feed.clientHeight, behavior: 'smooth' }); } else if (e.key === 'm') vfSetMuted(!vidMuted); else if (e.key === 'l' && vf.cur && vf.cur._like) vf.cur._like(); };
+  document.addEventListener('keydown', vidKeyFn);
+  vidLoadRepo().then(ok => { if (vf && ok && vf.feed.scrollTop < 20) vfRebuild(); if (!ok || !vidShorts('schlaf').length) vidLoadSuggest(false); }).catch(() => vidLoadSuggest(false));
+}
+
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
@@ -7475,7 +7982,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
