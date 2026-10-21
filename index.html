@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="21">
+<meta name="app-version" content="22">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1060,6 +1060,20 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 .chips.gctl{flex-wrap:wrap;overflow:visible}
 .growpage{min-width:0}
 .growpage>*{max-width:100%;min-width:0}
+/* ---- v22 ---- */
+.backbtn{align-self:flex-start;position:relative;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;padding:0;border:1px solid rgba(255,255,255,.62);background:color-mix(in srgb,var(--card) 48%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.8);backdrop-filter:blur(16px) saturate(1.8);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7);color:var(--accent);margin:2px 0 0}
+:root[data-dark] .backbtn{border-color:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.backbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;margin-right:2px}
+.backbtn:active{transform:scale(.92)}
+.swipe-ind{position:fixed;left:0;top:50%;z-index:900;width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;color:var(--accent);border:1px solid rgba(255,255,255,.6);background:color-mix(in srgb,var(--card) 55%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.8);backdrop-filter:blur(18px) saturate(1.8);box-shadow:0 8px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.7)}
+.swipe-ind svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.swipe-ind.go{background:var(--accent);color:var(--accent-ink)}
+/* Haptik-Overlay über Listenzeilen: innere Knöpfe bleiben bedienbar */
+.hapt-host button:not(.hapt-ov),.hapt-host a,.hapt-host select,.hapt-host textarea,.hapt-host input:not(.hapt-ov){position:relative;z-index:7}
+/* Fotos */
+.phmem.one .phm{width:100%;max-width:none;aspect-ratio:10/9}
+.phm{width:80%;max-width:340px}
+.phalb{margin-top:-4px;padding:8px 16px 6px}
 </style>
 </head>
 <body>
@@ -4130,7 +4144,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 21'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 22'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5123,7 +5137,7 @@ function viewSearch() {
     Object.entries(groups).forEach(([typ, l]) => res.append(sectionHead(typ + ' · ' + l.length), h('div', { class: 'card' }, l.map(it => li(it.open, '', h('span', { class: 'hubico', html: it.ico }), liTxt(it.title, it.sub), chev())))));
   };
   inp.addEventListener('input', run);
-  wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'), pageHead('Suche'), h('div', { class: 'searchbox' }, inp), res);
+  wrap.append(backBtn('Übersicht', () => go('home')), pageHead('Suche'), h('div', { class: 'searchbox' }, inp), res);
   run(); setTimeout(() => { if (!searchQ) inp.focus(); }, 80);
   return wrap;
 }
@@ -5416,7 +5430,7 @@ function mdNodes(text) {
 }
 function viewChat() {
   const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg();
-  wrap.append(h('button', { class: 'backbtn', onclick: () => go('home') }, '‹ Übersicht'));
+  wrap.append(backBtn('Übersicht', () => go('home')));
   wrap.append(pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
   wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos')));
   let msgs = chatLoad();
@@ -6691,7 +6705,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 21;
+const APP_VERSION = 22;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6757,8 +6771,8 @@ const TABS = [
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
 const SUB = ['docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
-const withBack = v => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go('more') }, '‹ Mehr'), v);
-const withBackTo = (id, label, v) => h('div', { class: 'stack' }, h('button', { class: 'backbtn', onclick: () => go(id) }, label), v);
+const withBack = v => h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
+const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String(label).replace(/^‹\s*/, ''), () => go(id)), v);
 const views = {
   coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
@@ -7560,7 +7574,7 @@ function viewPhotos() {
   const mem = phMemories();
   if (mem.length && !phSel && photoAlbum === 'Alle' && !phSearch) {
     wrap.append(sectionHead('Erinnerungen'));
-    wrap.append(h('div', { class: 'phmem' }, mem.map((m, i) => h('button', { class: 'phm', type: 'button', 'data-i': i, onclick: () => openPhotoViewer(mem.map(x => x.f), i), 'aria-label': m.label },
+    wrap.append(h('div', { class: 'phmem' + (mem.length === 1 ? ' one' : '') }, mem.map((m, i) => h('button', { class: 'phm', type: 'button', 'data-i': i, onclick: () => openPhotoViewer(mem.map(x => x.f), i), 'aria-label': m.label },
       h('img', { src: m.f.thumb, alt: '' }), h('span', { class: 'phm-cap' }, h('b', null, m.label), h('small', null, m.f.datum ? fmtD(m.f.datum) + (ageAt(p, m.f.datum) ? ' · ' + ageAt(p, m.f.datum) : '') : ''))))));
   }
   // Alben
@@ -8022,7 +8036,7 @@ const Haptic = (() => {
   let lab = null, lastNative = -1e6;
   const enabled = () => ls.get('luise_haptic') !== '0';
   const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const hasSwitch = () => { try { return !!(window.CSS && CSS.supports && (CSS.supports('appearance', 'switch') || CSS.supports('-webkit-appearance', 'switch'))); } catch (e) { return false; } };
+  const hasSwitch = () => { if (IOS) return true; try { return !!(window.CSS && CSS.supports && (CSS.supports('appearance', 'switch') || CSS.supports('-webkit-appearance', 'switch'))); } catch (e) { return false; } };
   const hasVibrate = () => typeof navigator.vibrate === 'function';
   const overlayOn = () => IOS && hasSwitch() && enabled() && ls.get('luise_hapt_ov') !== '0';
   const build = () => {
@@ -8060,7 +8074,7 @@ const Haptic = (() => {
 /* Echte, unsichtbare Safari-Schalter über Tasten. Der Finger trifft den Schalter selbst,
    dadurch löst iOS den Haptik-Tick aus. Der Klick läuft danach ganz normal zur Taste weiter. */
 const Ov = (() => {
-  const SEL = '#lock .key, .tabbar .tab, .btn, .pill, .seg button, .gctl .fchip, .sheet-head button, .nav-btn';
+  const SEL = '#lock .key, .tabbar .tab, .btn, .pill, .seg button, .gctl .fchip, .sheet-head button, .nav-btn, .backbtn, .li, .doc, .tile';
   const SKIP = '.chips:not(.gctl), .gsum, .vchips, .hapt-sw, .hapt-demo-row, .hapt-no-ov';
   let mo = null, queue = new Set(), raf = 0;
   const attach = el => {
@@ -8111,7 +8125,7 @@ function hapticCard() {
   ovc.checked = ls.get('luise_hapt_ov') !== '0';
   const info = h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? (Haptic.hasSwitch() ? 'iPhone mit Safari-Schalter (ab iOS 17.4). Die Taste fühlt sich nur an, wenn Systemhaptik eingeschaltet ist.' : 'Dein iOS ist zu alt für den Schalter-Trick (nötig: iOS 17.4).') : 'Auf diesem Gerät gibt es keine Haptik.');
   const demoSw = h('input', { type: 'checkbox', class: 'hapt-demo-sw' }); demoSw.setAttribute('switch', '');
-  const out = h('p', { class: 'small', 'aria-live': 'polite' }, 'Teste unten nacheinander und sag mir, bei welchem du etwas spürst.');
+  const out = h('p', { class: 'small', 'aria-live': 'polite' }, 'Test 1 und 2 sind die echten Wege. Test 3 (Automatik) blockiert Apple in neueren iOS-Versionen oft.');
   return h('div', { class: 'card stack' },
     h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback')),
     h('label', { class: 'field check' }, ovc, h('span', null, 'Tasten mit Schalter-Overlay (iPhone)')),
@@ -8132,6 +8146,36 @@ function restoreSettings(st) {
   Object.keys(st || {}).forEach(k => { if (/^luise_[A-Za-z0-9_@.-]+$/.test(k) && !BK_SKIP.has(k) && typeof st[k] === 'string') ls.set(k, st[k]); });
 }
 
+/* ============ v22: Zurück per Wisch + Glas-Zurück-Knopf ============ */
+const backBtn = (label, fn) => h('button', { class: 'backbtn', type: 'button', 'aria-label': 'Zurück zu ' + label, title: label, onclick: fn, html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>' });
+(() => {
+  let t = null, ind = null;
+  const clear = () => { if (ind) { ind.remove(); ind = null; } t = null; };
+  const blocked = () => !!document.querySelector('.back, .lb, #lock:not([hidden]), .welcome:not([hidden])');
+  document.addEventListener('touchstart', e => {
+    clear();
+    if (e.touches.length !== 1 || blocked()) return;
+    const p = e.touches[0]; if (p.clientX > 42) return;
+    const b = document.querySelector('#view .backbtn'); if (!b) return;
+    t = { x: p.clientX, y: p.clientY, b, on: false, dx: 0 };
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!t) return;
+    const p = e.touches[0], dx = p.clientX - t.x, dy = p.clientY - t.y; t.dx = dx;
+    if (!t.on) {
+      if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) { clear(); return; }
+      if (dx > 10 && dx > Math.abs(dy)) { t.on = true; ind = document.createElement('div'); ind.className = 'swipe-ind'; ind.innerHTML = '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>'; document.body.append(ind); }
+    }
+    if (t.on && ind) { const k = Math.min(1, Math.max(0, dx / 90)); ind.style.opacity = String(k); ind.style.transform = 'translate(' + (Math.min(dx, 110) - 56) + 'px,-50%) scale(' + (0.7 + 0.3 * k) + ')'; ind.classList.toggle('go', dx > 80); }
+  }, { passive: true });
+  const end = () => {
+    if (!t) return;
+    const ok = t.on && t.dx > 80, b = t.b; clear();
+    if (ok && b.isConnected) { Haptic.fire('light'); b.click(); }
+  };
+  document.addEventListener('touchend', end, { passive: true });
+  document.addEventListener('touchcancel', clear, { passive: true });
+})();
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
