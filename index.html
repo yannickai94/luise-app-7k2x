@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="20">
+<meta name="app-version" content="21">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1017,6 +1017,49 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 @media (prefers-reduced-motion:reduce){.vheart,.vact.pop .vai{animation-duration:.01s}.vcom{transition:none}}
 
 .hapt-sw{position:fixed;left:-60px;top:-60px;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none}
+/* ---- v21 ---- */
+/* Haptik-Overlay */
+.hapt-host{position:relative}
+.hapt-ov{position:absolute!important;inset:0;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;opacity:.02;z-index:6;background:transparent!important;border-radius:inherit;cursor:pointer;-webkit-appearance:auto;appearance:auto}
+.hapt-demo-sw{width:auto!important;min-height:0!important;padding:0!important;margin:0}
+.hapt-demo-row{justify-content:space-between;flex-direction:row-reverse}
+/* sichtbares Drück-Feedback */
+.btn:active,.tab:active,.tile:active,.fchip:active,.pill:active,.gs:active{transform:scale(.96)}
+.key{transition:transform .09s ease,background .12s}
+/* Login in Glas */
+#lock,#privacy,.welcome{background:
+  radial-gradient(70% 45% at 12% 4%,color-mix(in srgb,var(--accent) 42%,transparent),transparent 72%),
+  radial-gradient(60% 42% at 100% 30%,color-mix(in srgb,var(--g3) 40%,transparent),transparent 72%),
+  radial-gradient(75% 46% at -6% 82%,color-mix(in srgb,var(--g2) 38%,transparent),transparent 72%),
+  radial-gradient(55% 36% at 98% 104%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 72%),var(--bg)}
+#lock::before,#lock::after{content:'';position:fixed;border-radius:50%;pointer-events:none;filter:blur(8px);z-index:0}
+#lock::before{width:210px;height:210px;left:6%;top:41%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--accent) 70%,#fff),color-mix(in srgb,var(--accent) 30%,transparent) 72%);opacity:.75}
+#lock::after{width:170px;height:170px;right:4%;top:16%;background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--g3) 75%,#fff),color-mix(in srgb,var(--g3) 28%,transparent) 72%);opacity:.7}
+#lock .lock-in{position:relative;z-index:1;padding:26px 22px 24px;border-radius:34px;border:1px solid rgba(255,255,255,.6);background:color-mix(in srgb,var(--card) 34%,transparent);-webkit-backdrop-filter:blur(26px) saturate(1.9);backdrop-filter:blur(26px) saturate(1.9);box-shadow:0 18px 50px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.7)}
+:root[data-dark] #lock .lock-in{border-color:rgba(255,255,255,.14);box-shadow:0 18px 50px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.12)}
+#lock .lock-logo{box-shadow:0 8px 22px rgba(0,0,0,.2),0 0 0 3px rgba(255,255,255,.55)}
+#lock .dots i{border-color:color-mix(in srgb,var(--ink) 45%,transparent);background:rgba(255,255,255,.28);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#lock .dots i.on{background:var(--accent);border-color:var(--accent);box-shadow:0 0 12px color-mix(in srgb,var(--accent) 60%,transparent)}
+#lock .key{position:relative;border:1px solid rgba(255,255,255,.65);background:linear-gradient(160deg,rgba(255,255,255,.5),color-mix(in srgb,var(--accent) 8%,rgba(255,255,255,.12)));-webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6);box-shadow:0 6px 16px rgba(0,0,0,.1),inset 0 1px 0 rgba(255,255,255,.75)}
+:root[data-dark] #lock .key{border-color:rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.14)}
+#lock .key:active{transform:scale(.92);background:color-mix(in srgb,var(--accent) 38%,rgba(255,255,255,.3))}
+#lock .key.ghost{background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+#lock .key.fid{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 70%,#fff)}
+/* Glas-Segmentleiste */
+.seg{position:relative;gap:2px;padding:4px;border-radius:18px;border:1px solid rgba(255,255,255,.6);background:color-mix(in srgb,var(--card) 44%,transparent);-webkit-backdrop-filter:blur(20px) saturate(1.8);backdrop-filter:blur(20px) saturate(1.8);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7)}
+:root[data-dark] .seg{border-color:rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.seg button{position:relative;border-radius:14px;color:var(--mute);transition:background .18s,color .18s,box-shadow .18s,transform .09s}
+.seg button.on{color:var(--accent);background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.55));box-shadow:0 3px 10px rgba(0,0,0,.12),inset 0 1px 0 #fff}
+:root[data-dark] .seg button.on{background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,.07));box-shadow:0 3px 10px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.22)}
+/* Wachstum: nichts abschneiden */
+.gsum{display:grid;grid-template-columns:repeat(var(--n,3),minmax(0,1fr));gap:8px;overflow:visible;padding:2px 0 6px}
+.gs{flex:none;min-width:0;padding:10px 10px}
+.gs small{overflow-wrap:anywhere;line-height:1.25}
+.gs b{font-size:19px;overflow-wrap:anywhere}
+.gs-sub{flex-wrap:wrap}
+.chips.gctl{flex-wrap:wrap;overflow:visible}
+.growpage{min-width:0}
+.growpage>*{max-width:100%;min-width:0}
 </style>
 </head>
 <body>
@@ -2368,7 +2411,7 @@ let healthSeg = 'gesundheit';
 function seg(items, cur, on) { return h('div', { class: 'seg' }, items.map(([id, label]) => h('button', { class: id === cur ? 'on' : '', onclick: () => on(id) }, label))); }
 function viewHealth() {
   const wrap = h('div', { class: 'stack' });
-  wrap.append(seg([['gesundheit', 'Gesundheit'], ['uheft', 'U-Heft'], ['entwicklung', 'Wachstum'], ['medikamente', 'Medikamente']], healthSeg, id => { healthSeg = id; render(); }));
+  wrap.append(seg([['gesundheit', 'Gesundheit'], ['uheft', 'U-Heft'], ['entwicklung', 'Wachstum'], ['medikamente', 'Medikation']], healthSeg, id => { healthSeg = id; render(); }));
   wrap.append(healthSeg === 'uheft' ? viewUHeft() : healthSeg === 'entwicklung' ? viewGrowth() : healthSeg === 'medikamente' ? viewMeds() : viewHealthMain());
   return wrap;
 }
@@ -3061,7 +3104,7 @@ function medsText() {
 function viewMeds() {
   const meds = S.health.meds, wrap = h('div', { class: 'stack' });
   const edit = item => editListItem({ arr: meds, key: 'health', title: 'Medikament', fields: MED_FIELDS, item, defaults: { von: isoToday() } });
-  wrap.append(pageHead('Medikamente', addBtn('Medikament', () => edit())));
+  wrap.append(pageHead('Medikation', addBtn('Medikament', () => edit())));
   const act = meds.filter(medActive), plan = meds.filter(medPlanned), old = meds.filter(m => !medActive(m) && !medPlanned(m));
   const row = m => li(() => edit(m), '', h('span', { class: 'hubico', html: ICON.cross }),
     liTxt(m.name, [m.dosis, m.einnahme, m.grund].filter(Boolean).join(' · '), h('span', { class: 'chip ' + (m.dauer ? 'ok' : '') }, m.dauer ? 'Dauermedikation' : m.bis ? 'bis ' + fmtD(m.bis) : m.von ? 'seit ' + fmtD(m.von) : 'aktiv')), chev());
@@ -4087,7 +4130,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 20'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 21'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6648,7 +6691,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 20;
+const APP_VERSION = 21;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7351,7 +7394,7 @@ function viewGrowth() {
     if (!avail.includes(growMetric)) growMetric = avail[0];
     const k = growMetric, g = GM[k];
     // Kacheln
-    wrap.append(h('div', { class: 'gsum' }, avail.map(m => {
+    wrap.append(h('div', { class: 'gsum', style: '--n:' + Math.max(1, Math.min(avail.length, 3)) }, avail.map(m => {
       const s = series(m), l = s[s.length - 1], gm = GM[m], pc = (sx && gm.pk && birth) ? pctOf(sx, gm.pk, monthsAt(birth, l.datum), num(l[m])) : null;
       const pr = s.length > 1 ? num(l[m]) - num(s[s.length - 2][m]) : null;
       return h('button', { class: 'gs' + (m === k ? ' on' : ''), type: 'button', title: `${gm.label}: zuletzt am ${fmtD(l.datum)}${pc != null ? ', Perzentile P' + Math.round(pc) : ''}. Tippen für die Kurve.`, onclick: () => { growMetric = m; growSel = null; render(); } },
@@ -7974,44 +8017,111 @@ function openVideoFeed(filter) {
   vidLoadRepo().then(ok => { if (vf && ok && vf.feed.scrollTop < 20) vfRebuild(); if (!ok || !vidShorts('schlaf').length) vidLoadSuggest(false); }).catch(() => vidLoadSuggest(false));
 }
 
-/* ============ v20: Haptisches Feedback ============ */
+/* ============ v21: Haptisches Feedback (neu) ============ */
 const Haptic = (() => {
-  let lab = null;
+  let lab = null, lastNative = -1e6;
   const enabled = () => ls.get('luise_haptic') !== '0';
+  const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const hasSwitch = () => { try { return !!(window.CSS && CSS.supports && (CSS.supports('appearance', 'switch') || CSS.supports('-webkit-appearance', 'switch'))); } catch (e) { return false; } };
+  const hasVibrate = () => typeof navigator.vibrate === 'function';
+  const overlayOn = () => IOS && hasSwitch() && enabled() && ls.get('luise_hapt_ov') !== '0';
   const build = () => {
     if (lab) return lab;
     lab = document.createElement('label'); lab.setAttribute('aria-hidden', 'true'); lab.className = 'hapt-sw';
     const i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.tabIndex = -1;
     lab.append(i); document.body.append(lab); return lab;
   };
-  const tick = () => { try { build().click(); } catch (e) {} };
+  // Automatischer Tick. Fasst NIE ein Formularfeld an (sonst schließen sich Auswahlmenüs).
+  const tick = () => {
+    try {
+      const a = document.activeElement;
+      const mine = x => x && x.closest && x.closest('.hapt-sw');
+      if (a && /^(SELECT|INPUT|TEXTAREA)$/.test(a.tagName) && !mine(a) && !a.classList.contains('hapt-ov')) return;
+      build().click();
+      const b = document.activeElement;
+      if (mine(b)) { b.blur(); if (a && !mine(a) && a !== document.body && a.focus) a.focus({ preventScroll: true }); }
+      else if (a && a !== document.body && b !== a && a.focus) a.focus({ preventScroll: true });
+    } catch (e) {}
+  };
   const PAT = { select: [7], light: [10], medium: [18], success: [12, 55, 12], warn: [18, 60, 18], error: [28, 45, 28, 45, 28] };
   const TICKS = { select: 1, light: 1, medium: 1, success: 2, warn: 2, error: 3 };
   function fire(kind) {
     kind = PAT[kind] ? kind : 'light';
     if (!enabled()) return false;
-    if (typeof navigator.vibrate === 'function') { try { return navigator.vibrate(PAT[kind]); } catch (e) { return false; } }
-    // iPhone: Safari hat kein vibrate. Ein umgeschalteter Safari-Schalter (iOS 17.4+) gibt einen Tick.
+    if (hasVibrate()) { try { return navigator.vibrate(PAT[kind]); } catch (e) { return false; } }
+    // Ein Tipp auf eine Taste mit Schalter-Overlay hat schon einen echten Tick ausgelöst
+    if (TICKS[kind] === 1 && performance.now() - lastNative < 350) return true;
     tick(); for (let i = 1; i < TICKS[kind]; i++) setTimeout(tick, i * 90);
     return true;
   }
-  return { fire, enabled, set: on => ls.set('luise_haptic', on ? '1' : '0') };
+  const markNative = () => { lastNative = performance.now(); };
+  return { fire, enabled, overlayOn, hasSwitch, hasVibrate, IOS, markNative, set: on => { ls.set('luise_haptic', on ? '1' : '0'); Ov.sync(); }, setOverlay: on => { ls.set('luise_hapt_ov', on ? '1' : '0'); Ov.sync(); } };
+})();
+/* Echte, unsichtbare Safari-Schalter über Tasten. Der Finger trifft den Schalter selbst,
+   dadurch löst iOS den Haptik-Tick aus. Der Klick läuft danach ganz normal zur Taste weiter. */
+const Ov = (() => {
+  const SEL = '#lock .key, .tabbar .tab, .btn, .pill, .seg button, .gctl .fchip, .sheet-head button, .nav-btn';
+  const SKIP = '.chips:not(.gctl), .gsum, .vchips, .hapt-sw, .hapt-demo-row, .hapt-no-ov';
+  let mo = null, queue = new Set(), raf = 0;
+  const attach = el => {
+    if (el.tagName === 'A' || el.disabled || el.closest(SKIP) || el.querySelector(':scope > .hapt-ov')) return;
+    const i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.className = 'hapt-ov'; i.tabIndex = -1; i.setAttribute('aria-hidden', 'true');
+    i.addEventListener('click', () => Haptic.markNative());
+    i.addEventListener('change', () => { i.checked = false; });
+    if (getComputedStyle(el).position === 'static') el.classList.add('hapt-host');
+    el.append(i);
+  };
+  const scan = root => {
+    if (!root || root.nodeType !== 1) return;
+    if (root.matches && root.matches(SEL)) attach(root);
+    if (root.querySelectorAll) root.querySelectorAll(SEL).forEach(attach);
+  };
+  const flush = () => { raf = 0; const q = Array.from(queue); queue.clear(); q.forEach(n => { if (n.isConnected) scan(n.nodeType === 1 ? n : n.parentElement); }); };
+  const later = n => { queue.add(n); if (!raf) raf = requestAnimationFrame(flush); };
+  function sync() {
+    const on = Haptic.overlayOn();
+    if (on && !mo) {
+      mo = new MutationObserver(ms => ms.forEach(m => { later(m.target); m.addedNodes.forEach(n => later(n)); }));
+      mo.observe(document.body, { childList: true, subtree: true });
+      scan(document.body);
+    } else if (!on && mo) {
+      mo.disconnect(); mo = null; queue.clear();
+      document.querySelectorAll('.hapt-ov').forEach(x => x.remove());
+    }
+  }
+  return { sync, scan, count: () => document.querySelectorAll('.hapt-ov').length };
 })();
 (() => {
-  const SEL = 'button, a[href], .tab, .li, .tile, .fchip, .swatch, .shopcard, .ph, .pha, .phm, select, summary, [role=button], label.field.check, input[type=checkbox]';
+  // Für alles ohne Overlay: automatischer Tick (iPhone) oder Vibration (Android). Keine Formularfelder.
+  const SEL = 'button, a[href], .tab, .li, .tile, .fchip, .swatch, .shopcard, .ph, .pha, .phm, summary, [role=button]';
   document.addEventListener('click', e => {
     if (!e.isTrusted || !e.target || !e.target.closest) return;
-    if (e.target.closest('.hapt-sw')) return;
+    if (e.target.closest('.hapt-sw, .hapt-demo') || e.target.classList.contains('hapt-ov')) return;
     const t = e.target.closest(SEL);
     if (!t || t.disabled || t.closest('#lock .key:not(.fid)')) return;
-    Haptic.fire(t.matches('.tab, .fchip, .swatch, .pha, select, input[type=checkbox], label.field.check') ? 'select' : t.matches('.btn:not(.ghost), .pill:not(.ghost), .sheet-head .strong, .nav-btn.strong, .coinstart') ? 'medium' : 'light');
+    Haptic.fire(t.matches('.tab, .fchip, .swatch, .pha') ? 'select' : t.matches('.btn:not(.ghost), .pill:not(.ghost), .sheet-head .strong, .nav-btn.strong, .coinstart') ? 'medium' : 'light');
   }, true);
+  document.addEventListener('touchstart', () => {}, { passive: true });
+  Ov.sync();
 })();
 function hapticCard() {
   const cb = h('input', { type: 'checkbox', onchange: e => { Haptic.set(e.target.checked); if (e.target.checked) Haptic.fire('success'); } });
   cb.checked = Haptic.enabled();
-  return h('div', { class: 'card stack' }, h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback (kleine Vibration bei Tippen, Code, Erfolg)')),
-    h('p', { class: 'mute small' }, 'Auf dem iPhone funktioniert das über einen Safari-Trick ab iOS 17.4 und nur bei eingeschalteten Systemhaptiken (Einstellungen › Töne & Haptik › Systemhaptik).'));
+  const ovc = h('input', { type: 'checkbox', onchange: e => Haptic.setOverlay(e.target.checked) });
+  ovc.checked = ls.get('luise_hapt_ov') !== '0';
+  const info = h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? (Haptic.hasSwitch() ? 'iPhone mit Safari-Schalter (ab iOS 17.4). Die Taste fühlt sich nur an, wenn Systemhaptik eingeschaltet ist.' : 'Dein iOS ist zu alt für den Schalter-Trick (nötig: iOS 17.4).') : 'Auf diesem Gerät gibt es keine Haptik.');
+  const demoSw = h('input', { type: 'checkbox', class: 'hapt-demo-sw' }); demoSw.setAttribute('switch', '');
+  const out = h('p', { class: 'small', 'aria-live': 'polite' }, 'Teste unten nacheinander und sag mir, bei welchem du etwas spürst.');
+  return h('div', { class: 'card stack' },
+    h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback')),
+    h('label', { class: 'field check' }, ovc, h('span', null, 'Tasten mit Schalter-Overlay (iPhone)')),
+    info,
+    h('div', { class: 'stack hapt-demo' },
+      h('b', null, 'Haptik testen'),
+      h('label', { class: 'field check hapt-demo-row' }, demoSw, h('span', null, 'Test 1: Schalter direkt antippen')),
+      h('button', { class: 'btn ghost wide', type: 'button', onclick: () => { out.textContent = 'Test 2 ausgeführt (Taste mit Overlay).'; } }, 'Test 2: Taste mit Overlay'),
+      h('button', { class: 'btn ghost wide hapt-no-ov', type: 'button', onclick: () => { Haptic.fire('success'); out.textContent = 'Test 3 ausgeführt (automatischer Tick).'; } }, 'Test 3: Automatischer Tick'),
+      out));
 }
 /* ============ v20: Vollständige Sicherung ============ */
 const BK_SKIP = new Set(['luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
@@ -8038,7 +8148,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { Haptic, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
+window.__luise = { Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
