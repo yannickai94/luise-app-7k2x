@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="23">
+<meta name="app-version" content="24">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1020,7 +1020,7 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 /* ---- v21 ---- */
 /* Haptik-Overlay */
 .hapt-host{position:relative}
-.hapt-ov{position:absolute!important;inset:0;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;opacity:.02;z-index:6;background:transparent!important;border-radius:inherit;cursor:pointer;-webkit-appearance:auto;appearance:auto}
+.hapt-ov{position:absolute!important;inset:0;width:100%!important;height:100%!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;opacity:.012;z-index:6;background:transparent!important;border-radius:inherit;cursor:pointer;-webkit-appearance:auto;appearance:auto}
 .hapt-demo-sw{width:auto!important;min-height:0!important;padding:0!important;margin:0}
 .hapt-demo-row{justify-content:space-between;flex-direction:row-reverse}
 /* sichtbares Drück-Feedback */
@@ -4154,7 +4154,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 23'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 24'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6715,7 +6715,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 23;
+const APP_VERSION = 24;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -8079,31 +8079,35 @@ const Haptic = (() => {
     return true;
   }
   const markNative = () => { lastNative = performance.now(); };
-  return { fire, enabled, overlayOn, hasSwitch, hasVibrate, IOS, markNative, set: on => { ls.set('luise_haptic', on ? '1' : '0'); Ov.sync(); }, setOverlay: on => { ls.set('luise_hapt_ov', on ? '1' : '0'); Ov.sync(); } };
+  return { fire, enabled, overlayOn, hasSwitch, hasVibrate, IOS, markNative, set: on => { ls.set('luise_haptic', on ? '1' : '0'); Ov.sync(); }, setOverlay: on => { ls.set('luise_hapt_ov', on ? '1' : '0'); Ov.sync(); }, advanced: () => ls.get('luise_hapt_adv') === '1', setAdvanced: on => { ls.set('luise_hapt_adv', on ? '1' : '0'); Ov.sync(true); } };
 })();
 /* Echte, unsichtbare Safari-Schalter über Tasten. Der Finger trifft den Schalter selbst,
    dadurch löst iOS den Haptik-Tick aus. Der Klick läuft danach ganz normal zur Taste weiter. */
 const Ov = (() => {
-  const SEL = '#lock .key, .tabbar .tab, .btn, .pill, .seg button, .gctl .fchip, .sheet-head button, .nav-btn, .backbtn, .li, .doc, .tile';
+  const BASE = '#lock .key, .tabbar .tab';
+  const MORE = ', .btn, .pill, .seg button, .gctl .fchip, .sheet-head button, .nav-btn, .backbtn, .li, .doc, .tile';
+  const sel = () => BASE + (ls.get('luise_hapt_adv') === '1' ? MORE : '');
   const SKIP = '.chips:not(.gctl), .gsum, .vchips, .hapt-sw, .hapt-demo-row, .hapt-no-ov';
   let mo = null, queue = new Set(), raf = 0;
   const attach = el => {
     if (el.tagName === 'A' || el.disabled || el.closest(SKIP) || el.querySelector(':scope > .hapt-ov')) return;
     const i = document.createElement('input'); i.type = 'checkbox'; i.setAttribute('switch', ''); i.className = 'hapt-ov'; i.tabIndex = -1; i.setAttribute('aria-hidden', 'true');
-    i.addEventListener('click', () => Haptic.markNative());
+    i.addEventListener('click', e => { Haptic.markNative(); e.stopPropagation(); el.click(); });
     i.addEventListener('change', () => { i.checked = false; });
     if (getComputedStyle(el).position === 'static') el.classList.add('hapt-host');
     el.append(i);
   };
   const scan = root => {
     if (!root || root.nodeType !== 1) return;
-    if (root.matches && root.matches(SEL)) attach(root);
-    if (root.querySelectorAll) root.querySelectorAll(SEL).forEach(attach);
+    const S = sel();
+    if (root.matches && root.matches(S)) attach(root);
+    if (root.querySelectorAll) root.querySelectorAll(S).forEach(attach);
   };
   const flush = () => { raf = 0; const q = Array.from(queue); queue.clear(); q.forEach(n => { if (n.isConnected) scan(n.nodeType === 1 ? n : n.parentElement); }); };
   const later = n => { queue.add(n); if (!raf) raf = requestAnimationFrame(flush); };
-  function sync() {
+  function sync(force) {
     const on = Haptic.overlayOn();
+    if (force && mo) { document.querySelectorAll('.hapt-ov').forEach(x => x.remove()); scan(document.body); return; }
     if (on && !mo) {
       mo = new MutationObserver(ms => ms.forEach(m => { later(m.target); m.addedNodes.forEach(n => later(n)); }));
       mo.observe(document.body, { childList: true, subtree: true });
@@ -8133,9 +8137,12 @@ function hapticCard() {
   cb.checked = Haptic.enabled();
   const ovc = h('input', { type: 'checkbox', onchange: e => Haptic.setOverlay(e.target.checked) });
   ovc.checked = ls.get('luise_hapt_ov') !== '0';
+  const advc = h('input', { type: 'checkbox', onchange: e => Haptic.setAdvanced(e.target.checked) });
+  advc.checked = Haptic.advanced();
   return h('div', { class: 'card stack' },
     h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback')),
     h('label', { class: 'field check' }, ovc, h('span', null, 'Haptik über Tasten-Schalter (iPhone)')),
+    h('label', { class: 'field check' }, advc, h('span', null, 'Auch bei Buttons und Listen (kann das Scrollen stören)')),
     h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? 'Auf dem iPhone fühlst du die Haptik beim Antippen. Systemhaptik muss in den iPhone-Einstellungen eingeschaltet sein.' : 'Auf diesem Gerät gibt es keine Haptik.'));
 }
 /* ============ v20: Vollständige Sicherung ============ */
