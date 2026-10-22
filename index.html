@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="28">
+<meta name="app-version" content="29">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1355,6 +1355,41 @@ body.dragging-any{-webkit-user-select:none;user-select:none}body.dragging-any #v
 .pbdrop-t{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border-radius:18px;transition:background .15s,transform .15s}.pbdrop-t span{width:30px;height:30px;display:block}.pbdrop-t span svg{width:100%;height:100%;display:block}.pbdrop-t b{font-size:11px;line-height:1.1;text-align:center}
 .pbdrop-t.dropon{background:color-mix(in srgb,var(--accent) 24%,transparent);transform:scale(1.1)}
 @media (prefers-reduced-motion:reduce){.vinyl.spin,.sphero-v,.spempty-v{animation:none}.wm-menu,.wm-ghost,.wm-back{transition:none}.pbdrop{transition:none}}
+/* ===== v29 ===== */
+/* Schalter und Häkchen behalten ihr natives Aussehen (kein Glas-Ring) */
+input[type=checkbox],input[type=radio],input[switch]{background:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;outline-offset:3px}
+/* Statusleiste: weicher Glas-Verlauf, damit Inhalt nicht in die Uhr läuft */
+#sbmask{position:fixed;left:0;right:0;top:0;height:calc(env(safe-area-inset-top) + 2px);z-index:26;pointer-events:none;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 88%,transparent),color-mix(in srgb,var(--bg) 55%,transparent) 60%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+@supports not (top:env(safe-area-inset-top)){#sbmask{display:none}}
+/* Chat: Leiste fest unten, Nachrichten laufen nie darunter */
+.chat{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.chat-in{position:fixed!important;left:max(12px,calc(50% - 304px))!important;right:max(12px,calc(50% - 304px))!important;bottom:max(calc(var(--kb,0px) + 8px),calc(84px + env(safe-area-inset-bottom)))!important;margin:0!important;z-index:29;transition:bottom .18s ease}
+body.kbopen .tabbar{display:none}
+.chat-in .chat-text{min-width:0;line-height:1.35;max-height:120px;overflow-y:auto}
+.chat-send{display:grid;place-items:center;padding:0}.chat-send svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.msg{overflow-wrap:anywhere;word-break:break-word}
+/* Fotos: sanftes Einblenden der scharfen Version */
+.wphoto img,.phm img,.tl-th.big img{transition:opacity .35s}
+/* Familien-Kacheln statt Regler */
+.famtiles{display:grid!important;grid-template-columns:1fr 1fr;gap:10px;background:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;overflow:visible!important;border-radius:0!important}
+.famtiles .famtile{--tb:rgba(255,255,255,.55);position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:13px 12px 12px;min-height:118px;border:0;border-radius:22px;font:inherit;color:var(--ink);cursor:pointer;background:linear-gradient(160deg,color-mix(in srgb,var(--card) 74%,transparent),color-mix(in srgb,var(--card) 44%,transparent));-webkit-backdrop-filter:blur(18px) saturate(1.8);backdrop-filter:blur(18px) saturate(1.8);box-shadow:inset 0 0 0 1.5px var(--tb),inset 0 1px 0 rgba(255,255,255,.7),0 8px 20px -12px rgba(30,30,90,.3);transition:transform .18s cubic-bezier(.3,1.4,.5,1),background .25s,box-shadow .25s}
+.famtiles .famtile:active{transform:scale(.96)}
+.famtiles .famtile.on{--tb:var(--accent);background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 17%,var(--card)),color-mix(in srgb,var(--accent) 7%,var(--card)))}
+.famtiles .famtile:last-child:nth-child(odd){grid-column:1/-1;min-height:96px}
+.famtile .famico{width:46px;height:46px;margin-bottom:5px;opacity:.5;filter:grayscale(.75);transition:opacity .25s,filter .25s,transform .3s cubic-bezier(.3,1.5,.5,1)}
+.famtile.on .famico{opacity:1;filter:none;transform:scale(1.06) rotate(-3deg)}
+.famtile b{font-size:14.5px;line-height:1.2;padding-right:26px}.famtile small{font-size:12px;line-height:1.3;color:var(--mute)}
+.famtile em{font-style:normal;font-size:10.5px;font-weight:700;color:#b5560a;background:#ffe7c9;border-radius:999px;padding:1px 8px;margin-top:5px}
+:root[data-dark] .famtile em{color:#ffcf9a;background:#4a3015}
+.famchk{position:absolute;top:11px;right:11px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--mute) 45%,transparent);transition:background .2s,box-shadow .2s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.famchk svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .3s .05s}
+.famtile.on .famchk{background:var(--accent);box-shadow:none;transform:scale(1.08)}.famtile.on .famchk svg{stroke-dashoffset:0}
+/* Familienmodus */
+.fmcard{display:flex;align-items:center;gap:12px}.fmico{width:42px;height:42px;flex:none;display:block}.fmico svg{width:100%;height:100%;display:block}
+.fmtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.fmtx b{font-size:16px}.fmtx small{color:var(--mute);font-size:12.5px;line-height:1.35}
+.famask{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.famexit{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:6px}
+body.famode .editbtn{display:none!important}
 </style>
 </head>
 <body>
@@ -2304,7 +2339,7 @@ function wBday() {
 function wPhoto(w, sz) {
   if (!S.photos.length) return miniCard('Foto des Tages', 'Noch keine Fotos', 'Zur Galerie', () => go('photos'));
   const key = isoToday().replace(/-/g, ''), idx = (+key) % S.photos.length, m = S.photos[idx];
-  return h('button', { class: 'card mini wphoto' + (sz === 'l' ? ' big' : sz === 'm' ? ' wide' : ''), type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, h('img', { src: m.thumb, alt: '' }), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
+  return h('button', { class: 'card mini wphoto' + (sz === 'l' ? ' big' : sz === 'm' ? ' wide' : ''), type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, hiImg(h('img', { src: m.thumb, alt: '' }), m.id), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
 }
 function wSpotOld() {
   if (nowPlaying) return playerCard();
@@ -2439,14 +2474,15 @@ function addWidgetSheet(opts) {
 
 function viewHome() {
   const wrap = h('div', { class: 'stack' }), ks = kidSwitcher();
-  if (ks) wrap.append(ks);
+  if (ks && !famMode()) wrap.append(ks);
   const fw = famWelcomeCard(); if (fw) wrap.append(fw);
+  const fa = famAskCard(); if (fa) wrap.append(fa);
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
     h('b', null, 'Startseite anpassen'),
     h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit S, M und L unter dem Widget änderst du die Größe, mit − entfernst du es.'),
     h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: templateSheet }, 'Vorlage'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
   const grid = h('div', { class: 'wgrid' + (homeEdit ? ' editing' : '') });
-  homeLayout().forEach((item, i, arr) => {
+  (famMode() ? famLayout(homeLayout()) : homeLayout()).forEach((item, i, arr) => {
     const def = WIDGETS[item.id];
     let el = null;
     try { el = def.render(item.w, item.sz); } catch (e) { console.error(e); el = h('div', { class: 'card' }, 'Widget-Fehler: ' + e.message); }
@@ -2464,11 +2500,12 @@ function viewHome() {
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' nach unten', onclick: () => moveWidget(item.id, 1) }, '▼'),
         h('button', { class: 'wgbtn', type: 'button', 'aria-label': def.name + ' entfernen', onclick: () => { saveLayout(homeLayout().filter(y => y.id !== item.id)); render(); } }, '−')));
     }
-    if (!homeEdit) wmAttach(wg, item.id);
+    if (!homeEdit && !famMode()) wmAttach(wg, item.id);
     grid.append(wg);
   });
   wrap.append(grid);
-  if (!homeEdit) { wrap.append(h('div', { class: 'btn-row' }, h('button', { class: 'btn ghost', type: 'button', onclick: () => addWidgetSheet() }, '+ Widget'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { homeEdit = true; render(); } }, 'Anordnen')));
+  if (famMode()) wrap.append(famExitRow());
+  else if (!homeEdit) { wrap.append(h('div', { class: 'btn-row' }, h('button', { class: 'btn ghost', type: 'button', onclick: () => addWidgetSheet() }, '+ Widget'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { homeEdit = true; render(); } }, 'Anordnen')));
     wrap.append(h('p', { class: 'homehint' }, 'Tipp: Ein Widget gedrückt halten, um es zu ändern, zu tauschen oder zu entfernen.')); }
   return wrap;
 }
@@ -2499,7 +2536,7 @@ function momentCard(e, p) {
 }
 function viewJourney() {
   const p = S.profile, wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Journey', addBtn('Moment', () => editMoment())));
+  wrap.append(pageHead('Journey', famMode() ? null : addBtn('Moment', () => editMoment())));
   wrap.append(h('div', { class: 'chips' },
     h('button', { class: 'fchip' + (journeyAuto ? ' on' : ''), type: 'button', onclick: () => { journeyAuto = !journeyAuto; ls.set('luise_j_auto', journeyAuto ? '1' : '0'); render(); } }, journeyAuto ? 'Automatische Einträge: an' : 'Automatische Einträge: aus')));
   const feed = journeyFeed(journeyAuto);
@@ -2516,7 +2553,7 @@ function viewJourney() {
 }
 function wJourney(sz) {
   const items = journeyFeed(true).slice(0, sz === 'l' ? 6 : 3);
-  return h('div', { class: 'stack' }, sectionHead('Journey', addBtn('Moment', () => editMoment())),
+  return h('div', { class: 'stack' }, sectionHead('Journey', famMode() ? null : addBtn('Moment', () => editMoment())),
     h('div', { class: 'card' }, items.length ? items.map(e => li(() => e.open(), '', h('span', { class: 'hubico emo' }, e.emoji), liTxt(e.titel, [e.datum ? fmtD(e.datum) : '', e.fotos.length ? plural(e.fotos.length, 'Foto', 'Fotos') : ''].filter(Boolean).join(' · ')), chev())) : h('p', { class: 'empty' }, 'Noch keine Momente.')),
     h('button', { class: 'linkbtn', onclick: () => go('journey') }, 'Ganze Journey öffnen'));
 }
@@ -2820,7 +2857,7 @@ async function addPhotos(files, opt = {}) {
     if (!opt.silent || files.length > 1) toast(`Foto ${i + 1} von ${files.length} …`);
     try {
       const f = files[i];
-      const big = await imageToJpeg(f, 2000, 0.85), th = await imageToJpeg(f, 360, 0.75);
+      const big = await imageToJpeg(f, 2000, 0.85), th = await imageToJpeg(f, 640, 0.8);
       const id = uid(), dt = f.lastModified ? new Date(f.lastModified) : new Date();
       const meta = { id, datum: opt.datum || `${dt.getFullYear()}-${pad2(dt.getMonth() + 1)}-${pad2(dt.getDate())}`, titel: '', album: opt.album != null ? opt.album : ((photoAlbum !== 'Alle' && photoAlbum !== FAV) ? photoAlbum : ''), fav: false, cid: CID, thumb: await blobToDataURL(th), size: big.size, created: Date.now() };
       await pfilePut({ id, data: await big.arrayBuffer() });
@@ -4401,6 +4438,7 @@ function viewMore() {
 function viewSettings() {
   const wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Einstellungen'));
+  wrap.append(famModeCard());
   wrap.append(designCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
@@ -4450,7 +4488,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 28'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 29'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5386,7 +5424,7 @@ function openMoment(m) {
   const ov = openFull({ title: m.titel || 'Moment', right: h('button', { class: 'nav-btn strong', type: 'button', onclick: () => { ov.close(); editMoment(m); } }, 'Bearbeiten'),
     body: h('div', { class: 'stack' }, h('div', { class: 'mm-emo' }, m.emoji || '⭐'), h('small', { class: 'mute' }, [m.datum ? fmtD(m.datum) : '', a].filter(Boolean).join(' · ')),
       m.text ? h('p', { class: 'mm-text' }, m.text) : null,
-      ph.length ? h('div', { class: 'mm-grid' }, ph.map((x, i) => h('button', { class: 'tl-th big', type: 'button', 'aria-label': 'Foto ansehen', onclick: () => openPhotoViewer(ph, i) }, h('img', { src: x.thumb, alt: '' })))) : null) });
+      ph.length ? h('div', { class: 'mm-grid' }, ph.map((x, i) => h('button', { class: 'tl-th big', type: 'button', 'aria-label': 'Foto ansehen', onclick: () => openPhotoViewer(ph, i) }, hiImg(h('img', { src: x.thumb, alt: '' }), x.id)))) : null) });
 }
 
 /* ============ Widget-Vorlagen ============ */
@@ -5470,6 +5508,10 @@ function localAnswer(question) {
   if ((ct || fm) && has('telefon', 'nummer', 'anrufen', 'erreichen')) {
     const c = ct || fm; if (c.tel) { A('Anrufen', () => { location.href = 'tel:' + c.tel.replace(/[^\d+]/g, ''); }); return R(`**${c.name}**${c.rolle ? ' (' + c.rolle + ')' : ''}: ${c.tel}`); }
     return R(`Für ${c.name} ist keine Telefonnummer gespeichert.`);
+  }
+  if (/fieber/.test(q) && !has('notiz', 'tagebuch', 'heute', 'letzte', 'verlauf', 'kurve', 'eingetragen', 'gemessen')) {
+    A('Fieber notieren', () => go('diary')); A('Notfallkarte', openEmergency);
+    return R(`**Fieber beim Baby: das ist wichtig**\n- Ab 38,0 °C (rektal gemessen) spricht man von Fieber. Bei Babys unter 3 Monaten bitte immer sofort ärztlich abklären lassen (Kinderarztpraxis oder Notaufnahme).\n- Ältere Babys: ärztlichen Rat einholen bei Fieber ab 39 °C, wenn es länger als 2 bis 3 Tage dauert oder wenn ${nm} schlecht trinkt, auffallend müde ist oder anders atmet.\n- Notruf 112 bei Atemnot, blasser oder bläulicher Haut, Krampfanfall, sehr schwerer Weckbarkeit, steifem Nacken oder Hautflecken, die sich nicht wegdrücken lassen.\n- Viel zu trinken anbieten, leichte Kleidung, Zimmer nicht überheizen. Temperatur mit Uhrzeit notieren.\n- Fiebersenkende Mittel nur nach Absprache mit Kinderarzt oder Apotheke, die Dosis richtet sich nach dem Gewicht.\nDas ersetzt keine ärztliche Beratung.`);
   }
   const intents = [
     ['hilfe', has('hilfe', 'was kannst', 'was kann ', 'funktion', 'befehl', 'womit')],
@@ -5742,7 +5784,7 @@ function viewChat() {
   wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos')));
   let msgs = chatLoad();
   const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
-  const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden' }, '➤'), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
+  const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></svg>' }), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
   const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') },
     m.role === 'user' ? m.text : (m.progress != null ? h('span', null, 'Modell wird geladen … ' + Math.round(m.progress * 100) + ' %', h('span', { class: 'pbar' }, h('i', { style: 'width:' + Math.round(m.progress * 100) + '%' }))) : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…'))),
     m.actions && m.actions.length ? h('div', { class: 'macts' }, m.actions.map(([l, f]) => h('button', { class: 'fchip', type: 'button', onclick: f }, l))) : null);
@@ -5773,6 +5815,7 @@ function viewChat() {
   }
   send.onclick = () => ask(inp.value);
   inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(inp.value); } });
+  inp.addEventListener('focus', () => { setTimeout(scroll, 380); });
   inp.addEventListener('input', () => { inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 130) + 'px'; });
   draw();
   wrap.append(list, sug, h('div', { class: 'chat-in' }, inp, send, stop));
@@ -7012,7 +7055,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 28;
+const APP_VERSION = 29;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7078,7 +7121,9 @@ const TABS = [
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
 const SUB = ['tracker', 'settings', 'docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
-const withBack = v => h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
+const withBack = v => famMode() ? h('div', { class: 'stack' }, tab === 'journey' ? null : backBtn('Start', () => go('home')), v) : h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
+const FAM_TABS = [{ id: 'home', label: 'Start', icon: ICON.home }, { id: 'photos', label: 'Fotos', icon: ICON.photo }, { id: 'journey', label: 'Journey', icon: ICON.journey }];
+const curTabId = () => famMode() ? (tab === 'photos' ? 'photos' : tab === 'journey' ? 'journey' : 'home') : (['search', 'chat'].includes(tab) ? 'home' : SUB.includes(tab) ? 'more' : tab);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String(label).replace(/^‹\s*/, ''), () => go(id)), v);
 const views = {
   tracker: () => withBack(viewTracker()), settings: () => withBack(viewSettings()), coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
@@ -7087,9 +7132,10 @@ const views = {
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
 };
 let tab = 'home', lastTab = null;
-function go(id) { if (id !== 'photos') phSel = null; if (id === 'weeks' && tab !== 'weeks') { lpSel = null; wkSeg = 'woche'; } tab = id; render(); }
+function go(id) { if (famMode() && !FAM_PAGES.includes(id)) id = 'home'; if (id !== 'photos') phSel = null; if (id === 'weeks' && tab !== 'weeks') { lpSel = null; wkSeg = 'woche'; } tab = id; render(); }
 function render() {
   if (!S) return;
+  famApply();
   const v = $('#view');
   const changed = lastTab !== tab;
   const keep = changed ? 0 : v.scrollTop;
@@ -7098,7 +7144,7 @@ function render() {
   catch (e) { console.error(e); v.replaceChildren(h('p', { class: 'empty' }, 'Anzeigefehler: ' + e.message)); }
   v.scrollTop = keep;
   setTimeout(announceBadges, 700);
-  $('#tabbar').replaceChildren(...TABS.map(t => h('button', { class: 'tab' + (t.id === (['search', 'chat'].includes(tab) ? 'home' : SUB.includes(tab) ? 'more' : tab) ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
+  $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
 }
 function makeIcon() {
   try {
@@ -7866,13 +7912,13 @@ function viewPhotos() {
   } });
   const addBtnEl = h('button', { class: 'pill', type: 'button', onclick: () => { suppressLockUntil = Date.now() + 180000; input.click(); } }, '+ Fotos');
   const n = S.photos.length;
-  wrap.append(pageHead('Fotos', h('div', { class: 'phhead-r' }, n ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { phSel = phSel ? null : new Set(); render(); } }, phSel ? 'Fertig' : 'Auswählen') : null, addBtnEl)), input);
+  wrap.append(pageHead('Fotos', h('div', { class: 'phhead-r' }, n ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { phSel = phSel ? null : new Set(); render(); } }, phSel ? 'Fertig' : 'Auswählen') : null, famMode() ? null : addBtnEl)), input);
   const albums = albumNames();
   if (photoAlbum !== 'Alle' && photoAlbum !== FAV && !albums.includes(photoAlbum)) photoAlbum = 'Alle';
   if (!n) {
     wrap.append(h('div', { class: 'card stack phempty' }, h('div', { class: 'phempty-e', 'aria-hidden': 'true' }, '📸'), h('h2', null, 'Luises Galerie'),
       h('p', { class: 'mute' }, 'Sammle hier die schönsten Momente. Du kannst viele Fotos auf einmal auswählen. Danach gibt es Erinnerungen wie „Heute vor einem Jahr“, Alben, Suche und eine Diashow.'),
-      h('button', { class: 'btn wide', type: 'button', onclick: () => addBtnEl.click() }, 'Erste Fotos hinzufügen')));
+      famMode() ? null : h('button', { class: 'btn wide', type: 'button', onclick: () => addBtnEl.click() }, 'Erste Fotos hinzufügen')));
     return wrap;
   }
   const first = S.photos.map(f => f.datum).filter(Boolean).sort()[0];
@@ -7882,7 +7928,7 @@ function viewPhotos() {
   if (mem.length && !phSel && photoAlbum === 'Alle' && !phSearch) {
     wrap.append(sectionHead('Erinnerungen'));
     wrap.append(h('div', { class: 'phmem' + (mem.length === 1 ? ' one' : '') }, mem.map((m, i) => h('button', { class: 'phm', type: 'button', 'data-i': i, onclick: () => openPhotoViewer(mem.map(x => x.f), i), 'aria-label': m.label },
-      h('img', { src: m.f.thumb, alt: '' }), h('span', { class: 'phm-cap' }, h('b', null, m.label), h('small', null, m.f.datum ? fmtD(m.f.datum) + (ageAt(p, m.f.datum) ? ' · ' + ageAt(p, m.f.datum) : '') : ''))))));
+      hiImg(h('img', { src: m.f.thumb, alt: '' }), m.f.id), h('span', { class: 'phm-cap' }, h('b', null, m.label), h('small', null, m.f.datum ? fmtD(m.f.datum) + (ageAt(p, m.f.datum) ? ' · ' + ageAt(p, m.f.datum) : '') : ''))))));
   }
   // Alben
   const cover = list => list.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || ''))[0];
@@ -8443,7 +8489,7 @@ function hapticCard() {
     h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? 'Auf dem iPhone fühlst du die Haptik beim Antippen. Systemhaptik muss in den iPhone-Einstellungen eingeschaltet sein.' : 'Auf diesem Gerät gibt es keine Haptik.'));
 }
 /* ============ v20: Vollständige Sicherung ============ */
-const BK_SKIP = new Set(['luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
+const BK_SKIP = new Set(['luise_famode', 'luise_famask', 'luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
 const bkKeys = () => { const out = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('luise_') && !BK_SKIP.has(k)) out.push(k); } } catch (e) {} return out; };
 function settingsSnapshot() { const o = {}; bkKeys().forEach(k => { const v = ls.get(k); if (typeof v === 'string') o[k] = v; }); return o; }
 function restoreSettings(st) {
@@ -9169,15 +9215,16 @@ function openFamilyShare() {
   const sel = famSet(), rows = [];
   const sum = h('p', { class: 'famsum' }), presets = h('div', { class: 'chips fampre' });
   const upd = () => {
-    rows.forEach(([id, inp, row]) => { inp.checked = sel.has(id); row.classList.toggle('on', sel.has(id)); });
+    rows.forEach(([id, inp, row]) => { inp.checked = sel.has(id); row.classList.toggle('on', sel.has(id)); row.setAttribute('aria-pressed', sel.has(id) ? 'true' : 'false'); });
     sum.textContent = `${sel.size} von ${FSEC.length} Bereichen` + (sel.has('fotos') ? ' · ' + plural(S.photos.length, 'Foto', 'Fotos') : '') + (sel.has('docs') ? ' · ' + plural(S.docs.length, 'Dokument', 'Dokumente') : '');
     presets.querySelectorAll('.fchip').forEach(b => { const p = FPRE.find(x => x[0] === b.dataset.p)[2]; b.classList.toggle('on', p.length === sel.size && p.every(x => sel.has(x))); });
   };
   FPRE.forEach(([id, name, ids]) => presets.append(h('button', { class: 'fchip', type: 'button', 'data-p': id, onclick: () => { sel.clear(); ids.forEach(x => sel.add(x)); famSave(); upd(); Haptic.fire('select'); } }, name)));
-  const list = h('div', { class: 'famlist' }, FSEC.map(([id, name, ic, sub, sens]) => {
-    const inp = h('input', { type: 'checkbox', 'aria-label': name, onchange: () => { if (inp.checked) sel.add(id); else sel.delete(id); famSave(); upd(); } });
-    inp.setAttribute('switch', '');
-    const row = h('label', { class: 'famrow' }, h('span', { class: 'famico', html: IC.svg(ic) }), h('span', { class: 'famtx' }, h('b', null, name, sens ? h('em', null, 'sensibel') : null), h('small', null, sub)), inp);
+  const list = h('div', { class: 'famlist famtiles' }, FSEC.map(([id, name, ic, sub, sens]) => {
+    const inp = { checked: false };
+    const row = h('button', { class: 'famrow famtile', type: 'button', 'aria-pressed': 'false', onclick: () => { if (sel.has(id)) sel.delete(id); else sel.add(id); famSave(); upd(); Haptic.fire('select'); } },
+      h('span', { class: 'famchk', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 4 8-9"/></svg>' }),
+      h('span', { class: 'famico', html: IC.svg(ic) }), h('b', null, name), h('small', null, sub), sens ? h('em', null, 'sensibel') : null);
     rows.push([id, inp, row]); return row;
   }));
   const kid = kidName(CH.find(c => c.id === CID));
@@ -9423,6 +9470,61 @@ function viewProducts() {
   if (prodSeg === 'board' && list.length) wrap.append(prodShare(list));
   return wrap;
 }
+/* ============ v29: Familienmodus, Hochauflösende Fotos, Chat-Leiste ============ */
+const famMode = () => ls.get('luise_famode') === '1';
+const FAM_PAGES = ['home', 'photos', 'journey', 'songs', 'weeks', 'family'];
+const FAM_WIDGETS = ['hero', 'clock', 'photo', 'spot', 'journey', 'bday', 'week', 'family'];
+const famApply = () => { try { document.body.classList.toggle('famode', famMode()); } catch (e) {} };
+function famSetMode(on) {
+  ls.set('luise_famode', on ? '1' : '0'); famApply(); tab = 'home'; homeEdit = false; render();
+  toast(on ? 'Familienmodus ist an' : 'Familienmodus ist aus');
+}
+function famLayout(L) {
+  const out = L.filter(x => FAM_WIDGETS.includes(x.id));
+  if (!out.some(x => x.id === 'hero')) out.unshift(newWidgetItem('hero'));
+  ['photo', 'journey'].forEach(id => { if (!out.some(x => x.id === id)) out.push(newWidgetItem(id)); });
+  return out;
+}
+function famModeCard() {
+  const on = famMode();
+  const cb = h('input', { type: 'checkbox', 'aria-label': 'Familienmodus', onchange: e => famSetMode(e.target.checked) }); cb.setAttribute('switch', ''); cb.checked = on;
+  return h('div', { class: 'card fmcard' }, h('span', { class: 'fmico', html: IC.svg('family') }),
+    h('span', { class: 'fmtx' }, h('b', null, 'Familienmodus'), h('small', null, 'Zeigt nur Startseite, Fotos und Journey. Alles andere ist ausgeblendet, ideal für Oma und Opa. Beenden kannst du ihn unten auf der Startseite.')), cb);
+}
+function famAskCard() {
+  if (famMode() || !CH.some(c => c.fam) || ls.get('luise_famask') === '0') return null;
+  return h('div', { class: 'card stack famask' }, h('div', { class: 'famwel-h' }, h('span', { class: 'famhero-i', html: IC.svg('family') }),
+    h('div', null, h('b', null, 'Ruhige Ansicht für Familie?'), h('small', { class: 'mute' }, 'Der Familienmodus zeigt nur Startseite, Fotos und Journey. Das geht auch später in den Einstellungen.'))),
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => famSetMode(true) }, 'Einschalten'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { ls.set('luise_famask', '0'); render(); } }, 'Nicht jetzt')));
+}
+function famExitRow() {
+  return h('div', { class: 'famexit' }, h('p', { class: 'homehint' }, 'Familienmodus: Startseite, Fotos und Journey.'),
+    h('button', { class: 'linkbtn', type: 'button', onclick: () => { if (confirm('Familienmodus beenden? Dann siehst du wieder alle Bereiche der App.')) famSetMode(false); } }, 'Familienmodus beenden'));
+}
+/* Fotos in voller Qualität nachladen (Vorschau bleibt als Platzhalter) */
+const HI = new Map();
+function hiImg(img, id) {
+  const u = HI.get(id); if (u) { img.src = u; return img; }
+  pfileGet(id).then(rec => {
+    if (!rec) return;
+    const url = URL.createObjectURL(new Blob([rec.data], { type: 'image/jpeg' })); HI.set(id, url);
+    if (HI.size > 16) { const k = HI.keys().next().value, old = HI.get(k); HI.delete(k); setTimeout(() => URL.revokeObjectURL(old), 5000); }
+    const t = new Image(); t.onload = () => { img.src = url; img.classList.add('hi'); }; t.src = url;
+  }).catch(() => {});
+  return img;
+}
+/* Tastatur: Chat-Leiste bleibt sichtbar */
+(() => {
+  const vv = window.visualViewport; if (!vv) return;
+  const upd = () => {
+    const kb = Math.max(0, Math.round(innerHeight - vv.height - vv.offsetTop));
+    document.documentElement.style.setProperty('--kb', kb > 80 ? kb + 'px' : '0px');
+    document.body.classList.toggle('kbopen', kb > 80);
+    if (kb > 80 && document.activeElement && document.activeElement.classList.contains('chat-text')) { try { window.scrollTo(0, 0); } catch (e) {} }
+  };
+  vv.addEventListener('resize', upd); vv.addEventListener('scroll', upd);
+})();
+(() => { try { const m = document.createElement('div'); m.id = 'sbmask'; m.setAttribute('aria-hidden', 'true'); document.body.append(m); } catch (e) {} })();
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
