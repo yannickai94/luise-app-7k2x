@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="24">
+<meta name="app-version" content="25">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1078,6 +1078,53 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 /* iOS 26 (WebKit-Bug 301108): Home-Screen-Web-App bekommt einen um die Statusleiste zu kurzen Viewport. */
 @supports (-webkit-touch-callout:none){html{min-height:min(100lvh,calc(100% + env(safe-area-inset-top)))}}
 .hubgrp.gE{margin-top:6px}
+/* ---- v25: Sprünge ---- */
+.lpmini,.lpnow{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;width:100%}
+.lpmini-e,.lpnow-e{font-size:30px;line-height:1;flex:none}
+.lpmini-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.lpmini-t small{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+.lpmini-t b{font-size:17px}
+.lpmini-t em{font-style:normal;font-size:14px;color:var(--mute);line-height:1.3}
+.lpnow{border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 16%,var(--card)),var(--card))}
+.lpctl{flex-wrap:wrap;gap:8px}
+.lplegend .lpleg{display:flex;gap:12px;align-items:flex-start}
+.lplegend .lpleg b{display:block}.lplegend small{display:block;color:var(--mute);font-size:13px}
+.lplegend .sw{flex:none;width:38px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:15px}
+.lplegend .sw.storm,.lpbar-t .storm{background:linear-gradient(135deg,#f6d27c,#f2b66a)}
+.lplegend .sw.sun,.lpbar-t .sun{background:linear-gradient(135deg,#b7d9cf,#92c4b6)}
+.lplegend .sw.tod{background:none;border-left:3px solid var(--accent);border-radius:0;width:12px}
+.lpleap{display:flex;flex-direction:column;gap:10px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;width:100%;overflow:hidden}
+.lpleap.now{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 28%,transparent),var(--shadow)}
+.lpleap.done{opacity:.82}
+.lpleap-h{display:flex;align-items:center;gap:8px;min-width:0}
+.lpleap-h b{font-size:16px;flex:none}
+.lpleap-n{flex:1;min-width:0;color:var(--mute);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lptag{flex:none;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--line);color:var(--mute)}
+.lptag.ok{background:var(--accent-bg);color:var(--accent)}.lptag.now{background:var(--accent);color:var(--accent-ink)}
+.lpbar{display:flex;flex-direction:column;gap:5px}
+.lpbar-t{position:relative;display:flex;height:34px;border-radius:12px;overflow:hidden}
+.lpbar-t span{display:grid;place-items:center;font-size:16px;min-width:0}
+.lpbar-t .today{position:absolute;top:-2px;bottom:-2px;width:3px;margin-left:-1px;background:var(--accent);border-radius:2px;box-shadow:0 0 0 2px color-mix(in srgb,var(--card) 80%,transparent)}
+.lpbar-l{display:flex;font-size:11.5px;color:var(--mute);justify-content:space-between;gap:4px}
+.lpbar-l .r{margin-left:auto}
+.lpprog{color:var(--mute);font-size:12.5px}
+.lphero .stats{grid-template-columns:repeat(3,1fr)}
+.lptabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.lptab{display:flex;flex-direction:column;align-items:center;gap:1px;padding:9px 4px;border-radius:16px;border:1px solid rgba(255,255,255,.55);background:color-mix(in srgb,var(--card) 55%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--ink);font:inherit;cursor:pointer;min-width:0}
+:root[data-dark] .lptab{border-color:rgba(255,255,255,.14)}
+.lptab b{font-size:20px;font-family:ui-rounded,"SF Pro Rounded",-apple-system,system-ui,sans-serif}
+.lptab small{font-size:11.5px;color:var(--mute);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lptab.on{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 28%,transparent)}
+.lptab.on b,.lptab.on small{color:var(--accent)}
+.lprow{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:12px 2px;font:inherit;color:var(--ink);cursor:pointer}
+.lprow:last-child{border-bottom:0}
+.lpchk{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-weight:800;font-size:14px}
+.lprow.done .lpchk{background:var(--accent)}
+.lprow.done .lprow-t b{color:var(--mute);text-decoration:line-through}
+.lprow-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lprow-t b{font-weight:600}.lprow-t small{color:var(--mute);font-size:13.5px;line-height:1.3}
+.lphelp{margin:0}
+.weekcard .wk-leap{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25);font-size:13.5px;opacity:.95}
 </style>
 </head>
 <body>
@@ -1960,7 +2007,7 @@ function wWeek(w, sz) {
   const p = S.profile;
   if (!(p.geburtsdatum && curWeek(p.geburtsdatum) >= 1 && curWeek(p.geburtsdatum) <= 940)) return null;
   const wn = curWeek(p.geburtsdatum), wi = weekInfo(wn);
-  return h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, sz !== 'l' && wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text));
+  return h('button', { class: 'weekcard', onclick: () => { weekSel = null; go('weeks'); } }, h('small', null, 'Diese Woche · Lebenswoche ' + wn), h('b', null, wi.title), h('p', null, sz !== 'l' && wi.text.length > 120 ? wi.text.slice(0, 117).replace(/\s+\S*$/, '') + ' …' : wi.text), lpHomeLine());
 }
 function wInstall() {
   const standalone = window.navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
@@ -2998,6 +3045,8 @@ function viewWeeks() {
   }
   const now = curWeek(p.geburtsdatum), max = 940;
   if (now < 1) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Das Geburtsdatum liegt in der Zukunft.'))); return wrap; }
+  wrap.append(seg([['woche', 'Woche'], ['sprung', 'Sprünge']], wkSeg, id => { wkSeg = id; lpSel = null; render(); }));
+  if (wkSeg === 'sprung') { wrap.append(viewLeaps()); return wrap; }
   const n = Math.max(1, Math.min(max, weekSel == null ? now : weekSel));
   const info = weekInfo(n);
   const start = addDaysIso(p.geburtsdatum, (n - 1) * 7), end = addDaysIso(start, 6);
@@ -3011,6 +3060,7 @@ function viewWeeks() {
     h('button', { class: 'pill ghost', onclick: () => openSheet({ title: 'Zu Woche springen', values: { n: String(n) }, fields: [{ key: 'n', label: 'Lebenswoche', inputmode: 'numeric', type: 'number', required: true }], onSave: async v => { const x = parseInt(v.n, 10); if (x >= 1) { weekSel = Math.min(max, x); render(); } } }) }, 'Springen'),
     n !== now ? h('button', { class: 'pill', onclick: () => { weekSel = null; render(); } }, 'Heute') : null,
     h('button', { class: 'pill ghost', disabled: n >= max, onclick: () => { weekSel = n + 1; render(); } }, 'Weiter ›')));
+  wrap.append(lpMiniCard());
   const chips = [];
   U_DEF.forEach(d => {
     const ws = addDaysIso(p.geburtsdatum, d[2]), we = addDaysIso(p.geburtsdatum, d[3]);
@@ -4154,7 +4204,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 24'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 25'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6715,7 +6765,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 24;
+const APP_VERSION = 25;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6786,11 +6836,11 @@ const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String
 const views = {
   settings: () => withBack(viewSettings()), coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
-  weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
+  weeks: () => (wkSeg === 'sprung' && lpSel) ? lpDetailPage() : withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
 };
 let tab = 'home', lastTab = null;
-function go(id) { if (id !== 'photos') phSel = null; tab = id; render(); }
+function go(id) { if (id !== 'photos') phSel = null; if (id === 'weeks' && tab !== 'weeks') { lpSel = null; wkSeg = 'woche'; } tab = id; render(); }
 function render() {
   if (!S) return;
   const v = $('#view');
@@ -8184,6 +8234,146 @@ const backBtn = (label, fn) => h('button', { class: 'backbtn', type: 'button', '
   document.addEventListener('touchend', end, { passive: true });
   document.addEventListener('touchcancel', clear, { passive: true });
 })();
+/* ============ v25: Entwicklungssprünge im Wochen-Begleiter ============ */
+let wkSeg = 'woche', lpSel = null, lpTab = 'signale', lpWeeks = false, lpLegend = false;
+const LEAP_SIG = ['Weint mehr als sonst', 'Möchte viel getragen werden und klammert', 'Ist quengelig oder launisch', 'Schläft unruhiger oder kürzer', 'Isst oder trinkt anders als sonst', 'Ist schnell müde oder überreizt', 'Will mehr Aufmerksamkeit', 'Nuckelt oder lutscht mehr', 'Fremdelt stärker oder will nicht allein bleiben', 'Wirkt zwischendurch ungewohnt still und aufmerksam'];
+const LEAP_HELP = ['Viel Nähe: Tragen, Kuscheln, Hautkontakt', 'Gleichbleibende Abläufe und ein ruhiger Tag', 'Weniger Reize, dafür kurze Ruhepausen', 'Gelassen bleiben: Die Phase geht vorbei', 'Etwas Neues nur anbieten, wenn das Kind neugierig ist'];
+// [Nr, Name, Start (Woche nach errechnetem Termin), schwierige Phase (Wochen), Einleitung, Fähigkeiten [Bereich, Text], Spiele [Titel, Text]]
+const LEAPS = [
+  [1, 'Sinneseindrücke', 5, 1, 'Licht, Geräusche, Gerüche und Berührungen kommen deutlich intensiver an. Die Welt wird auf einmal „lauter“ und „heller“.',
+    [['Kognitiv', 'Schaut Gesichter länger an'], ['Kognitiv', 'Folgt einem Gegenstand kurz mit den Augen'], ['Kognitiv', 'Erkennt vertraute Stimmen'], ['Sozial-emotional', 'Lächelt bewusst zurück'], ['Sozial-emotional', 'Beruhigt sich bei Hautkontakt schneller'], ['Motorik', 'Hebt in Bauchlage kurz den Kopf']],
+    [['Gesicht zeigen', 'Aus 25 cm langsam Mimik machen und den Blickkontakt halten.'], ['Kontraste', 'Schwarz-weiße Karten oder Muster ruhig vor das Gesicht halten.'], ['Sanfte Massage', 'Beim Eincremen Körperteile benennen und leise summen.'], ['Spieluhr', 'Eine ruhige Melodie oder ein Lied beim Wickeln singen.']]],
+  [2, 'Muster', 8, 1, 'Einfache Muster werden entdeckt, in Bildern, Tönen und im eigenen Körper. Die eigenen Hände sind plötzlich hochinteressant.',
+    [['Kognitiv', 'Entdeckt die eigenen Hände'], ['Kognitiv', 'Betrachtet Muster und Streifen aufmerksam'], ['Sozial-emotional', 'Gurrt und antwortet mit Lauten'], ['Motorik', 'Hält eine Rassel kurz fest'], ['Motorik', 'Hebt den Kopf in Bauchlage länger']],
+    [['Rassel', 'Eine leichte Rassel in die Hand legen und das Geräusch zeigen.'], ['Spiegel', 'Gemeinsam in einen kindersicheren Spiegel schauen.'], ['Laute nachmachen', 'Die Laute des Babys wiederholen und warten, ob es antwortet.'], ['Bauchlage', 'Kurze Zeit auf der Decke mit Spielzeug auf Augenhöhe.']]],
+  [3, 'Fließende Übergänge', 12, 1, 'Bewegungen, Töne und Licht verlaufen sanft statt ruckartig. Das Baby kann sie jetzt flüssiger verfolgen und selbst flüssiger bewegen.',
+    [['Kognitiv', 'Folgt Bewegungen flüssig mit Augen und Kopf'], ['Sozial-emotional', 'Jauchzt und lacht laut'], ['Kognitiv', 'Dreht den Kopf zur Stimme'], ['Motorik', 'Strampelt gezielter'], ['Motorik', 'Stützt sich auf die Unterarme']],
+    [['Seifenblasen', 'Seifenblasen langsam schweben lassen und gemeinsam beobachten.'], ['Tuchspiel', 'Ein leichtes Tuch langsam über das Baby bewegen.'], ['Lieder', 'Lieder mit hoher und tiefer Stimme singen.'], ['Wiegen', 'Beim Halten sanft hin- und herschwingen.']]],
+  [4, 'Ereignisse', 19, 4, 'Kleine Abfolgen werden verstanden: erst greifen, dann schütteln, dann Geräusch. Das Baby erkennt, dass eines auf das andere folgt.',
+    [['Motorik', 'Greift gezielt nach Spielzeug'], ['Motorik', 'Dreht sich vom Rücken auf den Bauch'], ['Sozial-emotional', 'Lacht bei Kuckuck-Spielen'], ['Kognitiv', 'Erkundet Dinge mit dem Mund'], ['Sprache', 'Brabbelt Silben wie „ba-ba“']],
+    [['Kuckuck', 'Das Gesicht hinter den Händen verstecken und wieder zeigen.'], ['Ball rollen', 'Einen weichen Ball hin- und herrollen.'], ['Schütteln', 'Ein Spielzeug schütteln lassen und das Geräusch benennen.'], ['Reime', 'Auf dem Schoß wippen mit Kniereiter-Reimen.']]],
+  [5, 'Beziehungen', 26, 5, 'Nähe und Abstand werden verstanden, auch zwischen Dingen und Menschen. Deshalb kommen Fremdeln und Trennungsangst oft jetzt.',
+    [['Sozial-emotional', 'Fremdelt vor unbekannten Gesichtern'], ['Motorik', 'Sitzt mit Unterstützung oder frei'], ['Motorik', 'Reicht Gegenstände von Hand zu Hand'], ['Sprache', 'Reagiert auf den eigenen Namen'], ['Sozial-emotional', 'Zeigt Freude bei bekannten Personen']],
+    [['Verstecken', 'Ein Spielzeug unter einem Tuch verstecken und finden lassen.'], ['Ein- und ausräumen', 'Gegenstände in eine Schüssel legen und wieder herausnehmen.'], ['Abschiedsritual', 'Kurz und liebevoll verabschieden, immer gleich.'], ['Singspiele', 'Fingerspiele wie „Das ist der Daumen“.']]],
+  [6, 'Kategorien', 37, 5, 'Dinge werden in Gruppen geordnet: Tier, Essen, Fahrzeug. Das Baby beginnt, die Welt zu sortieren.',
+    [['Motorik', 'Krabbelt oder robbt'], ['Motorik', 'Zieht sich zum Stehen hoch'], ['Sozial-emotional', 'Winkt oder klatscht'], ['Sprache', 'Versteht „nein“ und einfache Wörter'], ['Kognitiv', 'Zeigt mit dem Finger'], ['Motorik', 'Greift kleine Dinge mit Daumen und Zeigefinger']],
+    [['Tierbuch', 'Tiere im Buch zeigen und ihre Laute nachmachen.'], ['Steckspiel', 'Formen in passende Öffnungen stecken.'], ['Tastkorb', 'Verschiedene sichere Dinge zum Fühlen in einen Korb legen.'], ['Winke-winke', 'Beim Abschied und Begrüßen gemeinsam winken.']]],
+  [7, 'Reihenfolgen', 46, 5, 'Handlungen haben eine Reihenfolge: Schuhe an, dann raus. Das Kind erkennt Abläufe und ahmt sie nach.',
+    [['Motorik', 'Läuft an Möbeln entlang'], ['Motorik', 'Macht erste freie Schritte'], ['Motorik', 'Stapelt zwei Klötze'], ['Kognitiv', 'Ahmt Alltagshandlungen nach (telefonieren, bürsten)'], ['Sprache', 'Sagt erste Wörter wie „Mama“ oder „Papa“']],
+    [['Türme bauen', 'Klötze stapeln, umwerfen und neu aufbauen.'], ['Einwerfen', 'Bälle oder Klötze in eine Dose einwerfen.'], ['Puppe füttern', 'Alltagsabläufe mit Puppe oder Teddy nachspielen.'], ['Kissenhöhle', 'Aus Kissen eine Höhle bauen und gemeinsam krabbeln.']]],
+  [8, 'Programme', 55, 5, 'Ziele lassen sich auf verschiedenen Wegen erreichen. Das Kind erkennt Tagesabläufe und spielt kleine „Programme“ nach.',
+    [['Motorik', 'Läuft sicher und klettert'], ['Motorik', 'Isst mit dem Löffel, auch mit Kleckern'], ['Kognitiv', 'Zeigt auf Körperteile'], ['Sozial-emotional', 'Hilft beim Aufräumen'], ['Sprache', 'Sagt etwa fünf bis zehn Wörter']],
+    [['Aufräumspiel', 'Spielzeug gemeinsam in Körbe sortieren.'], ['Kochspielzeug', 'Mit Topf, Löffel und Puppengeschirr kochen.'], ['Bilderbuch', 'Zeigen und benennen: „Wo ist die Nase?“'], ['Bewegungslieder', 'Singen und die Bewegungen dazu machen.']]],
+  [9, 'Prinzipien', 64, 5, 'Der eigene Wille wird deutlich. Das Kind probiert aus, was Regeln und Grenzen bedeuten, und will vieles selbst entscheiden.',
+    [['Sozial-emotional', 'Sagt „nein“ und zeigt den eigenen Willen'], ['Motorik', 'Trägt und räumt Dinge um'], ['Motorik', 'Kritzelt mit einem Stift'], ['Sprache', 'Verbindet zwei Wörter'], ['Kognitiv', 'Spielt einfache Rollenspiele']],
+    [['Zwei Möglichkeiten', 'Zwei Optionen anbieten, so darf das Kind mitentscheiden.'], ['Malen', 'Dicke Stifte und großes Papier bereitlegen.'], ['Rollenspiel', 'Arzt, Einkaufen oder Telefonieren nachspielen.'], ['Sandkasten', 'Schaufeln, Füllen und Matschen draußen.']]],
+  [10, 'Systeme', 75, 5, 'Das Ich-Bewusstsein wächst. Das Kind begreift, dass es selbst Teil eines Ganzen ist, mit Familie, Regeln und Gefühlen.',
+    [['Motorik', 'Rennt und springt'], ['Sozial-emotional', 'Zeigt Gefühle und benennt sie'], ['Kognitiv', 'Entwickelt eigene Fantasiespiele'], ['Sprache', 'Sagt den eigenen Namen oder „ich“'], ['Sprache', 'Spricht Zwei- bis Dreiwortsätze']],
+    [['Verkleiden', 'Mit Tüchern, Hüten und Schuhen in Rollen schlüpfen.'], ['Gefühle-Buch', 'Ein Bilderbuch über Gefühle anschauen und darüber sprechen.'], ['Bauen', 'Große Bausteine oder Holzklötze zu Häusern bauen.'], ['Tanzen', 'Zu Lieblingsmusik tanzen und Bewegungen vormachen.']]]
+];
+const lpData = () => { const hl = S.health; if (!hl.leaps || typeof hl.leaps !== 'object') hl.leaps = {}; const L = hl.leaps; ['sig', 'fae', 'spi'].forEach(k => { if (!L[k] || typeof L[k] !== 'object') L[k] = {}; }); if (!Array.isArray(L.notes)) L.notes = []; if (typeof L.termin !== 'string') L.termin = ''; return L; };
+const lpDue = () => lpData().termin || S.profile.geburtsdatum;
+const lpDates = () => {
+  const due = lpDue();
+  return LEAPS.map((x, i) => {
+    const s = addDaysIso(due, x[2] * 7), se = addDaysIso(s, x[3] * 7), nx = i < LEAPS.length - 1 ? addDaysIso(due, LEAPS[i + 1][2] * 7) : addDaysIso(se, 35);
+    return { n: x[0], name: x[1], w: x[2], d: x[3], s, se, nx, span: Math.round((parseD(nx) - parseD(s)) / 864e5) };
+  });
+};
+function lpStatus() {
+  const D = lpDates(), t = daysTo;
+  for (let i = 0; i < D.length; i++) {
+    const x = D[i];
+    if (t(x.s) > 0) return { kind: i === 0 ? 'before' : 'sun', leap: x, days: t(x.s), prev: D[i - 1] };
+    if (t(x.se) > 0) return { kind: 'storm', leap: x, days: t(x.se) };
+  }
+  return { kind: 'done' };
+}
+const lpStatusText = st => st.kind === 'storm' ? { icon: '⛈', title: `Sprung ${st.leap.n} · ${st.leap.name}`, sub: `Schwierige Phase, noch ca. ${plural(st.days, 'Tag', 'Tage')} (bis ${fmtD(st.leap.se)})` }
+  : st.kind === 'sun' ? { icon: '☀️', title: 'Sonnige Phase', sub: `Sprung ${st.leap.n} · ${st.leap.name} beginnt in ca. ${st.days === 1 ? '1 Tag' : st.days + ' Tagen'} (${fmtD(st.leap.s)})` }
+  : st.kind === 'before' ? { icon: '🌱', title: `Sprung 1 · ${st.leap.name}`, sub: `Beginnt in ca. ${st.days === 1 ? '1 Tag' : st.days + ' Tagen'} (${fmtD(st.leap.s)})` }
+  : { icon: '🎉', title: 'Alle zehn Sprünge geschafft', sub: 'Was für eine Entwicklung!' };
+const lpTargetLeap = st => st.kind === 'done' ? 10 : st.leap.n;
+const lpDone = (k, n, i) => !!lpData()[k][n + ':' + i];
+const lpToggle = async (k, n, i) => { const L = lpData(); const key = n + ':' + i; if (L[k][key]) delete L[k][key]; else L[k][key] = 1; await persist('health'); render(); };
+const lpCount = (k, n) => Object.keys(lpData()[k]).filter(x => x.startsWith(n + ':')).length;
+const lpSigList = n => LEAP_SIG.map((t, i) => [t, i]).filter(([t]) => n >= 5 || !/Fremdelt/.test(t));
+function lpMiniCard() {
+  const p = S.profile; if (!p.geburtsdatum) return null;
+  const st = lpStatus(), tx = lpStatusText(st);
+  return h('button', { class: 'card lpmini', type: 'button', onclick: () => { wkSeg = 'sprung'; lpSel = null; render(); } },
+    h('span', { class: 'lpmini-e', 'aria-hidden': 'true' }, tx.icon), h('span', { class: 'lpmini-t' }, h('small', null, 'Entwicklungssprung'), h('b', null, tx.title), h('em', null, tx.sub)), chev());
+}
+function lpHomeLine() {
+  const p = S.profile; if (!p.geburtsdatum) return null;
+  const st = lpStatus(); if (st.kind === 'done') return null;
+  const tx = lpStatusText(st); return h('p', { class: 'wk-leap' }, tx.icon + ' ' + tx.title + ' · ' + tx.sub);
+}
+function lpBar(x, st) {
+  const sp = x.span, pS = Math.max(8, Math.min(92, Math.round(x.d * 7 / sp * 100)));
+  const todayPos = daysTo(x.s) <= 0 && daysTo(x.nx) > 0 ? Math.round(-daysTo(x.s) / sp * 100) : null;
+  const lab = iso => lpWeeks ? 'Wo ' + (Math.round((parseD(iso) - parseD(lpDue())) / 864e5 / 7)) : fmtD(iso).slice(0, 6);
+  return h('div', { class: 'lpbar' },
+    h('div', { class: 'lpbar-t' }, h('span', { class: 'storm', style: `width:${pS}%`, 'aria-label': 'schwierige Phase' }, '⛈'), h('span', { class: 'sun', style: `width:${100 - pS}%`, 'aria-label': 'sonnige Phase' }, '☀️'),
+      todayPos != null ? h('i', { class: 'today', style: `left:${todayPos}%`, title: 'Heute' }) : null),
+    h('div', { class: 'lpbar-l' }, h('span', null, lab(x.s)), h('span', { style: `margin-left:${Math.max(0, pS - 12)}%` }, lab(x.se)), h('span', { class: 'r' }, lab(x.nx))));
+}
+function viewLeaps() {
+  const p = S.profile, wrap = h('div', { class: 'stack' }), D = lpDates(), st = lpStatus(), tx = lpStatusText(st), L = lpData();
+  wrap.append(h('button', { class: 'card lpnow', type: 'button', onclick: () => { lpSel = lpTargetLeap(st); lpTab = 'signale'; render(); } },
+    h('span', { class: 'lpnow-e', 'aria-hidden': 'true' }, tx.icon), h('span', { class: 'lpmini-t' }, h('small', null, 'Jetzt'), h('b', null, tx.title), h('em', null, tx.sub)), chev()));
+  wrap.append(h('div', { class: 'btn-row lpctl' },
+    h('button', { class: 'pill ghost', type: 'button', onclick: () => { lpWeeks = !lpWeeks; render(); } }, lpWeeks ? 'Daten anzeigen' : 'Wochen anzeigen'),
+    h('button', { class: 'pill ghost', type: 'button', onclick: () => { lpLegend = !lpLegend; render(); } }, lpLegend ? 'Legende ausblenden' : 'Legende ansehen'),
+    h('button', { class: 'pill ghost', type: 'button', onclick: () => openSheet({ title: 'Errechneter Geburtstermin', values: { termin: L.termin || '' }, fields: [{ key: 'termin', label: 'Errechneter Termin', type: 'date', hint: 'Optional. Bei Früh- oder Spätgeburt rechnet der Kalender ab diesem Datum. Leer lassen = ab Geburtsdatum.' }], onSave: async v => { L.termin = v.termin || ''; await persist('health'); render(); } }) }, L.termin ? 'Termin: ' + fmtD(L.termin) : 'Termin anpassen')));
+  if (lpLegend) wrap.append(h('div', { class: 'card stack lplegend' },
+    h('div', { class: 'lpleg' }, h('span', { class: 'sw storm' }, '⛈'), h('span', null, h('b', null, 'Schwierige Phase'), h('small', null, 'Mehr Nähe, Weinen oder Quengeln möglich. Das Kind verarbeitet viel Neues.'))),
+    h('div', { class: 'lpleg' }, h('span', { class: 'sw sun' }, '☀️'), h('span', null, h('b', null, 'Sonnige Phase'), h('small', null, 'Das Kind ist ausgeglichener und zeigt oft neue Fähigkeiten.'))),
+    h('div', { class: 'lpleg' }, h('span', { class: 'sw tod' }), h('span', null, h('b', null, 'Heute'), h('small', null, 'Markiert, wo ihr gerade steht.')))));
+  wrap.append(sectionHead('Sprünge-Diagramm'));
+  D.forEach(x => {
+    const state = daysTo(x.nx) <= 0 ? 'done' : daysTo(x.s) <= 0 ? 'now' : 'next';
+    const prog = lpCount('fae', x.n) + lpCount('sig', x.n) + lpCount('spi', x.n) + L.notes.filter(z => z.sprung === x.n).length;
+    wrap.append(h('button', { class: 'card lpleap ' + state, type: 'button', onclick: () => { lpSel = x.n; lpTab = 'signale'; render(); } },
+      h('div', { class: 'lpleap-h' }, h('b', null, `Sprung ${x.n}`), h('span', { class: 'lpleap-n' }, x.name), state === 'done' ? h('span', { class: 'lptag ok' }, 'geschafft ✓') : state === 'now' ? h('span', { class: 'lptag now' }, 'läuft') : h('span', { class: 'lptag' }, 'in ' + plural(Math.max(1, Math.round(daysTo(x.s) / 7)), 'Wo.', 'Wo.')), chev()),
+      lpBar(x, st), prog ? h('small', { class: 'lpprog' }, `${lpCount('sig', x.n)} Signale · ${lpCount('fae', x.n)} Fähigkeiten · ${lpCount('spi', x.n)} Spiele · ${L.notes.filter(z => z.sprung === x.n).length} Notizen`) : null));
+  });
+  wrap.append(h('p', { class: 'fine' }, 'Richtwerte, gerechnet ab dem errechneten Termin. Das Konzept der Entwicklungssprünge stammt aus dem Elternbuch „Oje, ich wachse!“. Die Texte hier sind eigene. Studien belegen feste Zeitpunkte nicht. Jedes Kind ist anders. Bei Fieber, Trinkverweigerung oder wenn du dir Sorgen machst, frage die Kinderärztin oder den Kinderarzt.'));
+  return wrap;
+}
+function viewLeapDetail() {
+  const n = lpSel, X = LEAPS[n - 1], x = lpDates()[n - 1], wrap = h('div', { class: 'stack' }), L = lpData();
+  const state = daysTo(x.nx) <= 0 ? 'Geschafft ✓' : daysTo(x.s) <= 0 ? (daysTo(x.se) > 0 ? '⛈ Schwierige Phase läuft' : '☀️ Sonnige Phase') : 'Beginnt in ca. ' + plural(Math.max(1, Math.round(daysTo(x.s) / 7)), 'Woche', 'Wochen');
+  wrap.append(h('div', { class: 'hero2 cosmic lphero' },
+    h('div', { class: 'top' }, h('div', { class: 'bigemoji', style: 'font-size:30px;font-weight:800' }, String(n)), h('div', null, h('h1', null, X[1]), h('p', null, `Sprung ${n} · ${state}`))),
+    h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, fmtD(x.s).slice(0, 6)), 'Beginn ca.'), h('div', { class: 'stat' }, h('b', null, fmtD(x.se).slice(0, 6)), 'schwierig bis ca.'), h('div', { class: 'stat' }, h('b', null, 'Wo ' + X[2]), 'nach Termin'))));
+  wrap.append(h('div', { class: 'card stack' }, h('p', null, X[4])));
+  const sigs = lpSigList(n), nS = sigs.length;
+  const tabs = [['signale', 'Signale', lpCount('sig', n)], ['faehig', 'Fähigkeiten', lpCount('fae', n)], ['spiele', 'Spiele', lpCount('spi', n)], ['tagebuch', 'Tagebuch', L.notes.filter(z => z.sprung === n).length]];
+  wrap.append(h('div', { class: 'lptabs' }, tabs.map(([id, lab, c]) => h('button', { class: 'lptab' + (lpTab === id ? ' on' : ''), type: 'button', onclick: () => { lpTab = id; render(); } }, h('b', null, String(c)), h('small', null, lab)))));
+  const row = (done, title, sub, fn) => h('button', { class: 'lprow' + (done ? ' done' : ''), type: 'button', onclick: fn }, h('span', { class: 'lpchk' }, done ? '✓' : ''), h('span', { class: 'lprow-t' }, h('b', null, title), sub ? h('small', null, sub) : null));
+  if (lpTab === 'signale') {
+    wrap.append(h('div', { class: 'card' }, h('p', { class: 'mute small' }, 'Was fällt dir gerade auf? Hake an, was du beobachtest.'), sigs.map(([t, i]) => row(lpDone('sig', n, i), t, null, () => lpToggle('sig', n, i)))));
+    wrap.append(sectionHead('Was jetzt helfen kann'));
+    wrap.append(h('div', { class: 'card stack' }, LEAP_HELP.map(t => h('p', { class: 'lphelp' }, '• ' + t))));
+  } else if (lpTab === 'faehig') {
+    const cats = []; X[5].forEach(([c], i) => { if (!cats.includes(c)) cats.push(c); });
+    cats.forEach(c => { wrap.append(sectionHead(c)); wrap.append(h('div', { class: 'card' }, X[5].map(([cc, t], i) => cc === c ? row(lpDone('fae', n, i), t, null, () => lpToggle('fae', n, i)) : null))); });
+    wrap.append(h('p', { class: 'fine' }, 'Hake an, was dein Kind schon kann. Das Alter, in dem Fähigkeiten auftauchen, unterscheidet sich von Kind zu Kind.'));
+  } else if (lpTab === 'spiele') {
+    wrap.append(h('div', { class: 'card' }, X[6].map(([t, d], i) => row(lpDone('spi', n, i), t, d, () => lpToggle('spi', n, i)))));
+    wrap.append(h('p', { class: 'fine' }, 'Hake an, was ihr schon ausprobiert habt.'));
+  } else {
+    const notes = L.notes.filter(z => z.sprung === n).sort((a, b) => (b.datum || '').localeCompare(a.datum || ''));
+    const edit = item => openSheet({ title: item ? 'Eintrag' : 'Eintrag hinzufügen', values: item || { datum: isoToday() }, fields: [{ key: 'datum', label: 'Datum', type: 'date' }, { key: 'text', label: 'Was ist passiert?', type: 'textarea', required: true }],
+      onSave: async v => { if (item) Object.assign(item, v); else L.notes.push({ id: uid(), sprung: n, datum: v.datum || isoToday(), text: v.text }); await persist('health'); render(); },
+      onDelete: item ? async () => { L.notes.splice(L.notes.indexOf(item), 1); await persist('health'); render(); } : null });
+    wrap.append(sectionHead('Tagebuch zu Sprung ' + n, addBtn('Eintrag', () => edit())));
+    wrap.append(h('div', { class: 'card' }, notes.length ? notes.map(z => li(() => edit(z), '', liTxt(fmtD(z.datum), z.text), chev())) : h('p', { class: 'empty' }, 'Noch keine Einträge. Halte fest, was dir in dieser Zeit auffällt.')));
+  }
+  return wrap;
+}
+const lpDetailPage = () => h('div', { class: 'stack' }, backBtn('Sprünge', () => { lpSel = null; render(); }), viewLeapDetail());
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
