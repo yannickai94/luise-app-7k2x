@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="22">
+<meta name="app-version" content="23">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1074,6 +1074,10 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 .phmem.one .phm{width:100%;max-width:none;aspect-ratio:10/9}
 .phm{width:80%;max-width:340px}
 .phalb{margin-top:-4px;padding:8px 16px 6px}
+/* ---- v23 ---- */
+/* iOS 26 (WebKit-Bug 301108): Home-Screen-Web-App bekommt einen um die Statusleiste zu kurzen Viewport. */
+@supports (-webkit-touch-callout:none){html{min-height:min(100lvh,calc(100% + env(safe-area-inset-top)))}}
+.hubgrp.gE{margin-top:6px}
 </style>
 </head>
 <body>
@@ -2591,7 +2595,7 @@ function evalBadges() {
   add('c_safe', '🛡️', 'Sicherheits-Profi', 'Notfallkarte vollständig', 'Trage einen Kontakt mit Telefon, die Kinderarzt-Nummer und Gesundheitsdaten ein.', p.kontakte.some(k => k.tel) && hl.kinderarzt_tel && (hl.blutgruppe || hl.allergien || hl.medikamente));
   add('c_care', '🧸', 'Betreuungs-Profi', 'Betreuungs-Zettel mit 3 Angaben', 'Fülle 3 Felder im Betreuungs-Zettel aus.', CARE_FIELDS.filter(f => (p.care || {})[f.key]).length >= 3);
   add('c_cal', '🗓️', 'Termin-Meister', '5 Termine eingetragen', 'Trage 5 Termine ein.', S.school.termine.length >= 5);
-  add('c_backup', '💾', 'Sicher gesichert', 'Eine Datensicherung erstellt', 'Erstelle unter „Mehr“ eine Sicherung.', !!ls.get('luise_lastbackup'));
+  add('c_backup', '💾', 'Sicher gesichert', 'Eine Datensicherung erstellt', 'Erstelle unter Mehr › Einstellungen eine Sicherung.', !!ls.get('luise_lastbackup'));
   const sp = p.spirit || {};
   add('c_spirit', '🔮', 'Sternengucker', 'Spirituelles Profil ergänzt', 'Ergänze Angaben unter Spirituelles.', sp.hd_typ || sp.aszendent || sp.mond || sp.geburtszeit || sp.numname || p.geburtszeit);
   add('c_uh', '📒', 'Vorsorge-Profi', '3 U-Untersuchungen eingetragen', 'Trage im U-Heft 3 Untersuchungen ein.', Object.keys(hl.u).length >= 3);
@@ -4095,6 +4099,12 @@ function viewMore() {
     li(datasheetFlow, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Datenblatt als PDF', eduShow() ? 'Für Kita, Arzt oder Babysitter' : 'Für Arzt, Oma oder Babysitter'), chev()),
     li(reviewStart, '', h('span', { class: 'hubico', html: ICON.sheet }), liTxt('Rückblick als PDF', 'Monats- oder Jahresrückblick mit Fotos'), chev()),
     hubRow(ICON.kids, 'Kinder & Profile', CH.length > 1 ? CH.length + ' Profile' : 'Weiteres Kind anlegen, Profil teilen', 'kids'));
+  wrap.append(h('div', { class: 'card hubgrp gE' }, hubRow('<svg viewBox="0 0 24 24"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.5"/><circle cx="8" cy="17" r="2.5"/></svg>', 'Einstellungen', 'Design, Sperre, Datensicherung, Haptik', 'settings')));
+  return wrap;
+}
+function viewSettings() {
+  const wrap = h('div', { class: 'stack' });
+  wrap.append(pageHead('Einstellungen'));
   wrap.append(designCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
@@ -4144,7 +4154,7 @@ function viewMore() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 22'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 23'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5288,7 +5298,7 @@ function localAnswer(question) {
     }
     case 'badges': { const a = evalBadges(), st = badgeStats(a); A('Abzeichen öffnen', () => go('badges')); return R(`Level **${st.lvl}**: ${st.got.length} von ${a.length} Abzeichen erreicht (${st.pct} %).`); }
     case 'kita': {
-      if (!eduShow() && has('kita', 'schule')) { A('Einstellung öffnen', () => go('more')); return R(`Kita und Schule sind für ${nm} noch kein Thema. Der Bereich erscheint automatisch ab dem 1. Geburtstag. Unter „Mehr“ kannst du ihn schon jetzt einblenden.`); }
+      if (!eduShow() && has('kita', 'schule')) { A('Einstellung öffnen', () => go('settings')); return R(`Kita und Schule sind für ${nm} noch kein Thema. Der Bereich erscheint automatisch ab dem 1. Geburtstag. Unter „Mehr“ kannst du ihn schon jetzt einblenden.`); }
       if (eduShow()) A(eduName() + ' öffnen', () => go('school')); const L = [];
       if (sc.einrichtung) L.push('Einrichtung: ' + sc.einrichtung + (sc.gruppe ? ', ' + sc.gruppe : '')); if (sc.ansprechpartner) L.push('Ansprechpartner/in: ' + sc.ansprechpartner + (sc.tel ? ', ' + sc.tel : ''));
       if ((sc.abholer || []).length) L.push('Abholberechtigt: ' + sc.abholer.map(a => a.name).join(', ')); if (hl.allergien) L.push('Allergien: ' + hl.allergien);
@@ -6705,7 +6715,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 22;
+const APP_VERSION = 23;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6770,11 +6780,11 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
+const SUB = ['settings', 'docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
 const withBack = v => h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String(label).replace(/^‹\s*/, ''), () => go(id)), v);
 const views = {
-  coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
+  settings: () => withBack(viewSettings()), coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
@@ -8123,19 +8133,10 @@ function hapticCard() {
   cb.checked = Haptic.enabled();
   const ovc = h('input', { type: 'checkbox', onchange: e => Haptic.setOverlay(e.target.checked) });
   ovc.checked = ls.get('luise_hapt_ov') !== '0';
-  const info = h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? (Haptic.hasSwitch() ? 'iPhone mit Safari-Schalter (ab iOS 17.4). Die Taste fühlt sich nur an, wenn Systemhaptik eingeschaltet ist.' : 'Dein iOS ist zu alt für den Schalter-Trick (nötig: iOS 17.4).') : 'Auf diesem Gerät gibt es keine Haptik.');
-  const demoSw = h('input', { type: 'checkbox', class: 'hapt-demo-sw' }); demoSw.setAttribute('switch', '');
-  const out = h('p', { class: 'small', 'aria-live': 'polite' }, 'Test 1 und 2 sind die echten Wege. Test 3 (Automatik) blockiert Apple in neueren iOS-Versionen oft.');
   return h('div', { class: 'card stack' },
     h('label', { class: 'field check' }, cb, h('span', null, 'Haptisches Feedback')),
-    h('label', { class: 'field check' }, ovc, h('span', null, 'Tasten mit Schalter-Overlay (iPhone)')),
-    info,
-    h('div', { class: 'stack hapt-demo' },
-      h('b', null, 'Haptik testen'),
-      h('label', { class: 'field check hapt-demo-row' }, demoSw, h('span', null, 'Test 1: Schalter direkt antippen')),
-      h('button', { class: 'btn ghost wide', type: 'button', onclick: () => { out.textContent = 'Test 2 ausgeführt (Taste mit Overlay).'; } }, 'Test 2: Taste mit Overlay'),
-      h('button', { class: 'btn ghost wide hapt-no-ov', type: 'button', onclick: () => { Haptic.fire('success'); out.textContent = 'Test 3 ausgeführt (automatischer Tick).'; } }, 'Test 3: Automatischer Tick'),
-      out));
+    h('label', { class: 'field check' }, ovc, h('span', null, 'Haptik über Tasten-Schalter (iPhone)')),
+    h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? 'Auf dem iPhone fühlst du die Haptik beim Antippen. Systemhaptik muss in den iPhone-Einstellungen eingeschaltet sein.' : 'Auf diesem Gerät gibt es keine Haptik.'));
 }
 /* ============ v20: Vollständige Sicherung ============ */
 const BK_SKIP = new Set(['luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
