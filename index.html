@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="25">
+<meta name="app-version" content="26">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1125,6 +1125,92 @@ body::after{content:'';position:fixed;top:0;left:0;right:0;height:env(safe-area-
 .lprow-t b{font-weight:600}.lprow-t small{color:var(--mute);font-size:13.5px;line-height:1.3}
 .lphelp{margin:0}
 .weekcard .wk-leap{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.25);font-size:13.5px;opacity:.95}
+/* ---- v26: Schlaf & Alltag ---- */
+.trhero{position:relative;overflow:hidden;border-radius:28px;padding:18px 12px 20px;color:#fff;border:1px solid rgba(255,255,255,.28);background:radial-gradient(120% 90% at 20% 0%,rgba(157,140,255,.55),transparent 55%),radial-gradient(90% 80% at 100% 100%,rgba(88,120,255,.45),transparent 60%),linear-gradient(160deg,#2b2370,#171446 70%);box-shadow:0 18px 40px -16px rgba(40,30,120,.7),inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 40px rgba(255,255,255,.05);isolation:isolate}
+.trhero.sleeping{background:radial-gradient(120% 90% at 20% 0%,rgba(110,120,255,.45),transparent 55%),linear-gradient(160deg,#171446,#0c0a2b 75%)}
+.trhero::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,rgba(255,255,255,.18),transparent 35%);pointer-events:none;z-index:-1}
+.trstars{position:absolute;inset:0;z-index:-1;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 28% 72%,#fff,transparent),radial-gradient(1.5px 1.5px at 78% 14%,#fff,transparent),radial-gradient(1px 1px at 88% 60%,#fff,transparent),radial-gradient(1px 1px at 54% 8%,#fff,transparent),radial-gradient(1.5px 1.5px at 66% 88%,#fff,transparent),radial-gradient(1px 1px at 6% 52%,#fff,transparent);animation:trtw 4.5s ease-in-out infinite alternate;opacity:.8}
+@keyframes trtw{from{opacity:.35}to{opacity:.95}}
+.trcloud{position:absolute;right:12px;top:10px;width:62px;animation:trfloat 6s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.trcloud svg{width:100%;display:block}
+.trcloud i{position:absolute;font-style:normal;font-weight:800;color:#e7e0ff;font-size:12px;left:70%;top:-4px;opacity:0;animation:trz 3.6s ease-in infinite}
+.trcloud i:nth-of-type(2){animation-delay:1.2s;font-size:15px;left:82%}
+.trcloud i:nth-of-type(3){animation-delay:2.4s;font-size:18px;left:94%}
+.trhero:not(.sleeping) .trcloud i{display:none}
+@keyframes trfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes trz{0%{opacity:0;transform:translate(0,8px) scale(.7)}25%{opacity:1}100%{opacity:0;transform:translate(8px,-18px) scale(1.15)}}
+.trdial{width:100%;max-width:300px;margin:0 auto;aspect-ratio:1;position:relative}
+.trsvg{width:100%;height:100%;display:block;overflow:visible}
+.trarc{stroke-dasharray:1;stroke-dashoffset:0;filter:drop-shadow(0 0 6px rgba(157,140,255,.7))}
+.trsvg.anim .trarc{stroke-dashoffset:1;animation:trdraw 1.1s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes trdraw{to{stroke-dashoffset:0}}
+.trev{transform-box:fill-box;transform-origin:center;animation:trpop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes trpop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.trnow{filter:drop-shadow(0 0 6px #fff)}
+.trnow-ring{transform-box:fill-box;transform-origin:center;animation:trpulse 2.2s ease-out infinite}
+@keyframes trpulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+.trpred{animation:trdash 3s linear infinite}
+@keyframes trdash{to{stroke-dashoffset:-16}}
+.trcen{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:50%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+.trdial{position:relative}
+.trhero .trcen{position:absolute}
+.trcen small{font-size:12px;opacity:.8;line-height:1.2}
+.trcen b{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.1;text-shadow:0 2px 14px rgba(157,140,255,.8)}
+.trcen em{font-style:normal;font-size:12.5px;opacity:.85;line-height:1.25}
+.trhero{display:grid}
+.trhero>.trdial{grid-area:1/1}
+.trhero>.trcen{grid-area:1/1;position:relative;left:auto;top:auto;transform:none;align-self:center;justify-self:center;width:46%}
+.trpredcard{background:color-mix(in srgb,var(--card) 50%,transparent);-webkit-backdrop-filter:blur(20px) saturate(1.8);backdrop-filter:blur(20px) saturate(1.8);border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7)}
+.trpred-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.trsum{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.trsum-i{display:flex;flex-direction:column;align-items:center;gap:1px;padding:10px 4px;border-radius:18px;border:1px solid rgba(255,255,255,.6);background:color-mix(in srgb,var(--card) 48%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.7);backdrop-filter:blur(18px) saturate(1.7);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7);animation:trrise .5s cubic-bezier(.3,1.3,.5,1) both;text-align:center}
+.trsum-i span{font-size:18px}.trsum-i b{font-size:15px}.trsum-i small{font-size:10.5px;color:var(--mute);line-height:1.15}
+@keyframes trrise{from{opacity:0;transform:translateY(10px) scale(.94)}to{opacity:1;transform:none}}
+.trtiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.trtile{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:12px 4px 10px;border-radius:22px;font:inherit;color:var(--ink);cursor:pointer;border:1px solid rgba(255,255,255,.65);background:linear-gradient(160deg,color-mix(in srgb,var(--card) 62%,transparent),color-mix(in srgb,var(--card) 36%,transparent));-webkit-backdrop-filter:blur(20px) saturate(1.8);backdrop-filter:blur(20px) saturate(1.8);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.8),inset 0 -10px 18px rgba(157,140,255,.08);animation:trrise .5s cubic-bezier(.3,1.3,.5,1) both;transition:transform .15s}
+.trtile:active{transform:scale(.94)}
+.trtile-e{width:46px;height:46px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:25px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.9),rgba(157,140,255,.28));box-shadow:0 6px 14px -6px rgba(109,90,230,.6),inset 0 1px 0 #fff}
+.trtile b{font-size:12.5px;line-height:1.15;text-align:center}
+.trtile small{font-size:11px;color:var(--mute);min-height:13px;text-align:center}
+.trtile.on,.trtile.go{border-color:rgba(157,140,255,.9);box-shadow:0 0 0 2px rgba(157,140,255,.35),0 10px 24px -8px rgba(109,90,230,.7),inset 0 1px 0 rgba(255,255,255,.8)}
+.trtile.on .trtile-e,.trtile.go .trtile-e{animation:trpulse2 2s ease-in-out infinite}
+@keyframes trpulse2{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.trlist{padding:4px 0}
+.trrow{display:flex;align-items:center;gap:12px;width:100%;padding:11px 14px;background:none;border:0;border-bottom:1px solid var(--line);font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.trrow:last-child{border-bottom:0}
+.trrow-e{width:38px;height:38px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;background:var(--accent-bg)}
+.trrow-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.trrow-t small{color:var(--mute);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trchartcard{background:color-mix(in srgb,var(--card) 50%,transparent);-webkit-backdrop-filter:blur(20px) saturate(1.8);backdrop-filter:blur(20px) saturate(1.8);border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.7)}
+.trchartcard h2{margin:0 0 6px;font-size:16px}
+.trchart{width:100%;height:auto;display:block;color:var(--ink);overflow:visible}
+.trbar{transform-box:fill-box;transform-origin:bottom;animation:trgrow .8s cubic-bezier(.3,1.2,.4,1) both}
+@keyframes trgrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.trln{stroke-dasharray:1;stroke-dashoffset:1;animation:trdraw 1.3s ease forwards}
+.trarea{animation:trfade 1.3s ease both}
+@keyframes trfade{from{opacity:0}to{opacity:1}}
+.gempty{text-align:center;align-items:center}.gempty-e{font-size:42px;animation:trfloat 5s ease-in-out infinite}
+.trtimer-c{flex-wrap:wrap}
+.sndgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sndtile{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:14px 12px 12px;border-radius:22px;font:inherit;text-align:left;color:var(--ink);cursor:pointer;border:1px solid rgba(255,255,255,.65);background:linear-gradient(160deg,color-mix(in srgb,var(--card) 62%,transparent),color-mix(in srgb,var(--card) 36%,transparent));-webkit-backdrop-filter:blur(20px) saturate(1.8);backdrop-filter:blur(20px) saturate(1.8);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.8);animation:trrise .5s cubic-bezier(.3,1.3,.5,1) both;transition:transform .15s}
+.sndtile:active{transform:scale(.96)}
+.sndtile-e{width:44px;height:44px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.9),rgba(127,214,255,.35));box-shadow:0 6px 14px -6px rgba(90,120,255,.6),inset 0 1px 0 #fff;margin-bottom:4px}
+.sndtile b{font-size:14px}.sndtile small{font-size:11.5px;color:var(--mute);line-height:1.3}
+.sndtile.on{border-color:rgba(157,140,255,.9);box-shadow:0 0 0 2px rgba(157,140,255,.35),0 10px 24px -8px rgba(109,90,230,.7),inset 0 1px 0 rgba(255,255,255,.8)}
+.sndtile .eq{position:absolute;right:12px;top:14px}
+.eq{display:none;align-items:flex-end;gap:2.5px;height:16px}
+.eq i{display:block;width:3px;height:100%;border-radius:2px;background:linear-gradient(#9d8cff,#7fd6ff);transform-origin:bottom;transform:scaleY(.3)}
+.sndtile.on .eq,.sndbar .eq{display:flex}
+.sndtile.playing .eq i,.sndbar.playing .eq i{animation:treq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s!important}.eq i:nth-child(3){animation-delay:.4s!important}.eq i:nth-child(4){animation-delay:.1s!important}
+@keyframes treq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+.sndbar{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom) + 76px);z-index:40;display:flex;align-items:center;gap:12px;padding:10px 12px 10px 16px;border-radius:22px;color:#fff;border:1px solid rgba(255,255,255,.3);background:linear-gradient(135deg,rgba(60,48,150,.78),rgba(30,26,90,.82));-webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8);box-shadow:0 14px 30px -10px rgba(30,20,100,.7),inset 0 1px 0 rgba(255,255,255,.35);animation:trrise .4s cubic-bezier(.3,1.3,.5,1) both}
+.sndbar-t{flex:1;min-width:0;display:flex;flex-direction:column}.sndbar-t small{opacity:.75;font-size:12px}
+.sndbar-b{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.16);color:#fff;font:inherit;font-size:13px;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.sndbar-b:active{transform:scale(.9)}
+:root[data-dark] .trpredcard,:root[data-dark] .trsum-i,:root[data-dark] .trtile,:root[data-dark] .sndtile,:root[data-dark] .trchartcard{border-color:rgba(255,255,255,.14)}
+body.hasnd #view>*:last-child{margin-bottom:84px}
+@media (prefers-reduced-motion:reduce){.trstars,.trcloud,.trcloud i,.trnow-ring,.trpred,.trtile.on .trtile-e,.trtile.go .trtile-e,.eq i,.gempty-e{animation:none!important}.trbar,.trln,.trarea,.trev,.trsum-i,.trtile,.sndtile,.sndbar{animation:none!important}.trln{stroke-dashoffset:0}.trsvg.anim .trarc{animation:none;stroke-dashoffset:0}}
 </style>
 </head>
 <body>
@@ -4134,6 +4220,7 @@ function viewMore() {
     hubRow(ICON.coins, 'Geld', 'Trade Republic, Konten mit IBAN, Bargeld', 'invest'),
     eduShow() ? hubRow(ICON.school, eduName(), eduSub(), 'school') : null);
   grp('Erinnern & Erleben', 'gB',
+    li(() => go('tracker'), '', h('span', { class: 'hubico emo' }, '🌙'), liTxt('Schlaf & Alltag', (() => { const p = trPredict(); return p.sleeping ? 'Schläft seit ' + trHM(p.sleeping.t) : p.at ? p.label + ' ca. ' + trHM(trIso(new Date(p.at))) : 'Nickerchen, Mahlzeiten, Windeln, Klänge'; })()), chev()),
     hubRow(ICON.diary, 'Tagesnotizen', 'Stimmung, Essen, Schlaf, Temperatur', 'diary'),
     hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
@@ -4204,7 +4291,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 25'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 26'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -6765,7 +6852,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 25;
+const APP_VERSION = 26;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -6830,11 +6917,11 @@ const TABS = [
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
-const SUB = ['settings', 'docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
+const SUB = ['tracker', 'settings', 'docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
 const withBack = v => h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String(label).replace(/^‹\s*/, ''), () => go(id)), v);
 const views = {
-  settings: () => withBack(viewSettings()), coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
+  tracker: () => withBack(viewTracker()), settings: () => withBack(viewSettings()), coins: () => withBack(viewCoins()), home: viewHome, photos: viewPhotos, docs: () => withBack(viewDocs()), health: viewHealth, news: viewNews, more: viewMore,
   school: () => withBack(viewSchool()), badges: () => withBack(viewBadges()), spirit: () => withBack(viewSpirit()),
   weeks: () => (wkSeg === 'sprung' && lpSel) ? lpDetailPage() : withBack(viewWeeks()), products: () => withBack(viewProducts()), hd: () => withBack(viewHD()), songs: () => withBack(viewSongs()),
   dates: () => withBack(viewDates()), addr: () => withBack(viewAddr()), invest: () => withBack(viewInvest()), kids: () => withBack(viewKids()), journey: () => withBack(viewJourney()), family: () => withBack(viewFamily()), diary: () => withBack(viewDiary()), quiz: () => withBackTo('badges', '‹ Abzeichen', viewQuiz()), offers: () => withBackTo('invest', '‹ Geld', viewOffers()), search: viewSearch, chat: viewChat
@@ -8374,6 +8461,314 @@ function viewLeapDetail() {
   return wrap;
 }
 const lpDetailPage = () => h('div', { class: 'stack' }, backBtn('Sprünge', () => { lpSel = null; render(); }), viewLeapDetail());
+/* ============ v26: Schlaf & Alltag (Tracker, Vorhersage, Klänge) ============ */
+let trSeg = 'heute', trSeen = false, trAlerted = 0;
+const pad = pad2;
+const TRT = {
+  wake: ['🌅', 'Aufgewacht'], nap: ['💤', 'Nickerchen'], bed: ['🌙', 'Schlafenszeit'], nightwake: ['🌠', 'Nächtl. Aufwachen'],
+  bottle: ['🍼', 'Flasche'], breast: ['🤱', 'Stillen'], pump: ['🥛', 'Abpumpen'], solid: ['🥣', 'Beikost'], diaper: ['🧷', 'Windel'], temp: ['🌡️', 'Temperatur'], med: ['💊', 'Medizin'], note: ['📝', 'Notiz']
+};
+const TRF = {
+  bottle: [{ key: 'ml', label: 'Menge (ml)', inputmode: 'numeric' }, { key: 'inhalt', label: 'Inhalt', type: 'select', options: ['Muttermilch', 'Pre-Nahrung', 'Folgemilch', 'Sonstiges'] }],
+  breast: [{ key: 'seite', label: 'Seite', type: 'select', options: ['Links', 'Rechts', 'Beide'] }, { key: 'min', label: 'Dauer (Minuten)', inputmode: 'numeric' }],
+  pump: [{ key: 'ml', label: 'Menge (ml)', inputmode: 'numeric' }],
+  solid: [{ key: 'was', label: 'Was gab es?' }],
+  diaper: [{ key: 'art', label: 'Art', type: 'select', options: ['Nass', 'Stuhl', 'Nass und Stuhl', 'Trocken'] }],
+  temp: [{ key: 'grad', label: 'Temperatur (°C)', inputmode: 'decimal' }],
+  med: [{ key: 'name', label: 'Medikament', required: true }, { key: 'dosis', label: 'Dosis (laut Packung oder Praxis)' }],
+  note: [{ key: 'text', label: 'Notiz', type: 'textarea', required: true }],
+  nightwake: [{ key: 'min', label: 'Wach für (Minuten)', inputmode: 'numeric' }],
+  wake: []
+};
+// [bis Lebenswoche, Nickerchen pro Tag, Wachfenster in Minuten] - grobe Richtwerte
+const TR_AGE = [[4, 5, 50], [8, 5, 65], [13, 4, 80], [17, 4, 95], [26, 3, 125], [39, 3, 150], [52, 2, 180], [78, 2, 240], [130, 1, 300], [9999, 1, 360]];
+const trData = () => { const hl = S.health; if (!hl.track || typeof hl.track !== 'object') hl.track = {}; if (!Array.isArray(hl.track.log)) hl.track.log = []; return hl.track; };
+const trLog = () => trData().log;
+const trIso = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+const trNow = () => trIso(new Date());
+const trD = iso => new Date(iso);
+const trHM = iso => { const d = trD(iso); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+const trDur = min => { min = Math.max(0, Math.round(min)); const hh = Math.floor(min / 60), mm = min % 60; return hh ? `${hh}h ${pad(mm)}m` : `${mm} Min.`; };
+const trAgo = iso => { const m = Math.round((Date.now() - trD(iso).getTime()) / 60000); return m < 1 ? 'gerade eben' : 'vor ' + trDur(m); };
+const trSave = async () => { await persist('health'); };
+const trSleeping = () => trLog().find(e => (e.type === 'nap' || e.type === 'bed') && !e.end) || null;
+const trAgeInfo = () => { const b = S.profile.geburtsdatum, wk = b ? Math.max(1, curWeek(b)) : 14; const r = TR_AGE.find(x => wk <= x[0]) || TR_AGE[TR_AGE.length - 1]; return { wk, naps: r[1], win: r[2] }; };
+const trEnds = () => trLog().filter(e => e.end || e.type === 'wake').map(e => ({ at: trD(e.end || e.t).getTime(), e })).sort((a, b) => b.at - a.at);
+const trLastWake = () => { const x = trEnds()[0]; return x ? x.at : null; };
+function trOwnWindows() {
+  const sl = trLog().filter(e => (e.type === 'nap' || e.type === 'bed')).sort((a, b) => a.t.localeCompare(b.t)), out = [], lim = Date.now() - 7 * 864e5;
+  for (let i = 0; i < sl.length - 1; i++) {
+    const a = sl[i]; if (!a.end) continue; const e = trD(a.end).getTime(), s = trD(sl[i + 1].t).getTime();
+    if (e > lim && s > e && s - e < 9 * 36e5 && sl[i + 1].type !== 'bed') out.push((s - e) / 60000);
+  }
+  return out.slice(-6);
+}
+function trWindow() {
+  const base = trAgeInfo().win, own = trOwnWindows();
+  if (own.length >= 3) { const avg = own.reduce((a, b) => a + b, 0) / own.length; return { min: Math.round(Math.min(base * 1.3, Math.max(base * 0.7, (base + avg) / 2))), own: true, base }; }
+  return { min: base, own: false, base };
+}
+const trTodayStart = () => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); };
+const trNapsToday = () => trLog().filter(e => e.type === 'nap' && trD(e.t).getTime() >= trTodayStart()).length;
+function trPredict() {
+  const sl = trSleeping(); if (sl) return { sleeping: sl };
+  const lw = trLastWake(); if (!lw) return { none: true };
+  const w = trWindow(), info = trAgeInfo(), naps = trNapsToday();
+  let at = lw + w.min * 60000, kind = naps >= info.naps ? 'bed' : 'nap';
+  if (kind === 'bed' && info.wk >= 13) { const d = new Date(at), lo = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 18, 30).getTime(), hi = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 21, 0).getTime(); at = Math.min(hi, Math.max(lo, at)); }
+  return { kind, at, w, naps, label: kind === 'bed' ? 'Schlafenszeit' : ['Erstes', 'Zweites', 'Drittes', 'Viertes', 'Fünftes', 'Sechstes'][Math.min(naps, 5)] + ' Nickerchen' };
+}
+function trSessions(d0, d1) {
+  const out = []; trLog().forEach(e => { if (e.type !== 'nap' && e.type !== 'bed') return; const s = trD(e.t).getTime(), en = e.end ? trD(e.end).getTime() : Date.now(); const a = Math.max(s, d0), b = Math.min(en, d1); if (b > a) out.push({ e, a, b }); });
+  return out;
+}
+const trAng = (ms, d0) => ((ms - d0) / 864e5) * 360;
+const trPt = (cx, cy, r, a) => { const t = a * Math.PI / 180; return [cx + r * Math.sin(t), cy - r * Math.cos(t)]; };
+function trArc(cx, cy, r, a0, a1) { const s = trPt(cx, cy, r, a0), e = trPt(cx, cy, r, Math.min(a1, a0 + 359.9)); return `M${s[0].toFixed(1)} ${s[1].toFixed(1)}A${r} ${r} 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${e[0].toFixed(1)} ${e[1].toFixed(1)}`; }
+function trDial(pred, anim) {
+  const d0 = trTodayStart(), d1 = d0 + 864e5, C = 150, R = 108, now = Date.now();
+  let g = `<svg viewBox="0 0 300 300" class="trsvg${anim ? ' anim' : ''}" role="img" aria-label="Tagesring"><defs><linearGradient id="trgn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9d8cff"/><stop offset="1" stop-color="#6d5ae6"/></linearGradient><linearGradient id="trgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fd6ff"/><stop offset="1" stop-color="#7a8bff"/></linearGradient></defs>`;
+  g += `<circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="26"/>`;
+  for (let hh = 0; hh < 24; hh += 3) { const a = hh * 15, p1 = trPt(C, C, R + 17, a), p2 = trPt(C, C, R + (hh % 6 ? 20 : 23), a); g += `<line x1="${p1[0].toFixed(1)}" y1="${p1[1].toFixed(1)}" x2="${p2[0].toFixed(1)}" y2="${p2[1].toFixed(1)}" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>`; }
+  [[0, '0'], [6, '6'], [12, '12'], [18, '18']].forEach(([hh, l]) => { const p = trPt(C, C, R + 36, hh * 15); g += `<text x="${p[0].toFixed(1)}" y="${(p[1] + 4).toFixed(1)}" text-anchor="middle" fill="rgba(255,255,255,.55)" font-size="11">${l}</text>`; });
+  trSessions(d0, d1).forEach(({ e, a, b }, i) => { g += `<path class="trarc" style="animation-delay:${0.1 + i * 0.12}s" d="${trArc(C, C, R, trAng(a, d0), trAng(b, d0))}" fill="none" stroke="url(#${e.type === 'bed' ? 'trgn' : 'trgb'})" stroke-width="22" stroke-linecap="round" pathLength="1"/>`; });
+  if (pred && pred.at && pred.at >= d0 && pred.at < d1) { const len = pred.kind === 'bed' ? 360 : 60, e2 = Math.min(d1, pred.at + len * 60000); g += `<path class="trpred" d="${trArc(C, C, R, trAng(pred.at, d0), trAng(e2, d0))}" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="22" stroke-linecap="round" stroke-dasharray="1 7"/>`; const tp = trPt(C, C, R - 36, trAng(pred.at, d0) + 0); g += `<text x="${tp[0].toFixed(1)}" y="${(tp[1] + 4).toFixed(1)}" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">${trHM(trIso(new Date(pred.at)))}</text>`; }
+  trLog().filter(e => !e.end && e.type !== 'nap' && e.type !== 'bed' && trD(e.t).getTime() >= d0 && trD(e.t).getTime() < d1).forEach((e, i) => { const p = trPt(C, C, R, trAng(trD(e.t).getTime(), d0)); g += `<g class="trev" style="animation-delay:${0.3 + i * 0.05}s"><circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="11" fill="rgba(30,26,80,.85)" stroke="rgba(255,255,255,.5)"/><text x="${p[0].toFixed(1)}" y="${(p[1] + 5).toFixed(1)}" text-anchor="middle" font-size="13">${TRT[e.type][0]}</text></g>`; });
+  const np = trPt(C, C, R, trAng(now, d0)); g += `<circle class="trnow" cx="${np[0].toFixed(1)}" cy="${np[1].toFixed(1)}" r="6" fill="#fff"/><circle cx="${np[0].toFixed(1)}" cy="${np[1].toFixed(1)}" r="12" fill="none" stroke="rgba(255,255,255,.5)" class="trnow-ring"/>`;
+  return g + '</svg>';
+}
+function trCenter(pred) {
+  if (pred.sleeping) { const m = Math.round((Date.now() - trD(pred.sleeping.t).getTime()) / 60000); return h('div', { class: 'trcen sleep' }, h('small', null, pred.sleeping.type === 'bed' ? 'Schläft seit ' + trHM(pred.sleeping.t) : 'Nickerchen seit ' + trHM(pred.sleeping.t)), h('b', { class: 'trlive', 'data-since': pred.sleeping.t }, trDur(m)), h('em', null, 'Gute Träume 🌙')); }
+  if (pred.none) return h('div', { class: 'trcen' }, h('small', null, 'Noch keine Daten'), h('b', null, '—'), h('em', null, 'Tippe unten „Aufgewacht“ oder „Nickerchen“'));
+  const m = Math.round((pred.at - Date.now()) / 60000);
+  return h('div', { class: 'trcen' }, h('small', null, m <= 0 ? pred.label + ' ist jetzt dran' : pred.label + ' in'), h('b', { class: 'trlive', 'data-at': String(pred.at) }, m <= 0 ? 'Jetzt' : trDur(m)), h('em', null, 'um ' + trHM(trIso(new Date(pred.at)))));
+}
+function trTick() {
+  document.querySelectorAll('.trlive[data-since]').forEach(el => { el.textContent = trDur(Math.round((Date.now() - trD(el.dataset.since).getTime()) / 60000)); });
+  document.querySelectorAll('.trlive[data-at]').forEach(el => { const m = Math.round((+el.dataset.at - Date.now()) / 60000); el.textContent = m <= 0 ? 'Jetzt' : trDur(m); });
+  document.querySelectorAll('.trago[data-t]').forEach(el => { el.textContent = trAgo(el.dataset.t); });
+}
+setInterval(() => {
+  trTick();
+  // Hinweis, wenn die App offen ist (ohne Server sind keine Mitteilungen bei geschlossener App möglich)
+  if (!S || document.hidden || !S.profile || !S.profile.geburtsdatum) return;
+  const p = trPredict(); if (!p.at) return; const m = (p.at - Date.now()) / 60000;
+  if (m <= 10 && m > -30 && trAlerted !== p.at) { trAlerted = p.at; toast(`${p.label}: gleich ist es so weit 😴`); Haptic.fire('warn'); }
+}, 30000);
+function trEdit(type, item) {
+  const isSleep = type === 'nap' || type === 'bed', now = new Date(), ts = item ? trD(item.t) : now;
+  const vals = Object.assign({}, item || {}, { datum: `${ts.getFullYear()}-${pad(ts.getMonth() + 1)}-${pad(ts.getDate())}`, zeit: `${pad(ts.getHours())}:${pad(ts.getMinutes())}` });
+  if (isSleep) vals.ende = item && item.end ? trHM(item.end) : '';
+  const fields = [{ key: 'datum', label: 'Datum', type: 'date' }, { key: 'zeit', label: isSleep ? 'Eingeschlafen um' : 'Uhrzeit', type: 'time' }]
+    .concat(isSleep ? [{ key: 'ende', label: 'Aufgewacht um', type: 'time', hint: 'Leer lassen: Das Kind schläft noch.' }] : (TRF[type] || []).map(f => Object.assign({}, f)));
+  openSheet({
+    title: TRT[type][1] + (item ? '' : ' eintragen'), values: vals, fields,
+    onSave: async v => {
+      const t = `${v.datum || isoToday()}T${v.zeit || trHM(trNow())}`, e = item || { id: uid(), type }; e.t = t;
+      if (isSleep) { if (v.ende) { let en = `${v.datum || isoToday()}T${v.ende}`; if (en <= t) { const d = trD(t); d.setDate(d.getDate() + 1); en = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${v.ende}`; } e.end = en; } else delete e.end; }
+      else (TRF[type] || []).forEach(f => { if (v[f.key] !== undefined && v[f.key] !== '') e[f.key] = v[f.key]; else delete e[f.key]; });
+      if (!item) trLog().push(e);
+      await trSave(); render(); Haptic.fire('success');
+    },
+    onDelete: item ? async () => { const L = trLog(); L.splice(L.indexOf(item), 1); await trSave(); render(); } : null
+  });
+}
+async function trTap(type) {
+  const sl = trSleeping(), now = trNow();
+  if (type === 'wake') { if (sl) { sl.end = now; await trSave(); toast('Aufgewacht · geschlafen ' + trDur((trD(now) - trD(sl.t)) / 60000)); Haptic.fire('success'); render(); } else { trLog().push({ id: uid(), type: 'wake', t: now }); await trSave(); Haptic.fire('light'); render(); } return; }
+  if (type === 'nap' || type === 'bed') {
+    if (sl) { sl.end = now; await trSave(); toast('Aufgewacht · geschlafen ' + trDur((trD(now) - trD(sl.t)) / 60000)); Haptic.fire('success'); render(); return; }
+    trLog().push({ id: uid(), type, t: now }); await trSave(); Haptic.fire('medium'); toast(type === 'bed' ? 'Gute Nacht 🌙' : 'Nickerchen läuft ☁️'); render(); return;
+  }
+  trEdit(type);
+}
+function trLastOf(type) {
+  if (type === 'wake') { const x = trEnds()[0]; return x ? trIso(new Date(x.at)) : null; }
+  const l = trLog().filter(e => e.type === type).sort((a, b) => (b.end || b.t).localeCompare(a.end || a.t))[0]; return l ? (l.end || l.t) : null;
+}
+function trRowText(e) {
+  const nm = TRT[e.type][1];
+  if (e.type === 'nap' || e.type === 'bed') return [nm, e.end ? `${trHM(e.t)} bis ${trHM(e.end)} · ${trDur((trD(e.end) - trD(e.t)) / 60000)}` : `seit ${trHM(e.t)} · schläft`];
+  const bits = []; if (e.ml) bits.push(e.ml + ' ml'); if (e.inhalt) bits.push(e.inhalt); if (e.seite) bits.push(e.seite); if (e.min) bits.push(e.min + ' Min.'); if (e.art) bits.push(e.art); if (e.grad) bits.push(String(e.grad).replace('.', ',') + ' °C'); if (e.name) bits.push(e.name + (e.dosis ? ' · ' + e.dosis : '')); if (e.was) bits.push(e.was); if (e.text) bits.push(e.text);
+  return [nm, trHM(e.t) + (bits.length ? ' · ' + bits.join(' · ') : '')];
+}
+function trIcs() {
+  const p = trPredict(); if (!p.at) return null;
+  const f = ms => { const d = new Date(ms); return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`; };
+  const name = S.profile.vorname || 'Kind', stamp = f(Date.now());
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MyLuiseApp//Schlaf//DE', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT', `UID:${uid()}@myluiseapp`, `DTSTAMP:${stamp}`, `DTSTART:${f(p.at)}`, `DTEND:${f(p.at + (p.kind === 'bed' ? 30 : 60) * 60000)}`, `SUMMARY:${name}: ${p.label}`, `DESCRIPTION:Richtwert für ${name}. Müdigkeitszeichen beachten.`, 'BEGIN:VALARM', 'ACTION:DISPLAY', `DESCRIPTION:${name}: ${p.label} gleich`, 'TRIGGER:-PT15M', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+}
+async function trRemind() {
+  const ics = trIcs(); if (!ics) { toast('Noch keine Vorhersage'); return; }
+  const f = new File([ics], 'Schlaf-Erinnerung.ics', { type: 'text/calendar' });
+  try {
+    if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], title: 'Schlaf-Erinnerung' });
+    else { const u = mkUrl(f); const a = h('a', { href: u, download: f.name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => rmUrl(u), 10000); }
+  } catch (e) { if (e && e.name !== 'AbortError') toast('Erinnerung nicht möglich'); }
+}
+function trToday() {
+  const d0 = trTodayStart(), d1 = d0 + 864e5, ss = trSessions(d0, d1);
+  const sleepMin = ss.reduce((a, x) => a + (x.b - x.a) / 60000, 0), naps = trLog().filter(e => e.type === 'nap' && trD(e.t).getTime() >= d0).length;
+  const today = e => { const t = trD(e.t).getTime(); return t >= d0 && t < d1; };
+  const feeds = trLog().filter(e => today(e) && (e.type === 'bottle' || e.type === 'breast' || e.type === 'solid')).length, dia = trLog().filter(e => today(e) && e.type === 'diaper').length;
+  return { sleepMin, naps, feeds, dia };
+}
+function trHero(pred, anim) {
+  const sl = !!pred.sleeping;
+  const hero = h('div', { class: 'trhero' + (sl ? ' sleeping' : '') + (anim ? ' anim' : '') },
+    h('div', { class: 'trstars', 'aria-hidden': 'true' }), h('div', { class: 'trcloud', 'aria-hidden': 'true', html: '<svg viewBox="0 0 120 80"><defs><linearGradient id="tcg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#cfc4ff"/></linearGradient></defs><path d="M30 64a20 20 0 0 1 2-40 26 26 0 0 1 49-6 22 22 0 0 1 9 46z" fill="url(#tcg)" opacity=".95"/><path d="M44 42q5 5 10 0M68 42q5 5 10 0" stroke="#6d5ae6" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M57 50q4 4 8 0" stroke="#6d5ae6" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg><i>z</i><i>z</i><i>Z</i>' }),
+    h('div', { class: 'trdial', html: trDial(pred, anim) }), trCenter(pred));
+  return hero;
+}
+function viewTrackSleep() {
+  const wrap = h('div', { class: 'stack' }), pred = trPredict(), anim = !trSeen; trSeen = true;
+  wrap.append(trHero(pred, anim));
+  const w = pred.w;
+  if (pred.at) wrap.append(h('div', { class: 'card stack trpredcard' },
+    h('div', { class: 'trpred-h' }, h('b', null, pred.label), h('span', { class: 'chip ok' }, 'ca. ' + trHM(trIso(new Date(pred.at))))),
+    h('p', { class: 'mute small' }, `Wachfenster ${trDur(w.min)}: ${w.own ? 'angepasst an die letzten Tage' : 'Richtwert für ' + trAgeInfo().wk + ' Lebenswochen'}. Müdigkeitszeichen wie Gähnen, Augenreiben oder Quengeln gehen vor.`),
+    h('button', { class: 'btn ghost wide', type: 'button', onclick: trRemind }, '⏰ Erinnerung in den Kalender legen')));
+  const sum = trToday();
+  wrap.append(h('div', { class: 'trsum' }, [['😴', trDur(sum.sleepMin), 'Schlaf heute'], ['💤', String(sum.naps), 'Nickerchen'], ['🍼', String(sum.feeds), 'Mahlzeiten'], ['🧷', String(sum.dia), 'Windeln']].map(([e, v, l], i) => h('div', { class: 'trsum-i', style: `animation-delay:${i * 0.06}s` }, h('span', null, e), h('b', null, v), h('small', null, l)))));
+  const sl = trSleeping();
+  wrap.append(h('div', { class: 'trtiles' }, Object.keys(TRT).map((k, i) => {
+    const last = trLastOf(k), on = sl && ((k === 'nap' && sl.type === 'nap') || (k === 'bed' && sl.type === 'bed'));
+    const label = sl && (k === 'wake') ? 'Aufwachen' : TRT[k][1];
+    return h('button', { class: 'trtile' + (on ? ' on' : '') + (sl && k === 'wake' ? ' go' : ''), type: 'button', style: `animation-delay:${i * 0.035}s`, onclick: () => trTap(k) },
+      h('span', { class: 'trtile-e', 'aria-hidden': 'true' }, TRT[k][0]), h('b', null, label), last ? h('small', { class: 'trago', 'data-t': last }, trAgo(last)) : h('small', null, ' '));
+  })));
+  const d0 = trTodayStart(), list = trLog().filter(e => { const t = trD(e.t).getTime(), en = e.end ? trD(e.end).getTime() : t; return (t >= d0 && t < d0 + 864e5) || (en >= d0 && en < d0 + 864e5) || (!e.end && (e.type === 'nap' || e.type === 'bed')); }).sort((a, b) => b.t.localeCompare(a.t));
+  wrap.append(sectionHead('Heute'));
+  wrap.append(h('div', { class: 'card trlist' }, list.length ? list.map(e => { const [nm, sub] = trRowText(e); return h('button', { class: 'trrow', type: 'button', onclick: () => trEdit(e.type, e) }, h('span', { class: 'trrow-e' }, TRT[e.type][0]), h('span', { class: 'trrow-t' }, h('b', null, nm), h('small', null, sub)), chev()); }) : h('p', { class: 'empty' }, 'Noch nichts eingetragen. Tippe oben auf eine Kachel.')));
+  wrap.append(h('p', { class: 'fine' }, 'Alle Werte sind Richtwerte und kein Ersatz für ärztlichen Rat. Sicherer Schlaf: Rückenlage, feste Matratze, keine Kissen, Decken oder Kuscheltiere im Bett. Hinweise erscheinen nur, solange die App geöffnet ist. Für Mitteilungen bei geschlossener App legst du die Erinnerung in den Kalender.'));
+  return wrap;
+}
+/* ---------- Verlauf ---------- */
+function trDays(n) {
+  const out = [], t0 = trTodayStart();
+  for (let i = n - 1; i >= 0; i--) {
+    const d0 = t0 - i * 864e5, d1 = d0 + 864e5, date = new Date(d0);
+    const ss = trSessions(d0, d1), sleep = ss.reduce((a, x) => a + (x.b - x.a) / 60000, 0), napSs = ss.filter(x => x.e.type === 'nap'), nap = napSs.reduce((a, x) => a + (x.b - x.a) / 60000, 0);
+    const ev = trLog().filter(e => { const t = trD(e.t).getTime(); return t >= d0 && t < d1; });
+    const wins = []; const sorted = trLog().filter(e => e.type === 'nap' || e.type === 'bed').sort((a, b) => a.t.localeCompare(b.t));
+    for (let k = 0; k < sorted.length - 1; k++) { const a = sorted[k]; if (!a.end || sorted[k + 1].type === 'bed') continue; const e = trD(a.end).getTime(), s = trD(sorted[k + 1].t).getTime(); if (e >= d0 && e < d1 && s > e && s - e < 9 * 36e5) wins.push((s - e) / 60000); }
+    out.push({ date, sleep, nap, napN: napSs.length, feeds: ev.filter(e => e.type === 'bottle' || e.type === 'breast' || e.type === 'solid').length, ml: ev.filter(e => e.type === 'bottle').reduce((a, e) => a + (parseFloat(e.ml) || 0), 0), dia: ev.filter(e => e.type === 'diaper').length, win: wins.length ? wins.reduce((a, b) => a + b, 0) / wins.length : null });
+  }
+  return out;
+}
+const trWd = d => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'][d.getDay()];
+function trBars(vals, labels, fmt, color) {
+  const W = 320, H = 150, pl = 8, pr = 8, pt = 22, pb = 30, n = vals.length, max = Math.max(1, ...vals) * 1.15, bw = (W - pl - pr) / n;
+  const avgv = vals.filter(v => v > 0); const avg = avgv.length ? avgv.reduce((a, b) => a + b, 0) / avgv.length : 0;
+  let g = `<svg viewBox="0 0 ${W} ${H}" class="trchart" role="img"><defs><linearGradient id="${color}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color === 'bgA' ? '#9d8cff' : '#7fd6ff'}"/><stop offset="1" stop-color="${color === 'bgA' ? '#6d5ae6' : '#7a8bff'}"/></linearGradient></defs>`;
+  for (let k = 1; k <= 3; k++) { const y = pt + (H - pt - pb) * (1 - k / 3.45); g += `<line x1="${pl}" x2="${W - pr}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="currentColor" stroke-opacity=".08"/>`; }
+  vals.forEach((v, i) => { const hh = Math.max(v > 0 ? 3 : 0, (H - pt - pb) * (v / max)), x = pl + i * bw + bw * 0.18, w = bw * 0.64, y = H - pb - hh; g += `<rect class="trbar" style="animation-delay:${i * 0.07}s" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${hh.toFixed(1)}" rx="7" fill="url(#${color})"/>`; if (v > 0) g += `<text x="${(x + w / 2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle" font-size="10" fill="currentColor" fill-opacity=".75">${fmt(v)}</text>`; g += `<text x="${(x + w / 2).toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="10.5" fill="currentColor" fill-opacity=".6">${labels[i]}</text>`; });
+  if (avg) { const y = H - pb - (H - pt - pb) * (avg / max); g += `<line x1="${pl}" x2="${W - pr}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="2 5" stroke-width="1.5"/>`; }
+  return g + '</svg>';
+}
+function trLine(vals, labels) {
+  const W = 320, H = 150, pl = 12, pr = 12, pt = 18, pb = 28, pts = vals.map((v, i) => v == null ? null : [pl + (W - pl - pr) * (vals.length === 1 ? 0.5 : i / (vals.length - 1)), v]).filter(Boolean);
+  if (pts.length < 2) return null;
+  const lo = Math.min(...pts.map(p => p[1])), hi = Math.max(...pts.map(p => p[1])), rng = Math.max(20, hi - lo), y = v => pt + (H - pt - pb) * (1 - (v - lo + rng * 0.15) / (rng * 1.3));
+  let d = `M${pts[0][0].toFixed(1)} ${y(pts[0][1]).toFixed(1)}`; for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i], mx = (a[0] + b[0]) / 2; d += `C${mx.toFixed(1)} ${y(a[1]).toFixed(1)} ${mx.toFixed(1)} ${y(b[1]).toFixed(1)} ${b[0].toFixed(1)} ${y(b[1]).toFixed(1)}`; }
+  const area = d + `L${pts[pts.length - 1][0].toFixed(1)} ${H - pb}L${pts[0][0].toFixed(1)} ${H - pb}Z`;
+  let g = `<svg viewBox="0 0 ${W} ${H}" class="trchart" role="img"><defs><linearGradient id="lnA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9d8cff" stop-opacity=".45"/><stop offset="1" stop-color="#9d8cff" stop-opacity="0"/></linearGradient></defs><path d="${area}" fill="url(#lnA)" class="trarea"/><path d="${d}" fill="none" stroke="#8a78f5" stroke-width="3" stroke-linecap="round" pathLength="1" class="trln"/>`;
+  vals.forEach((v, i) => { if (v == null) return; const x = pl + (W - pl - pr) * (vals.length === 1 ? 0.5 : i / (vals.length - 1)); g += `<circle cx="${x.toFixed(1)}" cy="${y(v).toFixed(1)}" r="4" fill="#fff" stroke="#8a78f5" stroke-width="2.5"/><text x="${x.toFixed(1)}" y="${H - 10}" text-anchor="middle" font-size="10.5" fill="currentColor" fill-opacity=".6">${labels[i]}</text>`; });
+  return g + '</svg>';
+}
+function viewTrackStats() {
+  const wrap = h('div', { class: 'stack' }), D = trDays(7), lab = D.map(x => trWd(x.date)), any = D.some(x => x.sleep > 0 || x.feeds || x.dia);
+  if (!any) { wrap.append(h('div', { class: 'card stack gempty' }, h('div', { class: 'gempty-e', 'aria-hidden': 'true' }, '📊'), h('h2', null, 'Noch keine Daten'), h('p', { class: 'mute' }, 'Trage ein paar Tage Schlaf, Mahlzeiten und Windeln ein. Dann erscheinen hier Diagramme und Muster.'))); return wrap; }
+  const act = D.filter(x => x.sleep > 0), avgSleep = act.length ? act.reduce((a, x) => a + x.sleep, 0) / act.length : 0;
+  wrap.append(h('div', { class: 'trsum' }, [['😴', trDur(avgSleep), 'Ø Schlaf/Tag'], ['💤', (D.reduce((a, x) => a + x.napN, 0) / Math.max(1, act.length)).toFixed(1).replace('.', ','), 'Ø Nickerchen'], ['🍼', Math.round(D.reduce((a, x) => a + x.feeds, 0) / 7) + '', 'Ø Mahlzeiten'], ['🧷', Math.round(D.reduce((a, x) => a + x.dia, 0) / 7) + '', 'Ø Windeln']].map(([e, v, l], i) => h('div', { class: 'trsum-i', style: `animation-delay:${i * 0.06}s` }, h('span', null, e), h('b', null, v), h('small', null, l)))));
+  wrap.append(h('div', { class: 'card trchartcard' }, h('h2', null, 'Schlaf pro Tag'), h('div', { class: 'trcw', html: trBars(D.map(x => x.sleep / 60), lab, v => v.toFixed(1).replace('.', ','), 'bgA') }), h('p', { class: 'fine' }, 'Stunden, gestrichelt: Durchschnitt. Nachtschlaf zählt an dem Tag, an dem er stattfindet.')));
+  wrap.append(h('div', { class: 'card trchartcard' }, h('h2', null, 'Nickerchen (Minuten)'), h('div', { class: 'trcw', html: trBars(D.map(x => x.nap), lab, v => Math.round(v), 'bgB') })));
+  const ln = trLine(D.map(x => x.win), lab);
+  if (ln) wrap.append(h('div', { class: 'card trchartcard' }, h('h2', null, 'Wachfenster (Ø Minuten)'), h('div', { class: 'trcw', html: ln }), h('p', { class: 'fine' }, 'Zeit zwischen Aufwachen und nächstem Einschlafen. Daraus rechnet die Vorhersage.')));
+  wrap.append(h('div', { class: 'card trchartcard' }, h('h2', null, 'Flaschen (ml pro Tag)'), h('div', { class: 'trcw', html: trBars(D.map(x => x.ml), lab, v => Math.round(v), 'bgB') })));
+  return wrap;
+}
+/* ---------- Klänge ---------- */
+const SND = [
+  ['Rauschen', [['white', 'Weißes Rauschen', 'Gleichmäßig, wie ein Radio ohne Sender', '🌬️'], ['pink', 'Rosa Rauschen', 'Etwas weicher, wie Regen im Laub', '🌸'], ['brown', 'Braunes Rauschen', 'Tief und warm, wie ferne Brandung', '🌊'], ['blue', 'Blaues Rauschen', 'Hell und zischend', '❄️']]],
+  ['Haushalt', [['fan', 'Ventilator', 'Gleichmäßiges tiefes Surren', '🌀'], ['vacuum', 'Staubsauger', 'Dichtes Brummen', '🧹'], ['dryer', 'Föhn', 'Heller, breiter Luftstrom', '💨']]],
+  ['Natur & Geborgenheit', [['rain', 'Regen', 'Sanfter Regen mit Tropfen', '🌧️'], ['ocean', 'Meer', 'Wellen, die kommen und gehen', '🏖️'], ['womb', 'Mutterleib', 'Dumpfes Rauschen mit Herzschlag', '💓']]]
+];
+const SND_NAME = {}; SND.forEach(g => g[1].forEach(s => { SND_NAME[s[0]] = s[1]; }));
+function sndGen(kind, sec = 12, sr = 22050) {
+  const n = sec * sr, f = Math.round(sr * 0.6), N = n + f, o = new Float32Array(N), r = () => Math.random() * 2 - 1;
+  const lp = (x, a) => { let y = 0; for (let i = 0; i < x.length; i++) { y += a * (x[i] - y); x[i] = y; } return x; };
+  const hp = (x, a) => { let y = 0; for (let i = 0; i < x.length; i++) { y += a * (x[i] - y); x[i] = x[i] - y; } return x; };
+  const white = () => { const x = new Float32Array(N); for (let i = 0; i < N; i++) x[i] = r(); return x; };
+  const pink = () => { const x = new Float32Array(N); let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0; for (let i = 0; i < N; i++) { const w = r(); b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.969 * b2 + w * 0.153852; b3 = 0.8665 * b3 + w * 0.3104856; b4 = 0.55 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.016898; x[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * 0.5362) * 0.12; b6 = w * 0.115926; } return x; };
+  const brown = () => { const x = new Float32Array(N); let l = 0; for (let i = 0; i < N; i++) { l = (l + 0.02 * r()) / 1.02; x[i] = l * 3.5; } return x; };
+  let x;
+  if (kind === 'white') x = white(); else if (kind === 'pink') x = pink(); else if (kind === 'brown') x = brown();
+  else if (kind === 'blue') { const w = white(); x = new Float32Array(N); for (let i = 1; i < N; i++) x[i] = (w[i] - w[i - 1]) * 0.6; }
+  else if (kind === 'fan') { x = lp(brown(), 0.25); for (let i = 0; i < N; i++) x[i] = x[i] * (0.9 + 0.1 * Math.sin(2 * Math.PI * 9 * i / sr)) + 0.05 * Math.sin(2 * Math.PI * 110 * i / sr); }
+  else if (kind === 'vacuum') { x = hp(lp(pink(), 0.35), 0.03); for (let i = 0; i < N; i++) x[i] += 0.12 * Math.sin(2 * Math.PI * 120 * i / sr); }
+  else if (kind === 'dryer') { x = lp(hp(white(), 0.06), 0.55); for (let i = 0; i < N; i++) x[i] *= 0.9 + 0.1 * Math.sin(2 * Math.PI * 24 * i / sr); }
+  else if (kind === 'rain') { x = lp(pink(), 0.5); for (let i = 0; i < N; i++) if (Math.random() < 0.0016) { const a = 0.3 + Math.random() * 0.5; for (let j = 0; j < 90 && i + j < N; j++) x[i + j] += a * r() * Math.exp(-j / 18); } }
+  else if (kind === 'ocean') { x = lp(brown(), 0.4); for (let i = 0; i < N; i++) x[i] *= 0.4 + 0.6 * (0.5 + 0.5 * Math.sin(2 * Math.PI * i / sr / 6 - 1.5)); }
+  else { x = lp(brown(), 0.07); const per = sr * 12 / 22; for (let i = 0; i < N; i++) { const ph = (i % per) / per; const th = (c, w) => Math.exp(-Math.pow((ph - c) / w, 2)); x[i] = x[i] * 1.6 + 0.9 * Math.sin(2 * Math.PI * 48 * i / sr) * (th(0.1, 0.03) + 0.7 * th(0.26, 0.03)); } }
+  for (let i = 0; i < N; i++) o[i] = x[i];
+  let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(o[i])); const k = pk ? 0.55 / pk : 1;
+  const out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = o[i] * k;
+  for (let i = 0; i < f; i++) { const t = i / f; out[i] = out[i] * t + (o[n + i] * k) * (1 - t); }
+  return { data: out, sr };
+}
+function sndWav({ data, sr }) {
+  const n = data.length, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf), w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) v.setInt16(44 + i * 2, Math.max(-1, Math.min(1, data[i])) * 32767, true);
+  return new Blob([buf], { type: 'audio/wav' });
+}
+const snd = { id: null, audio: null, urls: {}, timer: 0, end: 0, tid: 0 };
+function sndBar() {
+  let b = document.getElementById('sndbar');
+  document.body.classList.toggle('hasnd', !!snd.id);
+  if (!snd.id) { if (b) b.remove(); return; }
+  if (!b) { b = h('div', { id: 'sndbar', class: 'sndbar' }); document.body.append(b); }
+  const playing = snd.audio && !snd.audio.paused, left = snd.end ? Math.max(0, Math.round((snd.end - Date.now()) / 60000)) : 0;
+  b.className = 'sndbar' + (playing ? ' playing' : '');
+  b.replaceChildren(h('span', { class: 'eq', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i')), h('span', { class: 'sndbar-t' }, h('b', null, SND_NAME[snd.id]), h('small', null, snd.end ? 'noch ' + trDur(left || 1) : 'ohne Timer')),
+    h('button', { class: 'sndbar-b', type: 'button', 'aria-label': playing ? 'Pause' : 'Weiter', onclick: () => { if (snd.audio.paused) snd.audio.play().catch(() => {}); else snd.audio.pause(); sndBar(); } }, playing ? '❚❚' : '▶'),
+    h('button', { class: 'sndbar-b', type: 'button', 'aria-label': 'Stopp', onclick: sndStop }, '✕'));
+}
+function sndStop() { if (snd.audio) { snd.audio.pause(); snd.audio.src = ''; } snd.audio = null; snd.id = null; snd.end = 0; clearInterval(snd.tid); try { if ('mediaSession' in navigator) navigator.mediaSession.metadata = null; } catch (e) {} sndBar(); if (tab === 'tracker') render(); }
+function sndTimer(min) {
+  snd.timer = min; snd.end = min ? Date.now() + min * 60000 : 0; clearInterval(snd.tid);
+  if (min) snd.tid = setInterval(() => { if (Date.now() >= snd.end) { sndStop(); toast('Klang beendet (Timer)'); } else sndBar(); }, 15000);
+  sndBar(); if (tab === 'tracker') render();
+}
+async function sndPlay(id) {
+  if (snd.id === id && snd.audio) { if (snd.audio.paused) await snd.audio.play().catch(() => {}); else snd.audio.pause(); sndBar(); if (tab === 'tracker') render(); return; }
+  if (snd.audio) { snd.audio.pause(); snd.audio.src = ''; }
+  if (!snd.urls[id]) snd.urls[id] = URL.createObjectURL(sndWav(sndGen(id)));
+  const a = new Audio(snd.urls[id]); a.loop = true; a.preload = 'auto'; snd.audio = a; snd.id = id;
+  a.addEventListener('pause', () => sndBar()); a.addEventListener('play', () => sndBar());
+  try { await a.play(); } catch (e) { toast('Wiedergabe nicht möglich. Tippe noch einmal.'); }
+  try { if ('mediaSession' in navigator) { navigator.mediaSession.metadata = new MediaMetadata({ title: SND_NAME[id], artist: 'MyLuiseApp' }); navigator.mediaSession.setActionHandler('play', () => { a.play(); }); navigator.mediaSession.setActionHandler('pause', () => { a.pause(); }); } } catch (e) {}
+  Haptic.fire('medium'); sndBar(); if (tab === 'tracker') render();
+}
+function viewTrackSounds() {
+  const wrap = h('div', { class: 'stack' });
+  wrap.append(h('div', { class: 'card stack trtimer' }, h('b', null, 'Schlaf-Timer'), h('div', { class: 'chips trtimer-c' }, [[0, 'Aus'], [15, '15 Min.'], [30, '30 Min.'], [60, '1 Std.'], [120, '2 Std.']].map(([m, l]) => h('button', { class: 'fchip' + (snd.timer === m ? ' on' : ''), type: 'button', onclick: () => sndTimer(m) }, l))),
+    h('p', { class: 'mute small' }, 'Die Klänge werden auf dem Gerät erzeugt, ohne Internet. Lautstärke mit den iPhone-Tasten. Halte das Rauschen leise und mit Abstand zum Bett. Ob der Ton bei gesperrtem Bildschirm weiterläuft, bestimmt iOS.')));
+  SND.forEach(([grp, items]) => {
+    wrap.append(sectionHead(grp));
+    wrap.append(h('div', { class: 'sndgrid' }, items.map(([id, name, sub, emo], i) => h('button', { class: 'sndtile' + (snd.id === id ? ' on' : '') + (snd.id === id && snd.audio && !snd.audio.paused ? ' playing' : ''), type: 'button', style: `animation-delay:${i * 0.05}s`, onclick: () => sndPlay(id) },
+      h('span', { class: 'sndtile-e', 'aria-hidden': 'true' }, emo), h('b', null, name), h('small', null, sub), h('span', { class: 'eq', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i'))))));
+  });
+  return wrap;
+}
+function viewTracker() {
+  const wrap = h('div', { class: 'stack trpage' });
+  wrap.append(pageHead('Schlaf & Alltag'));
+  wrap.append(seg([['heute', 'Heute'], ['verlauf', 'Verlauf'], ['klaenge', 'Klänge']], trSeg, id => { trSeg = id; render(); }));
+  wrap.append(trSeg === 'verlauf' ? viewTrackStats() : trSeg === 'klaenge' ? viewTrackSounds() : viewTrackSleep());
+  return wrap;
+}
 async function boot() {
   makeIcon();
   try { db = await openDB(); }
