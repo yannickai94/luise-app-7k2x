@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="32">
+<meta name="app-version" content="33">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1532,7 +1532,7 @@ body.famode .editbtn{display:none!important}
 .prate-b span{width:34px;height:34px;flex:none;display:block}.prate-b span svg{width:100%;height:100%;display:block}.prate-b b{font-size:14.5px;line-height:1.2}
 .prate-b.on{border-color:var(--accent);background:var(--accent-bg)}
 .prate-more{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.btn.danger{color:#c8372d}
+
 .pa-grid{margin-top:2px}
 /* ===== v32: App-Icon + Benachrichtigungen ===== */
 .icongrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -1558,6 +1558,128 @@ body.famode .editbtn{display:none!important}
 .trday .trsum-i{background:var(--accent-bg);border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
 .trday .trlist{padding:2px 0}
 @media (prefers-reduced-motion:reduce){.trmore-btn i{transition:none}}
+/* ============ v33 ============ */
+.btn.danger:not(.ghost){background:var(--bad);color:#fff;border:0}
+.btn.ghost.danger{color:#c8372d;border-color:color-mix(in srgb,#c8372d 45%,transparent)}
+:root[data-dark] .btn.ghost.danger{color:#ff938a}
+.tab .tl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+/* KI-Chat */
+.chat-head{position:sticky;top:0;z-index:5;margin:calc(-16px - env(safe-area-inset-top)) -16px 4px;padding:calc(12px + env(safe-area-inset-top)) 16px 10px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(var(--bg) 78%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.chat-head .page-head{margin:0}
+.chat-list{scroll-margin-top:150px}
+.chat .msg{scroll-margin-top:150px}
+.chat{padding-bottom:calc(150px + env(safe-area-inset-bottom))!important}
+/* Laden */
+.avatar.fr-leaf{box-shadow:0 0 0 3px #7bbf6f,0 0 0 5px rgba(255,255,255,.6),0 0 20px rgba(110,190,100,.65);outline:3px dashed #a5d6a0;outline-offset:5px}
+.avatar.fr-sun{box-shadow:0 0 0 3px #ffb300,0 0 0 6px #ffe082,0 0 24px rgba(255,193,7,.75)}
+.avatar.fr-cloud{box-shadow:0 0 0 3px #fff,0 0 0 6px #b3d9ff,0 0 20px rgba(130,190,255,.7)}
+.petb{display:inline-block;width:30px;height:30px;vertical-align:-8px;margin-left:8px}.petb svg{width:100%;height:100%;display:block}
+.titlechip{display:inline-block;font-size:12px;font-weight:700;padding:4px 11px;border-radius:999px;background:rgba(255,255,255,.28);color:inherit;border:1px solid rgba(255,255,255,.4);margin-top:4px;letter-spacing:.2px}
+.shopprev .titlechip,.shoplook .titlechip{background:var(--accent-bg);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);margin:0}
+.shoplook{display:flex;align-items:center;gap:14px;flex-direction:row;padding:14px 16px}
+.sl-av{position:relative;flex:none;padding:6px}.sl-av .petb{position:absolute;right:-12px;bottom:-8px;width:34px;height:34px;margin:0;background:var(--card);border-radius:50%;padding:3px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.sl-tx{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}.sl-tx b{font-size:18px}
+.shopdeal{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;font:inherit;color:var(--ink);cursor:pointer;border:1.5px dashed var(--accent)!important;background:linear-gradient(135deg,var(--accent-bg),transparent)}
+.shopdeal .sd-tag{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--accent)}.shopdeal b{font-size:17px}.shopdeal small{color:var(--mute)}.shopdeal s{opacity:.6}
+.shopprev.art{padding:8px}.shopprev.art svg{width:64px;height:64px}.shopprev .none{font-style:normal;font-size:26px;color:var(--mute)}
+.shopprev.conf{font-size:20px;letter-spacing:2px;text-align:center;padding:0 6px}
+.shopprev .ei{width:1.15em;height:1.15em;display:inline-block;vertical-align:-.2em}
+.hero2{position:relative}
+.hero2>.petb{position:absolute;right:18px;bottom:16px;width:60px;height:60px;margin:0;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+/* Stories */
+.storyrow{display:flex;gap:14px;overflow-x:auto;padding:4px 16px 8px;margin:0 -16px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.storyrow::-webkit-scrollbar{display:none}
+.story{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:68px;background:none;border:0;padding:0;font:inherit;color:var(--ink);cursor:pointer;scroll-snap-align:start}
+.story small{font-size:11.5px;font-weight:600;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink)}
+.story.seen small{color:var(--mute);font-weight:500}
+.sring{width:66px;height:66px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,var(--accent),var(--g3),var(--g2),var(--accent));display:grid;place-items:center;transition:transform .15s}
+.story:active .sring{transform:scale(.93)}
+.story.seen .sring{background:color-mix(in srgb,var(--mute) 38%,transparent)}
+.sin{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;border:3px solid var(--bg);background:linear-gradient(145deg,color-mix(in srgb,var(--g1) 30%,var(--card)),color-mix(in srgb,var(--g3) 22%,var(--card)))}
+.sin.p1{background:linear-gradient(145deg,color-mix(in srgb,var(--g2) 30%,var(--card)),color-mix(in srgb,var(--g1) 22%,var(--card)))}
+.sin.p2{background:linear-gradient(145deg,color-mix(in srgb,var(--g3) 30%,var(--card)),color-mix(in srgb,var(--g2) 22%,var(--card)))}
+.sin.p3{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 28%,var(--card)),color-mix(in srgb,var(--g3) 22%,var(--card)))}
+.sin svg{width:60%;height:60%;display:block}
+.stv{position:fixed;inset:0;z-index:900;background:#000;color:#fff;touch-action:none;overflow:hidden;animation:stvIn .22s ease both;-webkit-user-select:none;user-select:none}
+@keyframes stvIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.stv-stage{position:absolute;inset:0;transition:transform .2s,opacity .2s;touch-action:none}
+.stv-slide{position:absolute;inset:0;animation:stvSl .28s ease both}
+@keyframes stvSl{from{opacity:.4;transform:translateX(14px)}to{opacity:1;transform:none}}
+.stv-bg{position:absolute;inset:0}
+.stv-bg.plain{filter:saturate(.8)}
+.stv-orb{position:absolute;border-radius:50%;filter:blur(30px);opacity:.5;pointer-events:none;animation:stvOrb 9s ease-in-out infinite alternate}
+.stv-orb.o1{width:260px;height:260px;left:-60px;top:12%;background:radial-gradient(circle,rgba(255,255,255,.55),transparent 70%)}
+.stv-orb.o2{width:300px;height:300px;right:-90px;bottom:6%;background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);animation-delay:-4s}
+@keyframes stvOrb{to{transform:translate(26px,-22px) scale(1.12)}}
+.stv-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:stvKb 12s ease-out both;pointer-events:none}
+@keyframes stvKb{from{transform:scale(1)}to{transform:scale(1.12)}}
+.stv-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 40%,rgba(0,0,0,.78) 100%);pointer-events:none}
+.stv-in{position:absolute;left:0;right:0;padding:0 28px;display:flex;flex-direction:column;gap:12px;pointer-events:none}
+.stv-in.mid{top:50%;transform:translateY(-50%);align-items:flex-start}
+.stv-in.bottom{bottom:calc(36px + env(safe-area-inset-bottom))}
+.stv-in>*{pointer-events:auto}
+.stv-art{width:112px;height:112px;margin-bottom:6px;filter:drop-shadow(0 12px 22px rgba(0,0,0,.35));animation:stvArt .6s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes stvArt{from{transform:scale(.6) rotate(-8deg);opacity:0}to{transform:none;opacity:1}}
+.stv-art svg{width:100%;height:100%;display:block}
+.stv-k{font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;opacity:.85;animation:stvUp .5s .08s both}
+.stv-big{margin:0;font-size:clamp(30px,9.5vw,44px);line-height:1.08;font-weight:800;letter-spacing:-.5px;text-shadow:0 2px 18px rgba(0,0,0,.25);animation:stvUp .5s .16s both;overflow-wrap:anywhere}
+.stv-in.small .stv-big{font-size:clamp(22px,6.6vw,28px);line-height:1.18}
+.stv-t{margin:0;font-size:18px;line-height:1.42;opacity:.94;animation:stvUp .5s .24s both;max-width:34em}
+@keyframes stvUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stv-rows{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:4px}
+.stv-row{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.25);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:stvUp .5s .3s both}
+.stv-row b{font-size:16.5px}.stv-row span{font-size:14px;opacity:.85}
+.stv-cta{margin-top:10px;align-self:flex-start;border:0;border-radius:999px;padding:13px 22px;min-height:46px;font:inherit;font-weight:700;font-size:16px;color:#1b1b22;background:#fff;box-shadow:0 8px 22px rgba(0,0,0,.28);cursor:pointer;animation:stvUp .5s .34s both}
+.stv-cta:active{transform:scale(.96)}
+.stv-bars{position:absolute;left:12px;right:12px;top:calc(10px + env(safe-area-inset-top));display:flex;gap:4px;z-index:3;pointer-events:none}
+.stv-bars i{flex:1;height:3.5px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}
+.stv-bars b{display:block;height:100%;background:#fff;transform:scaleX(0);transform-origin:left}
+.stv-head{position:absolute;left:14px;right:70px;top:calc(24px + env(safe-area-inset-top));display:flex;align-items:center;gap:10px;z-index:3;pointer-events:none;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.stv-av{width:34px;height:34px;border-radius:50%;padding:5px;background:rgba(255,255,255,.25);border:1.5px solid rgba(255,255,255,.7);display:grid;place-items:center}.stv-av svg{width:100%;height:100%}
+.stv-head b{font-size:15px}.stv-head small{opacity:.75;font-size:12.5px}
+.stv-x{position:absolute;right:8px;top:calc(18px + env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;border:0;background:rgba(0,0,0,.18);color:#fff;z-index:4;display:grid;place-items:center;cursor:pointer}
+.stv-x svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+.stv.hold .stv-bars,.stv.hold .stv-head,.stv.hold .stv-x{opacity:.0;transition:opacity .15s}
+@media (prefers-reduced-motion:reduce){.stv,.stv-slide,.stv-img,.stv-orb,.stv-art,.stv-k,.stv-big,.stv-t,.stv-row,.stv-cta{animation:none!important}}
+.stv h2,.stv .stv-big,.stv .stv-t,.stv .stv-k,.stv .stv-row b,.stv .stv-row span,.stv .stv-head b,.stv .stv-head small{color:#fff}
+.stv .stv-cta{color:#1b1b22;background:#fff}
+.stv-big{text-transform:none}
+/* Widgets M */
+.wx{display:flex;flex-direction:column;gap:12px;padding:16px;cursor:pointer;text-align:left}
+.wx.stack{gap:12px}
+.wxhead{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wx .wk{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--mute)}
+.wx .wv{font-size:22px;line-height:1.15}
+.wx .ws{color:var(--mute);font-size:13.5px;line-height:1.35}
+.wxstats{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+.wxs{display:flex;flex-direction:column;gap:2px;min-width:0}.wxs b{font-size:26px;line-height:1.05;letter-spacing:-.3px}.wxs small{color:var(--mute);font-size:12.5px}
+.wxs em{font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;width:max-content;margin-top:2px}.wxs em.up{background:color-mix(in srgb,#2f9e6a 18%,transparent);color:#237a52}.wxs em.down{background:color-mix(in srgb,#d98a2b 20%,transparent);color:#a9650f}
+:root[data-dark] .wxs em.up{color:#7fe0ae}:root[data-dark] .wxs em.down{color:#ffc27a}
+.wxspark{height:54px}.wxspark svg{width:100%;height:100%;display:block;overflow:visible}.wxspark .l{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}.wxspark .a{fill:color-mix(in srgb,var(--accent) 16%,transparent);stroke:none}.wxspark circle{fill:var(--accent);stroke:var(--card);stroke-width:2}
+.wxrow{display:flex;gap:8px;flex-wrap:wrap}
+.wxb{flex:1;min-height:44px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 50%,transparent);color:var(--accent);font:inherit;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
+.wxb.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.wxb:active{transform:scale(.97)}
+.wxnext{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--accent-bg)}
+.wxnext b{display:block;font-size:14.5px}.wxnext small{color:var(--mute);font-size:12.5px;display:block;margin-top:1px}
+.wxe{font-size:28px;line-height:1;width:34px;height:34px;display:inline-grid;place-items:center;flex:none}.wxe .ei,.wxe svg{width:100%;height:100%;display:block}
+.wxdots{display:flex;gap:6px}.wxdots i{flex:1;height:8px;border-radius:6px;background:color-mix(in srgb,var(--mute) 22%,transparent)}.wxdots i.on{background:var(--accent)}
+.wxppl{display:flex;gap:12px;overflow:hidden}
+.wxp{display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;flex:none}.wxp small{font-size:11.5px;max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--mute)}
+.wxav{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--g2))}
+.wxbday{flex-direction:row;align-items:center;gap:16px}
+.wxring{position:relative;width:96px;height:96px;flex:none;display:grid;place-items:center}.wxring svg{position:absolute;inset:0;width:100%;height:100%}.wxring .t{fill:none;stroke:color-mix(in srgb,var(--mute) 22%,transparent);stroke-width:8}.wxring .p{fill:none;stroke:var(--accent);stroke-width:8;stroke-linecap:round}
+.wxring b{font-size:26px;line-height:1;margin-top:-8px}.wxring small{position:absolute;bottom:22px;font-size:11px;color:var(--mute)}
+.wxkv{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.wxkv>div{display:flex;flex-direction:column;gap:2px;min-width:0}.wxkv small{font-size:11px;color:var(--mute)}.wxkv b{font-size:13.5px;line-height:1.2;overflow-wrap:anywhere}
+.wx3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.wx3>div{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}.wx3 b{font-size:14.5px}.wx3 small{font-size:11px;color:var(--mute)}.wx3 .wxe{width:40px;height:40px;font-size:32px}
+.wxsplit{display:flex;gap:3px;height:10px}.wxsplit i{border-radius:6px;min-width:6px}
+.wxlegend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--mute)}.wxlegend span{display:inline-flex;align-items:center;gap:6px}.wxlegend i{width:9px;height:9px;border-radius:50%}
+.wxsplit i.c0,.wxlegend i.c0{background:var(--accent)}.wxsplit i.c1,.wxlegend i.c1{background:var(--g2)}.wxsplit i.c2,.wxlegend i.c2{background:var(--g3)}.wxsplit i.c3,.wxlegend i.c3{background:var(--mute)}
+.wxq{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.wxqb{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 2px 8px;border-radius:16px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 55%,transparent);font:inherit;color:var(--ink);cursor:pointer;min-height:84px}
+.wxqb:active{transform:scale(.95)}.wxqb b{font-size:11.5px;text-align:center;line-height:1.1}.wxqb small{font-size:10.5px;color:var(--mute);min-height:12px}
+.wxqb .wxe{width:30px;height:30px;font-size:24px}
+.tab .tl{padding:0!important;margin:0!important;width:1px!important;height:1px!important}
 </style>
 </head>
 <body>
@@ -1854,7 +1976,7 @@ const lockScreen = (() => {
     },
     cancel() { const r = resolver; resolver = null; if (r) r(null); },
     done(v) { const r = resolver; resolver = null; if (r) r(v); },
-    hide() { root.hidden = true; val = ''; resolver = null; },
+    hide() { root.hidden = true; val = ''; resolver = null; if (!document.hidden) $('#privacy').hidden = true; },
     busy(on) { root.classList.toggle('busy', on); },
     setSub
   };
@@ -2009,21 +2131,24 @@ async function lockNow() {
   closeOverlays();
   S = null;
   $('#view').replaceChildren(); $('#tabbar').replaceChildren();
-  try { await unlockFlow(); await loadState(); render(); } finally { locking = false; }
+  try { await unlockFlow(); await loadState(); render(); } finally { locking = false; if (!document.hidden) $('#privacy').hidden = true; }
 }
-const autolockSec = () => { const v = parseInt(ls.get('luise_autolock'), 10); return Number.isFinite(v) ? v : 30; };
+const autolockSec = () => { const v = parseInt(ls.get('luise_autolock'), 10); return Number.isFinite(v) ? v : 900; };
 function onHidden() {
   $('#privacy').hidden = false;
   hiddenAt = Date.now();
+
   if (getLock() && autolockSec() === 0 && Date.now() >= suppressLockUntil) lockNow();
 }
 function onVisible() {
   if (!locking) $('#privacy').hidden = true;
+  setTimeout(() => { if (!document.hidden && $('#lock').hidden) $('#privacy').hidden = true; }, 1200);
   if (!getLock() || locking || Date.now() < suppressLockUntil) return;
   if (hiddenAt && Date.now() - hiddenAt >= autolockSec() * 1000) lockNow();
 }
 document.addEventListener('visibilitychange', () => document.hidden ? onHidden() : onVisible());
 window.addEventListener('pagehide', () => { $('#privacy').hidden = false; });
+$('#privacy').addEventListener('click', () => { if (!document.hidden && $('#lock').hidden) $('#privacy').hidden = true; });
 window.addEventListener('pageshow', () => { if (!document.hidden && !locking) $('#privacy').hidden = true; });
 
 /* ============ Overlays: Sheets ============ */
@@ -2031,7 +2156,7 @@ const blobUrls = new Set();
 const mkUrl = b => { const u = URL.createObjectURL(b); blobUrls.add(u); return u; };
 const rmUrl = u => { URL.revokeObjectURL(u); blobUrls.delete(u); };
 function closeOverlays() {
-  document.querySelectorAll('.back, .lb').forEach(b => b.remove());
+  document.querySelectorAll('.back, .lb, .stv').forEach(b => b.remove()); if (typeof storyCtl !== 'undefined' && storyCtl) { storyCtl.stop(); storyCtl = null; }
   blobUrls.forEach(u => URL.revokeObjectURL(u)); blobUrls.clear();
   viewer = null;
 }
@@ -2420,11 +2545,11 @@ function nextBirthday() {
 }
 function wHero() {
   const p = S.profile, name = [p.vorname, p.nachname].filter(Boolean).join(' '), nextT = nextTerminObj();
-  return h('div', { class: 'hero2' },
+  return h('div', { class: 'hero2' }, petBadge(),
     h('button', { class: 'editbtn', 'aria-label': 'Profil bearbeiten', onclick: editProfile, html: ICON.edit }),
     h('button', { class: 'editbtn searchbtn', 'aria-label': 'Suche', onclick: () => go('search'), html: ICON.search }),
     h('div', { class: 'top' }, avatar(p, 76), h('div', null, h('h1', null, name || 'Neues Profil'),
-      p.geburtsdatum ? h('p', null, `${ageText(p.geburtsdatum)} · geb. ${fmtD(p.geburtsdatum)}`) : h('p', null, name ? 'Geburtsdatum fehlt noch' : 'Tippe auf den Stift, um das Profil anzulegen'))),
+      p.geburtsdatum ? h('p', null, `${ageText(p.geburtsdatum)} · geb. ${fmtD(p.geburtsdatum)}`) : h('p', null, name ? 'Geburtsdatum fehlt noch' : 'Tippe auf den Stift, um das Profil anzulegen'), titleChip())),
     h('div', { class: 'stats' },
       h('div', { class: 'stat' }, h('b', null, S.docs.length), 'Dokumente'),
       h('div', { class: 'stat' }, h('b', null, S.photos.length), 'Fotos'),
@@ -2648,6 +2773,7 @@ function viewHome() {
   const wrap = h('div', { class: 'stack' }), ks = kidSwitcher();
   wrap.append(greetCard());
   if (ks && !famMode()) wrap.append(ks);
+  if (!homeEdit && !famMode()) { const sr = storyRow(); if (sr) wrap.append(sr); }
   const fw = famWelcomeCard(); if (fw) wrap.append(fw);
   const fa = famAskCard(); if (fa) wrap.append(fa);
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
@@ -3125,7 +3251,7 @@ const badgeSub = () => { const a = evalBadges(), st = badgeStats(a); return `Lev
 function confetti() {
   Haptic.fire('success');
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const box = h('div', { class: 'confetti' }), em = ['🎉', '⭐', '✨', '🎈', '💛', '🌈'];
+  const box = h('div', { class: 'confetti' }), em = confettiSet();
   for (let i = 0; i < 26; i++) box.append(h('span', { style: `left:${Math.round(Math.random() * 100)}%;animation-delay:${(Math.random() * 0.6).toFixed(2)}s;animation-duration:${(1.6 + Math.random() * 1.4).toFixed(2)}s;font-size:${Math.round(16 + Math.random() * 16)}px` }, em[i % em.length]));
   document.body.append(box); setTimeout(() => box.remove(), 3800);
 }
@@ -4559,7 +4685,7 @@ function viewMore() {
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
     hubRow(ICON.trophy, 'Abzeichen', 'Level, Quiz und Auszeichnungen', 'badges'),
-    li(() => go('coins'), '', h('span', { class: 'hubico emo' }, '🪙'), liTxt('Coin-Welt', `${coinBalance()} Coins · Verdienen, Laden, Wünsche`), chev()));
+    li(() => go('coins'), '', h('span', { class: 'hubico emo' }, '🪙'), liTxt('Coin-Welt', `${coinBalance()} Coins · Spielen, Verdienen, Laden`), chev()));
   grp('Entdecken', 'gC',
     hubRow(ICON.star, 'Human Design', 'Chart aus Geburtsdatum und Geburtszeit', 'hd'),
     hubRow(ICON.moon, 'Spirituelles', 'Sternzeichen, Numerologie, Tierzeichen', 'spirit'),
@@ -4580,6 +4706,7 @@ function viewSettings() {
   wrap.append(designCard());
   wrap.append(iconCard());
   wrap.append(notifCard());
+  wrap.append(storyCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
@@ -4593,7 +4720,7 @@ function viewSettings() {
     lock ? h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: lockNow }, 'Jetzt sperren'), h('button', { class: 'btn ghost', onclick: changeLock }, 'Code ändern')) : h('button', { class: 'btn wide', onclick: changeLock }, 'Code festlegen'),
     lock ? h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Automatisch sperren'),
       h('select', { onchange: e => { ls.set('luise_autolock', e.target.value); toast('Gespeichert'); } },
-        [['0', 'Sofort beim Verlassen'], ['30', 'Nach 30 Sekunden'], ['300', 'Nach 5 Minuten']].map(([v, l]) => h('option', { value: v, selected: String(autolockSec()) === v }, l)))) : null,
+        [['0', 'Sofort beim Verlassen'], ['30', 'Nach 30 Sekunden'], ['60', 'Nach 1 Minute'], ['300', 'Nach 5 Minuten'], ['900', 'Nach 15 Minuten (Standard)'], ['1800', 'Nach 30 Minuten']].map(([v, l]) => h('option', { value: v, selected: String(autolockSec()) === v }, l)))) : null,
     lock ? fidRow() : null,
     lock ? h('button', { class: 'linkbtn', onclick: removeLock }, 'Code entfernen') : null));
   wrap.append(sectionHead('Datensicherung'));
@@ -4628,7 +4755,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 32'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 33'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5173,7 +5300,8 @@ async function quickMood(m) {
   notesAll().push({ id: uid(), datum: isoToday(), zeit: nowTime(), stimmung: m, kategorie: 'Allgemein', text: '' });
   await persist('profile'); coinEarn('diary'); toast('Stimmung gespeichert'); render();
 }
-const noteTitle = n => n.text ? n.text.split('\n')[0].slice(0, 80) : (n.temp ? 'Temperatur ' + n.temp.replace('.', ',') + ' °C' : (n.stimmung ? n.stimmung.replace(/^\S+\s/, '') : 'Notiz'));
+const clipWords = (s, n) => { s = String(s || ''); if (s.length <= n) return s; const c = s.slice(0, n), k = c.lastIndexOf(' '); return (k > n * 0.5 ? c.slice(0, k) : c).replace(/[\s,;:.\-–]+$/, '') + ' …'; };
+const noteTitle = n => n.text ? clipWords(n.text.split('\n')[0], 80) : (n.temp ? 'Temperatur ' + n.temp.replace('.', ',') + ' °C' : (n.stimmung ? n.stimmung.replace(/^\S+\s/, '') : 'Notiz'));
 function noteRow(n) {
   const t = num(n.temp), hot = t != null && t >= 38;
   return li(() => editNote(n), '', h('span', { class: 'hubico emo' }, moodEmoji(n.stimmung) || '📝'),
@@ -5453,7 +5581,7 @@ function openMoment(m) {
 
 /* ============ Widget-Vorlagen ============ */
 const WIDGET_TEMPLATES = [
-  ['Alltag', 'Uhr, Schnellzugriff, Termine, Tagesnotiz und Hinweise', ['hero', 'clock', 'quick', 'termine', 'diary', 'alerts', 'week', 'kontakte']],
+  ['Alltag', 'Uhr, Schnellzugriff, Termine, Tagesnotiz und Hinweise', ['hero', 'clock', 'quick', 'tracker', 'termine', 'diary', 'alerts', 'week', 'kontakte']],
   ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'erinnerung', 'bday', 'family', 'journey', 'photo', 'zodiac', 'rueckblick', 'kontakte']],
   ['Kompakt', 'Nur das Wichtigste', ['hero', 'clock', 'quick', 'chat']],
   ['Alles', 'Alle Widgets, nach Themen sortiert', Object.keys(WIDGETS)]
@@ -5674,7 +5802,7 @@ function localAnswer(question) {
       const u = upcoming()[0]; if (u) L.push(`Nächster Termin: ${u.t.titel}, ${wd(u.d)}, ${rel(u.d)}.`);
       const f = autoDeadlines()[0]; if (f) L.push(`Wichtig: ${f.title}, ${f.status}.`);
       const w = wl().pop(); if (w) L.push(`Letzte Messung (${fmtD(w.datum)}): ${[w.groesse && w.groesse + ' cm', w.gewicht && w.gewicht + ' kg'].filter(Boolean).join(', ')}.`);
-      const n = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')))[0]; if (n) L.push(`Letzte Notiz (${fmtD(n.datum)}): ${noteTitle(n)}.`);
+      const n = notesAll().slice().sort((a, b) => (b.datum + (b.zeit || '')).localeCompare(a.datum + (a.zeit || '')))[0]; if (n) L.push(`Letzte Notiz (${fmtD(n.datum)}): ${noteTitle(n)}${/…$/.test(noteTitle(n)) ? '' : '.'}`);
       return R(L.length ? bullets(L) : 'Es sind noch kaum Daten vorhanden.');
     }
   }
@@ -5803,16 +5931,16 @@ function mdNodes(text) {
 }
 function viewChat() {
   const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg();
-  wrap.append(backBtn('Übersicht', () => go('home')));
-  wrap.append(pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')));
-  wrap.append(h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos')));
+  wrap.append(h('div', { class: 'chat-head' }, backBtn('Übersicht', () => go('home')),
+    pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')),
+    h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos'))));
   let msgs = chatLoad();
   const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
   const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></svg>' }), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
   const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') },
     m.role === 'user' ? m.text : (m.progress != null ? h('span', null, 'Modell wird geladen … ' + Math.round(m.progress * 100) + ' %', h('span', { class: 'pbar' }, h('i', { style: 'width:' + Math.round(m.progress * 100) + '%' }))) : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…'))),
     m.actions && m.actions.length ? h('div', { class: 'macts' }, m.actions.map(([l, f]) => h('button', { class: 'fchip', type: 'button', onclick: f }, l))) : null);
-  const scroll = () => { const v = $('#view'); v.scrollTop = v.scrollHeight; };
+  const scroll = () => { const v = $('#view'), last = list.lastElementChild; if (last && last.classList.contains('ai') && last.offsetHeight > v.clientHeight * 0.5) last.scrollIntoView({ block: 'start' }); else v.scrollTop = v.scrollHeight; };
   const draw = () => { list.replaceChildren(...msgs.map(bubble)); sug.style.display = msgs.length ? 'none' : ''; };
   AI_SUGGEST.forEach(q => sug.append(h('button', { class: 'fchip', type: 'button', onclick: () => ask(q) }, q)));
   async function ask(q) {
@@ -7079,7 +7207,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 32;
+const APP_VERSION = 33;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7169,9 +7297,9 @@ function render() {
   v.scrollTop = keep;
   try { if (uDraw) uDraw(); } catch (e) { console.error(e); }
   setTimeout(announceBadges, 700);
-  $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, 'data-tab': t.id, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
+  $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, 'data-tab': t.id, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', { class: 'tl' }, t.label))));
 }
-/* ============ Coin-Welt: Verdienen, Laden, Wünsche ============ */
+/* ============ Coin-Welt: Verdienen, Spielen, Laden ============ */
 const COIN_START = 1, COIN_STREAK_BONUS = 10;
 const COIN_RULES = {
   diary:    { n: 3, cap: 1, label: 'Tagesnotiz geschrieben', emoji: '📓', go: () => go('diary') },
@@ -7181,7 +7309,7 @@ const COIN_RULES = {
   fav:      { n: 1, cap: 3, label: 'Foto als Favorit markiert', emoji: '💗', go: () => go('photos') },
   vidwatch: { n: 1, cap: 3, label: 'Video angesehen', emoji: '▶️', go: () => openVideoFeed('alle') }
 };
-const COIN_SHOP = [
+let COIN_SHOP = [
   { id: 'bg_sunset', kind: 'bg', name: 'Abendrot', emoji: '🌅', cost: 25, v: ['#ff8a65', '#ffb74d', '#f06292', '#ff7043'] },
   { id: 'bg_ocean', kind: 'bg', name: 'Ozean', emoji: '🌊', cost: 25, v: ['#26c6da', '#4fc3f7', '#7e9bff', '#26a69a'] },
   { id: 'bg_forest', kind: 'bg', name: 'Waldlicht', emoji: '🌲', cost: 25, v: ['#66bb6a', '#d4e157', '#26a69a', '#9ccc65'] },
@@ -7215,7 +7343,7 @@ function coinStreakNow() {
 async function coinEarn(key, times, quiet) {
   const r = COIN_RULES[key]; if (!r || !S) return 0;
   const c = coinData(), td = coinToday(c); let gain = 0;
-  for (let i = 0; i < (times || 1); i++) { if ((td.k[key] || 0) >= r.cap) break; td.k[key] = (td.k[key] || 0) + 1; gain += r.n; }
+  for (let i = 0; i < (times || 1); i++) { if ((td.k[key] || 0) >= r.cap) break; td.k[key] = (td.k[key] || 0) + 1; gain += r.n * (c.boost === isoToday() ? 2 : 1); }
   if (!gain) return 0;
   c.total += gain; coinLog(c, gain, r.label); await persist('profile');
   if (!quiet) setTimeout(() => toast(`+${gain} 🪙 ${r.label}`), 1100);
@@ -7228,15 +7356,6 @@ async function coinStart() {
   c.total += COIN_START + bonus; coinLog(c, COIN_START, 'Tagesbonus'); if (bonus) coinLog(c, bonus, c.streak + ' Tage in Folge');
   await persist('profile'); if (bonus) confetti(); toast(`+${COIN_START + bonus} 🪙 Tagesbonus · ${c.streak} ${c.streak === 1 ? 'Tag' : 'Tage'} in Folge`); render();
 }
-async function coinBuy(it) {
-  const c = coinData();
-  if (c.own.includes(it.id)) return;
-  if (coinBalance() < it.cost) { toast(`Dir fehlen noch ${it.cost - coinBalance()} Coins`); return; }
-  c.spent += it.cost; c.own.push(it.id); coinLog(c, -it.cost, it.name);
-  if (it.kind === 'bg') c.bgw = it.id; else c.frame = it.id;
-  await persist('profile'); applyBgw(); confetti(); toast(`${it.name} freigeschaltet`); render();
-}
-async function coinEquip(kind, id) { const c = coinData(); if (kind === 'bg') c.bgw = id; else c.frame = id; await persist('profile'); applyBgw(); render(); }
 function applyBgw() {
   const r = document.documentElement; let it = null;
   try { if (S) it = coinShopItem(coinData().bgw); } catch (e) {}
@@ -7274,7 +7393,7 @@ function viewCoins() {
     h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, '🔥 ' + st), 'Serie'), h('div', { class: 'stat' }, h('b', null, c.best), 'Rekord'), h('div', { class: 'stat' }, h('b', null, c.own.length), 'Extras'))));
   wrap.append(h('button', { class: 'btn wide coinstart' + (done ? ' ghost' : ''), type: 'button', disabled: done ? true : null, onclick: coinStart },
     done ? 'Tagesbonus heute abgeholt ✓' : `Tagesbonus abholen (+${COIN_START}${(st + 1) % 7 === 0 ? ` und +${COIN_STREAK_BONUS} Serienbonus` : ''})`));
-  wrap.append(h('div', { class: 'chips' }, [['earn', 'Verdienen'], ['play', 'Spiele'], ['shop', 'Laden'], ['wish', 'Wünsche'], ['log', 'Verlauf']].map(([id, l]) => h('button', { class: 'fchip' + (coinSeg === id ? ' on' : ''), 'data-seg': id, type: 'button', onclick: () => { coinSeg = id; render(); } }, l))));
+  wrap.append(h('div', { class: 'chips' }, [['earn', 'Verdienen'], ['play', 'Spiele'], ['shop', 'Laden'], ['log', 'Verlauf']].map(([id, l]) => h('button', { class: 'fchip' + (coinSeg === id ? ' on' : ''), 'data-seg': id, type: 'button', onclick: () => { coinSeg = id; render(); } }, l))));
   if (coinSeg === 'play') {
     ltHub(wrap);
   } else if (coinSeg === 'earn') {
@@ -7286,29 +7405,7 @@ function viewCoins() {
         return li(r.go, '', h('span', { class: 'hubico emo' }, r.emoji), liTxt(r.label, `+${r.n} 🪙 · bis zu ${r.cap}× am Tag`), h('span', { class: 'cprog' + (full ? ' ok' : '') }, full ? '✓' : `${n}/${r.cap}`)); })));
     wrap.append(h('p', { class: 'fine' }, 'Alles zählt nur in dieser App. Die Coins haben keinen Geldwert und die Tageslimits fangen jeden Morgen neu an.'));
   } else if (coinSeg === 'shop') {
-    const grp = (title, kind) => {
-      wrap.append(sectionHead(title));
-      const grid = h('div', { class: 'shopgrid' });
-      const none = { id: '', kind, name: 'Standard', emoji: '⚪', cost: 0 };
-      [none].concat(COIN_SHOP.filter(x => x.kind === kind)).forEach(it => {
-        const owned = !it.id || c.own.includes(it.id), on = (kind === 'bg' ? c.bgw : c.frame) === it.id, can = bal >= it.cost;
-        const prev = kind === 'bg'
-          ? h('span', { class: 'shopprev bg', style: it.v ? `background:radial-gradient(70% 70% at 15% 10%,${it.v[0]},transparent 70%),radial-gradient(70% 70% at 90% 30%,${it.v[2]},transparent 70%),radial-gradient(80% 80% at 30% 100%,${it.v[1]},transparent 70%),#2a2a32` : '' }, it.id ? '' : '⚪')
-          : h('span', { class: 'shopprev' }, avPreview(it.id ? ' ' + it.id.replace('_', '-') : ''));
-        grid.append(h('button', { class: 'shopcard' + (on ? ' on' : '') + (owned || can ? '' : ' lock'), type: 'button', 'data-id': it.id || (kind + '_none'),
-          onclick: () => { if (owned) coinEquip(kind, it.id); else coinBuy(it); } },
-          prev, h('b', null, it.emoji + ' ' + it.name), h('small', null, on ? 'Aktiv' : owned ? 'Anwenden' : `${it.cost} 🪙${can ? '' : ' · zu wenig'}`)));
-      });
-      wrap.append(grid);
-    };
-    grp('Hintergrundwelten', 'bg'); grp('Profilrahmen', 'fr');
-    wrap.append(h('p', { class: 'fine' }, 'Hintergründe färben das Glas-Design der ganzen App. Rahmen erscheinen um das Profilfoto.'));
-  } else if (coinSeg === 'wish') {
-    wrap.append(h('div', { class: 'card stack' }, h('b', null, 'Eigene Belohnungen'), h('small', { class: 'mute' }, 'Lege selbst fest, wofür sich das Sparen lohnt, zum Beispiel einen Ausflug oder einen Kuschelabend. Löst du etwas ein, werden die Coins abgezogen.')));
-    wrap.append(c.rewards.length ? h('div', { class: 'card coinrows' }, c.rewards.map(w => li(() => editReward(w), '', h('span', { class: 'hubico emo' }, '🎁'), liTxt(w.name, `${w.cost} 🪙`),
-      h('button', { class: 'pill' + (bal >= w.cost ? '' : ' ghost'), type: 'button', onclick: e => { e.stopPropagation(); redeemReward(w); } }, bal >= w.cost ? 'Einlösen' : `Noch ${w.cost - bal}`)))) : h('p', { class: 'empty' }, 'Noch keine Wünsche eingetragen.'));
-    wrap.append(h('button', { class: 'btn wide', type: 'button', onclick: () => editReward(null) }, 'Wunsch hinzufügen'));
-    if (c.redeemed.length) { wrap.append(sectionHead('Schon eingelöst')); wrap.append(h('div', { class: 'card' }, c.redeemed.map(r => kv(r.name, `${fmtD(r.d)} · ${r.cost} 🪙`)))); }
+    shopView(wrap, c, bal);
   } else {
     wrap.append(c.ledger.length ? h('div', { class: 'card' }, c.ledger.map(r => kv(r.t, `${fmtD(r.d)} · ${r.n > 0 ? '+' : ''}${r.n} 🪙`))) : h('p', { class: 'empty' }, 'Noch nichts passiert. Hol dir den Tagesbonus oder spiele eine Quiz-Runde.'));
   }
@@ -10020,7 +10117,7 @@ function ltStore() { const c = coinData(); c.games = c.games || {}; return c.gam
 function ltCount(id) { return coinToday(coinData()).k['g_' + id] || 0; }
 async function ltPay(id, coins, label) {
   if (!(coins > 0) || ltCount(id) >= LT_CAP) return 0;
-  const c = coinData(), td = coinToday(c); td.k['g_' + id] = (td.k['g_' + id] || 0) + 1; c.total += coins; coinLog(c, coins, label); await persist('profile'); return coins;
+  const c = coinData(), td = coinToday(c); td.k['g_' + id] = (td.k['g_' + id] || 0) + 1; coins *= (c.boost === isoToday() ? 2 : 1); c.total += coins; coinLog(c, coins, label); await persist('profile'); return coins;
 }
 const ltStars = n => '<span class="lt-stars">' + [1, 2, 3].map(i => `<svg viewBox="0 0 24 24" class="${i <= n ? 'on' : ''}"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.2 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>`).join('') + '</span>';
 function ltBanner(sub) {
@@ -10437,6 +10534,396 @@ function viewTrackSleep() {
     h('p', { class: 'fine' }, 'Alle Werte sind Richtwerte und kein Ersatz für ärztlichen Rat. Sicherer Schlaf: Rückenlage, feste Matratze, keine Kissen, Decken oder Kuscheltiere im Bett. Erinnerungen bei geschlossener App legst du in den Kalender oder schaltest sie unter Einstellungen, Benachrichtigungen ein.')));
   return wrap;
 }
+/* ============ v33: Laden erweitert (Welten, Rahmen, Begleiter, Titel, Konfetti, Glückstag) ============ */
+const COIN_FIELD = { bg: 'bgw', fr: 'frame', cf: 'conf', pet: 'pet', ti: 'title' };
+const coinSet = (c, kind, id) => { if (COIN_FIELD[kind]) c[COIN_FIELD[kind]] = id; };
+const coinGet = (c, kind) => (COIN_FIELD[kind] && c[COIN_FIELD[kind]]) || '';
+COIN_SHOP = COIN_SHOP.concat([
+  { id: 'bg_rainbow', kind: 'bg', name: 'Regenbogen', emoji: '🌈', cost: 30, v: ['#ff8a80', '#ffd180', '#80d8ff', '#b388ff'] },
+  { id: 'bg_cloud', kind: 'bg', name: 'Wolkentraum', emoji: '☁️', cost: 25, v: ['#90caf9', '#e1bee7', '#b3e5fc', '#f8bbd0'] },
+  { id: 'bg_sun', kind: 'bg', name: 'Sonnenschein', emoji: '☀️', cost: 25, v: ['#ffd54f', '#ffb74d', '#fff176', '#ff8a65'] },
+  { id: 'bg_moon', kind: 'bg', name: 'Mondlicht', emoji: '🌙', cost: 35, v: ['#3f51b5', '#7986cb', '#9fa8da', '#5c6bc0'] },
+  { id: 'bg_shoot', kind: 'bg', name: 'Sternschnuppe', emoji: '🌠', cost: 40, v: ['#7e57c2', '#26c6da', '#ec407a', '#5c6bc0'] },
+  { id: 'fr_leaf', kind: 'fr', name: 'Blätterkranz', emoji: '🌿', cost: 25 },
+  { id: 'fr_sun', kind: 'fr', name: 'Sonnenkranz', emoji: '🌞', cost: 30 },
+  { id: 'fr_cloud', kind: 'fr', name: 'Wolkenrand', emoji: '☁️', cost: 20 },
+  { id: 'pet_fox', kind: 'pet', name: 'Fuchs', art: 'fox', cost: 35 },
+  { id: 'pet_owl', kind: 'pet', name: 'Eule', art: 'owl', cost: 35 },
+  { id: 'pet_bee', kind: 'pet', name: 'Biene', art: 'bee', cost: 35 },
+  { id: 'pet_hog', kind: 'pet', name: 'Igel', art: 'hog', cost: 35 },
+  { id: 'pet_teddy', kind: 'pet', name: 'Teddy', ic: 'teddy', cost: 40 },
+  { id: 'pet_chick', kind: 'pet', name: 'Küken', ic: 'chick', cost: 40 },
+  { id: 'ti_sun', kind: 'ti', name: 'Sonnenschein', cost: 15 },
+  { id: 'ti_whirl', kind: 'ti', name: 'Wirbelwind', cost: 15 },
+  { id: 'ti_sleep', kind: 'ti', name: 'Schlafmütze', cost: 15 },
+  { id: 'ti_cuddle', kind: 'ti', name: 'Kuschelprofi', cost: 20 },
+  { id: 'ti_star', kind: 'ti', name: 'Sternenfänger', cost: 25 },
+  { id: 'ti_love', kind: 'ti', name: 'Lieblingsmensch', cost: 30 },
+  { id: 'cf_hearts', kind: 'cf', name: 'Herzregen', set: ['💗', '💖', '💓', '❤️'], cost: 15 },
+  { id: 'cf_stars', kind: 'cf', name: 'Sternenhagel', set: ['⭐', '🌟', '✨', '💫'], cost: 15 },
+  { id: 'cf_gold', kind: 'cf', name: 'Goldregen', set: ['🪙', '🥇', '🏅', '✨'], cost: 20 },
+  { id: 'cf_baby', kind: 'cf', name: 'Babyparty', set: ['🍼', '🧸', '👶', '🐣', '👣'], cost: 20 },
+  { id: 'bo_double', kind: 'bo', name: 'Glückstag', art: 'clover', cost: 30, once: true }
+]);
+const SHOP_KINDS = [['bg', 'Welten', 'Hintergrundwelten', 'Sie färben das Glas-Design der ganzen App.'], ['fr', 'Rahmen', 'Profilrahmen', 'Der Rahmen erscheint um das Profilfoto.'],
+  ['pet', 'Begleiter', 'Begleiter', 'Dein Begleiter sitzt neben dem Namen auf der Profilkarte.'], ['ti', 'Titel', 'Titel', 'Der Titel steht unter dem Namen.'],
+  ['cf', 'Konfetti', 'Konfetti-Stile', 'So sieht der Regen aus, wenn etwas gefeiert wird.'], ['bo', 'Glückstag', 'Glückstag', 'Einmal kaufen, heute doppelte Coins für Fotos, Notizen, Journey, Videos und Spiele.']];
+let shopSeg = 'all';
+const coinBoostOn = () => { try { return coinData().boost === isoToday(); } catch (e) { return false; } };
+function coinDeal() {
+  const c = coinData(), pool = COIN_SHOP.filter(x => x.kind !== 'bo' && !c.own.includes(x.id)); if (!pool.length) return null;
+  const dn = Math.floor(new Date(isoToday() + 'T12:00:00').getTime() / 864e5), it = pool[dn % pool.length];
+  return { it, price: Math.max(1, Math.round(it.cost * 0.8)) };
+}
+function coinPrice(it) { const d = coinDeal(); return d && d.it.id === it.id ? d.price : it.cost; }
+(function () { const base = coinData; coinData = function () { const c = base(); c.conf = c.conf || ''; c.pet = c.pet || ''; c.title = c.title || ''; c.boost = c.boost || ''; return c; }; })();
+const CONF_DEF = ['🎉', '⭐', '✨', '🎈', '💛', '🌈'];
+function confettiSet() { try { const f = S && coinData().conf, it = f && coinShopItem(f); return it && it.set ? it.set : CONF_DEF; } catch (e) { return CONF_DEF; } }
+function itemArt(it, sz) {
+  if (!it) return '';
+  if (it.art) return LTI.svg(it.art);
+  if (it.ic) return IC.svg(it.ic);
+  return '';
+}
+function petBadge() {
+  try { const it = S && coinShopItem(coinData().pet); return it && it.kind === 'pet' ? h('span', { class: 'petb', title: it.name, 'aria-label': 'Begleiter ' + it.name, html: itemArt(it) }) : null; } catch (e) { return null; }
+}
+function titleChip() {
+  try { const it = S && coinShopItem(coinData().title); return it && it.kind === 'ti' ? h('span', { class: 'titlechip' }, it.name) : null; } catch (e) { return null; }
+}
+async function coinBuy(it) {
+  const c = coinData(), cost = coinPrice(it);
+  if (it.kind === 'bo') {
+    if (c.boost === isoToday()) { toast('Der Glückstag läuft schon'); return; }
+    if (coinBalance() < cost) { toast(`Dir fehlen noch ${cost - coinBalance()} Coins`); return; }
+    c.spent += cost; c.boost = isoToday(); coinLog(c, -cost, it.name); await persist('profile'); confetti(); toast('Glückstag aktiv: heute doppelte Coins'); render(); return;
+  }
+  if (c.own.includes(it.id)) return;
+  if (coinBalance() < cost) { toast(`Dir fehlen noch ${cost - coinBalance()} Coins`); return; }
+  c.spent += cost; c.own.push(it.id); coinLog(c, -cost, it.name); coinSet(c, it.kind, it.id);
+  await persist('profile'); applyBgw(); confetti(); toast(`${it.name} freigeschaltet`); render();
+}
+async function coinEquip(kind, id) { const c = coinData(); coinSet(c, kind, id); await persist('profile'); applyBgw(); render(); }
+function shopView(wrap, c, bal) {
+  const nm = S.profile.vorname || 'Luise';
+  const look = h('div', { class: 'card shoplook' },
+    h('div', { class: 'sl-av' }, avPreview(coinFrameCls()), petBadge()),
+    h('div', { class: 'sl-tx' }, h('small', { class: 'mute' }, 'Dein Look'), h('b', null, nm), titleChip() || h('span', { class: 'mute small' }, 'Noch kein Titel')),
+    h('button', { class: 'pill ghost', type: 'button', 'data-act': 'conf-test', onclick: () => confetti() }, 'Konfetti'));
+  wrap.append(look);
+  const deal = coinDeal();
+  if (deal && (shopSeg === 'all')) {
+    const it = deal.it, has = bal >= deal.price;
+    wrap.append(h('button', { class: 'card shopdeal', type: 'button', 'data-act': 'deal', onclick: () => coinBuy(it) },
+      h('span', { class: 'sd-tag' }, 'Tagesangebot'), h('b', null, (it.emoji ? it.emoji + ' ' : '') + it.name), h('small', null, SHOP_KINDS.find(k => k[0] === it.kind)[1] + ' · heute ', h('s', null, String(it.cost)), ' ' + deal.price + ' 🪙' + (has ? '' : ' · zu wenig'))));
+  }
+  wrap.append(h('div', { class: 'chips shopchips' }, [['all', 'Alle']].concat(SHOP_KINDS.map(k => [k[0], k[1]])).map(([id, l]) => h('button', { class: 'fchip' + (shopSeg === id ? ' on' : ''), type: 'button', 'data-shop': id, onclick: () => { shopSeg = id; render(); } }, l))));
+  SHOP_KINDS.filter(k => shopSeg === 'all' || shopSeg === k[0]).forEach(([kind, , title, hint]) => {
+    wrap.append(sectionHead(title));
+    const grid = h('div', { class: 'shopgrid' }), act = coinGet(c, kind);
+    const list = (['bg', 'fr', 'pet', 'ti', 'cf'].includes(kind) ? [{ id: '', kind, name: kind === 'pet' || kind === 'ti' ? 'Keiner' : kind === 'cf' ? 'Standard' : 'Standard', emoji: '', cost: 0, none: true }] : []).concat(COIN_SHOP.filter(x => x.kind === kind));
+    list.forEach(it => {
+      const price = coinPrice(it), boost = it.kind === 'bo', owned = !it.id || c.own.includes(it.id), on = boost ? coinBoostOn() : act === it.id, can = bal >= price;
+      let prev;
+      if (kind === 'bg') prev = h('span', { class: 'shopprev bg', style: it.v ? `background:radial-gradient(70% 70% at 15% 10%,${it.v[0]},transparent 70%),radial-gradient(70% 70% at 90% 30%,${it.v[2]},transparent 70%),radial-gradient(80% 80% at 30% 100%,${it.v[1]},transparent 70%),#2a2a32` : '' }, it.id ? '' : '–');
+      else if (kind === 'fr') prev = h('span', { class: 'shopprev' }, avPreview(it.id ? ' ' + it.id.replace('_', '-') : ''));
+      else if (kind === 'pet') prev = h('span', { class: 'shopprev art', html: it.none ? '<i class="none">–</i>' : itemArt(it) });
+      else if (kind === 'ti') prev = h('span', { class: 'shopprev' }, it.none ? h('i', { class: 'none' }, '–') : h('span', { class: 'titlechip' }, it.name));
+      else if (kind === 'cf') prev = h('span', { class: 'shopprev conf' }, (it.set || CONF_DEF).slice(0, 4).join(' '));
+      else prev = h('span', { class: 'shopprev art', html: itemArt(it) });
+      const sub = boost ? (on ? 'Heute aktiv' : `${price} 🪙${can ? '' : ' · zu wenig'}`) : on ? 'Aktiv' : owned ? 'Anwenden' : `${price < it.cost ? it.cost + ' → ' : ''}${price} 🪙${can ? '' : ' · zu wenig'}`;
+      grid.append(h('button', { class: 'shopcard' + (on ? ' on' : '') + (owned || can ? '' : ' lock'), type: 'button', 'data-id': it.id || (kind + '_none'), 'data-kind': kind,
+        onclick: () => { if (boost) coinBuy(it); else if (owned) coinEquip(kind, it.id); else coinBuy(it); } },
+        prev, h('b', null, (it.emoji ? it.emoji + ' ' : '') + it.name), h('small', null, sub)));
+    });
+    wrap.append(grid, h('p', { class: 'fine' }, hint));
+  });
+}
+/* ============ v33: Stories aus den aktuellen Themen ============ */
+const STORY_PAL = [['--g1', '--g3'], ['--g2', '--g1'], ['--g3', '--g2'], ['--accent', '--g3'], ['--g1', '--accent'], ['--g2', '--g3'], ['--g3', '--g1'], ['--accent', '--g2']];
+const storyOn = () => ls.get('luise_stories') !== '0';
+const storySeen = () => { try { const o = JSON.parse(ls.get('luise_story_seen') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } };
+function storyMark(id, sig) { const o = storySeen(); o[id] = sig; const k = Object.keys(o); if (k.length > 40) delete o[k[0]]; ls.set('luise_story_seen', JSON.stringify(o)); }
+function storyHash(str) { let n = 7; for (let i = 0; i < str.length; i++) n = (n * 31 + str.charCodeAt(i)) >>> 0; return n.toString(36); }
+const storyClip = (s, n) => { s = String(s || ''); return s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, '') + ' …'; };
+function storyBuild() {
+  const p = S.profile, out = [], today = isoToday(), nm = (p.vorname || '').trim() || 'Dein Kind', hr = new Date().getHours();
+  const add = (id, label, art, slides) => {
+    slides = slides.filter(Boolean); if (!slides.length) return;
+    out.push({ id, label, art, slides, sig: today + ':' + storyHash(JSON.stringify(slides.map(s => [s.kicker, s.big, s.text, s.rows, s.pid])))});
+  };
+  const wk = p.geburtsdatum ? curWeek(p.geburtsdatum) : 0, hasWk = wk >= 1 && wk <= 940;
+  // Heute
+  { const dt = new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' }), rows = [];
+    S.school.termine.forEach(t => { const d = nextOcc(t); if (!d) return; const n = daysTo(d); if (n >= 0 && n <= 7) rows.push({ n, z: t.zeit || '', r: [t.titel, (n === 0 ? 'Heute' : n === 1 ? 'Morgen' : wd(d)) + (t.zeit ? ' · ' + t.zeit + ' Uhr' : '')] }); });
+    autoDeadlines().forEach(x => { if (!x.date) return; const n = daysTo(x.date); if (n >= -3 && n <= 14 && x.lvl !== 'info') rows.push({ n, z: '99', r: [x.title, x.status || x.sub || ''] }); });
+    rows.sort((a, b) => a.n - b.n || a.z.localeCompare(b.z));
+    add('today', 'Heute', hr < 18 ? 'sun' : 'moon', [
+      { k: 'hero', art: hr < 18 ? 'sun' : 'moon', kicker: dt, big: hr < 11 ? 'Guten Morgen' : hr < 18 ? 'Guten Tag' : 'Guten Abend', text: p.geburtsdatum ? `${nm} ist ${ageText(p.geburtsdatum)} alt${hasWk ? ' und in Lebenswoche ' + wk : ''}.` : 'Schön, dass du da bist.' },
+      rows.length ? { k: 'list', kicker: 'Heute und bald', big: rows.length === 1 ? '1 Sache steht an' : rows.length + ' Dinge stehen an', rows: rows.slice(0, 4).map(x => x.r), cta: { label: 'Alle Termine und Fristen', fn: () => go('dates') } } : null]);
+  }
+  // Lebenswoche und Vorsorge
+  if (hasWk) {
+    const wi = weekInfo(wk), nu = (() => { try { return newsNextU(); } catch (e) { return null; } })(), parts = wi.text.length > 230 ? [storyClip(wi.text, 200), wi.text.slice(storyClip(wi.text, 200).replace(/ …$/, '').length).trim()] : [wi.text];
+    add('week', 'Woche ' + wk, 'sparkle', [
+      { k: 'hero', art: 'sparkle', kicker: 'Lebenswoche ' + wk, big: wi.title, text: parts[0] },
+      parts[1] ? { k: 'hero', art: 'sparkle', kicker: 'Lebenswoche ' + wk, big: 'Gut zu wissen', text: storyClip(parts[1], 260), cta: { label: 'Wochen-Begleiter', fn: () => { weekSel = null; go('weeks'); } } } : null,
+      nu ? { k: 'hero', art: 'steth', kicker: 'Vorsorge', big: nu.due ? nu.def[0] + ' ist jetzt fällig' : nu.def[0], text: nu.due ? `Zeitfenster: ${nu.def[1]}. Termin in der Praxis vereinbaren.` : `Nächste Vorsorge ab ${fmtD(nu.from)}.`, cta: { label: 'Vorsorge-Heft', fn: () => { healthSeg = 'uheft'; go('health'); } } } : null]);
+  }
+  // Erinnerungen
+  { const sl = [];
+    let mem = []; try { mem = phMemories(); } catch (e) {}
+    mem.slice(0, 4).forEach(m => sl.push({ k: 'photo', pid: m.f.id, thumb: m.f.thumb, kicker: m.label, big: m.f.datum ? fmtD(m.f.datum) : '', text: m.f.titel || '', cta: { label: 'Foto ansehen', fn: () => openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(m.f))) } }));
+    memToday().filter(x => x.kind !== 'Foto').slice(0, 2).forEach(x => sl.push({ k: 'hero', art: 'feet', kicker: x.label, big: storyClip(x.title, 60), text: x.kind + ' vom ' + fmtD(x.datum), cta: x.open ? { label: 'Öffnen', fn: x.open } : null }));
+    add('mem', 'Erinnerung', 'camera', sl);
+  }
+  // Wachstum
+  { const ent = S.health.wachstum.filter(e => e.datum && (num(e.groesse) != null || num(e.gewicht) != null)).sort((a, b) => a.datum.localeCompare(b.datum)), l = ent[ent.length - 1], pr = ent[ent.length - 2];
+    if (l) {
+      const sx = sexKey(), pn = sx && p.geburtsdatum && num(l.groesse) != null ? pctNote(sx, 'h', p.geburtsdatum, ent, 'groesse') : '';
+      const dH = pr && num(l.groesse) != null && num(pr.groesse) != null ? num(l.groesse) - num(pr.groesse) : null, dW = pr && num(l.gewicht) != null && num(pr.gewicht) != null ? num(l.gewicht) - num(pr.gewicht) : null;
+      const go1 = () => { healthSeg = 'entwicklung'; go('health'); };
+      add('grow', 'Wachstum', 'ruler', [
+        { k: 'hero', art: 'ruler', kicker: 'Letzte Messung · ' + fmtD(l.datum), big: [l.groesse && l.groesse + ' cm', l.gewicht && l.gewicht + ' kg'].filter(Boolean).join(' · '), text: pn ? 'Größe: ' + pn : '', cta: { label: 'Entwicklung ansehen', fn: go1 } },
+        (dH != null || dW != null) ? { k: 'hero', art: 'ruler', kicker: 'Seit ' + fmtD(pr.datum), big: [dH != null && (dH >= 0 ? '+' : '') + fmtNum(dH) + ' cm', dW != null && (dW >= 0 ? '+' : '') + fmtNum(dW) + ' kg'].filter(Boolean).join(' · '), text: `In ${plural(Math.max(1, Math.round((parseD(l.datum) - parseD(pr.datum)) / 864e5)), 'Tag', 'Tagen')} gewachsen.`, cta: { label: 'Entwicklung ansehen', fn: go1 } } : null]);
+    }
+  }
+  // Schlaf und Alltag
+  { let n = 0; try { n = trLog().length; } catch (e) {}
+    if (n) {
+      const t = trToday(), pr = trPredict();
+      add('sleep', 'Alltag', 'moon', [
+        { k: 'hero', art: 'sleepface', kicker: 'Heute bisher', big: trDur(t.sleepMin) + ' Schlaf', text: `${plural(t.naps, 'Nickerchen', 'Nickerchen')} · ${plural(t.feeds, 'Mahlzeit', 'Mahlzeiten')} · ${plural(t.dia, 'Windel', 'Windeln')}`, cta: { label: 'Schlaf und Alltag', fn: () => go('tracker') } },
+        pr && pr.at ? { k: 'hero', art: 'zzz', kicker: pr.label, big: 'um ' + trHM(trIso(new Date(pr.at))), text: 'Grobe Schätzung aus dem Wachfenster. Müdigkeitszeichen gehen vor.', cta: { label: 'Schlaf und Alltag', fn: () => go('tracker') } } : (pr && pr.sleeping ? { k: 'hero', art: 'zzz', kicker: 'Gerade', big: 'Schläft', text: 'Beim Aufwachen kurz auf „Aufwachen“ tippen.', cta: { label: 'Schlaf und Alltag', fn: () => go('tracker') } } : null)]);
+    }
+  }
+  // Coins
+  { const c = coinData(), done = c.lastStart === today, st = coinStreakNow(), deal = (() => { try { return coinDeal(); } catch (e) { return null; } })();
+    add('coins', 'Coins', 'coin', [
+      { k: 'hero', art: 'coin', kicker: 'Dein Guthaben', big: coinBalance() + ' Coins', text: st ? `${plural(st, 'Tag', 'Tage')} in Folge dabei.` : 'Heute geht die Serie los.', cta: done ? { label: 'Coin-Welt öffnen', fn: () => go('coins') } : { label: 'Tagesbonus abholen', fn: () => { coinStart(); } } },
+      { k: 'hero', art: 'sprout', lt: 'fox', kicker: 'Luises Lichtung', big: 'Mini-Spiele warten', text: 'Waldpaare, Pilz-Echo und mehr. Bis zu drei Runden pro Spiel zählen am Tag.', cta: { label: 'Spielen', fn: () => { coinSeg = 'play'; go('coins'); } } },
+      deal ? { k: 'hero', art: 'gift', kicker: 'Tagesangebot im Laden', big: deal.it.name, text: `Heute ${deal.price} statt ${deal.it.cost} Coins.`, cta: { label: 'Zum Laden', fn: () => { coinSeg = 'shop'; shopSeg = 'all'; go('coins'); } } } : null]);
+  }
+  // Geburtstag
+  { const nb = nextBirthday(), rows = [];
+    autoDeadlines().filter(x => x.id && x.id.startsWith('fbday:') && x.date && daysTo(x.date) <= 30).slice(0, 3).forEach(x => rows.push([x.title, x.status || '']));
+    const d = nb ? daysTo(nb.iso) : 999;
+    add('bday', 'Geburtstag', 'cake', [
+      nb && d <= 90 ? { k: 'hero', art: 'cake', kicker: `Bis zum ${nb.age}. Geburtstag`, big: d === 0 ? 'Heute!' : plural(d, 'Tag', 'Tage'), text: wd(nb.iso), cta: { label: 'Termine', fn: () => go('dates') } } : null,
+      rows.length ? { k: 'list', kicker: 'In der Familie', big: 'Bald wird gefeiert', rows, cta: { label: 'Stammbuch', fn: () => go('family') } } : null]);
+  }
+  // News
+  { let c = null, st = null; try { c = newsRead(); st = newsStage(); } catch (e) {}
+    const its = c && st && c.stage === st.id && Array.isArray(c.items) ? c.items.filter(x => x.t && x.u).slice(0, 4) : [];
+    add('news', 'News', 'news', its.map((x, i) => { const tp = NEWS_TOPICS.find(t => t[0] === x.topic); return { k: x.i ? 'photo' : 'hero', art: 'news', ext: x.i || '', kicker: [x.s, tp && tp[1]].filter(Boolean).join(' · ') || 'News', big: storyClip(x.t, 110), text: x.d ? newsAgoTxt(x.d) : '', cta: { label: 'Artikel lesen', fn: () => { newsMarkRead(x.u); window.open(x.u, '_blank', 'noopener'); } }, small: true }; }));
+  }
+  return out;
+}
+function storyArt(s, sz) { return IC.svg(s.art); }
+function storyRow() {
+  if (!storyOn()) return null;
+  let list = []; try { list = storyBuild(); } catch (e) { console.error(e); return null; }
+  if (!list.length) return null;
+  const seen = storySeen();
+  list.sort((a, b) => (seen[a.id] === a.sig ? 1 : 0) - (seen[b.id] === b.sig ? 1 : 0));
+  return h('div', { class: 'storyrow', role: 'list', 'aria-label': 'Stories' }, list.map((s, i) => { const sn = seen[s.id] === s.sig;
+    return h('button', { class: 'story' + (sn ? ' seen' : ''), type: 'button', role: 'listitem', 'data-story': s.id, 'aria-label': s.label + (sn ? '' : ', neu'), onclick: () => storyOpen(s.id, list.map(x => x.id)) },
+      h('span', { class: 'sring' }, h('span', { class: 'sin p' + (i % 4), html: storyArt(s) })), h('small', null, s.label)); }));
+}
+var storyCtl = null;
+function storyClose() { if (storyCtl) { storyCtl.stop(); storyCtl = null; } document.querySelectorAll('.stv').forEach(x => x.remove()); render(); }
+function storyOpen(startId, order) {
+  let list; try { list = storyBuild(); } catch (e) { return; }
+  if (order) list.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+  if (!list.length) return;
+  if (storyCtl) { storyCtl.stop(); storyCtl = null; } document.querySelectorAll('.stv').forEach(x => x.remove());
+  let si = Math.max(0, list.findIndex(s => s.id === startId)), ci = 0, el = 0, dur = 5500, paused = false, last = 0, raf = 0, alive = true, held = false;
+  const root = h('div', { class: 'stv', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Stories' });
+  const bars = h('div', { class: 'stv-bars' }), head = h('div', { class: 'stv-head' }), stage = h('div', { class: 'stv-stage' });
+  const closeBtn = h('button', { class: 'stv-x', type: 'button', 'aria-label': 'Schließen', html: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>' });
+  closeBtn.addEventListener('pointerdown', e => e.stopPropagation()); closeBtn.addEventListener('pointerup', e => e.stopPropagation());
+  closeBtn.addEventListener('click', e => { e.stopPropagation(); storyClose(); });
+  root.append(stage, bars, head, closeBtn);
+  const pal = i => STORY_PAL[i % STORY_PAL.length];
+  function slideEl(s, story, i) {
+    const [a, b] = pal(i), kids = [];
+    const bg = h('div', { class: 'stv-bg', style: `background:linear-gradient(165deg,color-mix(in srgb,var(${a}) 88%,#000),color-mix(in srgb,var(${b}) 70%,#000))` });
+    if (s.k === 'photo') {
+      const img = h('img', { class: 'stv-img', alt: '', draggable: 'false' });
+      if (s.pid) { img.src = s.thumb || ''; hiImg(img, s.pid); } else if (s.ext) { img.referrerPolicy = 'no-referrer'; img.src = s.ext; img.onerror = () => { img.remove(); bg.classList.add('plain'); }; }
+      kids.push(bg, img, h('div', { class: 'stv-shade' }));
+    } else kids.push(bg, h('div', { class: 'stv-orb o1' }), h('div', { class: 'stv-orb o2' }));
+    const inn = h('div', { class: 'stv-in ' + (s.k === 'photo' ? 'bottom' : 'mid') + (s.small ? ' small' : '') });
+    if (s.k !== 'photo' && s.art) inn.append(h('div', { class: 'stv-art', html: IC.svg(s.art) }));
+    if (s.k === 'list') inn.append(h('small', { class: 'stv-k' }, s.kicker), h('h2', { class: 'stv-big' }, s.big), h('div', { class: 'stv-rows' }, (s.rows || []).map(r => h('div', { class: 'stv-row' }, h('b', null, storyClip(r[0], 48)), h('span', null, r[1] || '')))));
+    else inn.append(h('small', { class: 'stv-k' }, s.kicker || ''), h('h2', { class: 'stv-big' }, s.big || ''), s.text ? h('p', { class: 'stv-t' }, s.text) : null);
+    if (s.cta) { const cb = h('button', { class: 'stv-cta', type: 'button', onclick: e => { e.stopPropagation(); const f = s.cta.fn; storyCtl && storyCtl.stop(); storyCtl = null; document.querySelectorAll('.stv').forEach(x => x.remove()); render(); try { f(); } catch (er) { console.error(er); } } }, s.cta.label);
+      cb.addEventListener('pointerdown', e => e.stopPropagation()); cb.addEventListener('pointerup', e => e.stopPropagation()); inn.append(cb); }
+    return h('div', { class: 'stv-slide k-' + (s.k || 'hero') }, ...kids, inn);
+  }
+  function show() {
+    const st = list[si], s = st.slides[ci]; el = 0; dur = s.k === 'list' ? 7000 : s.small ? 7000 : s.text && s.text.length > 150 ? 7500 : 5500;
+    stage.replaceChildren(slideEl(s, st, si));
+    bars.replaceChildren(...st.slides.map((x, k) => h('i', null, h('b', { style: k < ci ? 'transform:scaleX(1)' : '' }))));
+    head.replaceChildren(h('span', { class: 'stv-av p' + (si % 4), html: storyArt(st) }), h('b', null, st.label), h('small', null, `${ci + 1} von ${st.slides.length}`));
+    storyMark(st.id, st.sig);
+  }
+  function next() { Haptic.fire('select'); if (ci < list[si].slides.length - 1) { ci++; show(); } else nextStory(); }
+  function prev() { Haptic.fire('select'); if (ci > 0) { ci--; show(); } else if (si > 0) { si--; ci = 0; show(); } else { show(); } }
+  function nextStory() { if (si < list.length - 1) { si++; ci = 0; show(); } else storyClose(); }
+  function prevStory() { if (si > 0) { si--; ci = 0; show(); } else show(); }
+  function tick(t) {
+    if (!alive || !root.isConnected) { alive = false; return; }
+    if (!last) last = t; const dt = t - last; last = t;
+    if (!paused && !document.hidden) { el += Math.min(dt, 100); const f = Math.min(1, el / dur), b = bars.children[ci] && bars.children[ci].firstChild; if (b) b.style.transform = `scaleX(${f})`; if (f >= 1) { el = 0; next(); } }
+    raf = requestAnimationFrame(tick);
+  }
+  let x0 = 0, y0 = 0, tdown = 0, holdT = 0, dy = 0, moved = false;
+  stage.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; tdown = Date.now(); dy = 0; moved = false; held = false; holdT = setTimeout(() => { held = true; paused = true; root.classList.add('hold'); }, 260); try { stage.setPointerCapture(e.pointerId); } catch (er) {} });
+  stage.addEventListener('pointermove', e => { const dx = e.clientX - x0; dy = e.clientY - y0; if (Math.abs(dx) > 10 || Math.abs(dy) > 10) { moved = true; clearTimeout(holdT); } if (dy > 0 && Math.abs(dy) > Math.abs(dx)) { stage.style.transform = `translateY(${Math.min(dy, 260)}px) scale(${1 - Math.min(dy, 260) / 1400})`; stage.style.opacity = String(1 - Math.min(dy, 260) / 420); } });
+  const end = e => {
+    clearTimeout(holdT); const dx = e.clientX - x0, ddy = e.clientY - y0; stage.style.transform = ''; stage.style.opacity = '';
+    if (held) { held = false; paused = false; root.classList.remove('hold'); return; }
+    if (ddy > 100 && Math.abs(ddy) > Math.abs(dx)) { storyClose(); return; }
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(ddy)) { dx < 0 ? nextStory() : prevStory(); return; }
+    if (moved) return;
+    const w = root.clientWidth || innerWidth; (e.clientX - root.getBoundingClientRect().left) < w * 0.33 ? prev() : next();
+  };
+  stage.addEventListener('pointerup', end);
+  stage.addEventListener('pointercancel', () => { clearTimeout(holdT); stage.style.transform = ''; stage.style.opacity = ''; held = false; paused = false; root.classList.remove('hold'); });
+  const key = e => { if (!root.isConnected) { document.removeEventListener('keydown', key); return; } if (e.key === 'Escape') storyClose(); else if (e.key === 'ArrowRight') next(); else if (e.key === 'ArrowLeft') prev(); };
+  document.addEventListener('keydown', key);
+  document.body.append(root); show(); raf = requestAnimationFrame(tick);
+  storyCtl = { stop() { alive = false; cancelAnimationFrame(raf); document.removeEventListener('keydown', key); } };
+  Haptic.fire('light');
+}
+function storyCard() {
+  const on = storyOn(), cb = h('input', { type: 'checkbox', 'data-act': 'stories-on', onchange: e => { ls.set('luise_stories', e.target.checked ? '1' : '0'); toast(e.target.checked ? 'Stories sind an' : 'Stories sind aus'); } }); cb.checked = on;
+  return h('div', { class: 'card stack' }, h('h2', null, 'Stories'), h('p', { class: 'mute' }, 'Auf der Startseite fasst die App täglich zusammen, was gerade wichtig ist: Heute, Lebenswoche, Erinnerungen, Wachstum, Alltag, Coins, Geburtstage und News. Tippen geht weiter, gedrückt halten pausiert, nach unten wischen schließt.'),
+    h('label', { class: 'field check' }, cb, h('span', null, 'Stories auf der Startseite zeigen')));
+}
+/* ============ v33: Widgets mit mehr Nutzen (M-Größe, Schnell-Aktionen) ============ */
+const wxOpen = (fn, label) => ({ role: 'button', tabindex: '0', 'aria-label': label, onclick: fn, onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } } });
+const wxBtn = (label, fn, cls) => h('button', { class: 'wxb' + (cls ? ' ' + cls : ''), type: 'button', onclick: e => { e.stopPropagation(); fn(); } }, label);
+const wxStat = (big, small, extra) => h('div', { class: 'wxs' }, h('b', null, big), h('small', null, small), extra ? h('em', { class: extra[0] }, extra[1]) : null);
+function wxSpark(vals, w, hh) {
+  vals = vals.filter(v => v != null); if (vals.length < 2) return null;
+  const mn = Math.min(...vals), mx = Math.max(...vals), rng = mx - mn || 1, pts = vals.map((v, i) => [4 + i * ((w - 8) / (vals.length - 1)), hh - 6 - ((v - mn) / rng) * (hh - 14)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '), last = pts[pts.length - 1];
+  return h('div', { class: 'wxspark', 'aria-hidden': 'true', html: `<svg viewBox="0 0 ${w} ${hh}" preserveAspectRatio="none"><path d="${d} L${last[0]} ${hh} L4 ${hh}z" class="a"/><path d="${d}" class="l"/><circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.4"/></svg>` });
+}
+/* Wachstum */
+function wGrowth2(w, sz) {
+  const ent = S.health.wachstum.filter(e => e.datum && (num(e.groesse) != null || num(e.gewicht) != null)).sort((a, b) => a.datum.localeCompare(b.datum)), l = ent[ent.length - 1], pr = ent[ent.length - 2];
+  const open = () => { healthSeg = 'entwicklung'; go('health'); }, add = () => editListItem({ arr: S.health.wachstum, key: 'health', title: 'Messung', fields: GROWTH_FIELDS, defaults: { datum: isoToday() } });
+  if (!l) return sz === 'm' ? h('div', Object.assign({ class: 'card wx stack' }, wxOpen(open, 'Wachstum')), h('small', { class: 'wk' }, 'Wachstum'), h('b', { class: 'wv' }, 'Noch keine Messung'), h('span', { class: 'ws' }, 'Trage Größe und Gewicht ein, dann siehst du hier den Verlauf.'), h('div', { class: 'wxrow' }, wxBtn('Messung eintragen', add, 'pri'))) : miniCard('Wachstum', 'Keine Messung', 'Größe & Gewicht eintragen', open);
+  if (sz !== 'm') return wGrowth();
+  const sx = sexKey(), pn = sx && S.profile.geburtsdatum && num(l.groesse) != null ? pctNote(sx, 'h', S.profile.geburtsdatum, ent, 'groesse') : '';
+  const dH = pr && num(l.groesse) != null && num(pr.groesse) != null ? num(l.groesse) - num(pr.groesse) : null, dW = pr && num(l.gewicht) != null && num(pr.gewicht) != null ? num(l.gewicht) - num(pr.gewicht) : null;
+  const dl = (v, u) => v == null ? null : [v >= 0 ? 'up' : 'down', (v >= 0 ? '+' : '') + fmtNum(v) + ' ' + u];
+  const days = daysTo(l.datum) * -1;
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(open, 'Wachstum')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Wachstum'), h('span', { class: 'chip' }, days <= 0 ? 'heute gemessen' : 'vor ' + plural(days, 'Tag', 'Tagen'))),
+    h('div', { class: 'wxstats' }, num(l.groesse) != null ? wxStat(fmtNum(num(l.groesse)) + ' cm', 'Größe', dl(dH, 'cm')) : null, num(l.gewicht) != null ? wxStat(fmtNum(num(l.gewicht)) + ' kg', 'Gewicht', dl(dW, 'kg')) : null),
+    wxSpark(ent.map(e => num(e.groesse)).slice(-8), 240, 54),
+    pn ? h('span', { class: 'ws' }, 'Größe: ' + pn) : null,
+    h('div', { class: 'wxrow' }, wxBtn('Messung eintragen', add, 'pri'), wxBtn('Verlauf', open)));
+}
+/* Abzeichen */
+function wBadges2(w, sz) {
+  const a = evalBadges(), st = badgeStats(a);
+  if (sz !== 'm') return wBadges();
+  const next = a.find(b => !b.earned), got = st.got.slice().sort((x, y) => (y.date || '').localeCompare(x.date || ''))[0];
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('badges'), 'Abzeichen')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Abzeichen'), h('span', { class: 'chip' }, `${st.got.length} von ${a.length}`)),
+    h('div', { class: 'wxstats' }, wxStat('Level ' + st.lvl, 'Fortschritt ' + st.pct + ' %')),
+    h('div', { class: 'bar dark' }, h('i', { style: `width:${st.pct}%` })),
+    next ? h('div', { class: 'wxnext' }, h('span', { class: 'wxe' }, next.emoji), h('div', null, h('b', null, 'Als Nächstes: ' + next.title), h('small', null, storyClip(next.hint || next.desc || '', 90)))) : h('span', { class: 'ws' }, 'Alle Abzeichen gesammelt.'),
+    got ? h('span', { class: 'ws' }, 'Zuletzt: ' + got.emoji + ' ' + got.title + (got.date ? ' · ' + fmtD(got.date) : '')) : null);
+}
+/* Coins */
+function wCoins2(w, sz) {
+  const c = coinData(), done = c.lastStart === isoToday(), st = coinStreakNow();
+  if (sz !== 'm') return wCoins();
+  const td = coinToday(c), keys = Object.keys(COIN_RULES), dn = keys.filter(k => (td.k[k] || 0) >= COIN_RULES[k].cap).length;
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('coins'), 'Coin-Welt')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Coin-Welt'), coinBoostOn() ? h('span', { class: 'chip ok' }, 'Glückstag aktiv') : h('span', { class: 'chip' }, '🔥 ' + st + (st === 1 ? ' Tag' : ' Tage'))),
+    h('div', { class: 'wxstats' }, wxStat(coinBalance() + ' 🪙', 'Guthaben'), wxStat(dn + ' von ' + keys.length, 'Aufgaben heute')),
+    h('div', { class: 'wxdots', 'aria-hidden': 'true' }, keys.map(k => h('i', { class: (td.k[k] || 0) >= COIN_RULES[k].cap ? 'on' : '' }))),
+    h('div', { class: 'wxrow' }, done ? wxBtn('Spielen', () => { coinSeg = 'play'; go('coins'); }, 'pri') : wxBtn('Tagesbonus abholen', () => coinStart(), 'pri'), wxBtn('Laden', () => { coinSeg = 'shop'; go('coins'); })));
+}
+/* Stammbuch */
+function wFamily2(w, sz) {
+  const f = S.profile.familie || [], nb = autoDeadlines().find(x => x.id.startsWith('fbday:'));
+  if (sz !== 'm') return wFamily();
+  if (!f.length) return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('family'), 'Stammbuch')), h('small', { class: 'wk' }, 'Stammbuch'), h('b', { class: 'wv' }, 'Noch leer'), h('span', { class: 'ws' }, 'Eltern, Großeltern und Geschwister eintragen, dann erscheinen hier die Geburtstage.'), h('div', { class: 'wxrow' }, wxBtn('Person hinzufügen', () => editMember(null), 'pri')));
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('family'), 'Stammbuch')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Stammbuch'), h('span', { class: 'chip' }, plural(f.length, 'Person', 'Personen'))),
+    h('div', { class: 'wxppl' }, f.slice(0, 6).map(m => h('div', { class: 'wxp' }, h('span', { class: 'wxav' }, (m.name || '?').trim()[0].toUpperCase()), h('small', null, (m.name || '').split(' ')[0])))),
+    nb ? h('div', { class: 'wxnext' }, h('span', { class: 'wxe' }, '🎂'), h('div', null, h('b', null, nb.title), h('small', null, nb.status || ''))) : null,
+    h('div', { class: 'wxrow' }, wxBtn('Person hinzufügen', () => editMember(null), 'pri'), wxBtn('Stammbaum', () => go('family'))));
+}
+/* Geburtstag */
+function wBday2(w, sz) {
+  if (sz !== 'm') return wBday();
+  const nb = nextBirthday(); if (!nb) return wBday();
+  const d = daysTo(nb.iso), pct = Math.max(0, Math.min(1, 1 - d / 365)), R = 38, C = 2 * Math.PI * R;
+  return h('div', Object.assign({ class: 'card wx wxbday' }, wxOpen(() => go('dates'), 'Geburtstag')),
+    h('div', { class: 'wxring', html: `<svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="${R}" class="t"/><circle cx="48" cy="48" r="${R}" class="p" stroke-dasharray="${(C * pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 48 48)"/></svg><b>${d === 0 ? '🎉' : d}</b><small>${d === 0 ? 'heute' : d === 1 ? 'Tag' : 'Tage'}</small>` }),
+    h('div', { class: 'stack', style: 'gap:4px' }, h('small', { class: 'wk' }, 'Nächster Geburtstag'), h('b', { class: 'wv' }, d === 0 ? 'Heute wird gefeiert!' : `${nb.age}. Geburtstag`), h('span', { class: 'ws' }, `${wd(nb.iso)} · noch ${plural(Math.ceil(d / 7), 'Woche', 'Wochen')}`),
+      h('div', { class: 'wxrow' }, wxBtn('Erinnerung in den Kalender', () => { addToCalendar(`${S.profile.vorname || 'Kind'}: ${nb.age}. Geburtstag`, nb.iso, '', 7); }))));
+}
+/* Human Design */
+function wHD2(w, sz) {
+  if (sz !== 'm') return wHD();
+  const p = S.profile; if (!p.geburtsdatum || !p.geburtszeit) return wHD();
+  const r = hdResult(); if (!r) return wHD(); const ty = HD_TYPES[r.typ] || {};
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('hd'), 'Human Design')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Human Design'), h('span', { class: 'chip' }, 'Profil ' + r.profil)),
+    h('b', { class: 'wv' }, r.typ),
+    h('div', { class: 'wxkv' }, h('div', null, h('small', null, 'Strategie'), h('b', null, ty.s || '–')), h('div', null, h('small', null, 'Autorität'), h('b', null, r.auth)), h('div', null, h('small', null, 'Definition'), h('b', null, r.definition || '–'))));
+}
+/* Sternzeichen */
+function wZodiac2(w, sz) {
+  const g = S.profile.geburtsdatum; if (sz !== 'm' || !g) return wZodiac();
+  const z = zodiacOf(g), c = chineseOf(g), mo = moonPhase(g);
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('spirit'), 'Sternzeichen')),
+    h('small', { class: 'wk' }, 'Sternzeichen, Tierzeichen, Mond'),
+    h('div', { class: 'wx3' }, h('div', null, h('span', { class: 'wxe' }, z.e || '✦'), h('b', null, z.n), h('small', null, 'Sternzeichen')), h('div', null, h('span', { class: 'wxe' }, c.emoji), h('b', null, c.animal), h('small', null, 'Tierzeichen')), h('div', null, h('span', { class: 'wxe' }, mo.emoji), h('b', null, mo.name), h('small', null, 'Mond bei Geburt'))));
+}
+/* Geld */
+function wInvest2(w, sz) {
+  const arr = S.profile.invest; if (sz !== 'm' || !arr.length) return wInvest();
+  const parts = KINDS.map(([k, label, one]) => [one, arr.filter(it => kindOf(it) === k).reduce((s, it) => s + valOf(it), 0)]).filter(x => x[1] > 0), tot = parts.reduce((s, x) => s + x[1], 0) || 1;
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('invest'), 'Geld')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Geld'), h('span', { class: 'chip' }, plural(arr.length, 'Eintrag', 'Einträge'))),
+    h('b', { class: 'wv' }, fmtEur(geldTotal())),
+    h('div', { class: 'wxsplit', 'aria-hidden': 'true' }, parts.map((x, i) => h('i', { class: 'c' + (i % 4), style: `flex:${Math.max(4, x[1] / tot * 100)}` }))),
+    h('div', { class: 'wxlegend' }, parts.slice(0, 4).map((x, i) => h('span', null, h('i', { class: 'c' + (i % 4) }), `${x[0]} ${fmtEur(x[1])}`))));
+}
+/* Schlaf & Alltag (neu) */
+function wTracker(w, sz) {
+  let log = []; try { log = trLog(); } catch (e) {}
+  if (!log.length) return sz === 'm' ? h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('tracker'), 'Schlaf und Alltag')), h('small', { class: 'wk' }, 'Schlaf & Alltag'), h('b', { class: 'wv' }, 'Noch leer'), h('span', { class: 'ws' }, 'Schlaf, Mahlzeiten und Windeln mit einem Tipp festhalten.'), h('div', { class: 'wxrow' }, wxBtn('Ersten Eintrag machen', () => go('tracker'), 'pri'))) : miniCard('Schlaf & Alltag', 'Noch leer', 'Erster Eintrag per Tipp', () => go('tracker'));
+  const pred = trPredict(), t = trToday(), sl = !!pred.sleeping;
+  const head = sl ? 'Schläft gerade' : pred.at ? pred.label : 'Schlaf & Alltag', val = sl ? 'Leise sein 💤' : pred.at ? 'um ' + trHM(trIso(new Date(pred.at))) : trDur(t.sleepMin) + ' Schlaf';
+  const sub = sl ? 'Beim Aufwachen auf „Aufwachen“ tippen' : pred.at ? (() => { const m = Math.round((pred.at - Date.now()) / 60000); return m > 0 ? 'in ' + trDur(m) : 'jetzt fällig'; })() : 'heute bisher';
+  if (sz !== 'm') return miniCard('Schlaf & Alltag', val, sub, () => go('tracker'));
+  const keys = [sl ? 'wake' : 'nap', 'bottle', 'diaper', 'breast'];
+  return h('div', Object.assign({ class: 'card wx stack' }, wxOpen(() => go('tracker'), 'Schlaf und Alltag')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Schlaf & Alltag'), h('span', { class: 'chip' }, `${trDur(t.sleepMin)} Schlaf · ${plural(t.feeds, 'Mahlzeit', 'Mahlzeiten')}`)),
+    h('div', { class: 'wxstats' }, wxStat(val, head), h('div', { class: 'wxs' }, h('small', null, sub))),
+    h('div', { class: 'wxq' }, keys.map(k => { const last = trLastOf(k); return h('button', { class: 'wxqb', type: 'button', 'data-k': k, onclick: e => { e.stopPropagation(); trTap(k); } }, h('span', { class: 'wxe' }, TRT[k][0]), h('b', null, sl && k === 'wake' ? 'Aufwachen' : TRT[k][1]), h('small', null, last ? trAgo(last) : ' ')); })));
+}
+Object.assign(WIDGETS.growth, { render: wGrowth2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.badges, { render: wBadges2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.coins, { render: wCoins2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.family, { render: wFamily2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.bday, { render: wBday2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.hd, { render: wHD2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.zodiac, { render: wZodiac2, sizes: ['s', 'm'] });
+Object.assign(WIDGETS.invest, { render: wInvest2, sizes: ['s', 'm'] });
+WIDGETS.tracker = { name: 'Schlaf & Alltag', desc: 'Nächster Schlaf und Schnell-Eintrag für Flasche, Windel und mehr', half: true, sizes: ['s', 'm'], render: wTracker };
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
