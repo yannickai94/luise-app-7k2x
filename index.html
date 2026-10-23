@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="29">
+<meta name="app-version" content="30">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1390,6 +1390,40 @@ body.kbopen .tabbar{display:none}
 .famask{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .famexit{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:6px}
 body.famode .editbtn{display:none!important}
+/* ===== v30 ===== */
+/* Begrüßung */
+.greet{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding:6px 6px 2px;margin:0 0 -2px;isolation:isolate}
+.greet .g1{font-family:"Snell Roundhand","Savoye LET","Apple Chancery","Zapfino","Brush Script MT","Lucida Handwriting",cursive;font-style:italic;font-weight:700;font-size:30px;line-height:1.05;color:var(--mute);letter-spacing:.3px;animation:gin .8s .05s both cubic-bezier(.2,.8,.2,1)}
+.greet .g2{font-family:"Snell Roundhand","Savoye LET","Apple Chancery","Zapfino","Brush Script MT","Lucida Handwriting",cursive;font-style:italic;font-weight:900;line-height:1.02;padding:0 .12em .1em 0;margin-top:-2px;background:linear-gradient(100deg,var(--accent) 0%,#e86aa8 52%,#8a6bff 100%);background-size:180% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 14px color-mix(in srgb,var(--accent) 28%,transparent));animation:gin .9s .22s both cubic-bezier(.2,.8,.2,1),gshine 7s 1.2s ease-in-out infinite alternate}
+.greet .gsw{display:block;width:min(240px,62%);height:18px;margin-top:-4px}.greet .gsw svg{width:100%;height:100%;display:block;overflow:visible}.greet .gsw path{stroke-dasharray:420;stroke-dashoffset:420;animation:gdraw 1.3s .6s both ease-out}
+.greet .gsps{position:absolute;right:10px;top:8px;width:90px;height:70px;pointer-events:none}
+.gsp{position:absolute;fill:var(--accent);opacity:.85;filter:drop-shadow(0 0 6px color-mix(in srgb,var(--accent) 60%,transparent))}
+.gsp.a{right:8px;top:4px;animation:gtw 3.2s ease-in-out infinite}.gsp.b{right:44px;top:30px;fill:#e86aa8;animation:gtw 3.2s .9s ease-in-out infinite}.gsp.c{right:2px;top:44px;fill:#8a6bff;animation:gtw 3.2s 1.7s ease-in-out infinite}
+@keyframes gin{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+@keyframes gshine{from{background-position:0 0}to{background-position:100% 0}}
+@keyframes gdraw{to{stroke-dashoffset:0}}
+@keyframes gtw{0%,100%{transform:scale(.55) rotate(0);opacity:.35}50%{transform:scale(1) rotate(25deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.greet .g1,.greet .g2,.gsw path,.gsp{animation:none!important}.gsw path{stroke-dashoffset:0}}
+/* Schalter (groß, ganze Karte antippbar) */
+.fmcard{cursor:pointer;-webkit-tap-highlight-color:transparent;padding:16px 16px;gap:14px}
+.tgl{position:relative;flex:none;display:block;width:64px;height:40px;border-radius:999px;background:color-mix(in srgb,var(--mute) 32%,transparent);box-shadow:inset 0 1px 4px rgba(0,0,0,.2),inset 0 0 0 1px rgba(255,255,255,.3);transition:background .28s}
+.tgl::after{content:'';position:absolute;top:3px;left:3px;width:34px;height:34px;border-radius:50%;background:linear-gradient(#fff,#f0f0f6);box-shadow:0 3px 9px rgba(0,0,0,.3),inset 0 -1px 0 rgba(0,0,0,.06);transition:transform .3s cubic-bezier(.3,1.4,.5,1),width .2s}
+.fmcard[aria-checked=true] .tgl{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 100%,#fff 22%),var(--accent))}
+.fmcard[aria-checked=true] .tgl::after{transform:translateX(24px)}
+.fmcard:active .tgl::after{width:40px}.fmcard[aria-checked=true]:active .tgl::after{transform:translateX(18px)}
+.fmcard:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent);outline-offset:2px}
+/* U-Heft */
+.uph{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.uph-t{position:relative;aspect-ratio:3/4;border:0;padding:0;border-radius:16px;overflow:hidden;background:var(--line);cursor:pointer;box-shadow:0 8px 18px -10px rgba(30,30,90,.45),inset 0 0 0 1px rgba(255,255,255,.4)}
+.uph-t img{width:100%;height:100%;object-fit:cover;display:block}.uph-t span{position:absolute;left:6px;bottom:6px;min-width:22px;height:22px;border-radius:11px;background:rgba(0,0,0,.55);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;padding:0 6px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.uph-t.add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:transparent;border:2px dashed color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:none;color:var(--accent)}.uph-t.add b{font-size:30px;line-height:1;font-weight:500}.uph-t.add small{font-size:12px;font-weight:600}
+.umini{position:relative;flex:none;width:38px;height:38px;border-radius:10px;overflow:hidden;box-shadow:0 3px 8px -3px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.4);margin-right:2px}.umini img{width:100%;height:100%;object-fit:cover;display:block}
+.umini em{position:absolute;right:2px;bottom:2px;font-style:normal;font-size:10px;font-weight:700;background:rgba(0,0,0,.6);color:#fff;border-radius:8px;padding:0 5px}
+.udhead{display:flex;align-items:center;gap:12px}.udhead b{font-size:17px;display:block}.udhead small{display:block;margin-top:1px}
+.hoeri{display:block;width:34px;height:34px;flex:none}.hoeri svg{width:100%;height:100%;display:block}.hoeri.big{width:46px;height:46px}
+.hoercard{margin-left:20px}
+.hoerlink{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:var(--ink);width:100%;cursor:pointer}
+.hoerwarn{background:color-mix(in srgb,#f5a623 16%,transparent);border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:0}
 </style>
 </head>
 <body>
@@ -2136,6 +2170,10 @@ function computeAlerts() {
       if (days >= d[2] && days <= d[3] && d[0] !== 'U1') a.push({ lvl: 'warn', o: 1, text: `${d[0]} ist jetzt fällig`, sub: `Zeitfenster bis ${fmtD(we)}`, tab: 'health', seg: 'uheft' });
       else if (days < d[2] && d[2] - days <= 21) a.push({ lvl: 'info', o: 2, text: `${d[0]} beginnt ${rel(addDaysIso(S.profile.geburtsdatum, d[2]))}`, sub: d[1], tab: 'health', seg: 'uheft' });
     }
+    try { const hs = hoerState(), dl = lifeDays(S.profile.geburtsdatum), he = S.health.hoer || {};
+      if (hs.bad && !(he.kontrolle && daysTo(he.kontrolle) >= 0)) a.push({ lvl: 'warn', o: 1, text: 'Hörscreening: Kontrolle ausmachen', sub: 'Das Ergebnis war auffällig. Bitte zeitnah kontrollieren lassen.', tab: 'health', seg: 'uheft' });
+      else if (hs.bad && he.kontrolle) a.push({ lvl: 'info', o: 2, text: 'Hörscreening-Kontrolle ' + rel(he.kontrolle), sub: fmtD(he.kontrolle), tab: 'health', seg: 'uheft' });
+      else if (!hs.done && dl >= 3 && dl <= 120) a.push({ lvl: 'info', o: 3, text: 'Hörscreening noch nicht eingetragen', sub: 'Im U-Heft bei der U2 eintragen', tab: 'health', seg: 'uheft' }); } catch (e) {}
   }
   for (const t of S.school.termine) {
     const dd = nextOcc(t);
@@ -2474,6 +2512,7 @@ function addWidgetSheet(opts) {
 
 function viewHome() {
   const wrap = h('div', { class: 'stack' }), ks = kidSwitcher();
+  wrap.append(greetCard());
   if (ks && !famMode()) wrap.append(ks);
   const fw = famWelcomeCard(); if (fw) wrap.append(fw);
   const fa = famAskCard(); if (fa) wrap.append(fa);
@@ -2519,6 +2558,7 @@ function journeyFeed(withAuto) {
   if (withAuto) {
     if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, o: 0, open: editProfile });
     S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
+    if (S.health.hoer && S.health.hoer.datum) out.push({ key: 'a:hoer', datum: S.health.hoer.datum, titel: 'Neugeborenen-Hörscreening', text: S.health.hoer.ort || '', emoji: '👂', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } });
     Object.entries(S.health.u).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
     if (showImpf()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
   }
@@ -3420,9 +3460,11 @@ function viewUHeft() {
       else if (st === 'later') chip = h('span', { class: 'chip' }, 'Ab ' + fmtD(ws) + ' bis ' + fmtD(we));
       else if (st === 'past') chip = h('span', { class: 'chip bad' }, 'Nicht eingetragen');
     }
-    wrap.append(h('div', { class: 'card' }, li(() => editU(code, label), '', h('span', { class: 'badge' + (e ? ' done' : '') }, code),
-      liTxt(e ? label : (st === 'due' ? 'Steht an' : st === 'later' ? 'Kommt noch' : 'Offen'), sub, chip),
+    wrap.append(h('div', { class: 'card' }, li(() => openUDetail(code, label), '', h('span', { class: 'badge' + (e ? ' done' : '') }, code),
+      liTxt(e ? label : (st === 'due' ? 'Steht an' : st === 'later' ? 'Kommt noch' : 'Offen'), sub, chip), uMini(code),
       (st === 'due' || st === 'later') && ws ? calBtn(`${code}-Vorsorge beim Kinderarzt`, st === 'due' ? isoToday() : ws, `Zeitfenster bis ${fmtD(we)}`, 3) : null, chev())));
+    if (code === 'U2') { const hs = hoerState(), hl2 = p.geburtsdatum ? lifeDays(p.geburtsdatum) : -1, hchip = hs.bad ? h('span', { class: 'chip bad' }, 'Kontrolle nötig') : hs.ok ? h('span', { class: 'chip ok' }, 'Unauffällig') : (!hs.done && hl2 >= 0 && hl2 <= 180 ? h('span', { class: 'chip warn' }, 'Noch eintragen') : null);
+      wrap.append(h('div', { class: 'card hoercard' }, li(openHoerDetail, '', h('span', { class: 'hoeri', html: IC.svg('ear') }), liTxt('Neugeborenen-Hörscreening', hoerSub(), hchip), uMini('HOER'), chev()))); }
   });
   return wrap;
 }
@@ -4120,46 +4162,6 @@ const ocrUi = (() => {
     hide() { if (el) { el.remove(); el = null; } }
   };
 })();
-async function ocrPrep(blob) {
-  const url = URL.createObjectURL(blob);
-  try {
-    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = url; });
-    const long = Math.max(img.naturalWidth, img.naturalHeight), sc = Math.min(2, Math.max(0.3, 2200 / long));
-    const cv = document.createElement('canvas'); cv.width = Math.round(img.naturalWidth * sc); cv.height = Math.round(img.naturalHeight * sc);
-    const cx = cv.getContext('2d', { willReadFrequently: true }); cx.fillStyle = '#fff'; cx.fillRect(0, 0, cv.width, cv.height);
-    cx.drawImage(img, 0, 0, cv.width, cv.height);
-    const id = cx.getImageData(0, 0, cv.width, cv.height), px = id.data, hist = new Uint32Array(256);
-    for (let i = 0; i < px.length; i += 4) { const g = Math.round(px[i] * 0.299 + px[i + 1] * 0.587 + px[i + 2] * 0.114); px[i] = g; hist[g]++; }
-    const total = cv.width * cv.height; let acc = 0, lo = 0, hi = 255;
-    for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= total * 0.02) { lo = v; break; } }
-    acc = 0; for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc >= total * 0.2) { hi = v; break; } }
-    if (hi - lo < 40) { lo = 0; hi = 255; }
-    const k = 255 / (hi - lo);
-    for (let i = 0; i < px.length; i += 4) { const g = Math.max(0, Math.min(255, Math.round((px[i] - lo) * k))); px[i] = px[i + 1] = px[i + 2] = g; }
-    cx.putImageData(id, 0, 0);
-    return cv;
-  } finally { URL.revokeObjectURL(url); }
-}
-async function ocrBlobs(blobs) {
-  ocrUi.show('OCR wird geladen (beim ersten Mal einige MB) …', 0.02);
-  if (!window.Tesseract) await loadScript(TESS_URL);
-  const stage = { n: 0, of: blobs.length };
-  const worker = await window.Tesseract.createWorker('deu', 1, { logger: m => {
-    if (!m) return;
-    if (m.status === 'recognizing text') ocrUi.show(`Text wird erkannt (Seite ${stage.n + 1} von ${stage.of}) …`, 0.1 + 0.9 * ((stage.n + (m.progress || 0)) / stage.of));
-    else if (/load|init/i.test(m.status || '')) ocrUi.show('OCR wird vorbereitet …', 0.05 + 0.05 * (m.progress || 0));
-  } });
-  let text = '';
-  try {
-    for (let i = 0; i < blobs.length; i++) {
-      stage.n = i;
-      const r = await worker.recognize(await ocrPrep(blobs[i]));
-      text += (text ? '\n\n' : '') + (r.data.text || '');
-    }
-  } finally { try { await worker.terminate(); } catch (e) {} }
-  return text.trim();
-}
-
 const MONTHS_DE = { januar: 1, februar: 2, märz: 3, maerz: 3, april: 4, mai: 5, juni: 6, juli: 7, august: 8, september: 9, oktober: 10, november: 11, dezember: 12 };
 const RX_NUM = '(\\d{1,2})\\.\\s?(\\d{1,2})\\.\\s?(\\d{4})';
 const RX_TXT = '(\\d{1,2})\\.?\\s*(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\\s+(\\d{4})';
@@ -4176,7 +4178,8 @@ function firstDate(s) {
   return best && best.iso ? best.iso : null;
 }
 const KASSEN = /\b(AOK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|Techniker Krankenkasse|TK|BARMER|Barmer|DAK(?:[\- ]Gesundheit)?|IKK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|KKH|hkk|Knappschaft|BKK(?:[ \-][A-ZÄÖÜa-zäöüß]+){0,2}|[A-ZÄÖÜ][A-Za-zäöüß]+ BKK|Viactiv|SBK|HEK|Mobil Krankenkasse|Debeka|HanseMerkur|Signal Iduna)\b/;
-function extractInfo(text) {
+function extractInfo(text) { return extractInfoRaw(ocrFix(text)); }
+function extractInfoRaw(text) {
   const T = String(text || '').replace(/\r/g, '').replace(/[ \t]+/g, ' ');
   const out = [];
   const add = (key, label, value, target) => {
@@ -4256,6 +4259,7 @@ function showOcrResult(d) {
   const ov = openFull({ title: 'Ausgelesene Infos', body });
 }
 async function runOcr(d, again) {
+  again = !!again;
   try {
     const rec = await fileGet(d.id);
     if (!rec) { toast('Datei nicht gefunden'); return; }
@@ -4263,7 +4267,7 @@ async function runOcr(d, again) {
     if (rec.mime.startsWith('image/')) blobs = [new Blob([rec.data], { type: rec.mime })];
     else if (rec.mime === 'application/pdf') { ocrUi.show('PDF wird vorbereitet …', 0.01); blobs = await docPages(d, rec); }
     else { toast('Für diesen Dateityp ist keine Texterkennung möglich'); return; }
-    const text = await ocrBlobs(blobs);
+    const text = await ocrBlobs(blobs, { again });
     d.text = text; await docPut(d); ocrUi.hide();
     showOcrResult(d);
   } catch (e) {
@@ -4488,7 +4492,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 29'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 30'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4566,7 +4570,7 @@ function kidSwitcher() {
 async function createDoc(file, v, pre) {
   const rec = pre || await prepareFile(file);
   const id = uid();
-  const meta = { id, cid: CID, titel: v.titel, kategorie: v.kategorie, ablauf: v.ablauf, notiz: v.notiz, mime: rec.mime, name: file.name, size: rec.data.byteLength, thumb: rec.thumb, created: Date.now() };
+  const meta = { id, cid: CID, titel: v.titel, kategorie: v.kategorie, ablauf: v.ablauf, notiz: v.notiz, uref: v.uref || undefined, mime: rec.mime, name: file.name, size: rec.data.byteLength, thumb: rec.thumb, created: Date.now() };
   await filePut({ id, mime: rec.mime, data: rec.data, pages: rec.pages });
   await docPut(meta);
   S.docs.push(meta);
@@ -7055,7 +7059,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 29;
+const APP_VERSION = 30;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7143,6 +7147,7 @@ function render() {
   try { const el = views[tab](); if (changed) el.classList.add('enter'); v.replaceChildren(el); }
   catch (e) { console.error(e); v.replaceChildren(h('p', { class: 'empty' }, 'Anzeigefehler: ' + e.message)); }
   v.scrollTop = keep;
+  try { if (uDraw) uDraw(); } catch (e) { console.error(e); }
   setTimeout(announceBadges, 700);
   $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
 }
@@ -9154,6 +9159,7 @@ Object.assign(IC.D, {
   shirt: `<path d="M16 5c2 4 5 6 8 6s6-2 8-6l13 7-5 10-6-2.500V43H14V19.500L8 22 3 12z" fill="@blue"/><path d="M16 5c2 4 5 6 8 6s6-2 8-6" stroke="#fff" stroke-opacity=".6" stroke-width="2.400" fill="none" stroke-linecap="round"/><circle cx="24" cy="29" r="4" fill="@yellow"/>`,
   family: `<circle cx="14" cy="13" r="6.500" fill="@sand"/><circle cx="34" cy="13" r="6.500" fill="@sand"/><path d="M3 38c0-9 5-14 11-14s11 5 11 14z" fill="@violet"/><path d="M23 38c0-9 5-14 11-14s11 5 11 14z" fill="@rose"/><circle cx="24" cy="26" r="5" fill="@sand"/><path d="M15 43c0-7 4-10 9-10s9 3 9 10z" fill="@yellow"/>`,
   shuffle: `<path d="M5 14h9c9 0 10 20 19 20h8M5 34h9c4 0 6-3 8-6M27 20c2-3 4-6 8-6h6" stroke="@violet" stroke-width="4.200" fill="none" stroke-linecap="round"/><path d="M36 8l7 6-7 6zM36 28l7 6-7 6z" fill="@violet"/>`,
+  ear: `<path d="M25 4C14 4 8 12 8 22c0 6 2 9 5 13 2 3 2 5 2 8 0 3 3 5 7 5 5 0 8-4 8-9 0-5 9-7 9-17C39 11 33 4 25 4z" fill="@sand"/><path d="M25 11c-6 0-10 4-10 10" stroke="@rose" stroke-width="3.200" fill="none" stroke-linecap="round"/><path d="M24 19c4-3 9 0 8 6-1 5-5 5-5 10" stroke="@rose" stroke-width="3.200" fill="none" stroke-linecap="round"/>`,
   up: `<path d="M24 8L8 28h10v12h12V28h10z" fill="@blue"/>`, down: `<path d="M24 40L8 20h10V8h12v12h10z" fill="@blue"/>`
 });
 const FSEC = [
@@ -9190,7 +9196,7 @@ function famFilter(data, keep) {
   if (!keep.has('woche')) del(H, 'leaps');
   if (!keep.has('schlaf')) del(H, 'track');
   if (!keep.has('wachstum')) del(H, 'wachstum', 'meilensteine');
-  if (!keep.has('gesundheit')) del(H, 'u', 'impfungen', 'meds', 'fragen');
+  if (!keep.has('gesundheit')) del(H, 'u', 'hoer', 'impfungen', 'meds', 'fragen');
   if (!keep.has('tagebuch')) del(P, 'tagebuch');
   if (!keep.has('termine')) del(Sc, 'termine', 'abholer', 'hiddenAuto');
   if (!keep.has('familie')) del(P, 'familie');
@@ -9485,12 +9491,6 @@ function famLayout(L) {
   ['photo', 'journey'].forEach(id => { if (!out.some(x => x.id === id)) out.push(newWidgetItem(id)); });
   return out;
 }
-function famModeCard() {
-  const on = famMode();
-  const cb = h('input', { type: 'checkbox', 'aria-label': 'Familienmodus', onchange: e => famSetMode(e.target.checked) }); cb.setAttribute('switch', ''); cb.checked = on;
-  return h('div', { class: 'card fmcard' }, h('span', { class: 'fmico', html: IC.svg('family') }),
-    h('span', { class: 'fmtx' }, h('b', null, 'Familienmodus'), h('small', null, 'Zeigt nur Startseite, Fotos und Journey. Alles andere ist ausgeblendet, ideal für Oma und Opa. Beenden kannst du ihn unten auf der Startseite.')), cb);
-}
 function famAskCard() {
   if (famMode() || !CH.some(c => c.fam) || ls.get('luise_famask') === '0') return null;
   return h('div', { class: 'card stack famask' }, h('div', { class: 'famwel-h' }, h('span', { class: 'famhero-i', html: IC.svg('family') }),
@@ -9525,6 +9525,248 @@ function hiImg(img, id) {
   vv.addEventListener('resize', upd); vv.addEventListener('scroll', upd);
 })();
 (() => { try { const m = document.createElement('div'); m.id = 'sbmask'; m.setAttribute('aria-hidden', 'true'); document.body.append(m); } catch (e) {} })();
+/* ============ v30: bessere Texterkennung ============ */
+/* Bild vorbereiten: Graustufen, Hintergrund-Helligkeit ausgleichen, adaptive Binarisierung (Sauvola) */
+function ocrToGray(img, longSide, maxScale) {
+  const long = Math.max(img.naturalWidth, img.naturalHeight), sc = Math.min(maxScale || 2, Math.max(0.3, longSide / long));
+  const w = Math.max(8, Math.round(img.naturalWidth * sc)), hh = Math.max(8, Math.round(img.naturalHeight * sc));
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = hh;
+  const cx = cv.getContext('2d', { willReadFrequently: true }); cx.fillStyle = '#fff'; cx.fillRect(0, 0, w, hh); cx.imageSmoothingQuality = 'high'; cx.drawImage(img, 0, 0, w, hh);
+  const px = cx.getImageData(0, 0, w, hh).data, g = new Uint8ClampedArray(w * hh);
+  for (let i = 0, j = 0; i < px.length; i += 4, j++) g[j] = (px[i] * 77 + px[i + 1] * 150 + px[i + 2] * 29) >> 8;
+  return { g, w, h: hh };
+}
+function ocrSauvola(g, w, hh, win, k) {
+  const r = win >> 1, N = w * hh, hs = new Float32Array(N), hq = new Float32Array(N), out = new Uint8ClampedArray(N);
+  for (let y = 0; y < hh; y++) {
+    const o = y * w; let s = 0, q = 0;
+    for (let x = 0; x < Math.min(r, w); x++) { const v = g[o + x]; s += v; q += v * v; }
+    for (let x = 0; x < w; x++) {
+      const a = x + r, b = x - r - 1;
+      if (a < w) { const v = g[o + a]; s += v; q += v * v; }
+      if (b >= 0) { const v = g[o + b]; s -= v; q -= v * v; }
+      hs[o + x] = s; hq[o + x] = q;
+    }
+  }
+  const cs = new Float64Array(w), cq = new Float64Array(w);
+  for (let y = 0; y < Math.min(r, hh); y++) { const o = y * w; for (let x = 0; x < w; x++) { cs[x] += hs[o + x]; cq[x] += hq[o + x]; } }
+  for (let y = 0; y < hh; y++) {
+    const a = y + r, b = y - r - 1;
+    if (a < hh) { const o = a * w; for (let x = 0; x < w; x++) { cs[x] += hs[o + x]; cq[x] += hq[o + x]; } }
+    if (b >= 0) { const o = b * w; for (let x = 0; x < w; x++) { cs[x] -= hs[o + x]; cq[x] -= hq[o + x]; } }
+    const y0 = Math.max(0, y - r), y1 = Math.min(hh - 1, y + r), ny = y1 - y0 + 1, o = y * w;
+    for (let x = 0; x < w; x++) {
+      const nx = Math.min(w - 1, x + r) - Math.max(0, x - r) + 1, n = nx * ny, m = cs[x] / n, v = Math.max(0, cq[x] / n - m * m), sd = Math.sqrt(v);
+      out[o + x] = g[o + x] > m * (1 + k * (sd / 128 - 1)) ? 255 : 0;
+    }
+  }
+  return out;
+}
+function ocrCanvasFrom(g, w, hh) {
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = hh;
+  const cx = cv.getContext('2d'), id = cx.createImageData(w, hh), d = id.data;
+  for (let i = 0, j = 0; j < g.length; i += 4, j++) { d[i] = d[i + 1] = d[i + 2] = g[j]; d[i + 3] = 255; }
+  cx.putImageData(id, 0, 0); return cv;
+}
+function ocrStretch(g) {
+  const hist = new Uint32Array(256); for (let i = 0; i < g.length; i++) hist[g[i]]++;
+  const tot = g.length; let acc = 0, lo = 0, hi = 255;
+  for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= tot * 0.02) { lo = v; break; } }
+  acc = 0; for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc >= tot * 0.2) { hi = v; break; } }
+  if (hi - lo < 40) { lo = 0; hi = 255; }
+  const k = 255 / (hi - lo), out = new Uint8ClampedArray(g.length);
+  for (let i = 0; i < g.length; i++) out[i] = (g[i] - lo) * k;
+  return out;
+}
+async function ocrPrep(blob, mode) {
+  const url = URL.createObjectURL(blob);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = url; });
+    mode = mode || 'bin';
+    if (mode === 'gray') { const t = ocrToGray(img, 2200, 2); return ocrCanvasFrom(ocrStretch(t.g), t.w, t.h); }
+    const t = ocrToGray(img, mode === 'bin2' ? 2600 : 2000, 2.5), win = (Math.max(25, Math.round(Math.min(t.w, t.h) / (mode === 'bin2' ? 45 : 30))) | 1);
+    return ocrCanvasFrom(ocrSauvola(t.g, t.w, t.h, win, mode === 'bin2' ? 0.26 : 0.34), t.w, t.h);
+  } finally { URL.revokeObjectURL(url); }
+}
+const OCR_LANG_BEST = 'https://cdn.jsdelivr.net/npm/@tesseract.js-data/deu/4.0.0_best_int';
+async function ocrWorker(logger) {
+  const mk = opts => window.Tesseract.createWorker('deu', 1, Object.assign({ logger }, opts));
+  const lim = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('Zeitüberschreitung')), ms))]);
+  let w;
+  try { w = await lim(mk({ langPath: OCR_LANG_BEST }), 60000); }
+  catch (e) { console.warn('OCR: genaues Sprachmodell nicht ladbar, nutze Standard', e); w = await mk({}); }
+  try { await w.setParameters({ user_defined_dpi: '300', preserve_interword_spaces: '1' }); } catch (e) {}
+  return w;
+}
+async function ocrBlobs(blobs, opts) {
+  opts = opts || {};
+  ocrUi.show('OCR wird geladen (beim ersten Mal einige MB) …', 0.02);
+  if (!window.Tesseract) await loadScript(TESS_URL);
+  const stage = { n: 0, of: blobs.length, pass: 0, passes: 1 };
+  const worker = await ocrWorker(m => {
+    if (!m) return;
+    if (m.status === 'recognizing text') ocrUi.show(`Text wird erkannt (Seite ${stage.n + 1} von ${stage.of}${stage.passes > 1 ? ', Durchgang ' + (stage.pass + 1) : ''}) …`, 0.1 + 0.9 * ((stage.n + (stage.pass + (m.progress || 0)) / stage.passes) / stage.of));
+    else if (/load|init/i.test(m.status || '')) ocrUi.show('OCR wird vorbereitet …', 0.05 + 0.05 * (m.progress || 0));
+  });
+  let text = '';
+  try {
+    for (let i = 0; i < blobs.length; i++) {
+      stage.n = i; stage.pass = 0; stage.passes = 1;
+      let best = null;
+      const run = async (mode, psm) => {
+        try { await worker.setParameters({ tessedit_pageseg_mode: String(psm || 3) }); } catch (e) {}
+        const r = await worker.recognize(await ocrPrep(blobs[i], mode)), cf = r.data.confidence || 0, tx = r.data.text || '';
+        const score = cf * Math.min(1, 0.4 + tx.replace(/\s/g, '').length / 120);
+        if (!best || score > best.score) best = { score, text: tx, cf, mode };
+        stage.pass++;
+      };
+      await run(opts.again ? 'bin2' : 'bin', 3);
+      if (best.cf < 72 || opts.again) { stage.passes = opts.again ? 3 : 2; await run('gray', 3); if (opts.again) await run('bin', 6); }
+      text += (text ? '\n\n' : '') + best.text;
+    }
+  } finally { try { await worker.terminate(); } catch (e) {} }
+  return text.trim();
+}
+/* Typische Erkennungsfehler vor dem Auslesen glätten */
+const OCR_LABELS = ['Vorname', 'Vornamen', 'Familienname', 'Nachname', 'Geburtsdatum', 'Geburtsort', 'Staatsangehörigkeit', 'Registernummer', 'Geburtenregister', 'Standesamt', 'Versichertennummer', 'Krankenkasse', 'Identifikationsnummer', 'Ausweisnummer', 'Passnummer', 'Seriennummer', 'Ablaufdatum', 'Dokumentennummer', 'Geschlecht', 'Gültig'];
+const ocrFold = s => String(s).toLowerCase().replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u').replace(/ß/g, 'ss');
+function ocrLev(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) { const cur = [i]; let mn = i; for (let j = 1; j <= b.length; j++) { const v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); cur.push(v); if (v < mn) mn = v; } if (mn > max) return max + 1; prev = cur; }
+  return prev[b.length];
+}
+function ocrFix(text) {
+  let T = String(text || '').replace(/\r/g, '').replace(/[‐‑–—]/g, '-');
+  const lab = OCR_LABELS.map(l => [l, ocrFold(l)]);
+  T = T.replace(/[A-Za-zÄÖÜäöüß]{5,}/g, w => {
+    const f = ocrFold(w); let best = null;
+    for (const [l, lf] of lab) { if (f === lf) return w; const mx = lf.length >= 11 ? 3 : lf.length >= 7 ? 2 : 1; if (mx > 1 && f[0] !== lf[0]) continue; const d = ocrLev(f, lf, mx); if (d <= mx && (!best || d < best[1])) best = [l, d]; }
+    return best ? best[0] : w;
+  });
+  const dg = c => ({ O: '0', o: '0', Q: '0', D: '0', l: '1', I: '1', '|': '1', i: '1', S: '5', s: '5', B: '8', Z: '2', z: '2' }[c] || c);
+  T = T.replace(/(?<![A-Za-z0-9])([0-9OoQDlI|iSsBZz]{1,2})\s?[.,:;]\s?([0-9OoQDlI|iSsBZz]{1,2})\s?[.,:;]\s?([0-9OoQDlI|iSsBZz]{4})(?![A-Za-z0-9])/g, (m, a, b, c) => {
+    const f = [a, b, c].map(x => x.replace(/./g, dg)); return /^\d+$/.test(f.join('')) ? f[0] + '.' + f[1] + '.' + f[2] : m;
+  });
+  T = T.replace(/(Steuer-?\s?ID|Identifikationsnummer|IdNr\.?)([^\n\d]{0,30})([0-9OoIl|\s]{11,16})/gi, (m, a, b, c) => { const d = c.replace(/\s/g, '').replace(/./g, dg); return /^\d{11}$/.test(d) ? a + b + d : m; });
+  return T;
+}
+/* ============ v30: U-Heft mit Fotos und Neugeborenen-Hörscreening ============ */
+let uDraw = null;
+const uPhotoDocs = ref => S.docs.filter(d => d.uref === ref).sort((a, b) => (a.created || 0) - (b.created || 0));
+async function uAddFiles(ref, prefix, files) {
+  let n = uPhotoDocs(ref).length, ok = 0;
+  for (let i = 0; i < files.length; i++) {
+    try {
+      let f = files[i];
+      if (files.length === 1) { const b = await cropFile(f, { optional: true, title: 'Seite zuschneiden' }); if (!b) return; f = new File([b], f.name || 'heft.jpg', { type: 'image/jpeg' }); }
+      else toast(`Foto ${i + 1} von ${files.length} …`);
+      const rec = await prepareFile(f);
+      try { rec.thumb = await blobToDataURL(await imageToJpeg(f, 360, 0.78)); } catch (e) {}
+      n++;
+      await createDoc({ name: `${prefix}-${n}.jpg` }, { titel: `${prefix} · Seite ${n}`, kategorie: 'Gesundheit', notiz: '', uref: ref }, rec);
+      ok++;
+    } catch (e) { console.error(e); toast('Foto konnte nicht gespeichert werden'); }
+  }
+  if (ok) { toast(ok === 1 ? 'Foto gespeichert' : ok + ' Fotos gespeichert'); render(); }
+}
+function uPhotoCard(ref, prefix) {
+  const docs = uPhotoDocs(ref);
+  const camIn = h('input', { type: 'file', accept: 'image/*', capture: 'environment', style: 'display:none' });
+  const libIn = h('input', { type: 'file', accept: 'image/*', multiple: true, style: 'display:none' });
+  camIn.addEventListener('change', async () => { const fs = Array.from(camIn.files || []); camIn.value = ''; if (fs.length) await uAddFiles(ref, prefix, fs); });
+  libIn.addEventListener('change', async () => { const fs = Array.from(libIn.files || []); libIn.value = ''; if (fs.length) await uAddFiles(ref, prefix, fs); });
+  const pick = inp => { suppressLockUntil = Date.now() + 180000; inp.click(); };
+  const grid = h('div', { class: 'uph' }, docs.map((d, i) => h('button', { class: 'uph-t', type: 'button', 'aria-label': d.titel, onclick: () => openDoc(d) }, h('img', { src: d.thumb || BLANK, alt: '' }), h('span', null, String(i + 1)))),
+    h('button', { class: 'uph-t add', type: 'button', 'aria-label': 'Foto hinzufügen', onclick: () => pick(libIn) }, h('b', null, '+'), h('small', null, 'Foto')));
+  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'Fotos vom Heft'), docs.length ? h('span', { class: 'chip' }, plural(docs.length, 'Seite', 'Seiten')) : null),
+    docs.length ? null : h('p', { class: 'mute' }, 'Fotografiere die Seite im gelben Heft oder den Befund. Dann ist alles an einem Ort, auch wenn das Heft mal fehlt.'),
+    grid, h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => pick(camIn) }, 'Seite fotografieren'), h('button', { class: 'btn ghost', type: 'button', onclick: () => pick(libIn) }, 'Aus Fotos')), camIn, libIn);
+}
+function uMini(ref) {
+  const docs = uPhotoDocs(ref); if (!docs.length) return null;
+  return h('span', { class: 'umini', 'aria-label': plural(docs.length, 'Foto', 'Fotos') }, h('img', { src: docs[docs.length - 1].thumb || BLANK, alt: '' }), docs.length > 1 ? h('em', null, String(docs.length)) : null);
+}
+function uOpen(title, build, ref) {
+  const box = h('div', { class: 'stack' }); const paint = () => box.replaceChildren(...build().filter(Boolean)); paint();
+  uDraw = paint; openFull({ title, body: box, onClose: () => { uDraw = null; } });
+}
+function uSummary(code, label) {
+  const hl = S.health, p = S.profile, def = U_DEF.find(d => d[0] === code), e = hl.u[code], st = uStatus(def, e, p.geburtsdatum);
+  const ws = p.geburtsdatum ? addDaysIso(p.geburtsdatum, def[2]) : null, we = p.geburtsdatum ? addDaysIso(p.geburtsdatum, def[3]) : null;
+  const card = h('div', { class: 'card stack' }, h('div', { class: 'udhead' }, h('span', { class: 'badge' + (e ? ' done' : '') }, code), h('div', null, h('b', null, label), e ? h('small', { class: 'mute' }, e.datum ? 'Am ' + fmtD(e.datum) : 'Durchgeführt') : h('small', { class: 'mute' }, ws ? (st === 'due' ? 'Jetzt fällig bis ' + fmtD(we) : st === 'later' ? 'Ab ' + fmtD(ws) + ' bis ' + fmtD(we) : st === 'past' ? 'Nicht eingetragen, Fenster war bis ' + fmtD(we) : 'Noch offen') : 'Noch offen'))));
+  if (e) card.append(h('div', null, kv('Praxis / Ärztin / Arzt', e.arzt), kv('Gewicht', e.gewicht && e.gewicht + ' kg'), kv('Größe', e.groesse && e.groesse + ' cm'), kv('Kopfumfang', e.kopf && e.kopf + ' cm'), kv('Ergebnis', e.befund), kv('Notiz', e.notiz)));
+  card.append(h('button', { class: 'btn wide', type: 'button', onclick: () => editU(code, label) }, e ? 'Bearbeiten' : 'Eintragen'));
+  return card;
+}
+function openUDetail(code, label) {
+  uOpen(`${code} · ${label}`, () => [uSummary(code, label), uPhotoCard(code, code + ' Heft'),
+    code === 'U2' ? h('button', { class: 'card hoerlink', type: 'button', onclick: openHoerDetail }, h('span', { class: 'hoeri', html: IC.svg('ear') }), h('span', { class: 'fmtx' }, h('b', null, 'Neugeborenen-Hörscreening'), h('small', null, hoerSub())), chev()) : null], code);
+}
+/* --- Hörscreening --- */
+const HOER_RES = ['', 'Unauffällig (bestanden)', 'Auffällig (Kontrolle nötig)', 'Nicht untersucht'];
+const HOER_FIELDS = [
+  { key: 'datum', label: 'Durchgeführt am', type: 'date' },
+  { key: 'ort', label: 'Wo (Klinik oder Praxis)' },
+  { key: 'verfahren', label: 'Verfahren', type: 'select', options: ['', 'TEOAE (Messung der Ohrgeräusche)', 'AABR (Messung der Hirnstrom-Antwort)', 'Weiß ich nicht'] },
+  { key: 'rechts', label: 'Rechtes Ohr', type: 'select', options: HOER_RES },
+  { key: 'links', label: 'Linkes Ohr', type: 'select', options: HOER_RES },
+  { key: 'kontrolle', label: 'Kontrolltermin am (falls nötig)', type: 'date' },
+  { key: 'notiz', label: 'Notiz', type: 'textarea', ph: 'z. B. Name der Klinik, Hinweise' }
+];
+function hoerState() {
+  const e = S.health.hoer || {}, any = e.datum || e.rechts || e.links || e.ort || e.verfahren;
+  if (!any) return { done: false };
+  const bad = /^Auff/.test(e.rechts || '') || /^Auff/.test(e.links || ''), ok = /^Unauff/.test(e.rechts || '') && /^Unauff/.test(e.links || '');
+  return { done: true, bad, ok, e };
+}
+function hoerSub() {
+  const s = hoerState(); if (!s.done) return 'Noch nicht eingetragen';
+  return [s.e.datum && 'Am ' + fmtD(s.e.datum), s.bad ? 'Kontrolle nötig' : s.ok ? 'Unauffällig' : 'Eingetragen'].filter(Boolean).join(' · ');
+}
+function editHoer() {
+  openSheet({
+    title: 'Neugeborenen-Hörscreening', values: S.health.hoer || {}, fields: HOER_FIELDS,
+    onSave: async v => { if (!Object.values(v).some(Boolean)) delete S.health.hoer; else S.health.hoer = v; await persist('health'); render(); },
+    onDelete: S.health.hoer ? async () => { delete S.health.hoer; await persist('health'); render(); } : null, deleteLabel: 'Zurücksetzen'
+  });
+}
+function openHoerDetail() {
+  uOpen('Hörscreening', () => {
+    const s = hoerState(), e = s.e || {};
+    const head = h('div', { class: 'card stack' }, h('div', { class: 'udhead' }, h('span', { class: 'hoeri big', html: IC.svg('ear') }), h('div', null, h('b', null, 'Neugeborenen-Hörscreening'), h('small', { class: 'mute' }, s.done ? hoerSub() : 'Noch nicht eingetragen'))),
+      s.done ? h('div', null, kv('Durchgeführt am', e.datum && fmtD(e.datum)), kv('Wo', e.ort), kv('Verfahren', e.verfahren), kv('Rechtes Ohr', e.rechts), kv('Linkes Ohr', e.links), kv('Kontrolltermin', e.kontrolle && fmtD(e.kontrolle)), kv('Notiz', e.notiz)) : null,
+      s.bad ? h('p', { class: 'hoerwarn' }, 'Ein auffälliges Screening heißt nicht, dass dein Kind schlecht hört. Oft ist es nur Flüssigkeit im Ohr. Wichtig ist, die Kontrolle zeitnah machen zu lassen.') : null,
+      h('button', { class: 'btn wide', type: 'button', onclick: editHoer }, s.done ? 'Bearbeiten' : 'Ergebnis eintragen'),
+      e.kontrolle ? h('button', { class: 'btn ghost wide', type: 'button', onclick: () => addToCalendar('Hörtest-Kontrolle', e.kontrolle, 'Kontrolle nach dem Neugeborenen-Hörscreening', 2) }, 'Kontrolltermin im Kalender merken') : null);
+    const info = h('div', { class: 'card stack' }, h('b', null, 'Gut zu wissen'),
+      h('p', { class: 'mute' }, 'Jedes Neugeborene in Deutschland hat Anspruch auf ein Hörscreening, meist in den ersten Lebenstagen noch in der Klinik. Das Ergebnis wird im gelben Heft bei der U2 festgehalten.'),
+      h('p', { class: 'mute' }, 'Ist das Ergebnis auffällig, folgt eine Kontrolluntersuchung, möglichst früh, spätestens um die U3. Bestätigt sie sich, klärt eine Pädaudiologie die Ursache, am besten bis zum 3. Lebensmonat. Maßgeblich sind das gelbe Heft und die Praxis.'));
+    return [head, uPhotoCard('HOER', 'Hörscreening'), info];
+  }, 'HOER');
+}
+/* ===== v30: Begrüßung + Schalter ===== */
+function greetCard() {
+  const nm = (S.profile.vorname || '').trim(), L = nm.length;
+  const fs = !nm ? 52 : L <= 6 ? 72 : L <= 9 ? 62 : L <= 12 ? 52 : 42;
+  const spark = (c, s) => `<svg class="gsp ${c}" viewBox="0 0 24 24" aria-hidden="true" style="width:${s}px;height:${s}px"><path d="M12 1.5c.8 5.2 2.6 7 8.5 10.5-5.9 3.5-7.7 5.3-8.5 10.5-.8-5.2-2.6-7-8.5-10.5C9.4 8.5 11.2 6.7 12 1.5z"/></svg>`;
+  return h('div', { class: 'greet', role: 'heading', 'aria-level': '1', 'aria-label': nm ? 'Hallo, ich bin ' + nm : 'Hallo, willkommen' },
+    h('span', { class: 'g1' }, nm ? 'Hallo, ich bin' : 'Hallo, schön dass du da bist'),
+    h('span', { class: 'g2', style: 'font-size:' + fs + 'px' }, nm || 'Willkommen'),
+    h('span', { class: 'gsw', 'aria-hidden': 'true', html: '<svg viewBox="0 0 220 24" preserveAspectRatio="none"><path d="M3 15c28-12 52-12 78-3s52 8 80-4c18-8 36-8 56-1" fill="none" stroke="url(#gsg)" stroke-width="3.2" stroke-linecap="round"/><defs><linearGradient id="gsg" x1="0" x2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset=".6" stop-color="#e86aa8"/><stop offset="1" stop-color="#8a6bff" stop-opacity=".8"/></linearGradient></defs></svg>' }),
+    h('span', { class: 'gsps', 'aria-hidden': 'true', html: spark('a', 22) + spark('b', 14) + spark('c', 10) }));
+}
+function famModeCard() {
+  const on = famMode();
+  const t = h('span', { class: 'tgl', 'aria-hidden': 'true' });
+  const card = h('div', { class: 'card fmcard', role: 'switch', tabindex: '0', 'aria-checked': on ? 'true' : 'false', 'aria-label': 'Familienmodus' },
+    h('span', { class: 'fmico', html: IC.svg('family') }),
+    h('span', { class: 'fmtx' }, h('b', null, 'Familienmodus'), h('small', null, 'Zeigt nur Startseite, Fotos und Journey. Alles andere ist ausgeblendet, ideal für Oma und Opa. Beenden kannst du ihn unten auf der Startseite.')), t);
+  const flip = () => { const nx = card.getAttribute('aria-checked') !== 'true'; card.setAttribute('aria-checked', nx ? 'true' : 'false'); Haptic.fire('select'); setTimeout(() => famSetMode(nx), 260); };
+  card.addEventListener('click', flip);
+  card.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); } });
+  return card;
+}
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
@@ -9542,7 +9784,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
+window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
