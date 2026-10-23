@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="30">
+<meta name="app-version" content="31">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1424,6 +1424,22 @@ body.famode .editbtn{display:none!important}
 .hoercard{margin-left:20px}
 .hoerlink{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:var(--ink);width:100%;cursor:pointer}
 .hoerwarn{background:color-mix(in srgb,#f5a623 16%,transparent);border-radius:14px;padding:10px 12px;font-size:13.5px;line-height:1.4;margin:0}
+/* v31 */
+#toast{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.tabbar,.tabbar *{touch-action:none;-webkit-user-select:none;user-select:none}
+.tabpill{position:absolute;z-index:0;border-radius:30px;pointer-events:none;background:rgba(255,255,255,.88);box-shadow:0 4px 14px rgba(20,30,40,.22),inset 0 1px 0 rgba(255,255,255,.95);will-change:transform}
+:root[data-dark] .tabpill{background:rgba(255,255,255,.26);box-shadow:0 4px 14px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.3)}
+.tabbar .tab{z-index:1}
+.tabbar.sliding .tab.on{background:none!important;box-shadow:none!important}
+.tabbar.sliding .tab.on:not(.hot){color:var(--mute)}
+.tabbar.sliding .tab.hot{color:var(--accent)}
+.tabbar .tab .ico{transition:transform .18s cubic-bezier(.3,1.4,.5,1)}
+.tabbar.sliding .tab.hot .ico{transform:scale(1.18)}
+.tabbar .hapt-ov{z-index:6}
+.vmedia.own .vvid{object-fit:contain}
+.vmedia.own.fill .vvid{object-fit:cover}
+.vcard.fitc .vbg{filter:blur(36px) brightness(.85) saturate(1.5);inset:-40px}
+.vcard.fitc .vmedia.own .vvid{box-shadow:0 10px 40px rgba(0,0,0,.45)}
 </style>
 </head>
 <body>
@@ -4492,7 +4508,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 30'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 31'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -7059,7 +7075,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 30;
+const APP_VERSION = 31;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7149,7 +7165,7 @@ function render() {
   v.scrollTop = keep;
   try { if (uDraw) uDraw(); } catch (e) { console.error(e); }
   setTimeout(announceBadges, 700);
-  $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
+  $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, 'data-tab': t.id, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
 }
 function makeIcon() {
   try {
@@ -8240,13 +8256,18 @@ function vfOwnCard(it) {
   card._mute = mu => { vd.muted = mu; };
   vd.addEventListener('timeupdate', () => { if (vd.duration) prog.style.width = (vd.currentTime / vd.duration * 100) + '%'; if (vd.currentTime > 3 && !tick) { tick = 1; vfWatched('o' + m.id); } });
   vd.addEventListener('play', () => card.classList.remove('paused')); vd.addEventListener('pause', () => { if (url) card.classList.add('paused'); });
+  const fit = () => vfitApply(card, vd, m.id);
+  vd.addEventListener('loadedmetadata', fit); vd.addEventListener('loadeddata', () => { fit(); vfitFrame(card, vd); });
+  window.addEventListener('resize', () => { if (card.isConnected && vd.videoWidth) fit(); });
   const toggle = () => { if (!url) { card._on(); return; } if (vd.paused) { vd.play().catch(() => {}); vfFlash(card, VIC.play); } else { vd.pause(); vfFlash(card, VIC.pause); } };
   const more = () => actionSheet(m.titel, `${fmtD(m.datum)}${m.size ? ' · ' + fmtSize(m.size) : ''}`, [
+    { label: card.dataset.fit === 'cover' ? 'Ganzes Bild zeigen' : 'Bild füllen (heranzoomen)', onclick: () => { vfitSet(m.id, card.dataset.fit === 'cover' ? 'contain' : 'cover'); vfitApply(card, vd, m.id); toast(card.dataset.fit === 'cover' ? 'Bild gefüllt' : 'Ganzes Bild'); } },
     { label: 'Umbenennen', onclick: () => openSheet({ title: 'Umbenennen', values: { titel: m.titel }, fields: [{ key: 'titel', label: 'Titel', required: true, cap: 'words' }], onSave: async v => { m.titel = v.titel; await videoPut(m); if (vf) vfRebuild(true); } }) },
     { label: 'Löschen', ghost: true, onclick: async () => { if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); await vsocSet('o:' + m.id, { like: 0, save: 0, c: [] }); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]);
   card.append(h('div', { class: 'vmedia own' }, vd), h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }), vfTap(card, it, toggle),
     vfInfo(S.profile.vorname || 'Wir', (S.profile.vorname || 'W').slice(0, 1).toUpperCase(), 'linear-gradient(135deg,#f58529,#dd2a7b,#8134af)', m.titel, `Eigenes Video · ${[fmtD(m.datum), vidDurTxt(m.dur)].filter(Boolean).join(' · ')}`),
     vfRail(card, it, more), h('div', { class: 'vprog' }, prog));
+  vfitInit(card, m.id);
   return card;
 }
 function vfYtCard(it) {
@@ -8510,7 +8531,7 @@ const backBtn = (label, fn) => h('button', { class: 'backbtn', type: 'button', '
   const blocked = () => !!document.querySelector('.back, .lb, #lock:not([hidden]), .welcome:not([hidden])');
   document.addEventListener('touchstart', e => {
     clear();
-    if (e.touches.length !== 1 || blocked()) return;
+    if (e.touches.length !== 1 || blocked() || (e.target.closest && e.target.closest('#tabbar'))) return;
     const p = e.touches[0]; if (p.clientX > 42) return;
     const b = document.querySelector('#view .backbtn'); if (!b) return;
     t = { x: p.clientX, y: p.clientY, b, on: false, dx: 0 };
@@ -9767,6 +9788,83 @@ function famModeCard() {
   card.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); } });
   return card;
 }
+/* ============ v31: Tab-Leiste per Finger wischen (wie Instagram) ============ */
+(function tabSlide() {
+  let st = null, sup = 0;
+  const bar = () => document.getElementById('tabbar');
+  const tabs = () => Array.from(bar().querySelectorAll('.tab'));
+  const nearest = x => { let bi = 0, bd = 1e9; tabs().forEach((t, i) => { const r = t.getBoundingClientRect(), d = Math.abs(x - (r.left + r.width / 2)); if (d < bd) { bd = d; bi = i; } }); return bi; };
+  const place = (pill, cx, w, animate) => {
+    const br = bar().getBoundingClientRect(); pill.style.transition = animate ? 'transform .2s cubic-bezier(.3,.9,.3,1)' : 'none';
+    pill.style.transform = 'translateX(' + (cx - w / 2 - br.left - 1) + 'px)';
+  };
+  const centers = () => tabs().map(t => { const r = t.getBoundingClientRect(); return r.left + r.width / 2; });
+  const finish = (commit) => {
+    const s = st; st = null; if (!s || !s.drag) return;
+    sup = Date.now() + 450;
+    const b = bar(), ts = tabs(), id = ts[s.hot] && ts[s.hot].getAttribute('data-tab'), c = centers();
+    if (s.pill && c[s.hot] != null) place(s.pill, c[s.hot], s.w, true);
+    const p = s.pill; setTimeout(() => { if (p) p.remove(); b.classList.remove('sliding'); ts.forEach(t => t.classList.remove('hot')); }, 210);
+    if (commit && id && id !== curTabId()) { Haptic.fire('light'); go(id); }
+    else { b.classList.remove('sliding'); ts.forEach(t => t.classList.remove('hot')); }
+  };
+  document.addEventListener('pointerdown', e => {
+    if (!e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    if (!(e.target.closest && e.target.closest('#tabbar'))) return;
+    st = { id: e.pointerId, x: e.clientX, y: e.clientY, drag: false, hot: -1, pill: null, w: 0 };
+  }, { passive: true });
+  document.addEventListener('pointermove', e => {
+    if (!st || e.pointerId !== st.id) return;
+    if (!st.drag) {
+      if (Math.abs(e.clientX - st.x) < 10) return;
+      const b = bar(), ts = tabs(); if (ts.length < 2) { st = null; return; }
+      const r0 = ts[0].getBoundingClientRect(), br = b.getBoundingClientRect();
+      st.drag = true; st.w = r0.width; st.hot = nearest(st.x);
+      st.pill = document.createElement('div'); st.pill.className = 'tabpill';
+      st.pill.style.cssText = 'width:' + r0.width + 'px;height:' + r0.height + 'px;top:' + (r0.top - br.top - 1) + 'px;left:' + (r0.left - br.left - 1) + 'px';
+      b.append(st.pill); b.classList.add('sliding'); ts.forEach((t, i) => t.classList.toggle('hot', i === st.hot));
+      Haptic.fire('select');
+    }
+    const c = centers(), px = Math.min(c[c.length - 1], Math.max(c[0], e.clientX));
+    place(st.pill, px, st.w, false);
+    const hot = nearest(e.clientX);
+    if (hot !== st.hot) { st.hot = hot; tabs().forEach((t, i) => t.classList.toggle('hot', i === hot)); Haptic.fire('select'); }
+  }, { passive: true });
+  document.addEventListener('pointerup', e => { if (st && e.pointerId === st.id) finish(true); }, { passive: true });
+  document.addEventListener('pointercancel', e => { if (st && e.pointerId === st.id) finish(false); }, { passive: true });
+  document.addEventListener('click', e => {
+    if (Date.now() < sup && e.target.closest && e.target.closest('#tabbar')) { e.stopPropagation(); e.stopImmediatePropagation(); e.preventDefault(); }
+  }, true);
+  window.__tabSlide = { get dragging() { return !!(st && st.drag); } };
+})();
+
+/* ============ v31: eigene Videos füllen den Bildschirm ============ */
+const VFIT_MAX_CROP = 0.38;
+function vfitPref(id) { try { return localStorage.getItem('luise_vfit_' + id) || ''; } catch (e) { return ''; } }
+function vfitSet(id, v) { try { if (v) localStorage.setItem('luise_vfit_' + id, v); else localStorage.removeItem('luise_vfit_' + id); } catch (e) {} }
+function vfitAuto(vw, vh, cw, ch) {
+  if (!vw || !vh || !cw || !ch) return 'contain';
+  const sc = Math.max(cw / vw, ch / vh), crop = 1 - (cw * ch) / (vw * vh * sc * sc);
+  return crop <= VFIT_MAX_CROP ? 'cover' : 'contain';
+}
+function vfitInit(card, id) {
+  let m = vfitPref(id); if (!m) { try { m = localStorage.getItem('luise_vfa_' + id) || ''; } catch (e) {} }
+  const media = card.querySelector('.vmedia'); if (!m || !media) return;
+  media.classList.toggle('fill', m === 'cover'); card.classList.toggle('fitc', m !== 'cover'); card.dataset.fit = m;
+}
+function vfitApply(card, vd, id) {
+  const media = card.querySelector('.vmedia'); if (!media) return;
+  const mode = vfitPref(id) || vfitAuto(vd.videoWidth, vd.videoHeight, card.clientWidth || innerWidth, card.clientHeight || innerHeight);
+  media.classList.toggle('fill', mode === 'cover'); card.classList.toggle('fitc', mode !== 'cover'); card.dataset.fit = mode;
+  if (!vfitPref(id)) { try { localStorage.setItem('luise_vfa_' + id, mode); } catch (e) {} }
+}
+function vfitFrame(card, vd) {
+  const bg = card.querySelector('.vbg'); if (!bg || bg.style.backgroundImage) return;
+  try {
+    const cv = document.createElement('canvas'), k = 64 / Math.max(1, vd.videoWidth); cv.width = 64; cv.height = Math.max(1, Math.round(vd.videoHeight * k));
+    cv.getContext('2d').drawImage(vd, 0, 0, cv.width, cv.height); bg.style.backgroundImage = 'url("' + cv.toDataURL('image/jpeg', .6) + '")';
+  } catch (e) {}
+}
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
@@ -9784,7 +9882,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
+window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
