@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="31">
+<meta name="app-version" content="32">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1440,6 +1440,124 @@ body.famode .editbtn{display:none!important}
 .vmedia.own.fill .vvid{object-fit:cover}
 .vcard.fitc .vbg{filter:blur(36px) brightness(.85) saturate(1.5);inset:-40px}
 .vcard.fitc .vmedia.own .vvid{box-shadow:0 10px 40px rgba(0,0,0,.45)}
+/* ===== v32: Luises Lichtung ===== */
+.lt-i{width:100%;height:100%;display:block}
+.lt-ban{position:relative;overflow:hidden;border-radius:26px;padding:20px 18px 64px;background:linear-gradient(160deg,var(--lb1,#f7e4d4),var(--lb2,#faf3e6));border:1px solid rgba(196,120,90,.22);box-shadow:0 10px 28px rgba(120,90,50,.14);color:var(--lbt,#3a4535)}
+:root[data-dark] .lt-ban{--lb1:#3b2f2c;--lb2:#2c2b25;--lbt:#f3ead9;border-color:rgba(255,255,255,.12)}
+.lt-deco{position:absolute;left:0;right:0;bottom:0;height:90px;pointer-events:none}.lt-deco svg{width:100%;height:100%;display:block}
+.lt-tt{position:relative;z-index:2;display:flex;flex-direction:column;gap:2px}
+.lt-tt small{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#c4785a}
+.lt-tt b{font:700 30px/1.1 "Snell Roundhand","Apple Chancery","Brush Script MT",Georgia,serif}
+.lt-tt span{font-size:13.5px;opacity:.78}
+.lt-mas{position:absolute;right:14px;bottom:10px;z-index:2;display:flex;align-items:flex-end;gap:2px}
+.lt-mas svg{width:46px;height:46px}.lt-mas svg.b{width:30px;height:30px;margin-bottom:22px}
+.lt-mas.sm{position:static;flex:none}.lt-mas.sm svg{width:40px;height:40px;margin-right:-8px}
+.lt-clover,.lt-promo{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);cursor:pointer;padding:12px 14px;border-radius:22px;border:1px solid rgba(196,120,90,.28);background:linear-gradient(135deg,rgba(147,166,127,.22),rgba(232,216,187,.4));min-height:64px}
+.lt-clover:active,.lt-promo:active,.lt-card-g:active{transform:scale(.97)}
+.lt-clover.done{opacity:.7}
+.lt-cl{width:46px;height:46px;flex:none}.lt-ct,.lt-pt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lt-ct small,.lt-pt small{color:var(--mute);font-size:13px}
+.lt-go{flex:none;padding:7px 14px;border-radius:999px;background:var(--accent);color:var(--accent-ink,#fff);font-weight:700;font-size:13.5px}
+.lt-clover.done .lt-go{background:transparent;color:var(--accent)}
+.lt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lt-card-g{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;padding:12px;border-radius:22px;border:1px solid var(--line);background:var(--card);min-height:150px}
+.lt-gi{width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,rgba(232,216,187,.7),rgba(227,182,165,.45));padding:6px;margin-bottom:4px}
+.lt-card-g b{font-size:15.5px}.lt-card-g small{color:var(--mute);font-size:12.5px;line-height:1.3}
+.lt-meta{display:flex;flex-wrap:wrap;gap:4px;margin-top:auto;padding-top:6px}.lt-meta i{font-style:normal;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--accent-bg);color:var(--accent)}.lt-meta i.full{background:rgba(147,166,127,.28);color:#4d6a45}
+.lt-card-g.quiz .lt-gi{background:linear-gradient(135deg,rgba(147,166,127,.5),rgba(232,216,187,.5))}
+.lt-game{display:flex;flex-direction:column;gap:12px;padding:6px 2px 24px;min-height:60vh}
+.lt-bar{display:flex;justify-content:space-between;gap:10px;font-size:15px;padding:8px 14px;border-radius:16px;background:var(--card);border:1px solid var(--line)}.lt-bar b{font-variant-numeric:tabular-nums}
+.lt-hint{text-align:center;color:var(--mute);font-size:13.5px;margin:0}.lt-hint.big{font-size:17px;color:var(--ink);font-weight:600}
+.lt-res{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:18px 6px}
+.lt-res .lt-mas{position:static}.lt-res .lt-mas svg{width:84px;height:84px}
+.lt-res h2{margin:0;font:700 26px Georgia,serif}.lt-res p{margin:0;color:var(--mute);max-width:30ch}
+.lt-pay{padding:8px 16px;border-radius:999px;background:var(--accent-bg);color:var(--accent);font-weight:700;font-size:14px;max-width:34ch}.lt-pay.yes{font-size:22px;background:linear-gradient(135deg,#f6d77a,#e9b64a);color:#4a3508}
+.lt-res .btn-row{width:100%;margin-top:6px}.lt-res .btn.wide{margin-top:6px}
+.lt-stars{display:inline-flex;gap:6px}.lt-stars svg{width:38px;height:38px;fill:rgba(140,127,104,.28)}.lt-stars svg.on{fill:#f2b84a;filter:drop-shadow(0 2px 4px rgba(200,140,40,.4))}
+/* Memory */
+.lt-mem{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lt-mc{aspect-ratio:1/1.05;perspective:600px;border:0;background:none;padding:0;cursor:pointer}
+.lt-mc .in{position:relative;display:block;width:100%;height:100%;transition:transform .35s;transform-style:preserve-3d;-webkit-transform-style:preserve-3d}
+.lt-mc.open .in,.lt-mc.ok .in{transform:rotateY(180deg)}
+.lt-mc .bk,.lt-mc .fr{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:12px}
+.lt-mc .bk{background:linear-gradient(135deg,#93a67f,#5d7452);border:2px solid rgba(255,255,255,.35)}.lt-mc .bk svg{opacity:.85;filter:brightness(1.6) saturate(.4)}
+.lt-mc .fr{background:#fffaf1;border:2px solid #e8d8bb;transform:rotateY(180deg)}
+.lt-mc.ok .fr{border-color:#93a67f;background:#eef3e3}
+/* Bees */
+.lt-tbar{height:8px;border-radius:99px;background:rgba(147,166,127,.25);overflow:hidden}.lt-tbar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#e8b64a,#c4785a)}
+.lt-bees{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.lt-hole{position:relative;aspect-ratio:1;border:0;border-radius:24px;background:radial-gradient(circle at 50% 70%,#b9c8a4,#93a67f);padding:0;cursor:pointer;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.lt-hole .fl{position:absolute;inset:14%;opacity:.95}.lt-hole .cr{position:absolute;inset:12%;transform:translateY(120%) scale(.6);transition:transform .14s ease-out;display:block}
+.lt-hole.up .cr{transform:none}.lt-hole.gone .cr{transform:scale(1.4);opacity:0;transition:transform .15s,opacity .15s}
+.lt-hole.bad{background:radial-gradient(circle at 50% 70%,#e9b3a8,#c9604f)}
+.lt-i.gold{filter:drop-shadow(0 0 6px #ffd24a) saturate(1.3) brightness(1.1)}
+/* Echo */
+.lt-echo{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:6px 10px}
+.lt-pad{aspect-ratio:1;border:0;border-radius:30px;background:color-mix(in srgb,var(--pc) 28%,var(--card));padding:18%;cursor:pointer;transition:transform .12s,filter .12s,box-shadow .12s;-webkit-tap-highlight-color:transparent;opacity:.85}
+.lt-pad span{display:block;width:100%;height:100%;filter:grayscale(.4) opacity(.55)}
+.lt-pad.lit{transform:scale(1.07);opacity:1;background:var(--pc);box-shadow:0 0 28px var(--pc)}.lt-pad.lit span{filter:none}
+/* Words */
+.lt-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:6px}
+.lt-slots .sl{width:30px;height:40px;border-radius:10px;border:2px dashed var(--line);display:flex;align-items:center;justify-content:center;font:700 19px Georgia,serif}
+.lt-slots .sl.f{border-style:solid;border-color:var(--accent);background:var(--accent-bg)}
+.lt-slots.ok .sl{background:#dfe9cf;border-color:#6f9560}.lt-slots.no{animation:ltshake .4s}.lt-slots.no .sl.f{border-color:#c8372d;background:rgba(200,55,45,.12)}
+@keyframes ltshake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.lt-tiles{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+.lt-tiles .tl{width:44px;height:50px;border-radius:14px;border:1px solid #e0cfae;background:linear-gradient(180deg,#fffaf1,#f1e4c9);font:700 21px Georgia,serif;color:#3a4535;box-shadow:0 3px 0 #d6c39b;cursor:pointer}
+.lt-tiles .tl:active{transform:translateY(2px);box-shadow:0 1px 0 #d6c39b}.lt-tiles .tl:disabled{opacity:.25;box-shadow:none}
+/* Fakten */
+.lt-fact{padding:22px 18px;border-radius:24px;background:var(--card);border:1px solid var(--line);min-height:150px;display:flex;flex-direction:column;justify-content:center;gap:8px;text-align:center}
+.lt-fact p{margin:0;font:600 19px/1.35 Georgia,serif}.lt-fact.good{background:#e6efd9;border-color:#93a67f}.lt-fact.bad{background:#f8e3dc;border-color:#d98a73}
+:root[data-dark] .lt-fact.good{background:#25331f}:root[data-dark] .lt-fact.bad{background:#3a231d}
+.lt-tf{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lt-tf .btn.wide{grid-column:1/-1}.btn.tf{min-height:54px;font-size:17px}
+/* Glücksblatt */
+.lt-leaves{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;margin-top:6px}
+.lt-leaf{position:relative;aspect-ratio:1;border:0;border-radius:24px;background:linear-gradient(135deg,#93a67f,#5d7452);padding:14%;cursor:pointer;transition:transform .3s}
+.lt-leaf .bk{display:block;width:100%;height:100%;filter:brightness(1.7) saturate(.4);opacity:.8}
+.lt-leaf .n{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 26px Georgia,serif;color:#4a3508;opacity:0;transition:opacity .3s}
+.lt-leaf.open{background:linear-gradient(135deg,#f6d77a,#e9b64a);transform:rotateY(0) scale(1.05)}.lt-leaf.open .bk{opacity:0}.lt-leaf.open .n{opacity:1}.lt-leaf.dim{filter:saturate(.5);opacity:.7;transform:none}
+@media (prefers-reduced-motion:reduce){.lt-mc .in,.lt-hole .cr,.lt-pad{transition:none}.lt-slots.no{animation:none}}
+/* ===== v32: Marken & Produkte ===== */
+.prodsearch{margin:0}
+.prow{align-items:center;min-height:60px}
+.pbrate{flex:none;display:inline-flex;align-items:center;gap:6px;padding:5px 11px 5px 6px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);min-height:40px;font:inherit;color:var(--ink);cursor:pointer}
+.pbrate span{width:28px;height:28px;display:block}.pbrate span svg{width:100%;height:100%;display:block}.pbrate i{font-style:normal;font-size:12.5px;font-weight:600;white-space:nowrap}
+.pbrate.none{border-style:dashed;color:var(--mute)}.pbrate.none span{opacity:.5;filter:grayscale(1)}
+.pbrate:active,.prate-b:active,.brand:active{transform:scale(.96)}
+.prate-chips,.pa-cats{padding-bottom:2px}
+.prate-top{display:flex;gap:12px;align-items:center}.prate-top b{font-size:18px;display:block}
+.prate-q{font-weight:700;margin:12px 0 8px}
+.prate-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.prate-b{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:18px;border:2px solid var(--line);background:var(--card);font:inherit;color:var(--ink);cursor:pointer;min-height:58px;text-align:left}
+.prate-b span{width:34px;height:34px;flex:none;display:block}.prate-b span svg{width:100%;height:100%;display:block}.prate-b b{font-size:14.5px;line-height:1.2}
+.prate-b.on{border-color:var(--accent);background:var(--accent-bg)}
+.prate-more{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.btn.danger{color:#c8372d}
+.pa-grid{margin-top:2px}
+/* ===== v32: App-Icon + Benachrichtigungen ===== */
+.icongrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.icopt{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:18px;border:2px solid transparent;background:none;font:inherit;color:var(--ink);cursor:pointer}
+.icopt img{width:100%;max-width:74px;aspect-ratio:1;border-radius:22%;box-shadow:0 4px 12px rgba(0,0,0,.2);display:block}.icopt span{font-size:12.5px;font-weight:600}
+.icopt.on{border-color:var(--accent);background:var(--accent-bg)}
+.icopt:active{transform:scale(.95)}
+.notif-ics{display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px dashed var(--line)}.notif-ics p{margin:0;font-size:13.5px}
+/* ===== v32: Schlaf & Alltag Heute ===== */
+.trtoday{gap:18px}
+.trsec{display:flex;flex-direction:column;gap:8px}.trsec>.sechead,.trsec>h3{margin-bottom:0}
+.trpredcard.slim{padding:14px 16px;gap:10px}
+.trpredcard.slim .trpred-a{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.trpredcard.slim .btn{min-height:40px;padding:8px 14px;font-size:14px}
+.trwhy summary,.trinfo summary{cursor:pointer;color:var(--mute);font-size:13px;list-style:none;padding:6px 4px}.trwhy summary::-webkit-details-marker,.trinfo summary::-webkit-details-marker{display:none}
+.trwhy[open] summary,.trinfo[open] summary{color:var(--accent)}.trwhy p{margin:4px 0 0}
+.trinfo{border-top:1px dashed var(--line);padding-top:6px}
+.trmore-btn{display:flex;align-items:center;gap:8px;width:100%;padding:12px 14px;border-radius:18px;border:1px dashed var(--line);background:transparent;font:inherit;color:var(--accent);cursor:pointer;min-height:48px;text-align:left}
+.trmore-btn span{font-weight:700;font-size:14px;flex:none}.trmore-btn small{flex:1;min-width:0;color:var(--mute);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trmore-btn i{width:20px;height:20px;flex:none;transition:transform .2s}.trmore-btn i svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.trmore-btn.open i{transform:rotate(180deg)}
+.trmore.closed{display:none}
+.trday{padding:12px 0 4px;gap:0;display:flex;flex-direction:column}
+.trday .trsum{padding:0 12px 12px;border-bottom:1px solid var(--line)}
+.trday .trsum-i{background:var(--accent-bg);border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.trday .trlist{padding:2px 0}
+@media (prefers-reduced-motion:reduce){.trmore-btn i{transition:none}}
 </style>
 </head>
 <body>
@@ -3932,7 +4050,7 @@ applyTheme();
 function designCard() {
   const cur = DESIGNS[ls.get('luise_design')] ? ls.get('luise_design') : 'standard', mode = ls.get('luise_mode') || 'auto';
   return h('div', { class: 'card stack' }, h('h2', null, 'Design'),
-    h('div', { class: 'swatches' }, Object.keys(DESIGNS).map(k => h('button', { class: 'swatch' + (cur === k ? ' on' : ''), 'aria-label': DESIGNS[k].name, onclick: () => { ls.set('luise_design', k); applyTheme(); render(); } },
+    h('div', { class: 'swatches' }, Object.keys(DESIGNS).map(k => h('button', { class: 'swatch' + (cur === k ? ' on' : ''), 'aria-label': DESIGNS[k].name, onclick: () => { ls.set('luise_design', k); applyTheme(); try { iconApply(); } catch (e) {} render(); } },
       h('i', { style: `background:linear-gradient(135deg,${DESIGNS[k].c1},${DESIGNS[k].c2})` }), h('span', null, DESIGNS[k].name)))),
     h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Darstellung'),
       h('select', { onchange: e => { ls.set('luise_mode', e.target.value); applyTheme(); render(); } },
@@ -4460,6 +4578,8 @@ function viewSettings() {
   wrap.append(pageHead('Einstellungen'));
   wrap.append(famModeCard());
   wrap.append(designCard());
+  wrap.append(iconCard());
+  wrap.append(notifCard());
   const impfCb = h('input', { type: 'checkbox', onchange: e => { ls.set('luise_show_impf', e.target.checked ? '1' : '0'); render(); } });
   impfCb.checked = showImpf();
   wrap.append(h('div', { class: 'card' }, h('label', { class: 'field check' }, impfCb, h('span', null, 'Impfungen in „Gesundheit“ anzeigen'))));
@@ -4508,7 +4628,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 31'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 32'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -4995,50 +5115,6 @@ function scanFlow() {
 
 /* ============ Datenblatt (PDF) ============ */
 const SHEET_SECS = [['stamm', 'Stammdaten'], ['vers', 'Krankenkasse und Versichertennummer'], ['steuer', 'Steuer-ID'], ['gesund', 'Gesundheit und Notfall'], ['kontakte', 'Kontakte'], ['kita', 'Kita / Schule und Abholberechtigte'], ['betreuung', 'Betreuungs-Infos'], ['adressen', 'Adressen'], ['familie', 'Familie (Stammbuch)']];
-async function buildDatasheet(sel) {
-  const p = S.profile, hl = S.health, sc = S.school, c = p.care || {};
-  const W = 1240, H = 1754, M = 90, FONT = '-apple-system, "Helvetica Neue", Arial, sans-serif', pages = [];
-  let cv, cx, y;
-  const newPage = () => { cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, W, H); pages.push(cv); y = M; };
-  const wrap = (t, maxW) => {
-    const out = [];
-    String(t).split('\n').forEach(par => {
-      let line = '';
-      par.split(/\s+/).forEach(w => { const test = line ? line + ' ' + w : w; if (cx.measureText(test).width > maxW && line) { out.push(line); line = w; } else line = test; });
-      out.push(line);
-    });
-    return out;
-  };
-  const need = hh => { if (y + hh > H - M - 40) newPage(); };
-  const section = t => { need(110); y += 26; cx.fillStyle = '#1f6b5b'; cx.font = `700 30px ${FONT}`; cx.fillText(t.toUpperCase(), M, y + 28); y += 40; cx.fillStyle = '#d9d9d9'; cx.fillRect(M, y, W - 2 * M, 2); y += 14; };
-  const row = (k, v) => {
-    if (!v) return;
-    cx.font = `400 28px ${FONT}`; const lines = wrap(v, W - 2 * M - 360); need(lines.length * 38 + 12);
-    cx.fillStyle = '#6b6b6b'; cx.font = `400 26px ${FONT}`; cx.fillText(k, M, y + 28);
-    cx.fillStyle = '#111'; cx.font = `500 28px ${FONT}`; lines.forEach((l, i) => cx.fillText(l, M + 360, y + 28 + i * 38)); y += lines.length * 38 + 12;
-  };
-  const para = (k, v) => { if (!v) return; cx.font = `700 27px ${FONT}`; need(90); cx.fillStyle = '#444'; cx.fillText(k, M, y + 28); y += 40; cx.font = `400 28px ${FONT}`; const lines = wrap(v, W - 2 * M); lines.forEach(l => { need(40); cx.fillStyle = '#111'; cx.fillText(l, M, y + 28); y += 38; }); y += 10; };
-  newPage();
-  const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Datenblatt';
-  cx.fillStyle = '#111'; cx.font = `800 58px ${FONT}`; cx.fillText(name, M, y + 56);
-  cx.fillStyle = '#6b6b6b'; cx.font = `400 30px ${FONT}`; cx.fillText(p.geburtsdatum ? `geboren am ${fmtD(p.geburtsdatum)} (${ageText(p.geburtsdatum)})` : 'Datenblatt', M, y + 104);
-  if (p.foto) { try { const im = await loadImg(await (await fetch(p.foto)).blob()); cx.save(); cx.beginPath(); cx.arc(W - M - 80, y + 70, 80, 0, Math.PI * 2); cx.clip(); const s = Math.max(160 / im.naturalWidth, 160 / im.naturalHeight); cx.drawImage(im, W - M - 80 - im.naturalWidth * s / 2, y + 70 - im.naturalHeight * s / 2, im.naturalWidth * s, im.naturalHeight * s); cx.restore(); } catch (e) {} }
-  y += 150; cx.fillStyle = '#1f6b5b'; cx.fillRect(M, y, W - 2 * M, 5); y += 10;
-  const block = (t, rows) => { rows = rows.filter(r => r[1]); if (!rows.length) return; section(t); rows.forEach(r => row(r[0], r[1])); };
-  if (sel.stamm) block('Stammdaten', [['Geburtsort', p.geburtsort], ['Staatsangehörigkeit', p.staatsangehoerigkeit], ['Größe', p.groesse], ['Schuhgröße', p.schuhgroesse]].concat((p.extras || []).map(x => [x.label, x.value])));
-  if (sel.vers) block('Versicherung', [['Krankenkasse', p.krankenkasse], ['Versichertennummer', p.versnr]]);
-  if (sel.steuer) block('Steuer', [['Steuer-ID', p.steuerid]]);
-  if (sel.gesund) block('Gesundheit', [['Blutgruppe', hl.blutgruppe], ['Allergien', hl.allergien], ['Dauermedikation', hl.medikamente], ['Aktuelle Medikamente', medsText()], ['Wichtige Hinweise', hl.hinweise], ['Kinderarzt', [hl.kinderarzt, hl.kinderarzt_tel].filter(Boolean).join(', ')]]);
-  if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name + (k.rolle ? ' (' + k.rolle + ')' : ''), k.tel || '–']));
-  if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse], ['Bring- und Abholzeiten', sc.zeiten]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
-  if (sel.betreuung) { const any = CARE_FIELDS.some(f => c[f.key]); if (any) { section('Betreuungs-Infos'); CARE_FIELDS.forEach(f => para(f.label, c[f.key])); } }
-  if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
-  if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
-  if (y < M + 260) { cx.fillStyle = '#6b6b6b'; cx.font = `400 28px ${FONT}`; cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, y + 50); }
-  pages.forEach((pg, i) => { const x = pg.getContext('2d'); x.fillStyle = '#9a9a9a'; x.font = `400 22px ${FONT}`; x.fillText(`Stand ${fmtD(isoToday())} · MyLuiseApp`, M, H - 50); x.textAlign = 'right'; x.fillText(`Seite ${i + 1} von ${pages.length}`, W - M, H - 50); x.textAlign = 'left'; });
-  const blobs = await Promise.all(pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.9))));
-  return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
-}
 function datasheetFlow() {
   const vals = { stamm: true, vers: false, steuer: false, gesund: true, kontakte: true, kita: eduShow(), betreuung: true, adressen: false, familie: false };
   openSheet({
@@ -5178,78 +5254,6 @@ const pickPhotosFor = (arr, n) => {
   for (let i = 0; i < need; i++) out.push(rest[Math.floor(i * rest.length / need)]);
   return out;
 };
-async function buildReview(per) {
-  const p = S.profile, d = reviewData(per), W = 1240, H = 1754, M = 90, FONT = '-apple-system, "Helvetica Neue", Arial, sans-serif', pages = [];
-  const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Rückblick';
-  const endRef = per.end > isoToday() ? isoToday() : per.end;
-  let cv, cx, y;
-  const newPage = () => { cv = document.createElement('canvas'); cv.width = W; cv.height = H; cx = cv.getContext('2d'); cx.fillStyle = '#fff'; cx.fillRect(0, 0, W, H); pages.push(cv); y = M; };
-  const wrapT = (t, maxW) => { const out = []; String(t).split('\n').forEach(par => { let line = ''; par.split(/\s+/).forEach(w => { const tst = line ? line + ' ' + w : w; if (cx.measureText(tst).width > maxW && line) { out.push(line); line = w; } else line = tst; }); out.push(line); }); return out; };
-  const need = hh => { if (y + hh > H - M - 50) newPage(); };
-  const section = t => { need(120); y += 30; cx.fillStyle = '#1f6b5b'; cx.font = `700 32px ${FONT}`; cx.fillText(t.toUpperCase(), M, y + 30); y += 44; cx.fillStyle = '#d9d9d9'; cx.fillRect(M, y, W - 2 * M, 2); y += 18; };
-  const rr = (x, yy, w, hh, r) => { cx.beginPath(); cx.moveTo(x + r, yy); cx.arcTo(x + w, yy, x + w, yy + hh, r); cx.arcTo(x + w, yy + hh, x, yy + hh, r); cx.arcTo(x, yy + hh, x, yy, r); cx.arcTo(x, yy, x + w, yy, r); cx.closePath(); };
-  const cover = (im, x, yy, w, hh) => { cx.save(); rr(x, yy, w, hh, 18); cx.clip(); const s = Math.max(w / im.naturalWidth, hh / im.naturalHeight), dw = im.naturalWidth * s, dh = im.naturalHeight * s; cx.drawImage(im, x + (w - dw) / 2, yy + (hh - dh) / 2, dw, dh); cx.restore(); };
-  const loadPh = async m => { try { const rec = await pfileGet(m.id); return rec ? await loadImg(new Blob([rec.data], { type: 'image/jpeg' })) : null; } catch (e) { return null; } };
-  const grid = async (list, cols, cellH, gap) => {
-    const cw = (W - 2 * M - gap * (cols - 1)) / cols;
-    for (let i = 0; i < list.length; i += cols) {
-      need(cellH + gap);
-      for (let c = 0; c < cols && i + c < list.length; c++) { const im = await loadPh(list[i + c]); if (im) cover(im, M + c * (cw + gap), y, cw, cellH); }
-      y += cellH + gap;
-    }
-  };
-  newPage();
-  const g = cx.createLinearGradient(0, 0, W, 560); g.addColorStop(0, '#1f6b5b'); g.addColorStop(1, '#4aa08e');
-  cx.fillStyle = g; cx.fillRect(0, 0, W, 520);
-  cx.fillStyle = 'rgba(255,255,255,.85)'; cx.font = `600 32px ${FONT}`; cx.fillText(per.kind === 'y' ? 'JAHRESRÜCKBLICK' : 'MONATSRÜCKBLICK', M, 150);
-  cx.fillStyle = '#fff'; cx.font = `800 110px ${FONT}`; cx.fillText(per.short, M, 280);
-  cx.font = `600 48px ${FONT}`; cx.fillText(name, M, 360);
-  cx.font = `400 34px ${FONT}`; cx.fillStyle = 'rgba(255,255,255,.9)';
-  if (p.geburtsdatum && endRef >= p.geburtsdatum) cx.fillText(`${ageText(p.geburtsdatum, endRef)} · Lebenswoche ${Math.max(1, Math.floor(Math.round((parseD(endRef) - parseD(p.geburtsdatum)) / 864e5) / 7) + 1)}`, M, 420);
-  cx.fillText(`${fmtD(per.start)} bis ${fmtD(per.end)}`, M, 470);
-  y = 570;
-  const cover6 = pickPhotosFor(d.photos, 6);
-  if (cover6.length) {
-    const cols = cover6.length >= 4 ? 3 : cover6.length >= 2 ? 2 : 1, rows = Math.ceil(cover6.length / cols), gap = 16, ch = (520 - gap * (rows - 1)) / rows;
-    await grid(cover6, cols, ch, gap); y += 10;
-  }
-  need(200);
-  const tiles = [[d.photos.length, 'Fotos'], [d.moments, 'Momente'], [d.notes.length, 'Notizen'], [d.fever ? d.fever : d.termine, d.fever ? 'Fiebertage' : 'Termine']];
-  const tw = (W - 2 * M - 3 * 16) / 4;
-  tiles.forEach(([n, l], i) => { const x = M + i * (tw + 16); cx.fillStyle = '#eef5f2'; rr(x, y, tw, 170, 20); cx.fill(); cx.fillStyle = '#1f6b5b'; cx.font = `800 70px ${FONT}`; cx.fillText(String(n), x + 24, y + 92); cx.fillStyle = '#555'; cx.font = `400 28px ${FONT}`; cx.fillText(l, x + 24, y + 138); });
-  y += 200;
-  const grow = [];
-  if (d.h) grow.push(['Größe', `${fmtNum(d.h.last)} cm` + (d.h.delta != null ? `  (${d.h.delta >= 0 ? '+' : ''}${fmtNum(d.h.delta)} cm)` : '')]);
-  if (d.w) grow.push(['Gewicht', `${fmtNum(d.w.last)} kg` + (d.w.delta != null ? `  (${d.w.delta >= 0 ? '+' : ''}${fmtNum(d.w.delta)} kg)` : '')]);
-  if (d.maxT) grow.push(['Höchste Temperatur', `${fmtNum(d.maxT.t)} °C am ${fmtD(d.maxT.n.datum)}`]);
-  if (d.docs) grow.push(['Neue Dokumente', String(d.docs)]);
-  if (d.termine && d.fever) grow.push(['Termine', String(d.termine)]);
-  if (grow.length) { section('Wachstum und Zahlen'); grow.forEach(([k, v]) => { need(50); cx.fillStyle = '#6b6b6b'; cx.font = `400 28px ${FONT}`; cx.fillText(k, M, y + 28); cx.fillStyle = '#111'; cx.font = `600 30px ${FONT}`; cx.fillText(v, M + 360, y + 28); y += 48; }); }
-  if (d.feed.length) {
-    section('Highlights');
-    for (const e of d.feed.slice(0, 40)) {
-      cx.font = `400 28px ${FONT}`; const lines = e.text ? wrapT(e.text, W - 2 * M - 200) : [];
-      need(60 + lines.length * 38);
-      cx.fillStyle = '#6b6b6b'; cx.font = `400 25px ${FONT}`; cx.fillText(fmtD(e.datum).slice(0, 6), M, y + 30);
-      cx.fillStyle = '#111'; cx.font = `700 30px ${FONT}`; cx.fillText(`${e.emoji}  ${e.titel}`, M + 200, y + 32);
-      cx.font = `400 28px ${FONT}`; cx.fillStyle = '#333'; lines.forEach((l, i) => cx.fillText(l, M + 200, y + 72 + i * 38));
-      y += 56 + lines.length * 38 + 14;
-    }
-    if (d.feed.length > 40) { need(50); cx.fillStyle = '#6b6b6b'; cx.font = `italic 400 26px ${FONT}`; cx.fillText(`… und ${d.feed.length - 40} weitere Einträge`, M + 200, y + 30); y += 50; }
-  }
-  const mk = Object.entries(d.moods).sort((a, b) => b[1] - a[1]);
-  if (mk.length) {
-    section('Stimmungen');
-    const mx = mk[0][1];
-    mk.forEach(([k, n]) => { need(56); cx.fillStyle = '#111'; cx.font = `400 28px ${FONT}`; cx.fillText(k, M, y + 32); cx.fillStyle = '#cfe6df'; rr(M + 360, y + 6, 560, 34, 17); cx.fill(); cx.fillStyle = '#1f6b5b'; rr(M + 360, y + 6, Math.max(34, 560 * n / mx), 34, 17); cx.fill(); cx.fillStyle = '#111'; cx.fillText(String(n), M + 940, y + 32); y += 56; });
-  }
-  const used = new Set(cover6.map(x => x.id)), more = pickPhotosFor(d.photos.filter(x => !used.has(x.id)), 12);
-  if (more.length) { section('Weitere Fotos'); await grid(more, 3, 340, 14); }
-  if (!d.feed.length && !d.photos.length && !d.notes.length) { need(80); cx.fillStyle = '#6b6b6b'; cx.font = `400 30px ${FONT}`; cx.fillText('In diesem Zeitraum gibt es noch keine Einträge.', M, y + 40); y += 70; }
-  pages.forEach((pg, i) => { const c = pg.getContext('2d'); c.fillStyle = '#9a9a9a'; c.font = `400 22px ${FONT}`; c.fillText(`MyLuiseApp · ${per.title}`, M, H - 50); const t = `Seite ${i + 1} von ${pages.length}`; c.fillText(t, W - M - c.measureText(t).width, H - 50); });
-  const blobs = await Promise.all(pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.88))));
-  return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
-}
 function showPdfResult(title, fileName, r, docTitle) {
   const file = new File([r.pdf], fileName, { type: 'application/pdf' }), urls = r.pages.map(b => mkUrl(b));
   const ov = openFull({ title, onClose: () => urls.forEach(rmUrl), body: h('div', { class: 'stack' },
@@ -7075,7 +7079,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 31;
+const APP_VERSION = 32;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7166,31 +7170,6 @@ function render() {
   try { if (uDraw) uDraw(); } catch (e) { console.error(e); }
   setTimeout(announceBadges, 700);
   $('#tabbar').replaceChildren(...(famMode() ? FAM_TABS : TABS).map(t => h('button', { class: 'tab' + (t.id === curTabId() ? ' on' : ''), 'aria-label': t.label, 'data-tab': t.id, onclick: () => go(t.id) }, h('span', { class: 'ico', html: t.icon }), h('span', null, t.label))));
-}
-function makeIcon() {
-  try {
-    const N = 512, c = document.createElement('canvas'); c.width = c.height = N;
-    const x = c.getContext('2d');
-    const bg = x.createLinearGradient(0, 0, N, N);
-    bg.addColorStop(0, '#3a2a86'); bg.addColorStop(0.55, '#2a7567'); bg.addColorStop(1, '#4aa08e');
-    x.fillStyle = bg; x.fillRect(0, 0, N, N);
-    const gl = x.createRadialGradient(N * 0.28, N * 0.2, 10, N * 0.28, N * 0.2, N * 0.75);
-    gl.addColorStop(0, 'rgba(255,255,255,.38)'); gl.addColorStop(1, 'rgba(255,255,255,0)');
-    x.fillStyle = gl; x.fillRect(0, 0, N, N);
-    [[84, 118, 5], [430, 92, 4], [420, 430, 5], [66, 410, 3.5], [455, 270, 3], [250, 60, 3]].forEach(([px, py, r]) => {
-      x.fillStyle = 'rgba(255,255,255,.85)'; x.beginPath(); x.arc(px, py, r, 0, Math.PI * 2); x.fill();
-    });
-    x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = 78;
-    const lg = x.createLinearGradient(0, 110, 0, 410); lg.addColorStop(0, '#ffffff'); lg.addColorStop(1, '#ffe7a6');
-    x.strokeStyle = lg; x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = 26; x.shadowOffsetY = 12;
-    x.beginPath(); x.moveTo(168, 118); x.lineTo(168, 392); x.lineTo(352, 392); x.stroke();
-    x.shadowColor = 'rgba(255,200,60,.8)'; x.shadowBlur = 30; x.shadowOffsetY = 0;
-    x.fillStyle = '#ffd24d'; x.beginPath();
-    for (let i = 0; i < 10; i++) { const r = i % 2 ? 26 : 64, a = -Math.PI / 2 + i * Math.PI / 5; x.lineTo(352 + r * Math.cos(a), 150 + r * Math.sin(a)); }
-    x.closePath(); x.fill();
-    const url = c.toDataURL('image/png');
-    ['apple-touch-icon', 'icon'].forEach(rel => { const l = document.createElement('link'); l.rel = rel; l.href = url; document.head.append(l); });
-  } catch (e) {}
 }
 /* ============ Coin-Welt: Verdienen, Laden, Wünsche ============ */
 const COIN_START = 1, COIN_STREAK_BONUS = 10;
@@ -7295,9 +7274,12 @@ function viewCoins() {
     h('div', { class: 'stats' }, h('div', { class: 'stat' }, h('b', null, '🔥 ' + st), 'Serie'), h('div', { class: 'stat' }, h('b', null, c.best), 'Rekord'), h('div', { class: 'stat' }, h('b', null, c.own.length), 'Extras'))));
   wrap.append(h('button', { class: 'btn wide coinstart' + (done ? ' ghost' : ''), type: 'button', disabled: done ? true : null, onclick: coinStart },
     done ? 'Tagesbonus heute abgeholt ✓' : `Tagesbonus abholen (+${COIN_START}${(st + 1) % 7 === 0 ? ` und +${COIN_STREAK_BONUS} Serienbonus` : ''})`));
-  wrap.append(h('div', { class: 'chips' }, [['earn', 'Verdienen'], ['shop', 'Laden'], ['wish', 'Wünsche'], ['log', 'Verlauf']].map(([id, l]) => h('button', { class: 'fchip' + (coinSeg === id ? ' on' : ''), 'data-seg': id, type: 'button', onclick: () => { coinSeg = id; render(); } }, l))));
-  if (coinSeg === 'earn') {
+  wrap.append(h('div', { class: 'chips' }, [['earn', 'Verdienen'], ['play', 'Spiele'], ['shop', 'Laden'], ['wish', 'Wünsche'], ['log', 'Verlauf']].map(([id, l]) => h('button', { class: 'fchip' + (coinSeg === id ? ' on' : ''), 'data-seg': id, type: 'button', onclick: () => { coinSeg = id; render(); } }, l))));
+  if (coinSeg === 'play') {
+    ltHub(wrap);
+  } else if (coinSeg === 'earn') {
     const td = coinToday(c), qdone = c.day === isoToday();
+    ltPromo(wrap);
     wrap.append(h('div', { class: 'card coinrows' },
       li(() => { qz = null; go('quiz'); }, '', h('span', { class: 'hubico emo' }, '🧠'), liTxt('Quiz-Runde', `Bis zu ${COIN_FIRST * QUIZ_LEN + COIN_PERFECT} Coins pro Runde, erste Runde am Tag +${COIN_DAY}`), h('span', { class: 'cprog' + (qdone ? ' ok' : '') }, qdone ? '✓' : 'Los')),
       Object.keys(COIN_RULES).map(k => { const r = COIN_RULES[k], n = td.k[k] || 0, full = n >= r.cap;
@@ -8852,29 +8834,6 @@ function trHero(pred, anim) {
     h('div', { class: 'trdial', html: trDial(pred, anim) }), trCenter(pred));
   return hero;
 }
-function viewTrackSleep() {
-  const wrap = h('div', { class: 'stack' }), pred = trPredict(), anim = !trSeen; trSeen = true;
-  wrap.append(trHero(pred, anim));
-  const w = pred.w;
-  if (pred.at) wrap.append(h('div', { class: 'card stack trpredcard' },
-    h('div', { class: 'trpred-h' }, h('b', null, pred.label), h('span', { class: 'chip ok' }, 'ca. ' + trHM(trIso(new Date(pred.at))))),
-    h('p', { class: 'mute small' }, `Wachfenster ${trDur(w.min)}: ${w.own ? 'angepasst an die letzten Tage' : 'Richtwert für ' + trAgeInfo().wk + ' Lebenswochen'}. Müdigkeitszeichen wie Gähnen, Augenreiben oder Quengeln gehen vor.`),
-    h('button', { class: 'btn ghost wide', type: 'button', onclick: trRemind }, '⏰ Erinnerung in den Kalender legen')));
-  const sum = trToday();
-  wrap.append(h('div', { class: 'trsum' }, [['😴', trDur(sum.sleepMin), 'Schlaf heute'], ['💤', String(sum.naps), 'Nickerchen'], ['🍼', String(sum.feeds), 'Mahlzeiten'], ['🧷', String(sum.dia), 'Windeln']].map(([e, v, l], i) => h('div', { class: 'trsum-i', style: `animation-delay:${i * 0.06}s` }, h('span', null, e), h('b', null, v), h('small', null, l)))));
-  const sl = trSleeping();
-  wrap.append(h('div', { class: 'trtiles' }, Object.keys(TRT).map((k, i) => {
-    const last = trLastOf(k), on = sl && ((k === 'nap' && sl.type === 'nap') || (k === 'bed' && sl.type === 'bed'));
-    const label = sl && (k === 'wake') ? 'Aufwachen' : TRT[k][1];
-    return h('button', { class: 'trtile' + (on ? ' on' : '') + (sl && k === 'wake' ? ' go' : ''), type: 'button', style: `animation-delay:${i * 0.035}s`, onclick: () => trTap(k) },
-      h('span', { class: 'trtile-e', 'aria-hidden': 'true' }, TRT[k][0]), h('b', null, label), last ? h('small', { class: 'trago', 'data-t': last }, trAgo(last)) : h('small', null, ' '));
-  })));
-  const d0 = trTodayStart(), list = trLog().filter(e => { const t = trD(e.t).getTime(), en = e.end ? trD(e.end).getTime() : t; return (t >= d0 && t < d0 + 864e5) || (en >= d0 && en < d0 + 864e5) || (!e.end && (e.type === 'nap' || e.type === 'bed')); }).sort((a, b) => b.t.localeCompare(a.t));
-  wrap.append(sectionHead('Heute'));
-  wrap.append(h('div', { class: 'card trlist' }, list.length ? list.map(e => { const [nm, sub] = trRowText(e); return h('button', { class: 'trrow', type: 'button', onclick: () => trEdit(e.type, e) }, h('span', { class: 'trrow-e' }, TRT[e.type][0]), h('span', { class: 'trrow-t' }, h('b', null, nm), h('small', null, sub)), chev()); }) : h('p', { class: 'empty' }, 'Noch nichts eingetragen. Tippe oben auf eine Kachel.')));
-  wrap.append(h('p', { class: 'fine' }, 'Alle Werte sind Richtwerte und kein Ersatz für ärztlichen Rat. Sicherer Schlaf: Rückenlage, feste Matratze, keine Kissen, Decken oder Kuscheltiere im Bett. Hinweise erscheinen nur, solange die App geöffnet ist. Für Mitteilungen bei geschlossener App legst du die Erinnerung in den Kalender.'));
-  return wrap;
-}
 /* ---------- Verlauf ---------- */
 function trDays(n) {
   const out = [], t0 = trTodayStart();
@@ -9428,75 +9387,6 @@ function prodCatChips(list) {
   if (prodCat !== 'Alle' && !cats.includes(prodCat)) prodCat = 'Alle';
   return cats.length > 1 ? h('div', { class: 'chips' }, ['Alle', ...cats].map(c => h('button', { class: 'fchip' + (c === prodCat ? ' on' : ''), type: 'button', onclick: () => { prodCat = c; render(); } }, c))) : null;
 }
-function prodBoard(list, edit) {
-  const box = h('div', { class: 'stack' });
-  if (!list.length) {
-    box.append(h('div', { class: 'card stack gempty' }, h('div', { class: 'gempty-e', html: IC.svg('teddy') }), h('h2', null, 'Noch nichts erfasst'), h('p', { class: 'mute' }, 'Halte fest, was Luise nutzt und mag. Am schnellsten geht es mit „Entdecken“: Marke antippen oder in eine Bewertung ziehen.'),
-      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => { prodSeg = 'disc'; render(); } }, 'Marken entdecken'), h('button', { class: 'btn ghost', type: 'button', onclick: () => edit() }, 'Selbst eintragen'))));
-    return box;
-  }
-  const cc = prodCatChips(list); if (cc) box.append(cc);
-  box.append(h('p', { class: 'fine pbhint' }, 'Karte am Griff ⋮⋮ oder lange gedrückt in eine andere Spalte ziehen, um sie neu zu bewerten.'));
-  const items = list.filter(x => prodCat === 'Alle' || x.kategorie === prodCat);
-  const board = h('div', { class: 'pbboard' });
-  PLANES.forEach(([key, ic, label]) => {
-    const its = items.filter(x => (x.bewertung || '') === key);
-    const lane = h('div', { class: 'pblane', 'data-drop': key, 'data-k': key || 'none' },
-      h('div', { class: 'pblane-h' }, h('span', { class: 'pblane-i', html: IC.svg(ic) }), h('b', null, label), h('span', { class: 'pblane-n' }, String(its.length))),
-      its.length ? its.map(x => {
-        const card = h('div', { class: 'pbcard', 'data-id': x.id, role: 'button', tabindex: '0', onclick: () => edit(x) }, mono(x.marke), h('span', { class: 'pbcard-t' }, h('b', null, x.marke), h('small', null, [x.produkt, x.groesse && 'Gr. ' + x.groesse].filter(Boolean).join(' · ') || x.kategorie)), h('span', { class: 'pbgrip', 'aria-label': 'Verschieben' }, '⋮⋮'));
-        dragKit(card, { handle: '.pbgrip', scrollX: () => board, onDrop: async k => { if ((x.bewertung || '') === k) return; x.bewertung = k; await persist('profile'); Haptic.fire('success'); toast(`${x.marke}: ${k || 'ohne Bewertung'}`); render(); } });
-        return card;
-      }) : h('div', { class: 'pbempty' }, 'Hierher ziehen'));
-    board.append(lane);
-  });
-  board.addEventListener('scroll', () => { prodX = board.scrollLeft; }, { passive: true });
-  box.append(board); setTimeout(() => { board.scrollLeft = prodX; }, 0);
-  return box;
-}
-function prodKat(list, edit) {
-  const box = h('div', { class: 'stack' }), p = S.profile;
-  const sizes = [['Kleidung', 'shirt'], ['Schuhe', 'shoe'], ['Windeln & Pflege', 'diaper']].map(([c, ic]) => { const x = list.filter(i => i.kategorie === c && i.groesse).sort((a, b) => (b.datum || '').localeCompare(a.datum || ''))[0]; return x ? h('div', { class: 'pbsize' }, h('span', { html: IC.svg(ic) }), h('b', null, x.groesse), h('small', null, c === 'Windeln & Pflege' ? 'Windeln' : c)) : null; }).filter(Boolean);
-  if (sizes.length) box.append(h('div', { class: 'pbsizes' }, sizes));
-  box.append(h('div', { class: 'pcat-grid' }, PROD_CATS.map(c => { const n = list.filter(x => x.kategorie === c).length; return h('button', { class: 'pcat' + (prodCat === c ? ' on' : ''), type: 'button', onclick: () => { prodCat = prodCat === c ? 'Alle' : c; render(); } }, h('span', { class: 'pcat-i', html: IC.svg(PCAT_ICON[c]) }), h('b', null, c), h('small', null, n ? plural(n, 'Eintrag', 'Einträge') : 'Noch leer')); })));
-  const shown = list.filter(x => prodCat === 'Alle' || x.kategorie === prodCat).slice().sort((a, b) => (a.kategorie || '').localeCompare(b.kategorie || '', 'de') || a.marke.localeCompare(b.marke, 'de'));
-  if (shown.length) {
-    const groups = new Map(); shown.forEach(x => { const k = x.kategorie || 'Sonstiges'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(x); });
-    groups.forEach((items, k) => { if (prodCat === 'Alle') box.append(sectionHead(k)); box.append(h('div', { class: 'card' }, items.map(x => li(() => edit(x), '', mono(x.marke, 'sm'), liTxt(x.marke + (x.produkt ? ' · ' + x.produkt : ''), [x.groesse && 'Größe ' + x.groesse, x.notiz].filter(Boolean).join(' · '), rateChip(x.bewertung)), chev())))); });
-    box.append(prodShare(list));
-  } else if (prodCat !== 'Alle') box.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'In dieser Kategorie ist noch nichts. Tippe oben auf „Entdecken“ oder „+ Produkt“.')));
-  return box;
-}
-function prodDiscover(list, edit) {
-  const box = h('div', { class: 'stack' });
-  box.append(h('div', { class: 'chips' }, PROD_CATS.map(c => h('button', { class: 'fchip pdc' + (c === prodDisc ? ' on' : ''), type: 'button', onclick: () => { prodDisc = c; render(); } }, h('span', { class: 'pdc-i', html: IC.svg(PCAT_ICON[c]) }), c))));
-  box.append(h('p', { class: 'fine pbhint' }, 'Marke antippen zum Eintragen oder lange gedrückt auf eine Bewertung unten ziehen.'));
-  const have = new Map(list.filter(x => x.kategorie === prodDisc).map(x => [x.marke.toLowerCase(), x]));
-  const bar = h('div', { class: 'pbdrop' }, PLANES.slice(0, 4).map(([key, ic, label]) => h('div', { class: 'pbdrop-t', 'data-drop': key }, h('span', { html: IC.svg(ic) }), h('b', null, label))));
-  const add = async (marke, key) => {
-    const ex = have.get(marke.toLowerCase());
-    if (ex) { ex.bewertung = key; } else list.push({ id: uid(), marke, kategorie: prodDisc, bewertung: key, datum: isoToday() });
-    await persist('profile'); Haptic.fire('success'); toast(`${marke}: ${key}`); render();
-  };
-  const grid = h('div', { class: 'brandgrid' }, BRANDS[prodDisc].map(b => {
-    const ex = have.get(b.toLowerCase());
-    const chip = h('button', { class: 'brand' + (ex ? ' has' : ''), type: 'button', onclick: () => edit(ex || null, { marke: b, kategorie: prodDisc }) }, mono(b), h('b', null, b), ex ? h('small', null, ex.bewertung || 'dabei') : null);
-    dragKit(chip, { onStart: () => bar.classList.add('show'), onEnd: () => bar.classList.remove('show'), onDrop: key => { if (key) add(b, key); } });
-    return chip;
-  }));
-  grid.append(h('button', { class: 'brand own', type: 'button', onclick: () => edit(null, { kategorie: prodDisc }) }, h('span', { class: 'mono plus' }, '+'), h('b', null, 'Eigene Marke')));
-  box.append(grid, bar);
-  return box;
-}
-function viewProducts() {
-  const list = S.profile.produkte, wrap = h('div', { class: 'stack prodpage' });
-  const edit = (item, defs) => editListItem({ arr: list, key: 'profile', title: 'Produkt', fields: PROD_FIELDS, item, defaults: Object.assign({ kategorie: prodCat !== 'Alle' ? prodCat : PROD_CATS[0], datum: isoToday() }, defs || {}) });
-  wrap.append(pageHead('Marken & Produkte', addBtn('Produkt', () => edit())));
-  wrap.append(seg([['board', 'Board'], ['kat', 'Kategorien'], ['disc', 'Entdecken']], prodSeg, id => { prodSeg = id; render(); }));
-  wrap.append(prodSeg === 'kat' ? prodKat(list, edit) : prodSeg === 'disc' ? prodDiscover(list, edit) : prodBoard(list, edit));
-  if (prodSeg === 'board' && list.length) wrap.append(prodShare(list));
-  return wrap;
-}
 /* ============ v29: Familienmodus, Hochauflösende Fotos, Chat-Leiste ============ */
 const famMode = () => ls.get('luise_famode') === '1';
 const FAM_PAGES = ['home', 'photos', 'journey', 'songs', 'weeks', 'family'];
@@ -9865,6 +9755,688 @@ function vfitFrame(card, vd) {
     cv.getContext('2d').drawImage(vd, 0, 0, cv.width, cv.height); bg.style.backgroundImage = 'url("' + cv.toDataURL('image/jpeg', .6) + '")';
   } catch (e) {}
 }
+/* ============ v32: PDF-Design "Boho Nature" ============ */
+const BPC = { paper: '#f9f2e5', card: '#fffaf1', ink: '#3a4535', mute: '#8c7f68', sage: '#93a67f', sageD: '#5d7452', sageL: '#e1e8d2', terra: '#c4785a', terraL: '#f0d3c4', rose: '#e3b6a5', roseL: '#f6e1d8', sand: '#e8d8bb', sandD: '#cdb88f', gold: '#b8924f', wood: '#8a7556' };
+const BPF = { head: 'Georgia, "Times New Roman", serif', body: '"Avenir Next", "Helvetica Neue", Arial, sans-serif', script: '"Snell Roundhand", "Apple Chancery", "Brush Script MT", cursive' };
+const bpRng = seed => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+function bpRR(cx, x, y, w, h, r) { cx.beginPath(); cx.moveTo(x + r, y); cx.arcTo(x + w, y, x + w, y + h, r); cx.arcTo(x + w, y + h, x, y + h, r); cx.arcTo(x, y + h, x, y, r); cx.arcTo(x, y, x + w, y, r); cx.closePath(); }
+function bpSpacedW(cx, t, sp) { let w = 0; for (const ch of t) w += cx.measureText(ch).width + sp; return w - sp; }
+function bpSpaced(cx, t, x, y, sp, align) {
+  const w = bpSpacedW(cx, t, sp); let px = align === 'center' ? x - w / 2 : align === 'right' ? x - w : x;
+  const old = cx.textAlign; cx.textAlign = 'left'; for (const ch of t) { cx.fillText(ch, px, y); px += cx.measureText(ch).width + sp; } cx.textAlign = old; return w;
+}
+function bpWash(cx, x, y, r, col, a) { const g = cx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col.replace('A', a)); g.addColorStop(1, col.replace('A', 0)); cx.fillStyle = g; cx.fillRect(x - r, y - r, r * 2, r * 2); }
+function bpLeaf(cx, x, y, ang, len, wid, fill, round) {
+  cx.save(); cx.translate(x, y); cx.rotate(ang); cx.fillStyle = fill; cx.beginPath();
+  if (round) cx.ellipse(len / 2, 0, len / 2, wid * .8, 0, 0, Math.PI * 2);
+  else { cx.moveTo(0, 0); cx.quadraticCurveTo(len * .38, -wid, len, 0); cx.quadraticCurveTo(len * .38, wid, 0, 0); }
+  cx.fill(); cx.strokeStyle = 'rgba(255,255,255,.35)'; cx.lineWidth = 1.6; cx.beginPath(); cx.moveTo(len * .04, 0); cx.lineTo(len * .86, 0); cx.stroke(); cx.restore();
+}
+function bpBranch(cx, x, y, ang, len, o) {
+  const r = o.rnd, bend = o.bend == null ? .22 : o.bend, cols = o.cols || [BPC.sage, BPC.sageD, '#a9b895'], n = o.n || 11, sz = o.size || 54, round = !!o.round;
+  const ex = x + Math.cos(ang) * len, ey = y + Math.sin(ang) * len, qx = x + Math.cos(ang) * len * .5 - Math.sin(ang) * len * bend, qy = y + Math.sin(ang) * len * .5 + Math.cos(ang) * len * bend;
+  const pt = t => [(1 - t) * (1 - t) * x + 2 * (1 - t) * t * qx + t * t * ex, (1 - t) * (1 - t) * y + 2 * (1 - t) * t * qy + t * t * ey];
+  const tg = t => Math.atan2(2 * (1 - t) * (qy - y) + 2 * t * (ey - qy), 2 * (1 - t) * (qx - x) + 2 * t * (ex - qx));
+  cx.strokeStyle = BPC.wood; cx.lineWidth = 4; cx.lineCap = 'round'; cx.beginPath(); cx.moveTo(x, y); cx.quadraticCurveTo(qx, qy, ex, ey); cx.stroke();
+  for (let i = 0; i < n; i++) {
+    const t = .1 + .9 * i / n, p = pt(t), a = tg(t), s = i % 2 ? 1 : -1, l = sz * (1 - .5 * t) * (.85 + r() * .3);
+    bpLeaf(cx, p[0], p[1], a + s * (.75 + r() * .45), l, l * .36, cols[Math.floor(r() * cols.length)], round);
+  }
+  const e = pt(1); bpLeaf(cx, e[0], e[1], tg(1), sz * .6, sz * .22, cols[0], round);
+  if (o.berries) for (let i = 0; i < o.berries; i++) { const p = pt(.25 + r() * .7); cx.fillStyle = r() > .5 ? BPC.terra : BPC.rose; cx.beginPath(); cx.arc(p[0] + (r() - .5) * 26, p[1] + (r() - .5) * 26, 5 + r() * 3, 0, Math.PI * 2); cx.fill(); }
+}
+function bpPampas(cx, x, y, ang, len, rnd) {
+  const ex = x + Math.cos(ang) * len, ey = y + Math.sin(ang) * len;
+  cx.strokeStyle = BPC.wood; cx.lineWidth = 3; cx.lineCap = 'round'; cx.beginPath(); cx.moveTo(x, y); cx.lineTo(ex, ey); cx.stroke();
+  for (let i = 0; i < 46; i++) {
+    const t = .45 + .55 * rnd(), px = x + (ex - x) * t, py = y + (ey - y) * t, a = ang + (rnd() - .5) * 1.5, l = 50 + rnd() * 70, bx = px + Math.cos(a + .4) * l * .6, by = py + Math.sin(a + .4) * l * .6;
+    cx.strokeStyle = ['rgba(214,184,140,.55)', 'rgba(227,182,165,.5)', 'rgba(190,160,120,.4)'][i % 3]; cx.lineWidth = 1.8; cx.beginPath(); cx.moveTo(px, py); cx.quadraticCurveTo(bx, by, px + Math.cos(a) * l, py + Math.sin(a) * l); cx.stroke();
+  }
+}
+function bpArchPath(cx, x, y, w, h) { const r = w / 2; cx.beginPath(); cx.moveTo(x, y + h); cx.lineTo(x, y + r); cx.arc(x + r, y + r, r, Math.PI, 0); cx.lineTo(x + w, y + h); cx.closePath(); }
+function bpRainbowArch(cx, x, y, w, h) {
+  const cols = [BPC.sageL, BPC.sand, BPC.roseL, BPC.terraL], step = 22;
+  cols.forEach((c, i) => { bpArchPath(cx, x + i * step, y + i * step, w - 2 * i * step, h - i * step); cx.fillStyle = c; cx.fill(); });
+  const ix = x + cols.length * step, iw = w - 2 * cols.length * step; return { x: ix, y: y + cols.length * step, w: iw, h: h - cols.length * step };
+}
+async function bpArchPhoto(cx, box, im, initial) {
+  cx.save(); bpArchPath(cx, box.x, box.y, box.w, box.h); cx.clip();
+  if (im) { const s = Math.max(box.w / im.naturalWidth, box.h / im.naturalHeight); cx.drawImage(im, box.x + (box.w - im.naturalWidth * s) / 2, box.y + (box.h - im.naturalHeight * s) / 2, im.naturalWidth * s, im.naturalHeight * s); }
+  else { cx.fillStyle = BPC.card; cx.fillRect(box.x, box.y, box.w, box.h); cx.fillStyle = BPC.terra; cx.font = `700 ${Math.round(box.w * .6)}px ${BPF.script}`; cx.textAlign = 'center'; cx.fillText(initial || '♡', box.x + box.w / 2, box.y + box.h * .72); cx.textAlign = 'left'; }
+  cx.restore();
+  cx.strokeStyle = BPC.card; cx.lineWidth = 6; bpArchPath(cx, box.x, box.y, box.w, box.h); cx.stroke();
+}
+function bpSun(cx, x, y, r) {
+  cx.fillStyle = BPC.terraL; cx.beginPath(); cx.arc(x, y, r, 0, Math.PI * 2); cx.fill();
+  cx.strokeStyle = BPC.terra; cx.lineWidth = 3; cx.lineCap = 'round';
+  for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8, l1 = r + 12, l2 = r + (i % 2 ? 26 : 38); cx.beginPath(); cx.moveTo(x + Math.cos(a) * l1, y + Math.sin(a) * l1); cx.lineTo(x + Math.cos(a) * l2, y + Math.sin(a) * l2); cx.stroke(); }
+}
+function bpDivider(cx, x1, x2, y) {
+  const mid = (x1 + x2) / 2; cx.strokeStyle = BPC.sandD; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(x1, y); cx.lineTo(mid - 60, y); cx.moveTo(mid + 60, y); cx.lineTo(x2, y); cx.stroke();
+  bpLeaf(cx, mid - 10, y, Math.PI * 1.15, 40, 13, BPC.sage); bpLeaf(cx, mid + 10, y, -.15, 40, 13, BPC.sageD); cx.fillStyle = BPC.terra; cx.beginPath(); cx.arc(mid, y, 5, 0, Math.PI * 2); cx.fill();
+}
+function bpPage(W, H, n) {
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H; const cx = cv.getContext('2d'), r = bpRng(91 + n * 17);
+  cx.fillStyle = BPC.paper; cx.fillRect(0, 0, W, H);
+  bpWash(cx, W * .15, 60, 560, 'rgba(227,182,165,A)', .28); bpWash(cx, W * .95, H * .55, 520, 'rgba(147,166,127,A)', .18); bpWash(cx, W * .2, H * .98, 520, 'rgba(232,216,187,A)', .55);
+  for (let i = 0; i < 1500; i++) { cx.fillStyle = `rgba(120,95,60,${.03 + r() * .05})`; cx.fillRect(r() * W, r() * H, 1.5, 1.5); }
+  cx.strokeStyle = BPC.sandD; cx.lineWidth = 2.5; bpRR(cx, 44, 44, W - 88, H - 88, 36); cx.stroke();
+  cx.strokeStyle = BPC.sand; cx.lineWidth = 1.5; bpRR(cx, 58, 58, W - 116, H - 116, 28); cx.stroke();
+  const odd = n % 2 === 0;
+  if (odd) {
+    bpBranch(cx, 70, 130, -.02, 330, { rnd: r, size: 56, n: 11, berries: 4, round: true, cols: [BPC.sage, '#a7b894', BPC.sageD] });
+    bpPampas(cx, W - 80, H - 112, Math.PI * 1.03, 170, r); bpBranch(cx, W - 90, H - 76, Math.PI * 1.05, 230, { rnd: r, size: 46, n: 7, bend: -.2 });
+  } else {
+    bpBranch(cx, W - 70, 130, Math.PI + .02, 330, { rnd: r, size: 56, n: 11, berries: 4, bend: -.22 });
+    bpPampas(cx, 80, H - 112, -.03, 170, r); bpBranch(cx, 90, H - 76, -.05, 230, { rnd: r, size: 46, n: 7, round: true, bend: .2, cols: [BPC.sage, '#a7b894', BPC.sageD] });
+  }
+  return { cv, cx };
+}
+function bpFooters(pages, W, H, text) {
+  pages.forEach((pg, i) => {
+    const c = pg.getContext('2d'); c.fillStyle = BPC.mute; c.font = `400 22px ${BPF.body}`; c.textAlign = 'center';
+    bpSpaced(c, `${text}  ·  ${i + 1} / ${pages.length}`, W / 2, H - 92, 2, 'center'); c.textAlign = 'left';
+  });
+}
+function bpMaker(W, H, M, top, bottom) {
+  const st = { pages: [], cv: null, cx: null, y: 0 };
+  st.newPage = () => { const p = bpPage(W, H, st.pages.length); st.cv = p.cv; st.cx = p.cx; st.pages.push(p.cv); st.y = top; };
+  st.need = hh => { if (st.y + hh > H - bottom) st.newPage(); };
+  st.wrap = (t, maxW) => { const out = [], cx = st.cx; String(t).split('\n').forEach(par => { let line = ''; par.split(/\s+/).forEach(w => { const test = line ? line + ' ' + w : w; if (cx.measureText(test).width > maxW && line) { out.push(line); line = w; } else line = test; }); out.push(line); }); return out; };
+  st.section = t => {
+    st.need(160); const cx = st.cx; st.y += 34; const label = t.toUpperCase(); cx.font = `600 23px ${BPF.body}`;
+    const tw = bpSpacedW(cx, label, 4), pw = tw + 100, y = st.y;
+    cx.fillStyle = BPC.sageD; bpRR(cx, M, y, pw, 56, 28); cx.fill(); bpLeaf(cx, M + 22, y + 36, -.9, 26, 9, BPC.sageL); bpLeaf(cx, M + 22, y + 36, -2.1, 22, 8, BPC.sage);
+    cx.fillStyle = BPC.card; bpSpaced(cx, label, M + 58, y + 36, 4);
+    cx.strokeStyle = BPC.sand; cx.lineWidth = 2.5; cx.beginPath(); cx.moveTo(M + pw + 18, y + 28); cx.lineTo(W - M, y + 28); cx.stroke();
+    cx.fillStyle = BPC.terra; cx.beginPath(); cx.arc(W - M, y + 28, 6, 0, Math.PI * 2); cx.fill();
+    st.y += 56 + 26;
+  };
+  st.row = (k, v) => {
+    if (!v) return; const cx = st.cx; cx.font = `500 29px ${BPF.body}`; const lines = st.wrap(v, W - 2 * M - 390); st.need(lines.length * 40 + 30);
+    const y = st.y; cx.fillStyle = BPC.terra; cx.font = `600 20px ${BPF.body}`; const kl = st.wrap(k, 340); kl.slice(0, 2).forEach((l, i) => bpSpaced(cx, l.toUpperCase(), M, y + 30 + i * 26, 2.4));
+    cx.fillStyle = BPC.ink; cx.font = `500 29px ${BPF.body}`; lines.forEach((l, i) => cx.fillText(l, M + 390, y + 30 + i * 40));
+    const hh = Math.max(lines.length * 40, kl.slice(0, 2).length * 26 + 8) + 16; cx.fillStyle = BPC.sandD; for (let x = M; x < W - M; x += 12) cx.fillRect(x, y + hh + 6, 3, 3);
+    st.y += hh + 20;
+  };
+  st.para = (k, v) => {
+    if (!v) return; st.need(130); let cx = st.cx; cx.fillStyle = BPC.sageD; cx.font = `italic 700 32px ${BPF.head}`; cx.fillText(k, M + 36, st.y + 30);
+    bpLeaf(cx, M + 4, st.y + 22, -.6, 28, 10, BPC.sage); st.y += 52; st.cx.font = `400 28px ${BPF.body}`; const lines = st.wrap(v, W - 2 * M - 36);
+    lines.forEach(l => { st.need(42); st.cx.fillStyle = BPC.ink; st.cx.font = `400 28px ${BPF.body}`; st.cx.fillText(l, M + 36, st.y + 28); st.y += 40; });
+    st.y += 14;
+  };
+  return st;
+}
+async function buildDatasheet(sel) {
+  const p = S.profile, hl = S.health, sc = S.school, c = p.care || {};
+  const W = 1240, H = 1754, M = 130, FONT = BPF.body, B = bpMaker(W, H, M, 200, 200);
+  B.newPage();
+  const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Datenblatt';
+  let im = null; if (p.foto) { try { im = await loadImg(await (await fetch(p.foto)).blob()); } catch (e) {} }
+  const box = bpRainbowArch(B.cx, W - M - 270, 150, 270, 330); await bpArchPhoto(B.cx, box, im, (p.vorname || '♡').slice(0, 1));
+  let cx = B.cx; cx.fillStyle = BPC.terra; cx.font = `600 24px ${FONT}`; bpSpaced(cx, 'DATENBLATT  ·  STECKBRIEF', M, 250, 5);
+  let fs = 112; cx.fillStyle = BPC.ink; do { cx.font = `700 ${fs}px ${BPF.script}`; fs -= 4; } while (cx.measureText(name).width > W - 2 * M - 320 && fs > 48);
+  cx.fillText(name, M, 370);
+  cx.fillStyle = BPC.mute; cx.font = `italic 400 32px ${BPF.head}`; cx.fillText(p.geburtsdatum ? `geboren am ${fmtD(p.geburtsdatum)} · ${ageText(p.geburtsdatum)}` : 'Wichtige Informationen auf einen Blick', M, 428);
+  bpDivider(cx, M, W - M, 520); B.y = 540;
+  const block = (t, rows) => { rows = rows.filter(r => r[1]); if (!rows.length) return; B.section(t); rows.forEach(r => B.row(r[0], r[1])); };
+  if (sel.stamm) block('Stammdaten', [['Geburtsort', p.geburtsort], ['Staatsangehörigkeit', p.staatsangehoerigkeit], ['Größe', p.groesse], ['Schuhgröße', p.schuhgroesse]].concat((p.extras || []).map(x => [x.label, x.value])));
+  if (sel.vers) block('Versicherung', [['Krankenkasse', p.krankenkasse], ['Versichertennummer', p.versnr]]);
+  if (sel.steuer) block('Steuer', [['Steuer-ID', p.steuerid]]);
+  if (sel.gesund) block('Gesundheit', [['Blutgruppe', hl.blutgruppe], ['Allergien', hl.allergien], ['Dauermedikation', hl.medikamente], ['Aktuelle Medikamente', medsText()], ['Wichtige Hinweise', hl.hinweise], ['Kinderarzt', [hl.kinderarzt, hl.kinderarzt_tel].filter(Boolean).join(', ')]]);
+  if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name + (k.rolle ? ' (' + k.rolle + ')' : ''), k.tel || '–']));
+  if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse], ['Bring- und Abholzeiten', sc.zeiten]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
+  if (sel.betreuung) { const any = CARE_FIELDS.some(f => c[f.key]); if (any) { B.section('Betreuungs-Infos'); CARE_FIELDS.forEach(f => B.para(f.label, c[f.key])); } }
+  if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
+  if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
+  if (B.y < 700) { B.cx.fillStyle = BPC.mute; B.cx.font = `italic 400 30px ${BPF.head}`; B.cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, B.y + 50); }
+  bpFooters(B.pages, W, H, `Stand ${fmtD(isoToday())} · MyLuiseApp`);
+  const blobs = await Promise.all(B.pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.9))));
+  return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
+}
+async function buildReview(per) {
+  const p = S.profile, d = reviewData(per), W = 1240, H = 1754, M = 130, FONT = BPF.body, B = bpMaker(W, H, M, 200, 200);
+  const name = [p.vorname, p.nachname].filter(Boolean).join(' ') || 'Rückblick';
+  const endRef = per.end > isoToday() ? isoToday() : per.end;
+  const rr = (x, yy, w, hh, r) => bpRR(B.cx, x, yy, w, hh, r);
+  const loadPh = async m => { try { const rec = await pfileGet(m.id); return rec ? await loadImg(new Blob([rec.data], { type: 'image/jpeg' })) : null; } catch (e) { return null; } };
+  const rn = bpRng(5);
+  const polaroid = (im, x, yy, w, hh) => {
+    const cx = B.cx; cx.save(); cx.translate(x + w / 2, yy + hh / 2); cx.rotate((rn() - .5) * .05); cx.translate(-w / 2, -hh / 2);
+    cx.shadowColor = 'rgba(90,70,40,.28)'; cx.shadowBlur = 20; cx.shadowOffsetY = 6; cx.fillStyle = '#fffdf8'; rr(0, 0, w, hh, 6); cx.fill(); cx.shadowColor = 'transparent';
+    const pad = 12, iw = w - 2 * pad, ih = hh - pad - 34; cx.save(); rr(pad, pad, iw, ih, 3); cx.clip();
+    const s = Math.max(iw / im.naturalWidth, ih / im.naturalHeight); cx.drawImage(im, pad + (iw - im.naturalWidth * s) / 2, pad + (ih - im.naturalHeight * s) / 2, im.naturalWidth * s, im.naturalHeight * s); cx.restore();
+    cx.fillStyle = BPC.terraL; cx.fillRect(w / 2 - 36, hh - 24, 72, 14); cx.restore();
+  };
+  const grid = async (list, cols, cellH, gap) => {
+    const cw = (W - 2 * M - gap * (cols - 1)) / cols;
+    for (let i = 0; i < list.length; i += cols) {
+      B.need(cellH + gap + 10);
+      for (let c = 0; c < cols && i + c < list.length; c++) { const im = await loadPh(list[i + c]); if (im) polaroid(im, M + c * (cw + gap), B.y + 8, cw, cellH); }
+      B.y += cellH + gap + 8;
+    }
+  };
+  B.newPage(); let cx = B.cx;
+  const cover6 = pickPhotosFor(d.photos, 6);
+  let hero = null; if (cover6.length) hero = await loadPh(cover6[0]);
+  const box = bpRainbowArch(cx, W / 2 - 215, 130, 430, 400); await bpArchPhoto(cx, box, hero, (p.vorname || '♡').slice(0, 1));
+  cx.textAlign = 'center'; cx.fillStyle = BPC.terra; cx.font = `600 25px ${FONT}`; bpSpaced(cx, per.kind === 'y' ? 'JAHRESRÜCKBLICK' : 'MONATSRÜCKBLICK', W / 2, 600, 7, 'center');
+  cx.fillStyle = BPC.ink; cx.font = `700 104px ${BPF.head}`; cx.fillText(per.short, W / 2, 715);
+  cx.fillStyle = BPC.sageD; cx.font = `700 78px ${BPF.script}`; cx.fillText(name, W / 2, 805);
+  cx.fillStyle = BPC.mute; cx.font = `italic 400 31px ${BPF.head}`;
+  if (p.geburtsdatum && endRef >= p.geburtsdatum) cx.fillText(`${ageText(p.geburtsdatum, endRef)} · Lebenswoche ${Math.max(1, Math.floor(Math.round((parseD(endRef) - parseD(p.geburtsdatum)) / 864e5) / 7) + 1)}`, W / 2, 858);
+  cx.font = `400 25px ${FONT}`; cx.fillText(`${fmtD(per.start)} bis ${fmtD(per.end)}`, W / 2, 900); cx.textAlign = 'left';
+  bpDivider(cx, M, W - M, 945); B.y = 975;
+  const rest6 = cover6.slice(1);
+  if (rest6.length) { const cols = rest6.length >= 3 ? 3 : rest6.length; await grid(rest6.slice(0, 3), cols, 250, 20); }
+  B.need(230); cx = B.cx;
+  const tiles = [[d.photos.length, 'Fotos', BPC.sageL], [d.moments, 'Momente', BPC.roseL], [d.notes.length, 'Notizen', BPC.sand], [d.fever ? d.fever : d.termine, d.fever ? 'Fiebertage' : 'Termine', BPC.terraL]];
+  const tw = (W - 2 * M - 3 * 18) / 4;
+  tiles.forEach(([n, l, col], i) => { const x = M + i * (tw + 18), y = B.y + 6; cx.fillStyle = col; rr(x, y, tw, 170, 26); cx.fill(); cx.fillStyle = BPC.ink; cx.font = `700 66px ${BPF.head}`; cx.fillText(String(n), x + 24, y + 92); cx.fillStyle = BPC.wood; cx.font = `500 25px ${FONT}`; cx.fillText(l, x + 24, y + 136); });
+  B.y += 200;
+  const grow = [];
+  if (d.h) grow.push(['Größe', `${fmtNum(d.h.last)} cm` + (d.h.delta != null ? `  (${d.h.delta >= 0 ? '+' : ''}${fmtNum(d.h.delta)} cm)` : '')]);
+  if (d.w) grow.push(['Gewicht', `${fmtNum(d.w.last)} kg` + (d.w.delta != null ? `  (${d.w.delta >= 0 ? '+' : ''}${fmtNum(d.w.delta)} kg)` : '')]);
+  if (d.maxT) grow.push(['Höchste Temperatur', `${fmtNum(d.maxT.t)} °C am ${fmtD(d.maxT.n.datum)}`]);
+  if (d.docs) grow.push(['Neue Dokumente', String(d.docs)]);
+  if (d.termine && d.fever) grow.push(['Termine', String(d.termine)]);
+  if (grow.length) { B.section('Wachstum und Zahlen'); grow.forEach(([k, v]) => B.row(k, v)); }
+  if (d.feed.length) {
+    B.section('Highlights');
+    for (const e of d.feed.slice(0, 40)) {
+      B.cx.font = `400 28px ${FONT}`; const lines = e.text ? B.wrap(e.text, W - 2 * M - 210) : [];
+      B.need(74 + lines.length * 38); cx = B.cx; const y = B.y, hh = 62 + lines.length * 38;
+      cx.strokeStyle = BPC.sand; cx.lineWidth = 3; cx.beginPath(); cx.moveTo(M + 70, y + 20); cx.lineTo(M + 70, y + hh + 16); cx.stroke();
+      cx.fillStyle = BPC.sand; rr(M, y, 112, 40, 20); cx.fill(); cx.fillStyle = BPC.wood; cx.font = `600 22px ${FONT}`; cx.textAlign = 'center'; cx.fillText(fmtD(e.datum).slice(0, 6), M + 56, y + 28); cx.textAlign = 'left';
+      cx.fillStyle = BPC.ink; cx.font = `700 31px ${BPF.head}`; cx.fillText(`${e.emoji}  ${e.titel}`, M + 140, y + 32);
+      cx.font = `400 27px ${FONT}`; cx.fillStyle = '#5a5a4a'; lines.forEach((l, i) => cx.fillText(l, M + 140, y + 74 + i * 38));
+      B.y += hh + 20;
+    }
+    if (d.feed.length > 40) { B.need(50); B.cx.fillStyle = BPC.mute; B.cx.font = `italic 400 27px ${BPF.head}`; B.cx.fillText(`… und ${d.feed.length - 40} weitere Einträge`, M + 140, B.y + 30); B.y += 50; }
+  }
+  const mk = Object.entries(d.moods).sort((a, b) => b[1] - a[1]);
+  if (mk.length) {
+    B.section('Stimmungen'); const mx = mk[0][1];
+    mk.forEach(([k, n]) => { B.need(60); cx = B.cx; const y = B.y; cx.fillStyle = BPC.ink; cx.font = `400 28px ${FONT}`; cx.fillText(k, M, y + 34); cx.fillStyle = BPC.sand; rr(M + 330, y + 8, 520, 34, 17); cx.fill(); cx.fillStyle = BPC.sage; rr(M + 330, y + 8, Math.max(34, 520 * n / mx), 34, 17); cx.fill(); cx.fillStyle = BPC.wood; cx.font = `600 27px ${FONT}`; cx.fillText(String(n), M + 872, y + 34); B.y += 60; });
+  }
+  const used = new Set(cover6.map(x => x.id)), more = pickPhotosFor(d.photos.filter(x => !used.has(x.id)), 12);
+  if (more.length) { B.section('Weitere Fotos'); await grid(more, 3, 330, 20); }
+  if (!d.feed.length && !d.photos.length && !d.notes.length) { B.need(80); B.cx.fillStyle = BPC.mute; B.cx.font = `italic 400 30px ${BPF.head}`; B.cx.fillText('In diesem Zeitraum gibt es noch keine Einträge.', M, B.y + 40); B.y += 70; }
+  bpFooters(B.pages, W, H, `MyLuiseApp · ${per.title}`);
+  const blobs = await Promise.all(B.pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.88))));
+  return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
+}
+/* ============ v32: Luises Lichtung (Mini-Spiele der Coin-Welt) ============ */
+const LT_CAP = 3;
+const LTI = (() => {
+  const hedge = (() => { let d = 'M3 35'; const n = 11; for (let i = 0; i <= n; i++) { const a = Math.PI + (i / n) * Math.PI, ox = 24 + Math.cos(a) * 21, oy = 35 + Math.sin(a) * 26, ix = 24 + Math.cos(a + .13) * 17, iy = 35 + Math.sin(a + .13) * 21; d += `L${ox.toFixed(1)} ${oy.toFixed(1)}L${ix.toFixed(1)} ${iy.toFixed(1)}`; } return d + 'L45 35z'; })();
+  const heart = 'M0 0C-3-4-11-7-10-13C-9-18-2-17 0-12C2-17 9-18 10-13C11-7 3-4 0 0z';
+  const S = {
+    fox: '<path d="M5 6l12 8h14l12-8 1 20c0 11-8 18-20 18S4 37 4 26z" fill="#e9904f"/><path d="M9 11l6 4-6 5zM39 11l-6 4 6 5z" fill="#f4c2a8"/><path d="M4 27c4 5 11 8 20 8s16-3 20-8c0 10-8 17-20 17S4 37 4 27z" fill="#fff6ea"/><circle cx="16.500" cy="26" r="2.300" fill="#3e2f26"/><circle cx="31.500" cy="26" r="2.300" fill="#3e2f26"/><path d="M21.500 34h5l-2.500 3z" fill="#3e2f26"/>',
+    bee: '<ellipse cx="18" cy="14" rx="6.500" ry="10" transform="rotate(-25 18 14)" fill="#cfe8ff"/><ellipse cx="30" cy="14" rx="6.500" ry="10" transform="rotate(25 30 14)" fill="#cfe8ff"/><ellipse cx="24" cy="29" rx="15" ry="11.500" fill="#f6c443"/><path d="M18 19.500v19M25.500 18.500v21M33 21v16" stroke="#4a3a28" stroke-width="3.600" stroke-linecap="round"/><circle cx="11.500" cy="27" r="2" fill="#3e2f26"/><path d="M39 29l6 1-6 2z" fill="#4a3a28"/>',
+    mush: '<path d="M6 27c0-11 8-19 18-19s18 8 18 19z" fill="#e5524a"/><circle cx="16" cy="20" r="3.200" fill="#fff"/><circle cx="28" cy="15" r="2.800" fill="#fff"/><circle cx="34" cy="23" r="2.300" fill="#fff"/><path d="M16 27h16l-2 15a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3z" fill="#f6ead3"/><circle cx="21.500" cy="35" r="1.300" fill="#3e2f26"/><circle cx="26.500" cy="35" r="1.300" fill="#3e2f26"/>',
+    clover: `<g fill="#5fae5a"><path d="${heart}" transform="translate(24 23) rotate(45)"/><path d="${heart}" transform="translate(24 23) rotate(135)"/><path d="${heart}" transform="translate(24 23) rotate(225)"/><path d="${heart}" transform="translate(24 23) rotate(315)"/></g><path d="M24 25c0 8-2 14-7 19" stroke="#3f8a45" stroke-width="2.800" fill="none" stroke-linecap="round"/>`,
+    owl: '<path d="M7 7l9 5h16l9-5 1 23c0 9-8 15-18 15S6 39 6 30z" fill="#a67c52"/><path d="M12 38c3 4 7 6 12 6s9-2 12-6c-3 2-7 3-12 3s-9-1-12-3z" fill="#d3b48a"/><circle cx="16.500" cy="23" r="8" fill="#fdf1d9"/><circle cx="31.500" cy="23" r="8" fill="#fdf1d9"/><circle cx="16.500" cy="23" r="3.600" fill="#3e2f26"/><circle cx="31.500" cy="23" r="3.600" fill="#3e2f26"/><circle cx="17.500" cy="22" r="1.200" fill="#fff"/><circle cx="32.500" cy="22" r="1.200" fill="#fff"/><path d="M21.500 29h5l-2.500 5z" fill="#f2a43a"/>',
+    hog: `<path d="${hedge}" fill="#7c5a3c"/><path d="M22 36c0-7 5-13 13-12 5 1 9 5 9 10 0 5-5 9-12 9H22z" fill="#f2d3a5"/><circle cx="43" cy="34" r="2.800" fill="#3e2f26"/><circle cx="35" cy="31" r="2" fill="#3e2f26"/><path d="M12 43v3M20 44v2M32 44v2" stroke="#7c5a3c" stroke-width="3" stroke-linecap="round"/>`,
+    sprout: '<path d="M24 44V24" stroke="#4a8f4c" stroke-width="3.400" stroke-linecap="round"/><path d="M24 26C14 26 8 19 8 11c9 0 16 5 16 15z" fill="#7bbf6f"/><path d="M24 22c0-8 6-13 15-13 0 8-6 13-15 13z" fill="#5fae5a"/>'
+  };
+  const svg = (k, cls) => `<svg viewBox="0 0 48 48" class="lt-i ${cls || ''}" aria-hidden="true">${S[k]}</svg>`;
+  return { S, svg };
+})();
+const LT_GAMES = [
+  { id: 'mem', ico: 'fox', name: 'Waldpaare', sub: 'Finde alle Tierpaare', how: 'Decke zwei Karten auf. Gleiche Tiere bleiben liegen. Wenige Züge bringen mehr Coins.', run: ltMemory },
+  { id: 'bee', ico: 'bee', name: 'Bienchen-Fang', sub: '30 Sekunden Blütentrubel', how: 'Tippe die Bienen an, goldene zählen dreifach. Die Wespe lieber in Ruhe lassen!', run: ltBees },
+  { id: 'echo', ico: 'mush', name: 'Pilz-Echo', sub: 'Merk dir die Melodie', how: 'Schau und hör zu, dann tippe die Pilze in der gleichen Reihenfolge.', run: ltEcho },
+  { id: 'word', ico: 'owl', name: 'Buchstabensalat', sub: 'Sortiere die Wörter', how: 'Tippe die Buchstaben in die richtige Reihenfolge. Ein Tipp kostet die Coins für dieses Wort.', run: ltWords },
+  { id: 'wiss', ico: 'hog', name: 'Waldwissen', sub: 'Wahr oder Märchen?', how: 'Acht Aussagen über Babys, Tiere und Natur. Stimmt sie oder nicht?', run: ltTrue }
+];
+const LT_WORDS = ['WINDEL', 'SCHNULLER', 'RASSEL', 'KUSCHELTIER', 'SCHLAFSACK', 'KRABBELN', 'LACHEN', 'SPIELZEUG', 'GEBURTSTAG', 'KINDERWAGEN', 'ZAHNBÜRSTE', 'MARIENKÄFER', 'SCHMETTERLING', 'EICHHÖRNCHEN', 'REGENBOGEN', 'SONNENSCHEIN', 'FUCHS', 'IGEL', 'WALDSPAZIERGANG', 'BLUMENWIESE', 'BABYBREI', 'STRAMPLER', 'SCHAUKEL', 'LUFTBALLON', 'MONDSCHEIN', 'GUTENACHT', 'KUSCHELN', 'PUSTEBLUME'];
+const LT_FACTS = [
+  ['Babys haben mehr Knochen als Erwachsene.', true, 'Ein Baby hat rund 300 Knochen. Viele wachsen später zusammen, bei Erwachsenen sind es 206.'],
+  ['Babys kommen mit fertigen Kniescheiben zur Welt.', false, 'Die Kniescheibe besteht am Anfang aus Knorpel und verknöchert erst mit etwa zwei bis sechs Jahren.'],
+  ['Schon im Bauch können Babys Stimmen und Musik hören.', true, 'Ab etwa der 25. Schwangerschaftswoche nehmen Babys Geräusche von außen wahr.'],
+  ['Neugeborene sehen am schärfsten, was etwa 20 bis 30 cm entfernt ist.', true, 'Das ist ungefähr der Abstand zum Gesicht der Eltern beim Kuscheln.'],
+  ['Ein Kolibri kann rückwärts fliegen.', true, 'Kolibris sind die einzigen Vögel, die rückwärts fliegen und in der Luft stehen können.'],
+  ['Igel halten im Winter Winterschlaf.', true, 'Sie schlafen von etwa November bis März und fahren ihren Körper dabei stark herunter.'],
+  ['Fledermäuse sind blind.', false, 'Fledermäuse sehen gut und orientieren sich zusätzlich mit Ultraschall.'],
+  ['Bienen tanzen, um sich Futterplätze zu zeigen.', true, 'Der Schwänzeltanz verrät Richtung und Entfernung der Blüten.'],
+  ['Eulen können ihren Kopf einmal komplett im Kreis drehen.', false, 'Sie schaffen etwa 270 Grad, aber keinen ganzen Kreis.'],
+  ['Vierblättrige Kleeblätter sind häufiger als dreiblättrige.', false, 'Auf etwa 5.000 Kleeblätter kommt ein vierblättriges. Deshalb bringt es Glück.'],
+  ['Das Herz eines Babys schlägt schneller als das eines Erwachsenen.', true, 'Bei Neugeborenen sind es oft 100 bis 160 Schläge pro Minute.'],
+  ['Ein Marienkäfer hat immer genau sieben Punkte.', false, 'Es gibt Marienkäfer mit zwei, vier, zehn oder vierzehn Punkten, und manche haben gar keine.'],
+  ['Schmetterlinge schmecken mit den Füßen.', true, 'Auf ihren Füßen sitzen Sinneszellen, mit denen sie Nektar und Blätter prüfen.'],
+  ['Eichhörnchen finden jede versteckte Nuss wieder.', false, 'Sie vergessen viele Verstecke. So wachsen aus den Nüssen oft neue Bäume.'],
+  ['Die Sonne ist ein Planet.', false, 'Die Sonne ist ein Stern. Planeten wie die Erde kreisen um sie.'],
+  ['Giraffen haben mehr Halswirbel als Menschen.', false, 'Beide haben sieben. Bei der Giraffe sind sie nur riesig lang.'],
+  ['Regenwürmer haben mehrere Herzen.', true, 'Sie haben fünf Paar herzähnliche Gefäßbögen, die das Blut pumpen.'],
+  ['Pandas fressen fast nur Bambus.', true, 'Dabei verbringen sie bis zu 14 Stunden am Tag mit Essen.'],
+  ['Füchse gehören zur Familie der Hunde.', true, 'Sie sind Verwandte von Wölfen und Haushunden.'],
+  ['Ein Regenbogen ist eigentlich ein ganzer Kreis.', true, 'Vom Boden sehen wir nur einen Bogen, aus dem Flugzeug kann man manchmal den ganzen Kreis erkennen.'],
+  ['Pilze können Bäume im Wald miteinander verbinden.', true, 'Das feine Geflecht unter der Erde tauscht Nährstoffe und Signale zwischen Bäumen aus.']
+];
+const ltShuffle = a => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
+function ltTitle() { const n = (S.profile.vorname || '').trim(); if (!n) return 'Unsere Lichtung'; return (/[sßxz]$/i.test(n) ? n + '’' : n + 's') + ' Lichtung'; }
+function ltStore() { const c = coinData(); c.games = c.games || {}; return c.games; }
+function ltCount(id) { return coinToday(coinData()).k['g_' + id] || 0; }
+async function ltPay(id, coins, label) {
+  if (!(coins > 0) || ltCount(id) >= LT_CAP) return 0;
+  const c = coinData(), td = coinToday(c); td.k['g_' + id] = (td.k['g_' + id] || 0) + 1; c.total += coins; coinLog(c, coins, label); await persist('profile'); return coins;
+}
+const ltStars = n => '<span class="lt-stars">' + [1, 2, 3].map(i => `<svg viewBox="0 0 24 24" class="${i <= n ? 'on' : ''}"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.2 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>`).join('') + '</span>';
+function ltBanner(sub) {
+  return h('div', { class: 'lt-ban' },
+    h('div', { class: 'lt-deco', html: '<svg viewBox="0 0 360 120" preserveAspectRatio="none" aria-hidden="true"><g fill="none" stroke-linecap="round"><path d="M70 120a110 110 0 0 1 220 0" stroke="#e3b6a5" stroke-width="12" opacity=".7"/><path d="M92 120a88 88 0 0 1 176 0" stroke="#e8d8bb" stroke-width="12" opacity=".9"/><path d="M114 120a66 66 0 0 1 132 0" stroke="#93a67f" stroke-width="12" opacity=".7"/><path d="M136 120a44 44 0 0 1 88 0" stroke="#c4785a" stroke-width="12" opacity=".6"/></g><path d="M0 104c40-14 80-6 120 0s90 10 130-2 80-4 110 4v14H0z" fill="#93a67f" opacity=".55"/><path d="M0 112c50-10 100-4 150 2s110 2 210-6v12H0z" fill="#5d7452" opacity=".6"/></svg>' }),
+    h('div', { class: 'lt-mas', html: LTI.svg('fox') + LTI.svg('bee', 'b') + LTI.svg('hog') }),
+    h('div', { class: 'lt-tt' }, h('small', null, 'Mini-Spiele'), h('b', null, ltTitle()), h('span', null, sub || 'Kleine Pause, große Sternchen')));
+}
+function ltHub(wrap) {
+  const c = coinData(), st = ltStore(), today = isoToday(), got = c.clover === today;
+  wrap.append(ltBanner(`${LT_GAMES.length + 1} Spiele · bis zu ${LT_CAP} Runden pro Spiel mit Coins`));
+  wrap.append(h('button', { class: 'lt-clover' + (got ? ' done' : ''), type: 'button', 'data-lt': 'clover', onclick: ltClover },
+    h('span', { class: 'lt-cl', html: LTI.svg('clover') }), h('span', { class: 'lt-ct' }, h('b', null, 'Glücksblatt des Tages'), h('small', null, got ? 'Heute schon gezogen. Morgen wächst ein neues.' : 'Ziehe ein Blatt und sichere dir 1 bis 10 Coins.')), h('span', { class: 'lt-go' }, got ? '✓' : 'Ziehen')));
+  const grid = h('div', { class: 'lt-grid' });
+  LT_GAMES.forEach(g => {
+    const n = ltCount(g.id), best = (st[g.id] || {}).best;
+    grid.append(h('button', { class: 'lt-card-g', type: 'button', 'data-game': g.id, onclick: () => ltPlay(g) },
+      h('span', { class: 'lt-gi', html: LTI.svg(g.ico) }), h('b', null, g.name), h('small', null, g.sub),
+      h('span', { class: 'lt-meta' }, h('i', { class: n >= LT_CAP ? 'full' : '' }, n >= LT_CAP ? 'Heute voll ✓' : `Heute ${n}/${LT_CAP}`), best != null ? h('i', null, 'Rekord ' + best) : null)));
+  });
+  grid.append(h('button', { class: 'lt-card-g quiz', type: 'button', 'data-game': 'quiz', onclick: () => { qz = null; go('quiz'); } },
+    h('span', { class: 'lt-gi', html: LTI.svg('sprout') }), h('b', null, 'Quiz-Runde'), h('small', null, 'Wissen rund ums Baby'), h('span', { class: 'lt-meta' }, h('i', null, 'bis zu ' + (COIN_FIRST * QUIZ_LEN + COIN_PERFECT) + ' 🪙'))));
+  wrap.append(grid);
+  wrap.append(h('p', { class: 'fine' }, 'Pro Spiel zählen die ersten ' + LT_CAP + ' Runden am Tag mit Coins. Danach kannst du weiter spielen, nur ohne Coins. Die Coins haben keinen Geldwert.'));
+}
+function ltPromo(wrap) {
+  wrap.append(h('button', { class: 'lt-promo', type: 'button', 'data-lt': 'promo', onclick: () => { coinSeg = 'play'; render(); } },
+    h('span', { class: 'lt-mas sm', html: LTI.svg('fox') + LTI.svg('owl') }), h('span', { class: 'lt-pt' }, h('b', null, ltTitle()), h('small', null, `${LT_GAMES.length + 1} Mini-Spiele und das Glücksblatt des Tages`)), h('span', { class: 'lt-go' }, 'Spielen')));
+}
+function ltPlay(g) {
+  const box = h('div', { class: 'lt-game' }), tm = new Set(); let closed = false;
+  const T = (fn, ms) => { const id = setTimeout(() => { tm.delete(id); if (!closed) fn(); }, ms); tm.add(id); return id; };
+  const I = (fn, ms) => { const id = setInterval(() => { if (closed) clearInterval(id); else fn(); }, ms); tm.add(id); return id; };
+  const ov = openFull({ title: g.name, body: box, onClose: () => { closed = true; tm.forEach(id => { clearTimeout(id); clearInterval(id); }); try { if (tab === 'coins') render(); } catch (e) {} } });
+  const end = async r => {
+    const st = ltStore(), e = st[g.id] = st[g.id] || { best: 0, plays: 0 }; e.plays++; if (r.score != null && r.score > e.best) e.best = r.score;
+    const capped = ltCount(g.id) >= LT_CAP, paid = await ltPay(g.id, r.coins, g.name); if (!paid) await persist('profile');
+    box.replaceChildren(h('div', { class: 'lt-res' }, h('div', { class: 'lt-mas', html: LTI.svg(g.ico) }), h('div', { html: ltStars(r.stars) }), h('h2', null, r.title), h('p', null, r.line),
+      h('div', { class: 'lt-pay' + (paid ? ' yes' : '') }, paid ? `+${paid} 🪙` : capped ? 'Heute schon ' + LT_CAP + ' Runden mit Coins. Spiel gern weiter, nur ohne Coins.' : 'Diesmal keine Coins'),
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', 'data-lt': 'again', onclick: start }, 'Nochmal'), h('button', { class: 'btn ghost', type: 'button', onclick: () => ov.close() }, 'Fertig'))));
+    if (r.stars >= 3 || paid >= 5) { try { confetti(); } catch (e2) {} Haptic.fire('success'); } else Haptic.fire('light');
+  };
+  const intro = () => {
+    box.replaceChildren(h('div', { class: 'lt-res' }, h('div', { class: 'lt-mas', html: LTI.svg(g.ico) }), h('h2', null, g.name), h('p', null, g.how),
+      h('div', { class: 'lt-pay' }, ltCount(g.id) >= LT_CAP ? 'Heute ohne Coins (' + LT_CAP + ' Runden sind schon gespielt)' : `Heute noch ${LT_CAP - ltCount(g.id)} Runden mit Coins`),
+      h('button', { class: 'btn wide', type: 'button', 'data-lt': 'go', onclick: start }, 'Los geht’s')));
+  };
+  const start = () => { box.replaceChildren(); g.run(box, { T, I, end, restart: start }); };
+  intro(); return { ov, box, start, end };
+}
+async function ltClover() {
+  const c = coinData(); if (c.clover === isoToday()) { toast('Das Glücksblatt von heute hast du schon'); return; }
+  const pool = [1, 1, 1, 2, 2, 2, 3, 3, 4, 5, 10], win = pool[Math.floor(Math.random() * pool.length)];
+  const cards = [win, ...ltShuffle([1, 2, 3, 4, 5].filter(x => x !== win)).slice(0, 2)]; const order = ltShuffle(cards);
+  let picked = false;
+  const row = h('div', { class: 'lt-leaves' }), msg = h('p', { class: 'lt-hint' }, 'Tippe ein Blatt an. Welches bringt dir Glück?');
+  const ov = openFull({ title: 'Glücksblatt', body: h('div', { class: 'lt-game' }, h('div', { class: 'lt-res' }, h('div', { class: 'lt-mas', html: LTI.svg('clover') }), h('h2', null, 'Dein Glücksblatt'), msg, row)) });
+  order.forEach((val, i) => {
+    const b = h('button', { class: 'lt-leaf', type: 'button', 'aria-label': 'Blatt ' + (i + 1), 'data-leaf': i, onclick: async () => {
+      if (picked) return; picked = true; b.classList.add('open'); const gain = val; Haptic.fire('success');
+      b.querySelector('.n').textContent = '+' + gain; row.classList.add('done');
+      c.clover = isoToday(); c.total += gain; coinLog(c, gain, 'Glücksblatt'); await persist('profile');
+      msg.textContent = gain >= 5 ? 'Wow, was für ein Glückstag!' : 'Schön, +' + gain + ' Coins für dich.'; if (gain >= 5) confetti();
+      row.querySelectorAll('.lt-leaf').forEach((x, k) => { if (x !== b) setTimeout(() => { x.classList.add('open', 'dim'); x.querySelector('.n').textContent = '+' + order[k]; }, 500); });
+      setTimeout(() => { ov.close(); render(); }, 2800);
+    } }, h('span', { class: 'bk', html: LTI.svg('clover') }), h('span', { class: 'n' }, ''));
+    row.append(b);
+  });
+}
+/* ---- Waldpaare ---- */
+function ltMemory(box, ctl) {
+  const faces = ['fox', 'bee', 'mush', 'owl', 'hog', 'clover'], deck = ltShuffle(faces.concat(faces));
+  let open = [], matched = 0, moves = 0, lock = false;
+  const info = h('div', { class: 'lt-bar' }, h('span', null, 'Züge: ', h('b', { 'data-moves': '' }, '0')), h('span', null, 'Paare: ', h('b', { 'data-pairs': '' }, '0/6')));
+  const grid = h('div', { class: 'lt-mem' });
+  deck.forEach((k, i) => {
+    const b = h('button', { class: 'lt-mc', type: 'button', 'aria-label': 'Karte ' + (i + 1), 'data-k': k, onclick: () => {
+      if (lock || b.classList.contains('open') || b.classList.contains('ok')) return;
+      b.classList.add('open'); open.push(b); Haptic.fire('light');
+      if (open.length === 2) {
+        moves++; info.querySelector('[data-moves]').textContent = moves; lock = true;
+        const [a, c2] = open;
+        if (a.dataset.k === c2.dataset.k) { ctl.T(() => { a.classList.add('ok'); c2.classList.add('ok'); open = []; lock = false; matched++; info.querySelector('[data-pairs]').textContent = matched + '/6'; Haptic.fire('success'); if (matched === 6) fin(); }, 350); }
+        else ctl.T(() => { a.classList.remove('open'); c2.classList.remove('open'); open = []; lock = false; Haptic.fire('warn'); }, 800);
+      }
+    } }, h('span', { class: 'in' }, h('span', { class: 'bk', html: LTI.svg('sprout') }), h('span', { class: 'fr', html: LTI.svg(k) })));
+    grid.append(b);
+  });
+  const fin = () => { const stars = moves <= 8 ? 3 : moves <= 12 ? 2 : 1; ctl.T(() => ctl.end({ score: Math.max(0, 20 - moves), stars, coins: [0, 1, 3, 5][stars], title: stars === 3 ? 'Alle Paare gefunden!' : 'Geschafft!', line: `${moves} Züge für 6 Paare.` }), 500); };
+  box.append(info, grid);
+}
+/* ---- Bienchen-Fang ---- */
+function ltBees(box, ctl) {
+  const DUR = 30; let score = 0, left = DUR, over = false, t0 = Date.now();
+  const sc = h('b', { 'data-score': '' }, '0'), tl = h('b', { 'data-time': '' }, String(DUR)), fill = h('i');
+  const info = h('div', { class: 'lt-bar' }, h('span', null, 'Punkte: ', sc), h('span', null, 'Zeit: ', tl)), tbar = h('div', { class: 'lt-tbar' }, fill), grid = h('div', { class: 'lt-bees' });
+  const holes = [];
+  for (let i = 0; i < 9; i++) {
+    const cr = h('span', { class: 'cr' }), b = h('button', { class: 'lt-hole', type: 'button', 'aria-label': 'Blume ' + (i + 1), 'data-h': i, onclick: () => hit(i) }, h('span', { class: 'fl', html: '<svg viewBox="0 0 48 48"><g fill="#e3b6a5"><circle cx="24" cy="10" r="8"/><circle cx="38" cy="24" r="8"/><circle cx="24" cy="38" r="8"/><circle cx="10" cy="24" r="8"/></g><circle cx="24" cy="24" r="8" fill="#f6c443"/></svg>' }), cr);
+    holes.push({ b, cr, type: null, timer: 0 }); grid.append(b);
+  }
+  const hide = h => { clearTimeout(h.timer); h.type = null; h.b.classList.remove('up', 'gone'); h.cr.innerHTML = ''; };
+  const hit = i => {
+    const hl = holes[i]; if (over || !hl.type) return;
+    const t = hl.type; if (t === 'wasp') { score = Math.max(0, score - 2); Haptic.fire('warn'); hl.b.classList.add('bad'); ctl.T(() => hl.b.classList.remove('bad'), 300); }
+    else { score += t === 'gold' ? 3 : 1; Haptic.fire(t === 'gold' ? 'success' : 'light'); }
+    sc.textContent = score; hl.b.classList.add('gone'); ctl.T(() => hide(hl), 160);
+  };
+  const spawn = () => {
+    if (over) return; const el = (Date.now() - t0) / 1000, free = holes.filter(x => !x.type);
+    if (free.length) {
+      const hl = free[Math.floor(Math.random() * free.length)], r = Math.random(), type = r < .72 ? 'bee' : r < .82 ? 'gold' : 'wasp';
+      hl.type = type; hl.cr.innerHTML = type === 'wasp' ? '<svg viewBox="0 0 48 48" class="lt-i"><ellipse cx="18" cy="14" rx="6.500" ry="10" transform="rotate(-25 18 14)" fill="#dfe6ee"/><ellipse cx="30" cy="14" rx="6.500" ry="10" transform="rotate(25 30 14)" fill="#dfe6ee"/><ellipse cx="24" cy="29" rx="15" ry="11.500" fill="#d9503f"/><path d="M18 19.500v19M25.500 18.500v21M33 21v16" stroke="#2c2622" stroke-width="3.600" stroke-linecap="round"/><circle cx="11.500" cy="27" r="2" fill="#fff"/><path d="M39 29l6 1-6 2z" fill="#2c2622"/></svg>' : LTI.svg('bee', type === 'gold' ? 'gold' : '');
+      hl.b.classList.add('up'); hl.b.dataset.t = type; hl.timer = setTimeout(() => hide(hl), Math.max(520, 1000 - el * 14));
+    }
+    ctl.T(spawn, Math.max(360, 760 - el * 12));
+  };
+  box.append(info, tbar, grid, h('p', { class: 'lt-hint' }, 'Bienen antippen, die rote Wespe meiden'));
+  requestAnimationFrame(() => { fill.style.transition = `width ${DUR}s linear`; fill.style.width = '0%'; });
+  ctl.I(() => { left = Math.max(0, DUR - Math.round((Date.now() - t0) / 1000)); tl.textContent = left; if (left <= 0 && !over) { over = true; holes.forEach(hide); const coins = score >= 24 ? 6 : score >= 16 ? 4 : score >= 8 ? 2 : 1, stars = score >= 24 ? 3 : score >= 14 ? 2 : 1; ctl.end({ score, stars, coins, title: score >= 24 ? 'Bienenkönig!' : 'Zeit ist um!', line: `${score} Punkte gesammelt.` }); } }, 250);
+  ctl.T(spawn, 500);
+}
+/* ---- Pilz-Echo ---- */
+let ltAudio = null;
+function ltBeep(f) { try { ltAudio = ltAudio || new (window.AudioContext || window.webkitAudioContext)(); const a = ltAudio, o = a.createOscillator(), g = a.createGain(); o.type = 'sine'; o.frequency.value = f; g.gain.setValueAtTime(.0001, a.currentTime); g.gain.exponentialRampToValueAtTime(.14, a.currentTime + .02); g.gain.exponentialRampToValueAtTime(.0001, a.currentTime + .38); o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime + .4); } catch (e) {} }
+function ltEcho(box, ctl) {
+  const COL = ['#e5524a', '#f6c443', '#5b9bd5', '#5fae5a'], FQ = [262, 330, 392, 523]; let seq = [], pos = 0, lock = true, over = false;
+  const st = h('p', { class: 'lt-hint big', 'data-status': '' }, 'Gleich geht’s los …'), rd = h('b', { 'data-round': '' }, '0'), info = h('div', { class: 'lt-bar' }, h('span', null, 'Runde: ', rd)), grid = h('div', { class: 'lt-echo' });
+  const pads = COL.map((c, i) => { const b = h('button', { class: 'lt-pad', type: 'button', 'data-pad': i, 'aria-label': 'Pilz ' + (i + 1), style: `--pc:${c}`, onclick: () => tap(i) }, h('span', { html: LTI.svg('mush') })); grid.append(b); return b; });
+  const flash = (i, ms) => { pads[i].classList.add('lit'); ltBeep(FQ[i]); Haptic.fire('select'); ctl.T(() => pads[i].classList.remove('lit'), ms || 380); };
+  const play = () => { lock = true; pos = 0; st.textContent = 'Zuhören …'; const gap = Math.max(300, 620 - seq.length * 22); seq.forEach((k, j) => ctl.T(() => flash(k, gap - 120), 600 + j * gap)); ctl.T(() => { lock = false; st.textContent = 'Du bist dran'; }, 600 + seq.length * gap); };
+  const next = () => { seq.push(Math.floor(Math.random() * 4)); rd.textContent = seq.length; play(); };
+  const tap = i => {
+    if (lock || over) return; flash(i, 220);
+    if (seq[pos] !== i) { over = true; lock = true; Haptic.fire('warn'); const done = seq.length - 1, coins = done >= 10 ? 6 : done >= 7 ? 4 : done >= 4 ? 2 : done >= 2 ? 1 : 0, stars = done >= 9 ? 3 : done >= 5 ? 2 : 1; ctl.T(() => ctl.end({ score: done, stars, coins, title: done >= 9 ? 'Ohren wie ein Luchs!' : 'Das war knapp!', line: done ? `${done} ${done === 1 ? 'Runde' : 'Runden'} geschafft.` : 'Diesmal gleich in der ersten Runde vertippt. Du schaffst das!' }), 700); return; }
+    pos++; if (pos === seq.length) { lock = true; st.textContent = 'Super!'; Haptic.fire('success'); ctl.T(next, 800); }
+  };
+  box.append(info, st, grid, h('p', { class: 'lt-hint' }, 'Ton an? Bei stummgeschaltetem iPhone bleibt es still, die Pilze leuchten trotzdem.')); ctl.T(next, 900);
+}
+/* ---- Buchstabensalat ---- */
+function ltWords(box, ctl) {
+  const picks = ltShuffle(LT_WORDS).filter(w => w.length <= 11).slice(0, 6); let i = 0, clean = 0, solved = 0, typed = [], letters = [], hinted = false, w = '', busy = false;
+  const head = h('div', { class: 'lt-bar' }), slots = h('div', { class: 'lt-slots' }), tiles = h('div', { class: 'lt-tiles' }), tools = h('div', { class: 'btn-row' });
+  const scramble = word => { let s; let n = 0; do { s = ltShuffle(word.split('')); n++; } while (s.join('') === word && n < 20); return s; };
+  const draw = () => {
+    head.replaceChildren(h('span', null, 'Wort ', h('b', { 'data-wi': '' }, `${Math.min(i + 1, 6)}/6`)), h('span', null, 'Gelöst: ', h('b', null, String(solved))));
+    slots.replaceChildren(...w.split('').map((_, k) => h('span', { class: 'sl' + (typed[k] != null ? ' f' : '') }, typed[k] != null ? letters[typed[k]] : '')));
+    tiles.replaceChildren(...letters.map((l, k) => h('button', { class: 'tl', type: 'button', disabled: typed.includes(k) ? true : null, 'data-l': l, onclick: () => put(k) }, l)));
+  };
+  const put = k => { if (busy || typed.includes(k) || typed.length >= w.length) return; typed.push(k); Haptic.fire('select'); draw(); if (typed.length === w.length) check(); };
+  const check = () => {
+    const ans = typed.map(k => letters[k]).join('');
+    if (ans === w) { busy = true; solved++; if (!hinted) clean++; Haptic.fire('success'); slots.classList.add('ok'); ctl.T(() => { slots.classList.remove('ok'); busy = false; nextW(); }, 650); }
+    else { busy = true; Haptic.fire('warn'); slots.classList.add('no'); ctl.T(() => { slots.classList.remove('no'); typed = []; busy = false; draw(); }, 500); }
+  };
+  const nextW = () => { i++; if (i >= picks.length) { const coins = Math.min(7, clean + (solved === picks.length ? 1 : 0)); const stars = clean >= 6 ? 3 : clean >= 4 ? 2 : 1; ctl.end({ score: clean, stars, coins, title: solved === picks.length ? 'Alle Wörter gelöst!' : 'Fertig!', line: `${solved} von ${picks.length} gelöst, ${clean} ohne Tipp.` }); return; } w = picks[i]; letters = scramble(w); typed = []; hinted = false; draw(); };
+  tools.append(h('button', { class: 'btn ghost', type: 'button', 'data-lt': 'hint', onclick: () => { if (busy) return; hinted = true; const ok = typed.every((k, n) => letters[k] === w[n]); if (!ok) typed = []; const need = w[typed.length], k = letters.findIndex((l, n) => l === need && !typed.includes(n)); if (k >= 0) put(k); } }, 'Tipp'),
+    h('button', { class: 'btn ghost', type: 'button', onclick: () => { if (!busy) { typed.pop(); draw(); } } }, 'Zurück'),
+    h('button', { class: 'btn ghost', type: 'button', onclick: () => { if (!busy) nextW(); } }, 'Weiter'));
+  box.append(head, h('p', { class: 'lt-hint big' }, 'Welches Wort ist das?'), slots, tiles, tools); i = -1; nextW();
+}
+/* ---- Waldwissen ---- */
+function ltTrue(box, ctl) {
+  const qs = ltShuffle(LT_FACTS).slice(0, 8); let i = 0, ok = 0, busy = false;
+  const head = h('div', { class: 'lt-bar' }), card = h('div', { class: 'lt-fact' }), btns = h('div', { class: 'lt-tf' });
+  const show = () => {
+    const q = qs[i]; head.replaceChildren(h('span', null, 'Frage ', h('b', { 'data-qi': '' }, `${i + 1}/8`)), h('span', null, 'Richtig: ', h('b', null, String(ok)))); busy = false;
+    card.className = 'lt-fact'; card.replaceChildren(h('p', null, q[0])); btns.replaceChildren(
+      h('button', { class: 'btn tf yes', type: 'button', 'data-ans': '1', onclick: () => ans(true) }, 'Wahr'), h('button', { class: 'btn tf no', type: 'button', 'data-ans': '0', onclick: () => ans(false) }, 'Märchen'));
+  };
+  const ans = v => {
+    if (busy) return; busy = true; const q = qs[i], right = v === q[1]; if (right) ok++; Haptic.fire(right ? 'success' : 'warn');
+    card.classList.add(right ? 'good' : 'bad'); card.replaceChildren(h('b', null, right ? 'Richtig!' : 'Leider falsch.'), h('p', null, (q[1] ? 'Das stimmt. ' : 'Das ist ein Märchen. ') + q[2]));
+    btns.replaceChildren(h('button', { class: 'btn wide', type: 'button', 'data-lt': 'next', onclick: () => { i++; if (i >= qs.length) fin(); else show(); } }, i + 1 >= qs.length ? 'Ergebnis' : 'Weiter'));
+  };
+  const fin = () => { const coins = ok >= 7 ? 5 : ok >= 5 ? 3 : ok >= 3 ? 1 : 0, stars = ok >= 7 ? 3 : ok >= 5 ? 2 : 1; ctl.end({ score: ok, stars, coins, title: ok >= 7 ? 'Waldprofi!' : 'Gut gemacht!', line: `${ok} von ${qs.length} richtig.` }); };
+  box.append(head, card, btns); show();
+}
+/* ============ v32: Benachrichtigungen ============ */
+const NOTIF_DEF = { on: false, kinds: { termin: true, frist: true, coins: false }, seen: {} };
+function notifCfg() { let c = null; try { c = JSON.parse(ls.get('luise_notif') || 'null'); } catch (e) {} c = c || {}; c.kinds = Object.assign({}, NOTIF_DEF.kinds, c.kinds || {}); c.seen = c.seen || {}; c.on = !!c.on; return c; }
+function notifSave(c) { const today = isoToday(); Object.keys(c.seen).forEach(k => { if (c.seen[k] < addDaysIso(today, -7)) delete c.seen[k]; }); ls.set('luise_notif', JSON.stringify(c)); }
+const notifSupported = () => typeof Notification !== 'undefined' && 'serviceWorker' in navigator;
+const notifPerm = () => notifSupported() ? Notification.permission : 'unsupported';
+async function notifShow(title, body, tag) {
+  const icon = window.__iconUrl || undefined, opt = { body, icon, badge: icon, tag: tag || ('luise-' + Date.now()), lang: 'de', renotify: false };
+  try { const reg = await navigator.serviceWorker.getRegistration(); if (reg && reg.showNotification) { await reg.showNotification(title, opt); return true; } } catch (e) {}
+  try { new Notification(title, opt); return true; } catch (e) { return false; }
+}
+function notifDue() {
+  const c = notifCfg(), out = [], today = isoToday(), tomorrow = addDaysIso(today, 1), nm = S.profile.vorname || 'Dein Kind';
+  if (c.kinds.termin) (S.school.termine || []).forEach(t => {
+    if (!t.datum) return; const dd = t.wiederholung === 'jährlich' ? (() => { const b = parseD(t.datum), d = new Date(new Date().getFullYear(), b.getMonth(), b.getDate()); return isoOf(d); })() : t.datum;
+    if (dd === today) out.push({ key: 't:' + t.id + ':' + today, title: 'Heute: ' + t.titel, body: [t.zeit && 'um ' + t.zeit + ' Uhr', t.ort && resolvePlace(t.ort)].filter(Boolean).join(' · ') || 'Termin für ' + nm });
+    else if (dd === tomorrow) out.push({ key: 't:' + t.id + ':' + tomorrow, title: 'Morgen: ' + t.titel, body: [t.zeit && 'um ' + t.zeit + ' Uhr', t.ort && resolvePlace(t.ort)].filter(Boolean).join(' · ') || 'Termin für ' + nm });
+  });
+  if (c.kinds.frist) autoDeadlines().forEach(d => { if (d.lvl === 'info' && daysTo(d.date) > 3) return; if (d.lvl === 'info' && d.kind === 'Geburtstag' && daysTo(d.date) > 1) return; out.push({ key: 'f:' + d.id + ':' + Math.floor(Date.now() / (3 * 864e5)), title: d.title, body: (d.status ? d.status + '. ' : '') + (d.sub || '') }); });
+  if (c.kinds.coins && new Date().getHours() >= 9 && coinData().lastStart !== today) out.push({ key: 'c:' + today, title: 'Dein Tagesbonus wartet', body: 'Hol dir heute Coins und spiele eine Runde in der Lichtung.' });
+  return out;
+}
+async function notifCheck(force) {
+  const c = notifCfg(); if (!notifSupported() || notifPerm() !== 'granted' || (!c.on && !force)) return 0;
+  const today = isoToday(); let n = 0;
+  for (const d of notifDue()) { if (c.seen[d.key] && !force) continue; if (n >= 3) break; if (await notifShow(d.title, d.body, d.key)) { c.seen[d.key] = today; n++; } }
+  notifSave(c); return n;
+}
+async function notifEnable() {
+  if (!notifSupported()) { toast('Hier nicht verfügbar'); return; }
+  let p = Notification.permission; if (p === 'default') { try { p = await Notification.requestPermission(); } catch (e) { p = 'denied'; } }
+  const c = notifCfg(); c.on = p === 'granted'; notifSave(c);
+  if (p === 'granted') { await notifShow('Mitteilungen sind an', 'Ab jetzt erinnert dich MyLuiseApp an Termine und Fristen.', 'luise-welcome'); toast('Mitteilungen eingeschaltet'); } else toast('Mitteilungen wurden nicht erlaubt');
+  render();
+}
+function notifIcs() {
+  const strip = s => s.slice(s.indexOf('BEGIN:VEVENT'), s.indexOf('END:VCALENDAR')).trim(), ev = [], today = isoToday();
+  (S.school.termine || []).forEach(t => { if (t.datum && (t.wiederholung === 'jährlich' || t.datum >= today)) ev.push(strip(buildIcsEvent(t))); });
+  autoDeadlines().forEach(d => { const dt = d.cal ? d.cal.datum : d.date; if (!dt || dt < today) return; ev.push(strip(buildIcs((S.profile.vorname ? S.profile.vorname + ': ' : '') + d.title, dt, d.sub || '', 3))); });
+  return { count: ev.length, text: ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MyLuiseApp//DE', 'CALSCALE:GREGORIAN', ...ev, 'END:VCALENDAR'].join('\r\n') };
+}
+async function notifIcsShare() {
+  const r = notifIcs(); if (!r.count) { toast('Gerade stehen keine Termine oder Fristen an'); return; }
+  const file = new File([r.text], 'MyLuiseApp-Erinnerungen.ics', { type: 'text/calendar' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) { try { await navigator.share({ files: [file], title: 'MyLuiseApp Erinnerungen' }); return; } catch (e) { if (e && e.name === 'AbortError') return; } }
+  const u = mkUrl(file), a = h('a', { href: u, download: file.name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => rmUrl(u), 15000); toast(r.count + ' Einträge als Kalenderdatei');
+}
+function notifCard() {
+  const perm = notifPerm(), c = notifCfg(), box = h('div', { class: 'card stack notifcard' }, h('h2', null, 'Benachrichtigungen'));
+  const kind = (k, label) => { const cb = h('input', { type: 'checkbox', 'data-kind': k, onchange: e => { const x = notifCfg(); x.kinds[k] = e.target.checked; notifSave(x); } }); cb.checked = !!c.kinds[k]; return h('label', { class: 'field check' }, cb, h('span', null, label)); };
+  if (perm === 'unsupported') box.append(h('p', { class: 'mute' }, 'Mitteilungen sind hier nicht verfügbar. Auf dem iPhone geht das ab iOS 16.4, wenn die App über „Zum Home-Bildschirm“ installiert ist.'));
+  else if (perm === 'denied') box.append(h('p', { class: 'mute' }, 'Mitteilungen sind blockiert. Erlaube sie in den iPhone-Einstellungen unter „Mitteilungen“ und „MyLuiseApp“.'));
+  else if (perm === 'default' || !c.on) box.append(h('p', { class: 'mute' }, 'Lass dich an Termine, Vorsorge, Impfungen und Fristen erinnern.'), h('button', { class: 'btn wide', type: 'button', 'data-act': 'notif-on', onclick: notifEnable }, 'Mitteilungen einschalten'));
+  else {
+    box.append(h('p', { class: 'mute' }, 'Mitteilungen sind eingeschaltet. Wähle, woran du erinnert wirst:'), kind('termin', 'Termine (heute und morgen)'), kind('frist', 'Vorsorge, Impfungen und Fristen'), kind('coins', 'Tagesbonus in der Coin-Welt'),
+      h('div', { class: 'btn-row' }, h('button', { class: 'btn ghost', type: 'button', 'data-act': 'notif-test', onclick: async () => { const ok = await notifShow('Testmitteilung', 'So melden wir uns bei dir.', 'luise-test'); toast(ok ? 'Testmitteilung gesendet' : 'Senden nicht möglich'); } }, 'Testmitteilung'),
+        h('button', { class: 'btn ghost', type: 'button', onclick: async () => { const x = notifCfg(); x.on = false; notifSave(x); toast('Mitteilungen ausgeschaltet'); render(); } }, 'Ausschalten')));
+  }
+  box.append(h('div', { class: 'notif-ics' }, h('b', null, 'Zuverlässig auch bei geschlossener App'),
+    h('p', { class: 'mute' }, 'Mitteilungen kommen, wenn die App geöffnet oder gerade im Hintergrund ist. Für Erinnerungen, die iOS garantiert auch bei geschlossener App zeigt, legst du alle Termine und Fristen mit Erinnerung in deinen Kalender.'),
+    h('button', { class: 'btn wide', type: 'button', 'data-act': 'notif-ics', onclick: notifIcsShare }, 'Alle in den Kalender legen')));
+  return box;
+}
+(() => {
+  try {
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') setTimeout(() => notifCheck(false), 1500); });
+    setTimeout(() => notifCheck(false), 4000); setInterval(() => notifCheck(false), 15 * 60 * 1000);
+  } catch (e) {}
+})();
+/* ============ v32: App-Icon in vier Designs ============ */
+function iconKey() { const v = ls.get('luise_icon'); if (DESIGNS[v]) return v; const d = ls.get('luise_design'); return DESIGNS[d] ? d : 'standard'; }
+function iconDraw(k, N) {
+  N = N || 512; const D = DESIGNS[k] || DESIGNS.standard, P = D.l, c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d'); x.scale(N / 512, N / 512);
+  const bg = x.createLinearGradient(0, 0, 512, 512); bg.addColorStop(0, P.g1); bg.addColorStop(.58, P.g2); bg.addColorStop(1, P.g3); x.fillStyle = bg; x.fillRect(0, 0, 512, 512);
+  const gl = x.createRadialGradient(140, 100, 10, 140, 100, 380); gl.addColorStop(0, 'rgba(255,255,255,.4)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gl; x.fillRect(0, 0, 512, 512);
+  const heart = (cx, cy, s, fill) => { x.fillStyle = fill; x.beginPath(); x.moveTo(cx, cy + s * .9); x.bezierCurveTo(cx - s * 1.5, cy - s * .1, cx - s * .8, cy - s * 1.1, cx, cy - s * .4); x.bezierCurveTo(cx + s * .8, cy - s * 1.1, cx + s * 1.5, cy - s * .1, cx, cy + s * .9); x.fill(); };
+  const star = (cx, cy, R, r, fill) => { x.fillStyle = fill; x.beginPath(); for (let i = 0; i < 10; i++) { const rr = i % 2 ? r : R, a = -Math.PI / 2 + i * Math.PI / 5; x.lineTo(cx + rr * Math.cos(a), cy + rr * Math.sin(a)); } x.closePath(); x.fill(); };
+  // dezentes Motiv je Design
+  x.save(); x.globalAlpha = .55;
+  if (k === 'girl') [[84, 118, 15], [430, 92, 11], [420, 430, 15], [70, 410, 10], [458, 270, 9]].forEach(([a, b, s]) => heart(a, b, s, 'rgba(255,255,255,.85)'));
+  else if (k === 'boy') [[84, 118, 4], [430, 92, 3.4], [420, 430, 4.4], [70, 410, 3], [458, 270, 3], [250, 60, 3], [110, 300, 2.6]].forEach(([a, b, r]) => { x.fillStyle = '#fff'; x.beginPath(); x.arc(a, b, r, 0, Math.PI * 2); x.fill(); });
+  else if (k === 'gold') { x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 6; x.lineCap = 'round'; for (let i = 0; i < 16; i++) { const a = i * Math.PI / 8; x.beginPath(); x.moveTo(352 + Math.cos(a) * 110, 150 + Math.sin(a) * 110); x.lineTo(352 + Math.cos(a) * (i % 2 ? 150 : 175), 150 + Math.sin(a) * (i % 2 ? 150 : 175)); x.stroke(); } }
+  else { [[84, 118, 5], [430, 92, 4], [420, 430, 5], [66, 410, 3.5], [455, 270, 3], [250, 60, 3]].forEach(([a, b, r]) => { x.fillStyle = 'rgba(255,255,255,.9)'; x.beginPath(); x.arc(a, b, r, 0, Math.PI * 2); x.fill(); }); }
+  x.restore();
+  x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = 78; const lg = x.createLinearGradient(0, 110, 0, 410); lg.addColorStop(0, '#ffffff'); lg.addColorStop(1, '#fff0c8');
+  x.strokeStyle = lg; x.shadowColor = 'rgba(0,0,0,.32)'; x.shadowBlur = 26; x.shadowOffsetY = 12; x.beginPath(); x.moveTo(168, 118); x.lineTo(168, 392); x.lineTo(352, 392); x.stroke();
+  x.shadowColor = 'rgba(255,200,60,.75)'; x.shadowBlur = 30; x.shadowOffsetY = 0;
+  if (k === 'girl') heart(352, 150, 52, '#ffd9e6');
+  else if (k === 'boy') { const t = document.createElement('canvas'); t.width = t.height = 200; const y = t.getContext('2d'); y.fillStyle = '#ffe9a8'; y.beginPath(); y.arc(100, 100, 66, 0, Math.PI * 2); y.fill(); y.globalCompositeOperation = 'destination-out'; y.beginPath(); y.arc(132, 78, 56, 0, Math.PI * 2); y.fill(); x.drawImage(t, 252, 50); }
+  else if (k === 'gold') { x.fillStyle = '#fff4c9'; x.beginPath(); x.arc(352, 150, 46, 0, Math.PI * 2); x.fill(); }
+  else star(352, 150, 64, 26, '#ffd24d');
+  return c;
+}
+const ICON_PREV = {};
+function iconPrev(k) { return ICON_PREV[k] || (ICON_PREV[k] = iconDraw(k, 192).toDataURL('image/png')); }
+function iconApply() {
+  const url = iconDraw(iconKey(), 512).toDataURL('image/png'); window.__iconUrl = url;
+  document.querySelectorAll('link[rel=apple-touch-icon],link[rel=icon]').forEach(l => l.remove());
+  ['apple-touch-icon', 'icon'].forEach(rel => { const l = document.createElement('link'); l.rel = rel; l.href = url; document.head.append(l); });
+}
+function makeIcon() { try { iconApply(); } catch (e) {} }
+async function iconShare() {
+  const k = iconKey(), cv = iconDraw(k, 1024), blob = await new Promise(r => cv.toBlob(r, 'image/png')), file = new File([blob], `MyLuiseApp-Icon-${DESIGNS[k].name}.png`, { type: 'image/png' });
+  shareOrDownload(file, file.name);
+}
+function iconCard() {
+  const cur = iconKey(), auto = !DESIGNS[ls.get('luise_icon')];
+  return h('div', { class: 'card stack iconcard' }, h('h2', null, 'App-Icon'),
+    h('p', { class: 'mute' }, 'Vier Symbole, passend zu den Farbdesigns der App.'),
+    h('div', { class: 'icongrid' }, Object.keys(DESIGNS).map(k => h('button', { class: 'icopt' + (cur === k ? ' on' : ''), type: 'button', 'data-icon': k, 'aria-label': 'App-Icon ' + DESIGNS[k].name, onclick: () => { ls.set('luise_icon', k); iconApply(); render(); toast('App-Icon: ' + DESIGNS[k].name); } },
+      h('img', { src: iconPrev(k), alt: '' }), h('span', null, DESIGNS[k].name)))),
+    h('div', { class: 'btn-row' },
+      h('button', { class: 'btn ghost' + (auto ? ' on' : ''), type: 'button', 'data-icon-auto': '', onclick: () => { ls.del('luise_icon'); iconApply(); render(); toast('Icon folgt dem Farbdesign'); } }, auto ? 'Automatisch (wie Farbdesign) ✓' : 'Automatisch wie Farbdesign'),
+      h('button', { class: 'btn ghost', type: 'button', onclick: iconShare }, 'Icon-Bild sichern')),
+    h('p', { class: 'fine' }, 'Wichtig: iOS übernimmt das Symbol nur beim Hinzufügen zum Home-Bildschirm. Beim Entfernen der App vom Home-Bildschirm werden die App-Daten auf dem iPhone gelöscht. Erstelle deshalb vorher unter „Sicherung“ eine Datei, füge die App mit dem neuen Icon über Safari („Teilen“, „Zum Home-Bildschirm“) hinzu und spiele die Sicherung wieder ein. Erst danach das alte Symbol entfernen.'));
+}
+/* ============ v32: Marken & Produkte, einfach per Tippen ============ */
+let prodQ = '', prodRf = 'Alle';
+const PRATE = PLANES.slice(0, 5);
+const prodIcon = r => (PLANES.find(p => p[0] === (r || '')) || PLANES[5])[1];
+function prodEdit(item, defs) {
+  const list = S.profile.produkte;
+  editListItem({ arr: list, key: 'profile', title: 'Produkt', fields: PROD_FIELDS, item, defaults: Object.assign({ kategorie: prodCat !== 'Alle' ? prodCat : PROD_CATS[0], datum: isoToday() }, defs || {}) });
+}
+function prodRateSheet(item, defs, after) {
+  const list = S.profile.produkte, name = item ? item.marke : defs.marke, back = h('div', { class: 'back prate' });
+  const close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); };
+  const pick = async key => {
+    if (item) item.bewertung = key; else { item = { id: uid(), marke: defs.marke, kategorie: defs.kategorie || PROD_CATS[0], bewertung: key, datum: isoToday() }; list.push(item); }
+    await persist('profile'); Haptic.fire('success'); toast(`${item.marke}: ${key || 'ohne Bewertung'}`); close(); if (after) after(item); render();
+  };
+  const cur = item ? (item.bewertung || '') : null;
+  back.append(h('div', { class: 'sheet' },
+    h('div', { class: 'sheet-head' }, h('button', { class: 'nav-btn', type: 'button', onclick: close }, 'Schließen'), h('b', null, name), h('span', { class: 'nav-spacer' })),
+    h('div', { class: 'sheet-body' },
+      h('div', { class: 'prate-top' }, mono(name), h('div', null, h('b', null, name), h('small', { class: 'mute' }, (item ? item.kategorie : defs.kategorie) || ''))),
+      h('p', { class: 'prate-q' }, 'Wie läuft es damit?'),
+      h('div', { class: 'prate-grid' }, PRATE.map(([key, ic, label]) => h('button', { class: 'prate-b' + (cur === key ? ' on' : ''), type: 'button', 'data-r': key, onclick: () => pick(key) }, h('span', { html: IC.svg(ic) }), h('b', null, label)))),
+      h('div', { class: 'prate-more' },
+        !item ? h('button', { class: 'btn ghost wide', type: 'button', 'data-r': '', onclick: () => pick('') }, 'Nur merken, ohne Bewertung') : null,
+        h('button', { class: 'btn ghost wide', type: 'button', 'data-act': 'details', onclick: () => { close(); setTimeout(() => prodEdit(item, item ? null : defs), 240); } }, item ? 'Details bearbeiten (Produkt, Größe, Notiz)' : 'Mit Details eintragen (Produkt, Größe, Notiz)'),
+        item ? h('button', { class: 'btn ghost wide danger', type: 'button', 'data-act': 'del', onclick: async () => { if (!confirm(item.marke + ' entfernen?')) return; list.splice(list.indexOf(item), 1); await persist('profile'); close(); toast('Entfernt'); if (after) after(null); render(); } }, 'Entfernen') : null))));
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  document.body.append(back); requestAnimationFrame(() => back.classList.add('in'));
+}
+function prodAdd() {
+  const list = S.profile.produkte; let cat = prodCat !== 'Alle' ? prodCat : PROD_CATS[0], q = '';
+  const chips = h('div', { class: 'chips pa-cats' }), input = h('input', { class: 'search prodsearch', type: 'search', placeholder: 'Marke suchen oder selbst eintippen', 'aria-label': 'Marke suchen', autocomplete: 'off', autocapitalize: 'words', enterkeyhint: 'search' });
+  const grid = h('div', { class: 'brandgrid pa-grid' }), info = h('p', { class: 'fine' });
+  const haveOf = (b, c) => list.find(x => x.marke.toLowerCase() === b.toLowerCase() && x.kategorie === c);
+  const tile = (b, c, sub) => { const ex = haveOf(b, c); return h('button', { class: 'brand' + (ex ? ' has' : ''), type: 'button', 'data-b': b, onclick: () => prodRateSheet(ex || null, { marke: b, kategorie: c }, draw) }, mono(b), h('b', null, b), ex ? h('small', null, ex.bewertung || 'gemerkt') : sub ? h('small', { class: 'mute' }, sub) : null); };
+  const draw = () => {
+    chips.replaceChildren(...PROD_CATS.map(c => h('button', { class: 'fchip pdc' + (c === cat ? ' on' : ''), type: 'button', 'data-cat': c, onclick: () => { cat = c; draw(); } }, h('span', { class: 'pdc-i', html: IC.svg(PCAT_ICON[c]) }), c)));
+    const t = q.trim().toLowerCase(), out = [];
+    if (!t) BRANDS[cat].forEach(b => out.push(tile(b, cat)));
+    else {
+      const seen = new Set(); let exact = false;
+      PROD_CATS.forEach(c => BRANDS[c].forEach(b => { if (b.toLowerCase().includes(t) && !seen.has(c + b)) { seen.add(c + b); if (b.toLowerCase() === t) exact = true; out.push(tile(b, c, c === cat ? '' : c)); } }));
+      if (!exact) out.unshift(h('button', { class: 'brand own', type: 'button', 'data-own': '1', onclick: () => prodRateSheet(haveOf(q.trim(), cat) || null, { marke: q.trim(), kategorie: cat }, draw) }, h('span', { class: 'mono plus' }, '+'), h('b', null, q.trim()), h('small', { class: 'mute' }, 'eigene Marke in ' + cat)));
+    }
+    grid.replaceChildren(...out);
+    const n = list.filter(x => !t && x.kategorie === cat).length; info.textContent = t ? (out.length ? '' : 'Nichts gefunden.') : (n ? `${n} in dieser Kategorie schon eingetragen.` : 'Tippe eine Marke an, dann bewertest du sie mit einem Tipp.');
+  };
+  input.addEventListener('input', () => { q = input.value; draw(); });
+  openFull({ title: 'Hinzufügen', onClose: () => render(), body: h('div', { class: 'stack' }, chips, input, info, grid,
+    h('button', { class: 'btn ghost wide', type: 'button', onclick: () => { prodEdit(null, { kategorie: cat }); } }, 'Ausführlich selbst eintragen')) });
+  draw();
+}
+function viewProducts() {
+  const list = S.profile.produkte, wrap = h('div', { class: 'stack prodpage' });
+  wrap.append(pageHead('Marken & Produkte', addBtn('Hinzufügen', () => prodAdd())));
+  if (!list.length) {
+    wrap.append(h('div', { class: 'card stack gempty' }, h('div', { class: 'gempty-e', html: IC.svg('teddy') }), h('h2', null, 'Noch nichts erfasst'), h('p', { class: 'mute' }, 'Halte fest, welche Marken und Produkte ' + (S.profile.vorname || 'dein Kind') + ' nutzt und mag. Marke antippen, mit einem Tipp bewerten, fertig.'),
+      h('button', { class: 'btn wide', type: 'button', 'data-act': 'add', onclick: () => prodAdd() }, 'Marken hinzufügen')));
+    return wrap;
+  }
+  const sizes = [['Kleidung', 'shirt'], ['Schuhe', 'shoe'], ['Windeln & Pflege', 'diaper']].map(([c, ic]) => { const x = list.filter(i => i.kategorie === c && i.groesse).sort((a, b) => (b.datum || '').localeCompare(a.datum || ''))[0]; return x ? h('div', { class: 'pbsize' }, h('span', { html: IC.svg(ic) }), h('b', null, x.groesse), h('small', null, c === 'Windeln & Pflege' ? 'Windeln' : c)) : null; }).filter(Boolean);
+  if (sizes.length) wrap.append(h('div', { class: 'pbsizes' }, sizes));
+  const search = h('input', { class: 'search prodsearch', type: 'search', placeholder: 'In deiner Liste suchen', 'aria-label': 'Produkte durchsuchen', value: prodQ, autocomplete: 'off' });
+  wrap.append(search);
+  const rChips = h('div', { class: 'chips prate-chips' }, [['Alle', 'Alle', null]].concat(PRATE.map(([k, ic, l]) => [k, l, ic])).concat([['', 'Ohne Bewertung', null]]).map(([k, l, ic]) => {
+    const n = k === 'Alle' ? list.length : list.filter(x => (x.bewertung || '') === k).length; if (k !== 'Alle' && !n) return null;
+    return h('button', { class: 'fchip pdc' + (prodRf === k ? ' on' : ''), type: 'button', 'data-rf': k, onclick: () => { prodRf = k; render(); } }, ic ? h('span', { class: 'pdc-i', html: IC.svg(ic) }) : null, `${l} ${n}`);
+  }).filter(Boolean));
+  if (prodRf !== 'Alle' && !list.some(x => (x.bewertung || '') === prodRf)) prodRf = 'Alle';
+  wrap.append(rChips); const cc = prodCatChips(list); if (cc) wrap.append(cc);
+  const box = h('div', { class: 'stack prodlist' });
+  const draw = () => {
+    const t = prodQ.trim().toLowerCase();
+    const items = list.filter(x => (prodRf === 'Alle' || (x.bewertung || '') === prodRf) && (prodCat === 'Alle' || x.kategorie === prodCat) && (!t || [x.marke, x.produkt, x.notiz, x.kategorie].filter(Boolean).join(' ').toLowerCase().includes(t)));
+    box.replaceChildren();
+    if (!items.length) { box.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, t ? 'Nichts gefunden. Anderen Begriff probieren oder oben auf „Hinzufügen“ tippen.' : 'Hier ist nichts mit diesem Filter. Wähle oben „Alle“.'))); return; }
+    const order = PLANES.map(p => p[0]), groups = new Map();
+    items.slice().sort((a, b) => (a.kategorie || '').localeCompare(b.kategorie || '', 'de') || order.indexOf(a.bewertung || '') - order.indexOf(b.bewertung || '') || a.marke.localeCompare(b.marke, 'de')).forEach(x => { const k = x.kategorie || 'Sonstiges'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(x); });
+    groups.forEach((its, k) => {
+      if (groups.size > 1 || prodCat === 'Alle') box.append(sectionHead(k));
+      box.append(h('div', { class: 'card' }, its.map(x => h('div', { class: 'li prow', 'data-id': x.id, role: 'button', tabindex: '0', onclick: () => prodEdit(x) }, mono(x.marke, 'sm'),
+        liTxt(x.marke + (x.produkt ? ' · ' + x.produkt : ''), [x.groesse && 'Größe ' + x.groesse, x.notiz].filter(Boolean).join(' · ')),
+        h('button', { class: 'pbrate' + (x.bewertung ? '' : ' none'), type: 'button', 'data-rate': x.id, 'aria-label': 'Bewertung von ' + x.marke + ' ändern', onclick: e => { e.stopPropagation(); prodRateSheet(x, null, () => {}); } },
+          h('span', { html: IC.svg(prodIcon(x.bewertung)) }), h('i', null, x.bewertung ? (PLANES.find(p => p[0] === x.bewertung) || [0, 0, x.bewertung])[2] : 'Bewerten'))))));
+    });
+  };
+  search.addEventListener('input', () => { prodQ = search.value; draw(); });
+  wrap.append(box); draw(); wrap.append(prodShare(list));
+  return wrap;
+}
+/* ============ v32: Schlaf & Alltag, Seite "Heute" aufgeräumt ============ */
+let trMore = ls.get('luise_trmore') === '1';
+const TR_PRIM = ['wake', 'nap', 'bed', 'bottle', 'breast', 'diaper'];
+function viewTrackSleep() {
+  const wrap = h('div', { class: 'stack trtoday' }), pred = trPredict(), anim = !trSeen; trSeen = true;
+  wrap.append(trHero(pred, anim));
+  const w = pred.w;
+  if (pred.at) wrap.append(h('div', { class: 'card stack trpredcard slim' },
+    h('div', { class: 'trpred-h' }, h('b', null, pred.label), h('span', { class: 'chip ok' }, 'ca. ' + trHM(trIso(new Date(pred.at))))),
+    h('div', { class: 'trpred-a' }, h('button', { class: 'btn ghost', type: 'button', onclick: trRemind }, '⏰ Erinnerung in den Kalender'),
+      h('details', { class: 'trwhy' }, h('summary', null, 'Wie wird das berechnet?'), h('p', { class: 'mute small' }, `Wachfenster ${trDur(w.min)}: ${w.own ? 'angepasst an die letzten Tage' : 'Richtwert für ' + trAgeInfo().wk + ' Lebenswochen'}. Müdigkeitszeichen wie Gähnen, Augenreiben oder Quengeln gehen vor.`)))));
+  const sl = trSleeping();
+  const tile = (k, i) => {
+    const last = trLastOf(k), on = sl && ((k === 'nap' && sl.type === 'nap') || (k === 'bed' && sl.type === 'bed'));
+    const label = sl && (k === 'wake') ? 'Aufwachen' : TRT[k][1];
+    return h('button', { class: 'trtile' + (on ? ' on' : '') + (sl && k === 'wake' ? ' go' : ''), type: 'button', 'data-k': k, style: `animation-delay:${i * 0.035}s`, onclick: () => trTap(k) },
+      h('span', { class: 'trtile-e', 'aria-hidden': 'true' }, TRT[k][0]), h('b', null, label), last ? h('small', { class: 'trago', 'data-t': last }, trAgo(last)) : h('small', null, ' '));
+  };
+  const keys = Object.keys(TRT), prim = TR_PRIM.filter(k => TRT[k]), sec = keys.filter(k => !prim.includes(k));
+  wrap.append(h('div', { class: 'trsec' }, sectionHead('Eintragen'), h('div', { class: 'trtiles' }, prim.map(tile))));
+  const grid2 = h('div', { class: 'trtiles trmore' + (trMore ? '' : ' closed') }, sec.map((k, i) => tile(k, i)));
+  const btn = h('button', { class: 'trmore-btn' + (trMore ? ' open' : ''), type: 'button', 'data-act': 'trmore', 'aria-expanded': String(trMore), onclick: () => { trMore = !trMore; ls.set('luise_trmore', trMore ? '1' : '0'); grid2.classList.toggle('closed', !trMore); btn.classList.toggle('open', trMore); btn.setAttribute('aria-expanded', String(trMore)); btn.querySelector('span').textContent = trMore ? 'Weniger anzeigen' : 'Mehr eintragen'; } },
+    h('span', null, trMore ? 'Weniger anzeigen' : 'Mehr eintragen'), h('small', null, sec.map(k => TRT[k][1]).join(', ')), h('i', { html: '<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>' }));
+  wrap.append(btn, grid2);
+  const sum = trToday(), d0 = trTodayStart(), list = trLog().filter(e => { const t = trD(e.t).getTime(), en = e.end ? trD(e.end).getTime() : t; return (t >= d0 && t < d0 + 864e5) || (en >= d0 && en < d0 + 864e5) || (!e.end && (e.type === 'nap' || e.type === 'bed')); }).sort((a, b) => b.t.localeCompare(a.t));
+  wrap.append(h('div', { class: 'trsec' }, sectionHead('Heute bisher'), h('div', { class: 'card trday' },
+    h('div', { class: 'trsum' }, [['😴', trDur(sum.sleepMin), 'Schlaf'], ['💤', String(sum.naps), 'Nickerchen'], ['🍼', String(sum.feeds), 'Mahlzeiten'], ['🧷', String(sum.dia), 'Windeln']].map(([e, v, l], i) => h('div', { class: 'trsum-i', style: `animation-delay:${i * 0.06}s` }, h('span', null, e), h('b', null, v), h('small', null, l)))),
+    h('div', { class: 'trlist' }, list.length ? list.map(e => { const [nm, sub] = trRowText(e); return h('button', { class: 'trrow', type: 'button', onclick: () => trEdit(e.type, e) }, h('span', { class: 'trrow-e' }, TRT[e.type][0]), h('span', { class: 'trrow-t' }, h('b', null, nm), h('small', null, sub)), chev()); }) : h('p', { class: 'empty' }, 'Noch nichts eingetragen. Tippe oben auf eine Kachel.')))));
+  wrap.append(h('details', { class: 'trinfo' }, h('summary', null, 'Hinweise zu Richtwerten und sicherem Schlaf'),
+    h('p', { class: 'fine' }, 'Alle Werte sind Richtwerte und kein Ersatz für ärztlichen Rat. Sicherer Schlaf: Rückenlage, feste Matratze, keine Kissen, Decken oder Kuscheltiere im Bett. Erinnerungen bei geschlossener App legst du in den Kalender oder schaltest sie unter Einstellungen, Benachrichtigungen ein.')));
+  return wrap;
+}
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
@@ -9882,7 +10454,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
+window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
 })();
 </script>
 </body>
