@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="33">
+<meta name="app-version" content="34">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1680,6 +1680,49 @@ body.famode .editbtn{display:none!important}
 .wxqb:active{transform:scale(.95)}.wxqb b{font-size:11.5px;text-align:center;line-height:1.1}.wxqb small{font-size:10.5px;color:var(--mute);min-height:12px}
 .wxqb .wxe{width:30px;height:30px;font-size:24px}
 .tab .tl{padding:0!important;margin:0!important;width:1px!important;height:1px!important}
+/* ===== v34: Familienmodus ===== */
+.famdlg{align-items:center;padding:16px}
+.famdlg .sheet{max-width:420px;border-radius:26px;max-height:88dvh;transform:translateY(14px) scale(.98);border:1px solid var(--line)}
+.famdlg.in .sheet{transform:none}
+.famdlg .sheet-body{align-items:stretch;padding-bottom:20px}
+.famgt{margin:0;text-align:center;font-size:21px;line-height:1.2;text-transform:none;letter-spacing:0}
+.famgs{margin:0;text-align:center;font-size:14px;line-height:1.4}
+.famgform{gap:12px}.famgform.shake{animation:shake .4s}
+.famin{width:100%;box-sizing:border-box;font:inherit;font-size:19px;text-align:center;letter-spacing:.5px;padding:14px 12px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+.famin:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.famin.sec{-webkit-text-security:disc;text-security:disc}
+.famin:disabled{opacity:.5}
+.famdots{display:flex;justify-content:center;gap:10px}.famdots.off{display:none}
+.famdots i{width:11px;height:11px;border-radius:50%;background:color-mix(in srgb,var(--mute) 35%,transparent);transition:background .2s,transform .2s}
+.famdots i.on{background:var(--bad);transform:scale(1.15)}
+.famgmsg{margin:0;min-height:1.3em;text-align:center;font-size:14px;color:var(--mute)}.famgmsg.bad{color:var(--bad);font-weight:600}
+.fmico.big{width:64px;height:64px;margin:0 auto}
+.famlist{margin:0;padding:0 0 0 20px;display:flex;flex-direction:column;gap:7px;font-size:15px;line-height:1.35}
+.famexit .famlock{display:inline-flex;align-items:center;gap:7px;min-height:44px}
+.glk{display:inline-block;width:16px;height:16px}.glk svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* Gästebuch */
+.guesth{display:flex;align-items:center;gap:12px}.guesttx{flex:1;min-width:0;display:flex;flex-direction:column}.guesttx b{font-size:17px}
+.guesti{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:13px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.guesti svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.guestl{display:flex;flex-direction:column;gap:8px}
+.gentry .gen-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.gentry p{margin:4px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.4}
+.gentry.mini{padding:10px 12px;border-radius:14px;background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid var(--line)}
+.gentry.mini p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.guestempty{margin:0;font-size:14px}
+/* Diashow-Karte */
+.famshow{display:flex;align-items:center;gap:14px;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.fsth{position:relative;width:76px;height:60px;flex:none}
+.fsth img{position:absolute;width:48px;height:48px;object-fit:cover;border-radius:12px;border:2px solid var(--card);box-shadow:0 4px 10px rgba(30,30,80,.22)}
+.fsth img:nth-child(1){left:0;top:10px;transform:rotate(-7deg)}.fsth img:nth-child(2){left:14px;top:2px;transform:rotate(2deg)}.fsth img:nth-child(3){left:28px;top:8px;transform:rotate(9deg)}
+.fstx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.fstx b{font-size:17px}
+.fsplay{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff}
+.fsplay svg{width:18px;height:18px;fill:currentColor;stroke:none;margin-left:2px}
+/* Familienmodus: nichts Bearbeitbares sichtbar */
+body.famode .page-head .pill,body.famode .phhead-r,body.famode .fadd{display:none!important}
+@media (prefers-reduced-motion:reduce){.famgform.shake{animation:none}}
+ul.famlist{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0 0 0 20px!important;margin:0!important;list-style:disc!important}
+ul.famlist li{padding:0!important;border:0!important;background:none!important;display:list-item!important;min-height:0!important}
 </style>
 </head>
 <body>
@@ -2551,7 +2594,7 @@ function wHero() {
     h('div', { class: 'top' }, avatar(p, 76), h('div', null, h('h1', null, name || 'Neues Profil'),
       p.geburtsdatum ? h('p', null, `${ageText(p.geburtsdatum)} · geb. ${fmtD(p.geburtsdatum)}`) : h('p', null, name ? 'Geburtsdatum fehlt noch' : 'Tippe auf den Stift, um das Profil anzulegen'), titleChip())),
     h('div', { class: 'stats' },
-      h('div', { class: 'stat' }, h('b', null, S.docs.length), 'Dokumente'),
+      famMode() ? null : h('div', { class: 'stat' }, h('b', null, S.docs.length), 'Dokumente'),
       h('div', { class: 'stat' }, h('b', null, S.photos.length), 'Fotos'),
       nextT ? h('div', { class: 'stat' }, h('b', null, rel(nextT.datum)), nextT.titel) : null));
 }
@@ -2817,10 +2860,11 @@ function journeyFeed(withAuto) {
   (p.journey || []).forEach(m => out.push({ key: m.id, datum: m.datum || '', titel: m.titel || 'Moment', text: m.text || '', emoji: m.emoji || '⭐', fotos: photoOf(m.fotos), auto: false, open: () => openMoment(m) }));
   if (withAuto) {
     if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, o: 0, open: editProfile });
+    (S.profile.gruesse || []).forEach(g => out.push({ key: 'a:g:' + g.id, datum: g.datum || isoToday(), titel: 'Gruß von ' + g.name, text: g.text, emoji: '💌', fotos: [], auto: true, o: 2, open: guestAll }));
     S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
-    if (S.health.hoer && S.health.hoer.datum) out.push({ key: 'a:hoer', datum: S.health.hoer.datum, titel: 'Neugeborenen-Hörscreening', text: S.health.hoer.ort || '', emoji: '👂', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } });
-    Object.entries(S.health.u).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
-    if (showImpf()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
+    if (!famMode() && S.health.hoer && S.health.hoer.datum) out.push({ key: 'a:hoer', datum: S.health.hoer.datum, titel: 'Neugeborenen-Hörscreening', text: S.health.hoer.ort || '', emoji: '👂', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } });
+    (famMode() ? [] : Object.entries(S.health.u)).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
+    if (showImpf() && !famMode()) S.health.impfungen.forEach(v => v.datum && out.push({ key: 'a:v:' + v.id, datum: v.datum, titel: 'Impfung: ' + (v.name || ''), text: '', emoji: '💉', fotos: [], auto: true, open: () => { healthSeg = 'gesundheit'; go('health'); } }));
   }
   return out.sort((a, b) => (b.datum || '').localeCompare(a.datum || '') || ((b.o == null ? 1 : b.o) - (a.o == null ? 1 : a.o)));
 }
@@ -2828,7 +2872,7 @@ function momentCard(e, p) {
   const ph = e.fotos, shown = ph.slice(0, 4), more = ph.length - shown.length, a = ageAt(p, e.datum);
   return h('div', { class: 'tl-item' + (e.auto ? ' auto' : '') },
     h('div', { class: 'tl-dot', 'aria-hidden': 'true' }, e.emoji),
-    h('div', { class: 'tl-card', role: 'button', tabindex: '0', onclick: () => e.open() },
+    h('div', { class: 'tl-card', role: 'button', tabindex: '0', onclick: () => jOpen(e) },
       h('small', { class: 'tl-date' }, [e.datum ? fmtD(e.datum) : '', a].filter(Boolean).join(' · ')),
       h('b', null, e.titel),
       e.text ? h('p', null, e.text) : null,
@@ -2837,9 +2881,9 @@ function momentCard(e, p) {
 function viewJourney() {
   const p = S.profile, wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Journey', famMode() ? null : addBtn('Moment', () => editMoment())));
-  wrap.append(h('div', { class: 'chips' },
+  if (!famMode()) wrap.append(h('div', { class: 'chips' },
     h('button', { class: 'fchip' + (journeyAuto ? ' on' : ''), type: 'button', onclick: () => { journeyAuto = !journeyAuto; ls.set('luise_j_auto', journeyAuto ? '1' : '0'); render(); } }, journeyAuto ? 'Automatische Einträge: an' : 'Automatische Einträge: aus')));
-  const feed = journeyFeed(journeyAuto);
+  const feed = journeyFeed(journeyAuto || famMode());
   if (!feed.length) { wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Noch keine Momente. Halte den ersten Zahn, den ersten Urlaub oder den ersten Schultag fest, mit Foto und Geschichte.'), h('button', { class: 'btn wide', onclick: () => editMoment() }, 'Ersten Moment hinzufügen'))); return wrap; }
   const tl = h('div', { class: 'tl' });
   let year = null;
@@ -2854,7 +2898,7 @@ function viewJourney() {
 function wJourney(sz) {
   const items = journeyFeed(true).slice(0, sz === 'l' ? 6 : 3);
   return h('div', { class: 'stack' }, sectionHead('Journey', famMode() ? null : addBtn('Moment', () => editMoment())),
-    h('div', { class: 'card' }, items.length ? items.map(e => li(() => e.open(), '', h('span', { class: 'hubico emo' }, e.emoji), liTxt(e.titel, [e.datum ? fmtD(e.datum) : '', e.fotos.length ? plural(e.fotos.length, 'Foto', 'Fotos') : ''].filter(Boolean).join(' · ')), chev())) : h('p', { class: 'empty' }, 'Noch keine Momente.')),
+    h('div', { class: 'card' }, items.length ? items.map(e => li(() => jOpen(e), '', h('span', { class: 'hubico emo' }, e.emoji), liTxt(e.titel, [e.datum ? fmtD(e.datum) : '', e.fotos.length ? plural(e.fotos.length, 'Foto', 'Fotos') : ''].filter(Boolean).join(' · ')), chev())) : h('p', { class: 'empty' }, 'Noch keine Momente.')),
     h('button', { class: 'linkbtn', onclick: () => go('journey') }, 'Ganze Journey öffnen'));
 }
 
@@ -2927,7 +2971,8 @@ const famAv = m => avatar({ vorname: m.name || '?', foto: m.foto }, 44);
 let famView = 'tree';
 function viewFamily() {
   const p = S.profile, fam = p.familie = p.familie || [], wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Stammbuch', addBtn('Person', () => editMember())));
+  wrap.append(pageHead('Stammbuch', famMode() ? null : addBtn('Person', () => editMember())));
+  if (!fam.length && famMode()) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, 'Das Stammbuch ist noch leer.'))); return wrap; }
   if (!fam.length) {
     wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage Eltern, Großeltern, Geschwister und alle weiteren Familienmitglieder ein. Das Stammbuch zeigt den Stammbaum und den Verwandtschaftsgrad.'),
       h('div', { class: 'chips' }, [['Mutter', 'Mutterseite'], ['Vater', 'Vaterseite'], ['Großmutter', 'Mutterseite'], ['Großvater', 'Mutterseite'], ['Großmutter', 'Vaterseite'], ['Großvater', 'Vaterseite'], ['Schwester', ''], ['Bruder', '']].map(([r, s]) => h('button', { class: 'fchip', type: 'button', onclick: () => editMember(null, { rolle: r, seite: s }) }, r + (s && r.startsWith('Groß') ? ' (' + s.replace('seite', '') + ')' : ''))))));
@@ -3616,7 +3661,7 @@ function viewWeeks() {
   const p = S.profile, wrap = h('div', { class: 'stack' });
   wrap.append(pageHead('Wochen-Begleiter'));
   if (!p.geburtsdatum) {
-    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum im Profil ein. Dann erscheint zu jeder Lebenswoche eine passende Info.'), h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
+    wrap.append(h('div', { class: 'card stack' }, h('p', { class: 'empty' }, 'Trage das Geburtsdatum im Profil ein. Dann erscheint zu jeder Lebenswoche eine passende Info.'), famMode() ? null : h('button', { class: 'btn wide', onclick: editProfile }, 'Profil bearbeiten')));
     return wrap;
   }
   const now = curWeek(p.geburtsdatum), max = 940;
@@ -3633,7 +3678,7 @@ function viewWeeks() {
       n === now ? h('div', { class: 'stat' }, h('b', null, 'Jetzt'), 'aktuelle Woche') : h('div', { class: 'stat' }, h('b', null, n < now ? plural(now - n, 'Woche', 'Wochen') : 'in ' + plural(n - now, 'Woche', 'Wochen')), n < now ? 'her' : 'noch'))));
   wrap.append(h('div', { class: 'wk-nav' },
     h('button', { class: 'pill ghost', disabled: n <= 1, onclick: () => { weekSel = n - 1; render(); } }, '‹ Zurück'),
-    h('button', { class: 'pill ghost', onclick: () => openSheet({ title: 'Zu Woche springen', values: { n: String(n) }, fields: [{ key: 'n', label: 'Lebenswoche', inputmode: 'numeric', type: 'number', required: true }], onSave: async v => { const x = parseInt(v.n, 10); if (x >= 1) { weekSel = Math.min(max, x); render(); } } }) }, 'Springen'),
+    h('button', { class: 'pill ghost', onclick: () => openSheet({ famOk: true, title: 'Zu Woche springen', values: { n: String(n) }, fields: [{ key: 'n', label: 'Lebenswoche', inputmode: 'numeric', type: 'number', required: true }], onSave: async v => { const x = parseInt(v.n, 10); if (x >= 1) { weekSel = Math.min(max, x); render(); } } }) }, 'Springen'),
     n !== now ? h('button', { class: 'pill', onclick: () => { weekSel = null; render(); } }, 'Heute') : null,
     h('button', { class: 'pill ghost', disabled: n >= max, onclick: () => { weekSel = n + 1; render(); } }, 'Weiter ›')));
   wrap.append(lpMiniCard());
@@ -4241,12 +4286,12 @@ function editPlaylist() {
 }
 function viewSongs() {
   const p = S.profile, wrap = h('div', { class: 'stack' });
-  wrap.append(pageHead('Lieblingslieder', addBtn('Lied', () => editSong())));
+  wrap.append(pageHead('Lieblingslieder', famMode() ? null : addBtn('Lied', () => editSong())));
   if (nowPlaying) wrap.append(playerCard());
   wrap.append(h('div', { class: 'card stack' }, h('h2', null, 'Luises Playlist'),
     p.playlist && SPOT_OK(p.playlist)
-      ? h('div', { class: 'btn-row' }, embedUrl(p.playlist) ? h('button', { class: 'btn spot', onclick: () => playInApp(p.playlist, 'Playlist') }, h('span', { html: ICON.play }), 'Im Player abspielen') : h('a', { class: 'btn spot', href: p.playlist, target: '_blank', rel: 'noopener', onclick: spotClick }, h('span', { html: ICON.play }), 'In Spotify öffnen'), h('button', { class: 'btn ghost', onclick: editPlaylist }, 'Ändern'))
-      : h('button', { class: 'btn wide', onclick: editPlaylist }, 'Playlist-Link hinzufügen'),
+      ? h('div', { class: 'btn-row' }, embedUrl(p.playlist) ? h('button', { class: 'btn spot', onclick: () => playInApp(p.playlist, 'Playlist') }, h('span', { html: ICON.play }), 'Im Player abspielen') : h('a', { class: 'btn spot', href: p.playlist, target: '_blank', rel: 'noopener', onclick: spotClick }, h('span', { html: ICON.play }), 'In Spotify öffnen'), famMode() ? null : h('button', { class: 'btn ghost', onclick: editPlaylist }, 'Ändern'))
+      : (famMode() ? h('p', { class: 'mute' }, 'Noch keine Playlist.') : h('button', { class: 'btn wide', onclick: editPlaylist }, 'Playlist-Link hinzufügen')),
     h('a', { class: 'lnk', href: 'https://open.spotify.com/search/Kinderlieder', target: '_blank', rel: 'noopener', onclick: spotClick }, 'Neue Lieder in Spotify entdecken')));
   wrap.append(sectionHead('Lieder'));
   wrap.append(h('div', { class: 'card' }, p.lieder.length ? p.lieder.slice().sort((a, b) => a.titel.localeCompare(b.titel, 'de')).map(x => {
@@ -4755,7 +4800,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 33'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 34'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5573,7 +5618,7 @@ function editMoment(item) {
 }
 function openMoment(m) {
   const p = S.profile, ph = (m.fotos || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean), a = ageAt(p, m.datum);
-  const ov = openFull({ title: m.titel || 'Moment', right: h('button', { class: 'nav-btn strong', type: 'button', onclick: () => { ov.close(); editMoment(m); } }, 'Bearbeiten'),
+  const ov = openFull({ title: m.titel || 'Moment', right: famMode() ? null : h('button', { class: 'nav-btn strong', type: 'button', onclick: () => { ov.close(); editMoment(m); } }, 'Bearbeiten'),
     body: h('div', { class: 'stack' }, h('div', { class: 'mm-emo' }, m.emoji || '⭐'), h('small', { class: 'mute' }, [m.datum ? fmtD(m.datum) : '', a].filter(Boolean).join(' · ')),
       m.text ? h('p', { class: 'mm-text' }, m.text) : null,
       ph.length ? h('div', { class: 'mm-grid' }, ph.map((x, i) => h('button', { class: 'tl-th big', type: 'button', 'aria-label': 'Foto ansehen', onclick: () => openPhotoViewer(ph, i) }, hiImg(h('img', { src: x.thumb, alt: '' }), x.id)))) : null) });
@@ -5582,7 +5627,7 @@ function openMoment(m) {
 /* ============ Widget-Vorlagen ============ */
 const WIDGET_TEMPLATES = [
   ['Alltag', 'Uhr, Schnellzugriff, Termine, Tagesnotiz und Hinweise', ['hero', 'clock', 'quick', 'tracker', 'termine', 'diary', 'alerts', 'week', 'kontakte']],
-  ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'erinnerung', 'bday', 'family', 'journey', 'photo', 'zodiac', 'rueckblick', 'kontakte']],
+  ['Familie & Erinnerungen', 'Geburtstage, Stammbuch, Journey und Foto des Tages', ['hero', 'clock', 'erinnerung', 'bday', 'family', 'journey', 'photo', 'guest', 'zodiac', 'rueckblick', 'kontakte']],
   ['Kompakt', 'Nur das Wichtigste', ['hero', 'clock', 'quick', 'chat']],
   ['Alles', 'Alle Widgets, nach Themen sortiert', Object.keys(WIDGETS)]
 ];
@@ -7207,7 +7252,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 33;
+const APP_VERSION = 34;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -8012,7 +8057,7 @@ function viewPhotos() {
   } });
   const addBtnEl = h('button', { class: 'pill', type: 'button', onclick: () => { suppressLockUntil = Date.now() + 180000; input.click(); } }, '+ Fotos');
   const n = S.photos.length;
-  wrap.append(pageHead('Fotos', h('div', { class: 'phhead-r' }, n ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { phSel = phSel ? null : new Set(); render(); } }, phSel ? 'Fertig' : 'Auswählen') : null, famMode() ? null : addBtnEl)), input);
+  wrap.append(pageHead('Fotos', h('div', { class: 'phhead-r' }, n && !famMode() ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { phSel = phSel ? null : new Set(); render(); } }, phSel ? 'Fertig' : 'Auswählen') : null, famMode() ? null : addBtnEl)), input);
   const albums = albumNames();
   if (photoAlbum !== 'Alle' && photoAlbum !== FAV && !albums.includes(photoAlbum)) photoAlbum = 'Alle';
   if (!n) {
@@ -8045,7 +8090,7 @@ function viewPhotos() {
     h('button', { class: 'phtb', type: 'button', 'aria-label': 'Spalten ändern', title: 'Größe der Vorschau', onclick: () => { phCols = phCols === 3 ? 4 : phCols === 4 ? 2 : 3; ls.set('luise_ph_cols', String(phCols)); render(); } }, phIcon('colsI')),
     list.length > 1 ? h('button', { class: 'phtb show', type: 'button', 'aria-label': 'Diashow starten', title: 'Diashow', onclick: () => openPhotoViewer(list, 0, { slideshow: true }) }, phIcon('slideI')) : null);
   wrap.append(tools);
-  if (photoAlbum !== 'Alle' && photoAlbum !== FAV) wrap.append(h('div', { class: 'phalbhead' }, h('b', null, photoAlbum), h('button', { class: 'linkbtn', type: 'button', onclick: () => actionSheet(photoAlbum, 'Die Fotos bleiben erhalten.', [
+  if (photoAlbum !== 'Alle' && photoAlbum !== FAV) wrap.append(h('div', { class: 'phalbhead' }, h('b', null, photoAlbum), famMode() ? null : h('button', { class: 'linkbtn', type: 'button', onclick: () => actionSheet(photoAlbum, 'Die Fotos bleiben erhalten.', [
     { label: 'Album umbenennen', onclick: () => openSheet({ title: 'Album umbenennen', values: { name: photoAlbum }, fields: [{ key: 'name', label: 'Name', required: true }], onSave: async v => { const nn = v.name.trim(), old = photoAlbum; for (const m of S.photos.filter(x => x.album === old)) { m.album = nn; await photoPut(m); } photoAlbum = nn; render(); } }) },
     { label: 'Album auflösen', ghost: true, onclick: async () => { for (const m of S.photos.filter(x => x.album === photoAlbum)) { m.album = ''; await photoPut(m); } photoAlbum = 'Alle'; render(); toast('Album aufgelöst'); } }]) }, 'Verwalten')));
   if (!list.length) { wrap.append(h('div', { class: 'card' }, h('p', { class: 'empty' }, phSearch ? `Nichts gefunden für „${phSearch}“.` : 'Keine Fotos in dieser Ansicht.'))); if (phSel) wrap.append(phBulkBar()); return wrap; }
@@ -8074,7 +8119,7 @@ async function openPhotoViewer(list, start, vopts) {
   const strip = h('div', { class: 'pv-strip' }, list.map((m, k) => h('button', { class: 'pv-th', type: 'button', 'aria-label': 'Foto ' + (k + 1), onclick: () => { stopShow(); i = k; load(); } }, h('img', { src: m.thumb, alt: '' }))));
   const info = h('div', { class: 'pv-info' });
   const pop = h('div', { class: 'pv-pop', 'aria-hidden': 'true', html: ICON.heartF });
-  const bar = h('div', { class: 'pv-bar' }, info, strip, h('div', { class: 'pv-acts' }, heartBtn, shareBtn, infoBtn, showBtn, moreBtn));
+  const bar = h('div', { class: 'pv-bar' }, info, strip, h('div', { class: 'pv-acts' }, famMode() ? [infoBtn, showBtn] : [heartBtn, shareBtn, infoBtn, showBtn, moreBtn]));
   const top = h('div', { class: 'pv-top' }, cnt);
   const step = d => { const n = i + d; if (n < 0 || n >= list.length) { if (timer && list.length > 1) { i = d > 0 ? 0 : list.length - 1; load(); } return; } i = n; load(); };
   const stopShow = () => { if (timer) { clearInterval(timer); timer = null; } api.el.classList.remove('show', 'ui-off'); showBtn.classList.remove('on'); };
@@ -8082,7 +8127,7 @@ async function openPhotoViewer(list, start, vopts) {
   const api = openLightbox(BLANK, '', { bar, hint: '', extra: [top, pop, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => { stopShow(); step(-1); } }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => { stopShow(); step(1); } }, '›')],
     onSwipe: d => { stopShow(); step(d); }, onSwipeDown: () => api.close(), onTap: () => { if (timer) stopShow(); else api.el.classList.toggle('ui-off'); },
     onClose: () => { alive = false; stopShow(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
-  const onKey = e => { if (!alive) return; if (e.key === 'ArrowLeft') { stopShow(); step(-1); } else if (e.key === 'ArrowRight') { stopShow(); step(1); } else if (e.key === 'Escape') api.close(); else if (e.key === 'l' || e.key === 'L') favToggle(); };
+  const onKey = e => { if (!alive) return; if (e.key === 'ArrowLeft') { stopShow(); step(-1); } else if (e.key === 'ArrowRight') { stopShow(); step(1); } else if (e.key === 'Escape') api.close(); else if ((e.key === 'l' || e.key === 'L') && !famMode()) favToggle(); };
   document.addEventListener('keydown', onKey);
   const paintHeart = () => { const m = list[i]; heartBtn.replaceChildren(phIcon(m.fav ? 'heartF' : 'heartO', m.fav ? 'on' : ''), h('small', null, m.fav ? 'Favorit' : 'Merken')); heartBtn.classList.toggle('on', !!m.fav); };
   const paintInfo = () => {
@@ -8091,7 +8136,7 @@ async function openPhotoViewer(list, start, vopts) {
     info.replaceChildren(h('b', { class: 'pvi-t' }, m.titel || 'Ohne Beschreibung'),
       h('p', null, [m.datum ? fmtD(m.datum) : 'Ohne Datum', a ? 'Luise war ' + a + ' alt' : ''].filter(Boolean).join(' · ')),
       h('div', { class: 'pvi-chips' }, m.album ? h('span', { class: 'chip' }, '📁 ' + m.album) : null, m.fav ? h('span', { class: 'chip' }, '♥ Favorit') : null, m.size ? h('span', { class: 'chip' }, Math.round(m.size / 1024) + ' KB') : null),
-      h('button', { class: 'linkbtn', type: 'button', onclick: () => edit() }, 'Beschreibung, Datum, Album ändern'));
+      famMode() ? null : h('button', { class: 'linkbtn', type: 'button', onclick: () => edit() }, 'Beschreibung, Datum, Album ändern'));
   };
   const load = async () => {
     const m = list[i]; cnt.textContent = `${i + 1} / ${list.length}`;
@@ -8594,7 +8639,7 @@ function hapticCard() {
     h('p', { class: 'mute small' }, Haptic.hasVibrate() ? 'Dieses Gerät kann vibrieren.' : Haptic.IOS ? 'Auf dem iPhone fühlst du die Haptik beim Antippen. Systemhaptik muss in den iPhone-Einstellungen eingeschaltet sein.' : 'Auf diesem Gerät gibt es keine Haptik.'));
 }
 /* ============ v20: Vollständige Sicherung ============ */
-const BK_SKIP = new Set(['luise_famode', 'luise_famask', 'luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
+const BK_SKIP = new Set(['luise_famode', 'luise_famfail', 'luise_famwait', 'luise_guest_seen', 'luise_famask', 'luise_lock_v1', 'luise_nolock', 'luise_ai_key', 'luise_lastbackup', 'luise_news_v2', 'luise_news_geld_v1', 'luise_vid_repo_v2', 'luise_vid_yt_v2', 'luise_noboot_news', 'luise_ai_dev_ready', 'luise_ai_dev_tier', 'luise_hint_off', 'luise_news_px', 'luise_vid_yt_v1']);
 const bkKeys = () => { const out = []; try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('luise_') && !BK_SKIP.has(k)) out.push(k); } } catch (e) {} return out; };
 function settingsSnapshot() { const o = {}; bkKeys().forEach(k => { const v = ls.get(k); if (typeof v === 'string') o[k] = v; }); return o; }
 function restoreSettings(st) {
@@ -9487,27 +9532,31 @@ function prodCatChips(list) {
 /* ============ v29: Familienmodus, Hochauflösende Fotos, Chat-Leiste ============ */
 const famMode = () => ls.get('luise_famode') === '1';
 const FAM_PAGES = ['home', 'photos', 'journey', 'songs', 'weeks', 'family'];
-const FAM_WIDGETS = ['hero', 'clock', 'photo', 'spot', 'journey', 'bday', 'week', 'family'];
+const FAM_WIDGETS = ['hero', 'clock', 'photo', 'spot', 'journey', 'bday', 'week', 'family', 'guest', 'famshow'];
 const famApply = () => { try { document.body.classList.toggle('famode', famMode()); } catch (e) {} };
-function famSetMode(on) {
-  ls.set('luise_famode', on ? '1' : '0'); famApply(); tab = 'home'; homeEdit = false; render();
+function famSetMode(on, force) {
+  if (!on && famMode() && !force) { famGate(); return; }
+  if (on) { ls.set('luise_famfail', '0'); ls.del('luise_famwait'); }
+  ls.set('luise_famode', on ? '1' : '0'); famApply(); tab = 'home'; homeEdit = false; closeOverlays(); render();
   toast(on ? 'Familienmodus ist an' : 'Familienmodus ist aus');
 }
 function famLayout(L) {
   const out = L.filter(x => FAM_WIDGETS.includes(x.id));
   if (!out.some(x => x.id === 'hero')) out.unshift(newWidgetItem('hero'));
   ['photo', 'journey'].forEach(id => { if (!out.some(x => x.id === id)) out.push(newWidgetItem(id)); });
+  if (!out.some(x => x.id === 'famshow')) out.splice(1, 0, newWidgetItem('famshow'));
+  if (!out.some(x => x.id === 'guest')) out.push(newWidgetItem('guest'));
   return out;
 }
 function famAskCard() {
   if (famMode() || !CH.some(c => c.fam) || ls.get('luise_famask') === '0') return null;
   return h('div', { class: 'card stack famask' }, h('div', { class: 'famwel-h' }, h('span', { class: 'famhero-i', html: IC.svg('family') }),
     h('div', null, h('b', null, 'Ruhige Ansicht für Familie?'), h('small', { class: 'mute' }, 'Der Familienmodus zeigt nur Startseite, Fotos und Journey. Das geht auch später in den Einstellungen.'))),
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => famSetMode(true) }, 'Einschalten'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { ls.set('luise_famask', '0'); render(); } }, 'Nicht jetzt')));
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => famActivate(() => famSetMode(true)) }, 'Einschalten'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { ls.set('luise_famask', '0'); render(); } }, 'Nicht jetzt')));
 }
 function famExitRow() {
-  return h('div', { class: 'famexit' }, h('p', { class: 'homehint' }, 'Familienmodus: Startseite, Fotos und Journey.'),
-    h('button', { class: 'linkbtn', type: 'button', onclick: () => { if (confirm('Familienmodus beenden? Dann siehst du wieder alle Bereiche der App.')) famSetMode(false); } }, 'Familienmodus beenden'));
+  return h('div', { class: 'famexit' }, h('p', { class: 'homehint' }, 'Familienmodus: Start, Fotos und Journey, nur zum Ansehen.'),
+    h('button', { class: 'linkbtn famlock', type: 'button', onclick: () => famGate() }, h('span', { class: 'glk', 'aria-hidden': 'true', html: ICON.glock }), 'Familienmodus beenden'));
 }
 /* Fotos in voller Qualität nachladen (Vorschau bleibt als Platzhalter) */
 const HI = new Map();
@@ -9769,8 +9818,8 @@ function famModeCard() {
   const t = h('span', { class: 'tgl', 'aria-hidden': 'true' });
   const card = h('div', { class: 'card fmcard', role: 'switch', tabindex: '0', 'aria-checked': on ? 'true' : 'false', 'aria-label': 'Familienmodus' },
     h('span', { class: 'fmico', html: IC.svg('family') }),
-    h('span', { class: 'fmtx' }, h('b', null, 'Familienmodus'), h('small', null, 'Zeigt nur Startseite, Fotos und Journey. Alles andere ist ausgeblendet, ideal für Oma und Opa. Beenden kannst du ihn unten auf der Startseite.')), t);
-  const flip = () => { const nx = card.getAttribute('aria-checked') !== 'true'; card.setAttribute('aria-checked', nx ? 'true' : 'false'); Haptic.fire('select'); setTimeout(() => famSetMode(nx), 260); };
+    h('span', { class: 'fmtx' }, h('b', null, 'Familienmodus'), h('small', null, 'Zeigt nur Startseite, Fotos und Journey, und das nur zum Ansehen. Gäste können ein Grußwort im Gästebuch hinterlassen. Beenden geht nur mit dem Codewort.')), t);
+  const flip = () => { if (famMode()) { famGate(); return; } famActivate(() => { card.setAttribute('aria-checked', 'true'); Haptic.fire('select'); setTimeout(() => famSetMode(true), 260); }); };
   card.addEventListener('click', flip);
   card.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); } });
   return card;
@@ -10924,6 +10973,180 @@ Object.assign(WIDGETS.hd, { render: wHD2, sizes: ['s', 'm'] });
 Object.assign(WIDGETS.zodiac, { render: wZodiac2, sizes: ['s', 'm'] });
 Object.assign(WIDGETS.invest, { render: wInvest2, sizes: ['s', 'm'] });
 WIDGETS.tracker = { name: 'Schlaf & Alltag', desc: 'Nächster Schlaf und Schnell-Eintrag für Flasche, Windel und mehr', half: true, sizes: ['s', 'm'], render: wTracker };
+/* ============ v34: Familienmodus mit Codewort, Schreibschutz, Gästebuch, Diashow ============ */
+ICON.glock = '<svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg>';
+ICON.gmail = '<svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5"/></svg>';
+const FAM_SALT = 'luise-fam-v34|';
+const famHash = s => { let h1 = 0xdeadbeef ^ 34, h2 = 0x41c6ce57 ^ 34; for (let i = 0; i < s.length; i++) { const ch = s.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); } h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909); h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909); return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(36); };
+const FAM_CODE_H = '192sopqtqf2', FAM_DATE_H = '24mqsj1kzf3';
+const famCodeNorm = s => String(s || '').normalize('NFKC').replace(/\s+/g, '').toLowerCase();
+function famDateNorm(s) {
+  s = String(s || '').trim(); let d, m, y, r;
+  if ((r = /^(\d{4})\D+(\d{1,2})\D+(\d{1,2})$/.exec(s))) { y = r[1]; m = r[2]; d = r[3]; }
+  else if ((r = /^(\d{1,2})\D+(\d{1,2})\D+(\d{4}|\d{2})$/.exec(s))) { d = r[1]; m = r[2]; y = r[3]; }
+  else if ((r = /^(\d{2})(\d{2})(\d{4}|\d{2})$/.exec(s))) { d = r[1]; m = r[2]; y = r[3]; if (+m > 12 && y.length === 4 && /^(19|20)/.test(s)) { y = s.slice(0, 4); m = s.slice(4, 6); d = s.slice(6, 8); } }
+  else return '';
+  if (y.length === 2) y = '20' + y;
+  return y + String(m).padStart(2, '0') + String(d).padStart(2, '0');
+}
+const famFails = () => parseInt(ls.get('luise_famfail'), 10) || 0;
+const famWaitLeft = () => Math.max(0, (parseInt(ls.get('luise_famwait'), 10) || 0) - Date.now());
+const famCheck = (stage, v) => stage === 'code' ? famHash(FAM_SALT + famCodeNorm(v)) === FAM_CODE_H : famHash(FAM_SALT + famDateNorm(v)) === FAM_DATE_H;
+
+/* Gästebuch */
+const guestList = () => (S.profile.gruesse || []).slice().sort((a, b) => (b.ts || 0) - (a.ts || 0));
+const guestSeen = () => parseInt(ls.get('luise_guest_seen'), 10) || 0;
+const guestUnread = () => guestList().filter(g => (g.ts || 0) > guestSeen()).length;
+const guestWho = () => S.profile.vorname || 'Luise';
+
+/* Mini-Dialog (mitten im Bild, damit die Tastatur nichts verdeckt) */
+function famDialog(cls, head, body, onClose) {
+  const back = h('div', { class: 'back famdlg ' + cls }), close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); if (onClose) onClose(); };
+  back.append(h('div', { class: 'sheet' }, h('div', { class: 'sheet-head' }, h('button', { type: 'button', class: 'nav-btn', onclick: close }, 'Abbrechen'), h('b', null, head), h('span', { class: 'nav-spacer' })), h('div', { class: 'sheet-body' }, body)));
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  document.body.append(back); requestAnimationFrame(() => back.classList.add('in'));
+  return { back, close };
+}
+
+/* Einschalten: kurz erklären und bestätigen */
+function famActivate(done, cancel) {
+  let dlg;
+  const go1 = h('button', { class: 'btn wide', type: 'button', onclick: () => { dlg.close(); done(); } }, 'Familienmodus einschalten');
+  const no = h('button', { class: 'btn ghost wide', type: 'button', onclick: () => { dlg.close(); } }, 'Abbrechen');
+  dlg = famDialog('famact', 'Familienmodus', [
+    h('span', { class: 'fmico big', html: IC.svg('family') }),
+    h('h2', { class: 'famgt' }, 'Familienmodus einschalten?'),
+    h('ul', { class: 'famlist' },
+      h('li', null, 'Sichtbar sind nur Start, Fotos und Journey.'),
+      h('li', null, 'Alles ist schreibgeschützt: Nichts lässt sich ändern oder löschen.'),
+      h('li', null, 'Gäste können ein Grußwort im Gästebuch hinterlassen.'),
+      h('li', null, 'Beenden geht nur mit dem Codewort.')),
+    go1, no], cancel);
+}
+
+/* Beenden: Codewort, nach drei Fehlversuchen nur noch das Geburtsdatum */
+let famGateOpen = false;
+function famGate() {
+  if (famGateOpen || !famMode()) return;
+  famGateOpen = true;
+  const inp = h('input', { type: 'text', class: 'famin', autocomplete: 'off', autocapitalize: 'none', autocorrect: 'off', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Eingabe' });
+  const msg = h('p', { class: 'famgmsg', role: 'status', 'aria-live': 'polite' });
+  const dots = h('div', { class: 'famdots', 'aria-hidden': 'true' }, [0, 1, 2].map(() => h('i')));
+  const title = h('h2', { class: 'famgt' }), sub = h('p', { class: 'mute famgs' });
+  const ok = h('button', { type: 'submit', class: 'btn wide' }, 'Bestätigen');
+  let tick = 0, dlg = null;
+  const stage = () => famFails() >= 3 ? 'date' : 'code';
+  const paint = (note) => {
+    const st = stage(), wait = Math.ceil(famWaitLeft() / 1000), n = Math.min(3, famFails());
+    title.textContent = st === 'code' ? 'Codewort eingeben' : 'Geburtsdatum eingeben';
+    sub.textContent = st === 'code' ? 'Der Familienmodus lässt sich nur mit dem Codewort beenden.' : 'Das Codewort gilt nicht mehr. Jetzt geht es nur noch mit dem Geburtsdatum von ' + guestWho() + '.';
+    inp.placeholder = st === 'code' ? 'Codewort' : 'TT.MM.JJJJ';
+    inp.setAttribute('inputmode', st === 'code' ? 'text' : 'numeric');
+    inp.classList.toggle('sec', st === 'code');
+    inp.disabled = ok.disabled = wait > 0;
+    dots.classList.toggle('off', st === 'date');
+    dots.querySelectorAll('i').forEach((d, i) => d.classList.toggle('on', i < n));
+    msg.textContent = wait > 0 ? 'Bitte warte noch ' + plural(wait, 'Sekunde', 'Sekunden') + '.' : (note || '');
+    msg.classList.toggle('bad', !!(wait > 0 || note));
+  };
+  const form = h('form', { class: 'stack famgform', autocomplete: 'off', onsubmit: e => {
+    e.preventDefault();
+    if (famWaitLeft() > 0 || !inp.value.trim()) return;
+    const st = stage();
+    if (famCheck(st, inp.value)) {
+      const unread = guestUnread();
+      ls.set('luise_famfail', '0'); ls.del('luise_famwait');
+      dlg.close(); Haptic.fire('success');
+      famSetMode(false, true);
+      if (unread) setTimeout(() => toast('Willkommen zurück · ' + plural(unread, 'neuer Gruß', 'neue Grüße') + ' im Gästebuch'), 2600);
+      return;
+    }
+    const f = famFails() + 1; ls.set('luise_famfail', String(f));
+    inp.value = ''; form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); Haptic.fire('error');
+    let note;
+    if (st === 'code') note = f >= 3 ? 'Dreimal falsch. Jetzt hilft nur noch das Geburtsdatum von ' + guestWho() + '.' : 'Das Codewort stimmt nicht. Noch ' + plural(3 - f, 'Versuch', 'Versuche') + '.';
+    else {
+      const k = f - 3; note = 'Das Datum stimmt nicht.';
+      if (k >= 3) ls.set('luise_famwait', String(Date.now() + Math.min(300, 30 * (k - 2)) * 1000));
+    }
+    paint(note);
+    if (stage() === 'date' && !famWaitLeft()) setTimeout(() => { try { inp.focus(); } catch (x) {} }, 60);
+  } }, title, sub, dots, inp, msg, ok);
+  dlg = famDialog('famgate', 'Familienmodus', form, () => { clearInterval(tick); famGateOpen = false; });
+  paint(); tick = setInterval(() => { if (famWaitLeft() >= 0 && inp.disabled) paint(); }, 500);
+  setTimeout(() => { try { if (!inp.disabled) inp.focus(); } catch (x) {} }, 320);
+}
+
+/* Schreibschutz: im Familienmodus öffnet sich nichts, was Daten ändert */
+const _openSheet34 = openSheet;
+openSheet = function (o) { if (famMode() && !(o && o.famOk)) { toast('Im Familienmodus kann man nur ansehen'); return { close() {} }; } return _openSheet34(o); };
+const _editMember34 = editMember; editMember = function () { if (famMode()) return; return _editMember34.apply(this, arguments); };
+const _editMoment34 = editMoment; editMoment = function () { if (famMode()) return; return _editMoment34.apply(this, arguments); };
+const _editProfile34 = editProfile; editProfile = function () { if (famMode()) return; return _editProfile34.apply(this, arguments); };
+const _editDoc34 = editDoc; editDoc = function () { if (famMode()) return; return _editDoc34.apply(this, arguments); };
+const _editSong34 = editSong; editSong = function () { if (famMode()) return; return _editSong34.apply(this, arguments); };
+const _editPlaylist34 = editPlaylist; editPlaylist = function () { if (famMode()) return; return _editPlaylist34.apply(this, arguments); };
+const jOpen = e => { if (famMode() && e.auto && !/^a:g:/.test(String(e.key))) return; e.open(); };
+
+/* Gästebuch */
+let guestRefresh = null;
+function guestAll() {
+  const mine = !famMode(); if (mine) ls.set('luise_guest_seen', String(Date.now()));
+  const wrap = h('div', { class: 'stack' });
+  const fill = () => {
+    const l = guestList();
+    wrap.replaceChildren(...(l.length ? l.map(g => h('div', { class: 'card gentry' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, g.datum ? fmtD(g.datum) : '')),
+      h('p', null, g.text),
+      mine ? h('button', { class: 'linkbtn', type: 'button', onclick: async () => { if (!confirm('Diesen Gruß löschen?')) return; S.profile.gruesse = (S.profile.gruesse || []).filter(x => x.id !== g.id); await persist('profile'); fill(); render(); } }, 'Löschen') : null))
+      : [h('p', { class: 'empty' }, 'Noch keine Grüße. Schreibe den ersten für ' + guestWho() + '.')]), h('button', { class: 'btn wide', type: 'button', onclick: guestWrite }, 'Gruß hinterlassen'));
+  };
+  fill(); guestRefresh = fill;
+  const ov = openFull({ title: 'Gästebuch', body: wrap, onClose: () => { guestRefresh = null; render(); } });
+  return ov;
+}
+function guestWrite() {
+  openSheet({ famOk: true, title: 'Gruß hinterlassen', saveLabel: 'Senden',
+    fields: [{ key: 'name', label: 'Dein Name', required: true, ph: 'z. B. Oma Gisela', cap: 'words' }, { key: 'text', label: 'Deine Nachricht an ' + guestWho(), type: 'textarea', required: true, ph: 'Liebe Worte, Wünsche, ein kleines Gedicht …' }],
+    onSave: async v => {
+      const name = String(v.name || '').trim().slice(0, 40), text = String(v.text || '').trim().slice(0, 700);
+      if (!name || !text) return false;
+      const g = { id: uid(), name, text, ts: Date.now(), datum: isoToday() };
+      (S.profile.gruesse = S.profile.gruesse || []).push(g); await persist('profile');
+      if (!famMode()) ls.set('luise_guest_seen', String(g.ts + 1));
+      toast(famMode() ? 'Danke! Dein Gruß ist gespeichert.' : 'Gruß gespeichert'); Haptic.fire('success'); render();
+      if (guestRefresh) guestRefresh();
+    } });
+}
+function wGuest(w, sz) {
+  const l = guestList(), un = famMode() ? 0 : guestUnread(), items = l.slice(0, sz === 'l' ? 4 : 2);
+  return h('div', { class: 'card stack guestw' },
+    h('div', { class: 'guesth' }, h('span', { class: 'guesti', html: ICON.gmail }), h('div', { class: 'guesttx' }, h('b', null, 'Gästebuch'), h('small', { class: 'mute' }, l.length ? plural(l.length, 'Gruß', 'Grüße') : 'Noch leer')), un ? h('span', { class: 'chip ok' }, un + ' neu') : null),
+    items.length ? h('div', { class: 'guestl' }, items.map(g => h('div', { class: 'gentry mini' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, g.datum ? fmtD(g.datum) : '')), h('p', null, g.text)))) : h('p', { class: 'mute guestempty' }, 'Hinterlasse ' + guestWho() + ' ein paar liebe Worte. Sie landen auch in der Journey.'),
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: guestWrite }, 'Gruß hinterlassen'), l.length > items.length || (l.length && !famMode()) ? h('button', { class: 'btn ghost', type: 'button', onclick: guestAll }, 'Alle lesen') : null));
+}
+function wFamShow() {
+  const ph = S.photos; if (ph.length < 2) return null;
+  const list = ph.slice().sort((a, b) => (b.datum || '').localeCompare(a.datum || '')), pick = list.slice(0, 3);
+  return h('button', { class: 'card famshow', type: 'button', 'aria-label': 'Diashow starten', onclick: () => openPhotoViewer(list, 0, { slideshow: true }) },
+    h('span', { class: 'fsth', 'aria-hidden': 'true' }, pick.map(m => h('img', { src: m.thumb, alt: '' }))),
+    h('span', { class: 'fstx' }, h('b', null, 'Diashow'), h('small', { class: 'mute' }, plural(ph.length, 'Foto', 'Fotos') + ' · tippen zum Starten')),
+    h('span', { class: 'fsplay', 'aria-hidden': 'true', html: ICON.play }));
+}
+WIDGETS.guest = { name: 'Gästebuch', desc: 'Grüße von Familie und Freunden', render: wGuest };
+WIDGETS.famshow = { name: 'Diashow', desc: 'Alle Fotos als Diashow starten', render: wFamShow };
+
+/* Zurück zur Startseite, wenn niemand mehr tippt (Handy wird weitergereicht) */
+(() => {
+  let last = Date.now();
+  const bump = () => { last = Date.now(); };
+  ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(t => document.addEventListener(t, bump, { passive: true, capture: true }));
+  setInterval(() => {
+    if (!famMode() || document.hidden || Date.now() - last < 240000) return;
+    if (document.querySelector('.lb, .back')) return;
+    const v = $('#view'); if (tab !== 'home' || (v && v.scrollTop > 40)) { go('home'); if (v) v.scrollTop = 0; }
+    last = Date.now();
+  }, 15000);
+})();
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
