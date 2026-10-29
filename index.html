@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="35">
+<meta name="app-version" content="36">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1906,6 +1906,51 @@ ul.famlist li{padding:0!important;border:0!important;background:none!important;d
 .plw .plwf{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:14px;font-weight:600}
 @media (prefers-reduced-motion:reduce){.pld-pulse,.opin.drop .opin-in,.omap-me i,.ai-orb,.ai-orb-in,.msg,.typing-dots i{animation:none!important}}
 .opcap:empty{display:none}
+/* ===== v36 ===== */
+/* KI-Assistent: Kopf fest und deckend, unten ein Schleier unter Eingabe und Leiste, Überschrift ohne Versalien */
+.chat-head{top:calc(-16px - env(safe-area-inset-top));background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 10px;padding-bottom:10px}
+.chat-head>.backbtn{grid-column:1;grid-row:1}
+.chat-head>.chips{grid-column:2;grid-row:1;justify-self:end}
+.chat-head>.page-head{grid-column:1/-1;grid-row:2}
+.chat-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:16px;background:linear-gradient(var(--bg),transparent);pointer-events:none}
+.chat-veil{position:fixed;left:0;right:0;bottom:0;height:calc(168px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 34%);pointer-events:none;z-index:28}
+.chat-in{background:color-mix(in srgb,var(--card) 86%,transparent)!important}
+.ai-h{text-transform:none;letter-spacing:normal;color:var(--ink);font-weight:800;font-size:23px;line-height:1.22}
+.ai-hero{padding-top:14px;scroll-margin-top:90px}
+.chat{padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+/* Stories: Wörter nie mitten im Wort trennen */
+.stv-big{overflow-wrap:break-word;word-break:normal;-webkit-hyphens:auto;hyphens:auto;max-width:100%}
+.stv-in{box-sizing:border-box}
+/* Diashow: Musik-Knopf */
+.ssv-mus{pointer-events:auto;position:absolute;right:64px;top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.34);color:#fff;display:grid;place-items:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:.55;z-index:4;padding:0}
+.ssv-mus svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ssv-mus.off{opacity:.4}.ssv-mus.off .ssv-mus-x{display:block}.ssv-mus .ssv-mus-x{display:none}
+/* Foto-Viewer: Impuls */
+.pv-acts{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:1fr}
+.pv-imp{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.pv-imp:empty{display:none}
+.pv-impchip{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;max-width:100%;padding:8px 14px;border-radius:999px;cursor:pointer;color:#fff;font-size:14px;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.09));border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:viIn .4s both}
+.pv-impchip b{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.pv-impchip small{opacity:.8;font-size:12px;white-space:nowrap}
+.pv-impchip.on{background:rgba(255,255,255,.28)}
+@keyframes viIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.pv-impan{align-self:stretch;max-height:min(52vh,430px);overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:20px;padding:12px 12px 10px;background:rgba(18,20,26,.82);border:1px solid rgba(255,255,255,.16);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);display:flex;flex-direction:column;gap:10px;animation:viIn .3s both}
+.vi-head{display:flex;justify-content:space-between;align-items:center}.vi-head b{font-size:16px}
+.vi-x{all:unset;width:34px;height:34px;display:grid;place-items:center;font-size:24px;line-height:1;cursor:pointer;border-radius:50%;background:rgba(255,255,255,.12)}
+.vi-seen small{display:block;opacity:.7;font-size:12px;margin-bottom:6px}
+.vi-chips{display:flex;flex-wrap:wrap;gap:6px}
+.vi-lab{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.14);font-size:13.5px}.vi-lab i{font-style:normal;opacity:.7;font-size:12px}
+.vi-none{margin:0;opacity:.7;font-size:13.5px}
+.vi-row{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px;border-radius:16px;background:rgba(255,255,255,.07)}
+.vi-ic{font-size:22px;line-height:34px;text-align:center}
+.vi-tx b{display:block;font-size:14.5px;line-height:1.25}.vi-tx p{margin:3px 0 0;font-size:13px;line-height:1.4;opacity:.82;overflow-wrap:anywhere}
+.vi-btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vi-btn{all:unset;box-sizing:border-box;padding:8px 13px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.vi-btn:active{transform:scale(.96)}.vi-btn.pri{background:var(--accent);border-color:transparent}
+.vi-ml p{margin:0 0 8px;font-size:12.5px;line-height:1.4;opacity:.8}
+.vi-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.16);overflow:hidden}.vi-bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+@media (prefers-reduced-motion:reduce){.pv-impchip,.pv-impan{animation:none!important}}
+:root[data-dark] .omap-t{filter:invert(.92) hue-rotate(180deg) brightness(.95) contrast(.88) saturate(.7)}
+.stv-in{z-index:3}
 </style>
 </head>
 <body>
@@ -4985,7 +5030,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 35'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 36'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5778,16 +5823,16 @@ function momentPhotosField(init) {
   box._val = () => ids.filter(id => S.photos.some(x => x.id === id));
   return box;
 }
-function editMoment(item) {
+function editMoment(item, seed) {
   const isNew = !item, arr = S.profile.journey = S.profile.journey || [];
   openSheet({
-    title: isNew ? 'Moment hinzufügen' : 'Moment', saveLabel: 'Sichern', values: item || { datum: isoToday(), emoji: '⭐' },
+    title: isNew ? 'Moment hinzufügen' : 'Moment', saveLabel: 'Sichern', values: item || Object.assign({ datum: isoToday(), emoji: '⭐' }, seed || {}),
     fields: [
       { key: 'titel', label: 'Titel', required: true, ph: 'z. B. Erster Zahn, Urlaub an der Ostsee' },
       { key: 'datum', label: 'Datum', type: 'date', required: true },
       { key: 'emoji', label: 'Symbol', type: 'select', options: J_EMOJI },
       { key: 'text', label: 'Geschichte', type: 'textarea', ph: 'Was ist passiert?' },
-      { key: 'fotos', type: 'custom', build: () => momentPhotosField(item && item.fotos) },
+      { key: 'fotos', type: 'custom', build: () => momentPhotosField((item && item.fotos) || (seed && seed.fotos)) },
       { key: 'neu', label: 'Neue Fotos hochladen', type: 'file', accept: 'image/*', multiple: true, hint: 'Sie landen auch im Album „Journey“ der Galerie.' }
     ],
     onSave: async v => {
@@ -6207,6 +6252,7 @@ function chatIdeas(ask, startId) {
 const aiOrb = (cls) => h('div', { class: 'ai-orb ' + (cls || ''), 'aria-hidden': 'true' }, h('span', { class: 'ai-orb-in', html: IC.svg('sparkle') }));
 function viewChat() {
   const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg();
+  wrap.append(h('div', { class: 'chat-veil', 'aria-hidden': 'true' }));
   wrap.append(h('div', { class: 'chat-head' }, backBtn('Übersicht', () => go('home')),
     pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')),
     h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos'))));
@@ -6277,7 +6323,7 @@ function viewChat() {
   if (msgs.length) wrap.append(h('button', { class: 'linkbtn', onclick: () => { if (confirm('Den Chatverlauf löschen?')) { ls.del(chatKey()); render(); } } }, 'Verlauf löschen'));
   wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, cfg.mode === 'lokal' ? 'Der lokale Assistent liest nur die Daten dieser App. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.' : 'KI-Antworten können falsch sein. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
   if (chatPrefill) { const q = chatPrefill; chatPrefill = null; setTimeout(() => ask(q), 120); }
-  if (msgs.length) setTimeout(scroll, 60);
+  if (msgs.length) setTimeout(scroll, 60); else setTimeout(() => { const v = $('#view'); if (v) v.scrollTop = 0; }, 0);
   return wrap;
 }
 function wChat() {
@@ -7508,7 +7554,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 35;
+const APP_VERSION = 36;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -8373,9 +8419,9 @@ async function openPhotoViewer(list, start, vopts) {
     infoBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Info' }, phIcon('infoI'), h('small', null, 'Info')), showBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Diashow' }, phIcon('slideI'), h('small', null, 'Diashow')),
     moreBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Mehr' }, phIcon('moreI'), h('small', null, 'Mehr'));
   const strip = h('div', { class: 'pv-strip' }, list.map((m, k) => h('button', { class: 'pv-th', type: 'button', 'aria-label': 'Foto ' + (k + 1), onclick: () => { stopShow(); i = k; load(); } }, h('img', { src: m.thumb, alt: '' }))));
-  const info = h('div', { class: 'pv-info' });
+  const info = h('div', { class: 'pv-info' }), impBox = h('div', { class: 'pv-imp' }), impBtn = h('button', { class: 'pvb', type: 'button', 'aria-label': 'Impuls zum Foto' }, h('span', { class: 'phi', 'aria-hidden': 'true', html: IC.svg('sparkle') }), h('small', null, 'Impuls'));
   const pop = h('div', { class: 'pv-pop', 'aria-hidden': 'true', html: ICON.heartF });
-  const bar = h('div', { class: 'pv-bar' }, info, strip, h('div', { class: 'pv-acts' }, famMode() ? [infoBtn, showBtn] : [heartBtn, shareBtn, infoBtn, showBtn, moreBtn]));
+  const bar = h('div', { class: 'pv-bar' }, impBox, info, strip, h('div', { class: 'pv-acts' }, famMode() ? [infoBtn, impBtn, showBtn] : [heartBtn, shareBtn, infoBtn, impBtn, showBtn, moreBtn]));
   const top = h('div', { class: 'pv-top' }, cnt);
   const step = d => { const n = i + d; if (n < 0 || n >= list.length) { if (timer && list.length > 1) { i = d > 0 ? 0 : list.length - 1; load(); } return; } i = n; load(); };
   let ssCtl = null;
@@ -8383,9 +8429,11 @@ async function openPhotoViewer(list, start, vopts) {
   const startShow = () => { stopShow(); if (list.length < 2) { toast('Für die Diashow braucht es mindestens 2 Fotos'); return; } api.el.classList.add('show', 'ui-off'); showBtn.classList.add('on'); timer = true; ssCtl = ssvStart({ host: api.el, list, start: i, onIndex: k => { i = k; cnt.textContent = `${i + 1} / ${list.length}`; paintHeart(); paintInfo(); strip.querySelectorAll('.pv-th').forEach((b, q) => b.classList.toggle('on', q === i)); } }); };
   const api = openLightbox(BLANK, '', { bar, hint: '', extra: [top, pop, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => { stopShow(); step(-1); } }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => { stopShow(); step(1); } }, '›')],
     onSwipe: d => { stopShow(); step(d); }, onSwipeDown: () => api.close(), onTap: () => { if (timer) stopShow(); else api.el.classList.toggle('ui-off'); },
-    onClose: () => { alive = false; stopShow(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
+    onClose: () => { alive = false; stopShow(); vis.stop(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
   const onKey = e => { if (!alive) return; if (e.key === 'ArrowLeft') { stopShow(); step(-1); } else if (e.key === 'ArrowRight') { stopShow(); step(1); } else if (e.key === 'Escape') api.close(); else if ((e.key === 'l' || e.key === 'L') && !famMode()) favToggle(); };
   document.addEventListener('keydown', onKey);
+  const vis = visAttach({ box: impBox, btn: impBtn, close: () => api.close(), changed: () => { paintInfo(); render(); }, getBlob: async () => { if (blob) return blob; const rec = await pfileGet(list[i].id); return rec ? new Blob([rec.data], { type: 'image/jpeg' }) : null; } });
+  impBtn.onclick = () => vis.toggle();
   const paintHeart = () => { const m = list[i]; heartBtn.replaceChildren(phIcon(m.fav ? 'heartF' : 'heartO', m.fav ? 'on' : ''), h('small', null, m.fav ? 'Favorit' : 'Merken')); heartBtn.classList.toggle('on', !!m.fav); };
   const paintInfo = () => {
     const m = list[i], a = ageAt(S.profile, m.datum);
@@ -8397,7 +8445,7 @@ async function openPhotoViewer(list, start, vopts) {
   };
   const load = async () => {
     const m = list[i]; cnt.textContent = `${i + 1} / ${list.length}`;
-    paintHeart(); paintInfo();
+    paintHeart(); paintInfo(); vis.start(m);
     strip.querySelectorAll('.pv-th').forEach((b, k) => b.classList.toggle('on', k === i));
     const cur = strip.children[i]; if (cur && cur.scrollIntoView) { try { strip.scrollTo({ left: cur.offsetLeft - strip.clientWidth / 2 + cur.clientWidth / 2, behavior: 'smooth' }); } catch (e) {} }
     api.setSrc(m.thumb);
@@ -8415,7 +8463,7 @@ async function openPhotoViewer(list, start, vopts) {
   const edit = () => { const m = list[i];
     openSheet({ top: true, title: 'Foto', values: m,
       fields: [{ key: 'titel', label: 'Beschreibung', ph: 'z. B. Erster Schnee' }, { key: 'datum', label: 'Aufnahmedatum', type: 'date' }, { key: 'album', label: 'Album', ph: 'z. B. Urlaub 2026', list: albumNames() }],
-      onSave: async v => { Object.assign(m, v); await photoPut(m); paintInfo(); render(); } }); };
+      onSave: async v => { Object.assign(m, v); await photoPut(m); paintInfo(); render(); vis.start(m); } }); };
   const del = async () => { const m = list[i]; if (!confirm('Dieses Foto wirklich löschen?')) return; await phDelete([m.id]); list.splice(i, 1); strip.children[i] && strip.children[i].remove(); render(); if (!list.length) api.close(); else { i = Math.min(i, list.length - 1); load(); } };
   moreBtn.onclick = () => { stopShow(); actionSheet('Foto', null, [
     { label: 'Als Profilbild verwenden', onclick: async () => { if (!blob) return; try { S.profile.foto = await blobToDataURL(await imageToJpeg(blob, 400, 0.82)); await persist('profile'); render(); toast('Profilbild gesetzt'); } catch (e) { toast('Fehler: ' + (e.message || e)); } } },
@@ -11128,7 +11176,7 @@ function storyOpen(startId, order) {
   }
   function show() {
     const st = list[si], s = st.slides[ci]; el = 0; dur = s.k === 'list' || s.k === 'chart' || s.k === 'collage' ? 7000 : s.small ? 7000 : s.text && s.text.length > 150 ? 7500 : 5500;
-    stage.replaceChildren(slideEl(s, st, si, ci));
+    stage.replaceChildren(slideEl(s, st, si, ci)); storyFit(stage);
     bars.replaceChildren(...st.slides.map((x, k) => h('i', null, h('b', { style: k < ci ? 'transform:scaleX(1)' : '' }))));
     head.replaceChildren(h('span', { class: 'stv-av p' + (si % 4), html: storyArt(st) }), h('b', null, st.label), h('small', null, `${ci + 1} von ${st.slides.length}`));
     storyMark(st.id, st.sig);
@@ -11505,23 +11553,31 @@ const plViewSave = v => ls.set('luise_map_view', JSON.stringify({ lat: +v.lat.to
 const plPinSvg = (c) => `<svg viewBox="0 0 34 44" aria-hidden="true"><path d="M17 43C17 43 2 28.500 2 16a15 15 0 0 1 30 0c0 12.500-15 27-15 27z" fill="${c}" stroke="#fff" stroke-width="2.400" stroke-linejoin="round"/></svg>`;
 
 /* Karte */
+const PL_TILES = [(z, x, y) => `https://tile.openstreetmap.org/${z}/${x}/${y}.png`, (z, x, y) => `https://${'abc'[(x + y) % 3]}.tile.openstreetmap.de/${z}/${x}/${y}.png`, (z, x, y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/${z}/${y}/${x}`];
+let plTileK = 0; const plTileStat = {};
 function plMap(o) {
   const view = o.view, el = h('div', { class: 'omap', tabindex: '0', role: 'application', 'aria-label': 'Karte' }), tl = h('div', { class: 'omap-t' }), pl = h('div', { class: 'omap-p' });
   const NS = 'http://www.w3.org/2000/svg', rs = document.createElementNS(NS, 'svg'); rs.setAttribute('class', 'omap-r');
   const path = document.createElementNS(NS, 'path'); path.setAttribute('class', 'omap-rl'); rs.append(path);
   const off = h('div', { class: 'omap-off', hidden: true }, 'Die Karte lädt gerade nicht (offline?). Deine Orte und die Liste funktionieren trotzdem.');
-  const attr = h('div', { class: 'omap-a' }, '© OpenStreetMap-Mitwirkende · © CARTO');
+  const attr = h('div', { class: 'omap-a' }, '© OpenStreetMap-Mitwirkende');
   const me = h('div', { class: 'omap-me', hidden: true }, h('i'));
   pl.append(me); el.append(tl, rs, pl, attr, off);
   const tiles = new Map(), pins = new Map(); let raf = 0, errs = 0, oks = 0, cleanT = 0, flyId = 0, routeLimit = 99999, needFit = !!o.fitFirst, ro = null, sized = false;
   const size = () => [el.clientWidth || 360, el.clientHeight || 420];
   const dark = () => document.documentElement.hasAttribute('data-dark');
-  const src = (z, x, y, alt) => { const n = Math.pow(2, z), xx = ((x % n) + n) % n; return alt ? `https://tile.openstreetmap.org/${z}/${xx}/${y}.png` : `https://${'abcd'[(xx + y) % 4]}.basemaps.cartocdn.com/rastertiles/${dark() ? 'dark_all' : 'voyager'}/${z}/${xx}/${y}@2x.png`; };
+  const src = (z, x, y, k) => { const n = Math.pow(2, z), xx = ((x % n) + n) % n; return PL_TILES[k || 0](z, xx, y); };
   function newTile(z, tx, ty) {
-    const im = h('img', { class: 'omap-tile', alt: '', draggable: 'false', decoding: 'async' }); im._z = z; im._tx = tx; im._ty = ty; im._alt = false;
-    im.onload = () => { im._ok = true; oks++; off.hidden = true; if (!cleanT) cleanT = setTimeout(clean, 120); };
-    im.onerror = () => { if (!im._alt) { im._alt = true; im.src = src(z, tx, ty, true); return; } im._ok = true; im._bad = true; errs++; if (errs > 4 && !oks) off.hidden = false; };
-    im.src = src(z, tx, ty, false); return im;
+    const im = h('img', { class: 'omap-tile', alt: '', draggable: 'false', decoding: 'async' }); im._z = z; im._tx = tx; im._ty = ty; im._k = Math.min(plTileK, PL_TILES.length - 1);
+    const st = k => (plTileStat[k] = plTileStat[k] || { ok: 0, bad: 0 });
+    const arm = () => { clearTimeout(im._to); im._to = setTimeout(() => { if (!im._ok) fail(); }, 9000); };
+    const fail = () => {
+      clearTimeout(im._to); const s = st(im._k); s.bad++; if (s.bad >= 3 && !s.ok && plTileK <= im._k && im._k < PL_TILES.length - 1) plTileK = im._k + 1;
+      if (im._k < PL_TILES.length - 1) { im._k++; im.src = src(z, tx, ty, im._k); attr.textContent = im._k > 1 ? '© OpenStreetMap-Mitwirkende · Esri' : '© OpenStreetMap-Mitwirkende'; arm(); return; }
+      im._ok = true; im._bad = true; errs++; if (errs > 4 && !oks) off.hidden = false;
+    };
+    im.onload = () => { if (!im.naturalWidth) { fail(); return; } clearTimeout(im._to); im._ok = true; st(im._k).ok++; oks++; off.hidden = true; if (!cleanT) cleanT = setTimeout(clean, 120); };
+    im.onerror = fail; im.src = src(z, tx, ty, im._k); arm(); return im;
   }
   function clean() {
     cleanT = 0; const zt = Math.max(1, Math.min(PL_MAX, Math.round(view.z)));
@@ -11841,7 +11897,7 @@ SUB.push('places'); FAM_PAGES.push('places'); FAM_WIDGETS.push('places');
 /* ============ v35: Diashow mit Effekten, Überblendungen und Ken-Burns-Bewegung ============ */
 const SSV_FX = [['mix', 'Mix: jedes Foto anders'], ['fade', 'Weich überblenden'], ['slide', 'Schieben'], ['zoom', 'Heranzoomen'], ['flip', 'Umblättern (3D)'], ['circle', 'Kreis aufziehen'], ['wipe', 'Aufwischen'], ['drop', 'Polaroid fällt herein'], ['spin', 'Drehen']];
 const SSV_SPEED = [['slow', 'Gemütlich', 5600], ['normal', 'Normal', 3600], ['fast', 'Flott', 2400]];
-const ssvCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_show_cfg') || '{}') || {}; } catch (e) {} return { fx: SSV_FX.some(x => x[0] === c.fx) ? c.fx : 'mix', speed: SSV_SPEED.some(x => x[0] === c.speed) ? c.speed : 'normal', cap: c.cap !== false }; };
+const ssvCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_show_cfg') || '{}') || {}; } catch (e) {} return { fx: SSV_FX.some(x => x[0] === c.fx) ? c.fx : 'mix', speed: SSV_SPEED.some(x => x[0] === c.speed) ? c.speed : 'normal', cap: c.cap !== false, music: AMB_STYLES.some(x => x[0] === c.music) ? c.music : 'sanft', mvol: AMB_VOLS.some(x => x[0] === c.mvol) ? c.mvol : 'mittel' }; };
 function ssvStart(o) {
   const host = o.host, list = o.list, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cfg = ssvCfg(), idx = Math.max(0, Math.min(o.start || 0, list.length - 1)), alive = true, paused = false, token = 0, cur = null, fxPrev = '', n = 0, urls = new Map();
@@ -11850,7 +11906,13 @@ function ssvStart(o) {
   const gear = h('button', { class: 'ssv-gear', type: 'button', 'aria-label': 'Diashow einstellen', html: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.500M12 18.500V21M3 12h2.500M18.500 12H21M5.600 5.600l1.800 1.800M16.600 16.600l1.800 1.800M5.600 18.400l1.800-1.800M16.600 7.400l1.800-1.800"/></svg>' });
   ['pointerdown', 'pointerup', 'click', 'touchstart', 'touchend'].forEach(ev => gear.addEventListener(ev, e => e.stopPropagation()));
   gear.addEventListener('click', e => { e.stopPropagation(); settings(); });
-  root.append(stageEl, spark, h('div', { class: 'ssv-pb' }, prog), gear); host.append(root);
+  const mus = ambPlayer(); let lastMus = cfg.music === 'aus' ? 'sanft' : cfg.music;
+  const musBtn = h('button', { class: 'ssv-mus', type: 'button', 'aria-label': 'Musik an oder aus', html: '<svg viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="6.500" cy="18" r="2.500"/><circle cx="16.500" cy="16" r="2.500"/><path class="ssv-mus-x" d="M3 3l18 18"/></svg>' });
+  ['pointerdown', 'pointerup', 'click', 'touchstart', 'touchend'].forEach(ev => musBtn.addEventListener(ev, e => e.stopPropagation()));
+  const paintMus = () => { musBtn.classList.toggle('off', cfg.music === 'aus'); };
+  musBtn.addEventListener('click', e => { e.stopPropagation(); if (cfg.music === 'aus') cfg.music = lastMus || 'sanft'; else { lastMus = cfg.music; cfg.music = 'aus'; } ls.set('luise_show_cfg', JSON.stringify(cfg)); paintMus(); mus.set(cfg); });
+  paintMus(); mus.set(cfg);
+  root.append(stageEl, spark, h('div', { class: 'ssv-pb' }, prog), musBtn, gear); host.append(root);
   const dwell = () => (SSV_SPEED.find(x => x[0] === cfg.speed) || SSV_SPEED[1])[2];
   const pick = () => { if (cfg.fx !== 'mix') return cfg.fx; const all = SSV_FX.slice(1).map(x => x[0]); let f; do { f = all[Math.floor(Math.random() * all.length)]; } while (f === fxPrev && all.length > 1); return f; };
   async function urlOf(k) {
@@ -11908,13 +11970,338 @@ function ssvStart(o) {
   }
   function settings() {
     paused = true; const was = prog.style.transform; void was;
-    openSheet({ top: true, famOk: true, title: 'Diashow', saveLabel: 'Übernehmen', values: { fx: (SSV_FX.find(x => x[0] === cfg.fx) || SSV_FX[0])[1], speed: SSV_SPEED.find(x => x[0] === cfg.speed)[1], cap: cfg.cap },
-      fields: [{ key: 'fx', label: 'Übergang', type: 'select', options: SSV_FX.map(x => x[1]) }, { key: 'speed', label: 'Tempo', type: 'select', options: SSV_SPEED.map(x => x[1]) }, { key: 'cap', label: 'Beschreibung und Datum einblenden', type: 'checkbox' }],
-      onSave: async v => { cfg = { fx: (SSV_FX.find(x => x[1] === v.fx) || SSV_FX[0])[0], speed: (SSV_SPEED.find(x => x[1] === v.speed) || SSV_SPEED[1])[0], cap: !!v.cap }; ls.set('luise_show_cfg', JSON.stringify(cfg)); } });
+    openSheet({ top: true, famOk: true, title: 'Diashow', saveLabel: 'Übernehmen', values: { fx: (SSV_FX.find(x => x[0] === cfg.fx) || SSV_FX[0])[1], speed: SSV_SPEED.find(x => x[0] === cfg.speed)[1], cap: cfg.cap, music: (AMB_STYLES.find(x => x[0] === cfg.music) || AMB_STYLES[1])[1], mvol: (AMB_VOLS.find(x => x[0] === cfg.mvol) || AMB_VOLS[1])[1] },
+      fields: [{ key: 'fx', label: 'Übergang', type: 'select', options: SSV_FX.map(x => x[1]) }, { key: 'speed', label: 'Tempo', type: 'select', options: SSV_SPEED.map(x => x[1]) }, { key: 'cap', label: 'Beschreibung und Datum einblenden', type: 'checkbox' }, { key: 'music', label: 'Entspannte Musik', type: 'select', options: AMB_STYLES.map(x => x[1]) }, { key: 'mvol', label: 'Lautstärke der Musik', type: 'select', options: AMB_VOLS.map(x => x[1]) }],
+      onSave: async v => { cfg = { fx: (SSV_FX.find(x => x[1] === v.fx) || SSV_FX[0])[0], speed: (SSV_SPEED.find(x => x[1] === v.speed) || SSV_SPEED[1])[0], cap: !!v.cap, music: (AMB_STYLES.find(x => x[1] === v.music) || AMB_STYLES[1])[0], mvol: (AMB_VOLS.find(x => x[1] === v.mvol) || AMB_VOLS[1])[0] }; if (cfg.music !== 'aus') lastMus = cfg.music; ls.set('luise_show_cfg', JSON.stringify(cfg)); paintMus(); mus.set(cfg); } });
     const poll = setInterval(() => { if (!alive) { clearInterval(poll); return; } if (!document.querySelector('.back.in')) { clearInterval(poll); paused = false; } }, 350);
   }
   run();
-  return { stop() { alive = false; token++; try { root.remove(); } catch (e) {} host.classList.remove('ssv-3d'); urls.forEach(u => { if (u && u.startsWith('blob:')) rmUrl(u); }); urls.clear(); }, pause() { paused = true; }, resume() { paused = false; }, index: () => idx };
+  return { stop() { alive = false; token++; try { mus.stop(); } catch (e) {} try { root.remove(); } catch (e) {} host.classList.remove('ssv-3d'); urls.forEach(u => { if (u && u.startsWith('blob:')) rmUrl(u); }); urls.clear(); }, pause() { paused = true; }, resume() { paused = false; }, index: () => idx };
+}
+
+/* ============ v36: Entspannte Musik für die Diashow (wird auf dem Gerät erzeugt, keine Datei, kein Internet) ============ */
+const AMB_STYLES = [['aus', 'Aus'], ['sanft', 'Sanfte Glocken'], ['spieluhr', 'Spieluhr'], ['weite', 'Weite Klangflächen']];
+const AMB_VOLS = [['leise', 'Leise', 0.3], ['mittel', 'Mittel', 0.55], ['laut', 'Laut', 0.85]];
+const AMB_INFO = { state: 'idle', style: '', vol: '', sec: 0, peak: 0, plays: 0 };
+const AMB_CHORDS = [[48, 55, 59, 64], [45, 52, 55, 60], [41, 48, 52, 57], [43, 50, 52, 59], [48, 55, 59, 64], [40, 47, 50, 55], [41, 48, 52, 57], [43, 50, 57, 62]];
+const AMB_P = {
+  sanft: { len: 8, pad: 0.55, bell: 0.5, gap: 1.7, rest: 0.22, lo: 72, hi: 88, kind: 'bell', delay: 0.34 },
+  spieluhr: { len: 6, pad: 0.16, bell: 0.55, gap: 0.72, rest: 0.1, lo: 76, hi: 96, kind: 'box', delay: 0.22, motif: true },
+  weite: { len: 10, pad: 0.7, bell: 0.16, gap: 4.2, rest: 0.35, lo: 69, hi: 84, kind: 'bell', delay: 0.5 }
+};
+const ambHz = n => 440 * Math.pow(2, (n - 69) / 12);
+const ambRng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+const AMB_PENT = [0, 2, 4, 7, 9];
+let ambCache = null, ambWavUrl = null, ambWavKey = '';
+async function ambRender(style) {
+  if (ambCache && ambCache.style === style) return ambCache;
+  const OC = window.OfflineAudioContext || window.webkitOfflineAudioContext; if (!OC) throw new Error('Kein Audio-Rendering');
+  const sr = 22050, P = AMB_P[style], N = AMB_CHORDS.length, loop = P.len * N, tail = 7, rnd = ambRng(style === 'sanft' ? 7 : style === 'spieluhr' ? 11 : 5);
+  const oc = new OC(2, Math.ceil(sr * (loop + tail)), sr);
+  const out = oc.createGain(); out.gain.value = 0.9; out.connect(oc.destination);
+  const dry = oc.createGain(), rev = oc.createConvolver(), revG = oc.createGain(), dl = oc.createDelay(1.5), dlF = oc.createGain(), dlLp = oc.createBiquadFilter(), dlG = oc.createGain();
+  dry.gain.value = 0.7; revG.gain.value = 0.62; dry.connect(out); rev.connect(revG); revG.connect(out);
+  { const L = Math.floor(sr * 3.8), ir = oc.createBuffer(2, L, sr); for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); let lp = 0; for (let i = 0; i < L; i++) { lp += ((rnd() * 2 - 1) - lp) * 0.34; d[i] = lp * Math.pow(1 - i / L, 2.6) * 2.2; } } rev.buffer = ir; }
+  dl.delayTime.value = style === 'spieluhr' ? 0.45 : 0.62; dlF.gain.value = 0.36; dlLp.type = 'lowpass'; dlLp.frequency.value = 2400; dlG.gain.value = P.delay;
+  dl.connect(dlLp); dlLp.connect(dlF); dlF.connect(dl); dlLp.connect(dlG); dlG.connect(out); dlG.connect(rev);
+  const padBus = oc.createGain(), bellBus = oc.createGain(); padBus.gain.value = P.pad * 0.5; bellBus.gain.value = P.bell * 0.55;
+  const padRev = oc.createGain(); padRev.gain.value = 0.5; padBus.connect(dry); padBus.connect(padRev); padRev.connect(rev);
+  const bellRev = oc.createGain(); bellRev.gain.value = 0.7; bellBus.connect(dry); bellBus.connect(bellRev); bellRev.connect(rev); bellBus.connect(dl);
+  const pan = (node, p) => { if (oc.createStereoPanner) { const s = oc.createStereoPanner(); s.pan.value = p; node.connect(s); return s; } return node; };
+  const pad = (f, t, dur, v, p) => {
+    const att = Math.min(3, dur * 0.4), rel = Math.min(3.2, dur * 0.4), g = oc.createGain(), lp = oc.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 820; lp.Q.value = 0.25;
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(v, t + att); g.gain.setValueAtTime(v, t + dur - rel); g.gain.linearRampToValueAtTime(0.0001, t + dur);
+    [['triangle', 1], ['sine', 1.004], ['sine', 0.5]].forEach(([ty, m], k) => { const o = oc.createOscillator(); o.type = ty; o.frequency.value = f * m; const og = oc.createGain(); og.gain.value = k === 2 ? 0.35 : 1; o.connect(og); og.connect(lp); o.start(t); o.stop(t + dur + 0.05); });
+    lp.connect(g); pan(g, p).connect(padBus);
+  };
+  const bell = (f, t, v, p, box) => {
+    const parts = box ? [[1, 1, 2.4], [2.76, 0.42, 1.1], [5.4, 0.16, 0.5], [8.9, 0.07, 0.25]] : [[1, 1, 3.4], [2, 0.3, 2], [3, 0.1, 1.1], [4.2, 0.04, 0.6]], g = oc.createGain(); g.gain.value = v;
+    parts.forEach(([m, a, dec]) => { if (f * m > 9500) return; const o = oc.createOscillator(), eg = oc.createGain(); o.type = 'sine'; o.frequency.value = f * m; eg.gain.setValueAtTime(0.0001, t); eg.gain.linearRampToValueAtTime(a, t + 0.006); eg.gain.exponentialRampToValueAtTime(0.0001, t + dec); o.connect(eg); eg.connect(g); o.start(t); o.stop(t + dec + 0.05); });
+    pan(g, p).connect(bellBus);
+  };
+  const pool = []; for (let n = P.lo; n <= P.hi; n++) if (AMB_PENT.includes(n % 12)) pool.push(n);
+  let pi = Math.floor(pool.length / 2);
+  AMB_CHORDS.forEach((ch, ci) => {
+    const t0 = ci * P.len;
+    ch.forEach((n, k) => pad(ambHz(n), t0 - 1.2 + (ci === 0 ? 1.2 : 0), P.len + 1.2 + 3, 0.22 / (1 + k * 0.1), (k % 2 ? 0.35 : -0.35)));
+    pad(ambHz(ch[0] - 12), t0, P.len + 2.5, 0.2, 0);
+    let t = t0 + (ci % 2 ? 0.4 : 0.8); const end = t0 + P.len;
+    const motif = P.motif ? Array.from({ length: 6 }, () => { pi = Math.max(0, Math.min(pool.length - 1, pi + Math.round(rnd() * 4 - 2))); return pool[pi]; }) : null;
+    let mk = 0;
+    while (t < end - 0.3) {
+      if (rnd() > P.rest) {
+        let n; if (motif) { n = motif[mk++ % motif.length]; if (rnd() < 0.2) n = pool[Math.min(pool.length - 1, pool.indexOf(n) + 1)] || n; } else { pi = Math.max(0, Math.min(pool.length - 1, pi + Math.round(rnd() * 4 - 2))); n = pool[pi]; }
+        bell(ambHz(n), t, 0.55 + rnd() * 0.45, rnd() * 1.2 - 0.6, P.kind === 'box');
+      }
+      t += P.gap * (0.8 + rnd() * 0.5);
+    }
+  });
+  const buf = await new Promise((res, rej) => { try { const pr = oc.startRendering(); if (pr && pr.then) pr.then(res, rej); else oc.oncomplete = e => res(e.renderedBuffer); } catch (e) { rej(e); } });
+  const LS = Math.floor(sr * loop), TS = buf.length - LS, chans = [];
+  for (let c = 0; c < 2; c++) { const src = buf.getChannelData(c), d = new Float32Array(LS); d.set(src.subarray(0, LS)); for (let i = 0; i < TS && i < LS; i++) d[i] += src[LS + i]; chans.push(d); }
+  let pk = 0; chans.forEach(d => { for (let i = 0; i < d.length; i += 3) { const a = Math.abs(d[i]); if (a > pk) pk = a; } });
+  ambCache = { style, chans, sr, peak: pk, sec: loop }; return ambCache;
+}
+function ambWav(c, gain) {
+  const n = c.chans[0].length, buf = new ArrayBuffer(44 + n * 4), v = new DataView(buf), w = (o, s) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + n * 4, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 2, true); v.setUint32(24, c.sr, true); v.setUint32(28, c.sr * 4, true); v.setUint16(32, 4, true); v.setUint16(34, 16, true); w(36, 'data'); v.setUint32(40, n * 4, true);
+  const k = c.peak > 0 ? gain / c.peak : 0, L = c.chans[0], R = c.chans[1]; let o = 44;
+  for (let i = 0; i < n; i++) { v.setInt16(o, Math.max(-32768, Math.min(32767, Math.round(L[i] * k * 32767))), true); v.setInt16(o + 2, Math.max(-32768, Math.min(32767, Math.round(R[i] * k * 32767))), true); o += 4; }
+  return new Blob([buf], { type: 'audio/wav' });
+}
+function ambPlayer() {
+  const a = new Audio(); a.loop = true; a.preload = 'auto'; a.setAttribute('playsinline', ''); a.setAttribute('webkit-playsinline', '');
+  let token = 0, alive = true, cfg = { music: 'aus', mvol: 'mittel' }, fadeT = 0, silent = null;
+  // Stilles Startsignal direkt im Fingertipp, damit iOS die Wiedergabe später erlaubt
+  try { silent = mkUrl(ambWav({ chans: [new Float32Array(2205), new Float32Array(2205)], sr: 22050, peak: 1 }, 0)); a.src = silent; const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } catch (e) {}
+  const fade = (to, ms, done) => { clearInterval(fadeT); let from = 1; try { from = a.volume; } catch (e) {} const t0 = performance.now(); fadeT = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); try { a.volume = from + (to - from) * k; } catch (e) {} if (k >= 1) { clearInterval(fadeT); if (done) done(); } }, 60); };
+  async function set(next) {
+    cfg = Object.assign({}, cfg, next); const my = ++token, style = cfg.music;
+    if (!alive) return;
+    if (style === 'aus' || !AMB_P[style]) { AMB_INFO.state = 'off'; fade(0, 500, () => { if (my === token) { try { a.pause(); } catch (e) {} } }); return; }
+    const vol = AMB_VOLS.find(x => x[0] === cfg.mvol) || AMB_VOLS[1];
+    AMB_INFO.state = 'rendering'; AMB_INFO.style = style; AMB_INFO.vol = vol[0];
+    try {
+      const c = await ambRender(style); if (my !== token || !alive) return;
+      const key = style + '|' + vol[0]; if (key !== ambWavKey || !ambWavUrl) { if (ambWavUrl) rmUrl(ambWavUrl); ambWavUrl = mkUrl(ambWav(c, vol[2])); ambWavKey = key; }
+      AMB_INFO.sec = c.sec; AMB_INFO.peak = +c.peak.toFixed(3);
+      const was = a.currentTime || 0, same = a.src === ambWavUrl; if (!same) { a.src = ambWavUrl; try { a.currentTime = Math.min(was, c.sec - 1); } catch (e) {} }
+      try { a.volume = 0; } catch (e) {} await a.play(); AMB_INFO.state = 'playing'; AMB_INFO.plays++; fade(1, 1800);
+    } catch (e) { AMB_INFO.state = 'error'; AMB_INFO.err = String(e && e.message || e); }
+  }
+  const onVis = () => { if (!alive) return; if (document.hidden) { try { a.pause(); } catch (e) {} } else if (cfg.music !== 'aus' && AMB_INFO.state === 'playing') { const pr = a.play(); if (pr && pr.catch) pr.catch(() => {}); } };
+  document.addEventListener('visibilitychange', onVis);
+  return {
+    set, el: a,
+    stop() { alive = false; token++; document.removeEventListener('visibilitychange', onVis); AMB_INFO.state = 'idle'; fade(0, 600, () => { try { a.pause(); a.removeAttribute('src'); a.load(); } catch (e) {} if (silent) { rmUrl(silent); silent = null; } }); }
+  };
+}
+
+/* ============ v36: Bilderkennung mit Logik: Impulse zum Foto ============
+   Stufe 1 (immer, ohne Internet): Szene aus Farben/Helligkeit + Logik aus Datum, Alter, Terminen, Orten, Wachstum
+   Stufe 2 (auf Tipp): Text im Foto lesen (OCR) und daraus Werte, Daten und Hinweise ableiten
+   Stufe 3 (optional): KI-Erkennung auf dem Gerät (CLIP), wird einmalig nachgeladen */
+const VIS_CATS = [
+  ['neugeboren', 'a newborn baby', 'ein Neugeborenes', 'baby'], ['schlaf', 'a baby sleeping', 'ein schlafendes Baby', 'baby'], ['laecheln', 'a smiling baby', 'ein lächelndes Baby', 'baby'],
+  ['weinen', 'a crying baby', 'ein weinendes Baby', 'baby'], ['bauch', 'a baby lying on its tummy', 'Bauchlage', 'baby'], ['baden', 'a baby in a bathtub', 'Baden', 'baby'],
+  ['trinken', 'a baby drinking milk from a bottle', 'Fläschchen und Trinken', 'baby'], ['brei', 'a baby eating food with a spoon', 'Essen und Brei', 'baby'], ['kinderwagen', 'a baby in a stroller', 'Kinderwagen', 'baby'],
+  ['trage', 'a baby in a baby carrier', 'Babytrage', 'baby'], ['krabbeln', 'a baby crawling on the floor', 'Krabbeln', 'baby'], ['laufen', 'a toddler walking', 'erste Schritte', 'baby'],
+  ['spielen', 'a baby playing with toys', 'Spielzeit', 'baby'], ['portraet', 'a close-up portrait of a baby face', 'ein Porträt', 'baby'],
+  ['arzt', 'a baby at the doctor', 'Arztbesuch', 'gesund'], ['ultraschall', 'an ultrasound scan image', 'ein Ultraschallbild', 'gesund'], ['klinik', 'a hospital room', 'Klinik', 'gesund'],
+  ['mama', 'a mother with her baby', 'Mama mit Baby', 'people'], ['papa', 'a father with his baby', 'Papa mit Baby', 'people'], ['grosseltern', 'grandparents with a baby', 'Oma und Opa', 'people'],
+  ['familie', 'a family portrait', 'ein Familienfoto', 'people'], ['kinder', 'a group of children playing', 'Kinder', 'people'], ['geschwister', 'two siblings together', 'Geschwister', 'people'], ['selfie', 'a selfie', 'ein Selfie', 'people'],
+  ['kuchen', 'a birthday cake with candles', 'Geburtstag', 'anlass'], ['weihnacht', 'a christmas tree with presents', 'Weihnachten', 'anlass'], ['ostern', 'easter eggs and an easter bunny', 'Ostern', 'anlass'], ['geschenk', 'a gift box', 'ein Geschenk', 'anlass'],
+  ['strand', 'a beach with sand and sea', 'Strand', 'ort'], ['meer', 'the sea and the coast', 'Meer', 'ort'], ['berge', 'a mountain landscape', 'Berge', 'ort'], ['see', 'a lake', 'See', 'ort'],
+  ['wald', 'a forest with trees', 'Wald', 'ort'], ['wiese', 'a meadow with flowers', 'Wiese und Blumen', 'ort'], ['garten', 'a garden', 'Garten', 'ort'], ['spielplatz', 'a playground with a swing', 'Spielplatz', 'ort'],
+  ['zoo', 'a zoo with animals', 'Zoo', 'ort'], ['bauernhof', 'farm animals', 'Bauernhof', 'ort'], ['stadt', 'a city street with buildings', 'Stadt', 'ort'], ['schnee', 'a snowy landscape', 'Schnee', 'ort'], ['pool', 'a swimming pool', 'Schwimmbad', 'ort'],
+  ['auto', 'the inside of a car', 'Autofahrt', 'unterwegs'], ['zug', 'a train', 'Zugfahrt', 'unterwegs'], ['flug', 'an airplane', 'Flugreise', 'unterwegs'],
+  ['restaurant', 'a meal on a restaurant table', 'Essen gehen', 'essen'], ['kinderzimmer', 'a baby room with a crib', 'Kinderzimmer', 'zuhause'], ['spielzeug', 'toys and stuffed animals', 'Spielzeug und Kuscheltiere', 'zuhause'], ['buch', 'a picture book', 'Vorlesen', 'zuhause'],
+  ['hund', 'a dog', 'ein Hund', 'tier'], ['katze', 'a cat', 'eine Katze', 'tier'], ['sonnenuntergang', 'a sunset sky', 'Sonnenuntergang', 'natur'],
+  ['dokument', 'a paper document with printed text', 'ein Dokument oder Zettel', 'doc'], ['screenshot', 'a screenshot of a phone screen', 'ein Screenshot', 'doc']
+];
+const VIS_CAT = {}; VIS_CATS.forEach(c => { VIS_CAT[c[0]] = { id: c[0], en: c[1], de: c[2], g: c[3] }; });
+const VIS_ALBUM = { ort: 'Ausflüge', unterwegs: 'Unterwegs', people: 'Familie', baby: 'Baby-Momente', anlass: 'Feste', tier: 'Tiere', zuhause: 'Zuhause', gesund: 'Gesundheit', essen: 'Essen', natur: 'Natur' };
+const VIS_FIRST = { strand: 'Erster Strandtag', meer: 'Erstes Mal am Meer', schnee: 'Erster Schnee', zoo: 'Erster Zoobesuch', pool: 'Erstes Mal im Schwimmbad', spielplatz: 'Erster Spielplatz', brei: 'Erster Brei', krabbeln: 'Erstes Krabbeln', laufen: 'Erste Schritte', baden: 'Erstes Bad', kinderwagen: 'Erste Kinderwagen-Fahrt', flug: 'Erster Flug', zug: 'Erste Zugfahrt', auto: 'Erste Autofahrt', weihnacht: 'Erstes Weihnachten', ostern: 'Erstes Ostern', hund: 'Erste Begegnung mit einem Hund', katze: 'Erste Begegnung mit einer Katze', bauernhof: 'Erster Bauernhof', berge: 'Erste Berge', see: 'Erster Seeausflug', wald: 'Erster Waldspaziergang', ultraschall: 'Ultraschallbild', kuchen: 'Geburtstagsfeier' };
+const VIS_EMOJI = { ort: '🌿', unterwegs: '🚗', people: '👨‍👩‍👧', baby: '👶', anlass: '🎉', tier: '🐾', zuhause: '🏠', gesund: '🩺', essen: '🍽️', natur: '🌅', doc: '📄' };
+const visCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_vis_cfg') || '{}') || {}; } catch (e) {} return { ml: !!c.ml }; };
+const visCfgSet = v => ls.set('luise_vis_cfg', JSON.stringify(Object.assign(visCfg(), v)));
+const visCap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+const visImg = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = src; });
+
+/* Stufe 1a: Bildmerkmale aus den Pixeln */
+async function visPixels(src) {
+  const img = await visImg(src), W = 64, H = Math.max(16, Math.min(96, Math.round(W * (img.naturalHeight || 64) / (img.naturalWidth || 64))));
+  const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0, W, H);
+  const d = x.getImageData(0, 0, W, H).data, n = W * H, gr = new Float32Array(n), f = { skyTop: 0, water: 0, green: 0, sand: 0, snow: 0, dark: 0, skin: 0, warm: 0, paper: 0 };
+  let sY = 0, sS = 0, sY2 = 0;
+  for (let i = 0; i < n; i++) {
+    const r = d[i * 4], g = d[i * 4 + 1], b = d[i * 4 + 2], mx = Math.max(r, g, b), mn = Math.min(r, g, b), Y = 0.299 * r + 0.587 * g + 0.114 * b, s = mx ? (mx - mn) / mx : 0, yy = Math.floor(i / W) / H;
+    gr[i] = Y; sY += Y; sY2 += Y * Y; sS += s;
+    if (b > r + 10 && b >= g - 6 && Y > 105) { if (yy < 0.55) f.skyTop++; else f.water++; }
+    if (g > r + 6 && g > b + 6 && Y > 35) f.green++;
+    if (r >= g && g >= b && r - b > 25 && r - b < 95 && Y > 135 && s > 0.14 && s < 0.5) f.sand++;
+    if (Y > 205 && s < 0.12) f.snow++;
+    if (Y < 45) f.dark++;
+    if (r > 95 && g > 40 && b > 20 && mx - mn > 15 && Math.abs(r - g) > 15 && r > g && r > b && Y > 60) f.skin++;
+    if (r > g + 25 && r > b + 60 && Y > 90) f.warm++;
+    if (Y > 150 && s < 0.18) f.paper++;
+  }
+  for (const k in f) f[k] /= n;
+  const mean = sY / n, sd = Math.sqrt(Math.max(0, sY2 / n - mean * mean)), sat = sS / n;
+  let edge = 0, lap = 0, lapN = 0, darkInk = 0;
+  for (let y = 1; y < H - 1; y++) for (let xx = 1; xx < W - 1; xx++) {
+    const i = y * W + xx, gx = gr[i + 1] - gr[i - 1], gy = gr[i + W] - gr[i - W]; if (Math.abs(gx) + Math.abs(gy) > 60) edge++;
+    const l = 4 * gr[i] - gr[i - 1] - gr[i + 1] - gr[i - W] - gr[i + W]; lap += l * l; lapN++; if (gr[i] < 105) darkInk++;
+  }
+  const edgeD = edge / Math.max(1, lapN), lapV = lap / Math.max(1, lapN), ink = darkInk / Math.max(1, lapN);
+  return { mean, sd, sat, edge: edgeD, lap: lapV, f, docLike: mean > 140 && sat < 0.2 && edgeD > 0.1 && ink > 0.04 && ink < 0.4, blurry: lapV < 18 && sd > 12, dim: mean < 55 };
+}
+function visSceneLabels(p) {
+  const f = p.f, out = [], add = (id, v) => { if (v > 0.2) out.push({ id, p: Math.min(0.9, v) }); };
+  if (p.docLike) add('dokument', 0.75);
+  if (f.snow > 0.45 && !p.docLike) add('schnee', 0.4 + f.snow * 0.5);
+  if (f.sand > 0.1 && f.skyTop + f.water > 0.18) add('strand', 0.45 + f.sand + (f.skyTop + f.water) * 0.4);
+  if (f.skyTop > 0.3 && f.water > 0.18 && f.sand <= 0.1) add('see', 0.35 + f.water);
+  if (f.green > 0.35) add(p.mean < 110 ? 'wald' : 'wiese', 0.3 + f.green * 0.7);
+  if (f.warm > 0.22 && f.skyTop < 0.2) add('sonnenuntergang', 0.3 + f.warm);
+  if (f.skin > 0.3 && !p.docLike) add('portraet', 0.3 + f.skin * 0.5);
+  return out.sort((a, b) => b.p - a.p).slice(0, 3);
+}
+
+/* Stufe 3: KI-Erkennung auf dem Gerät (optional) */
+let visClf = null, visClfP = null, visMlImpl = null, visQ = Promise.resolve(), visFail = false;
+async function visMlLoad(prog) {
+  if (visClf) return visClf; if (visClfP) return visClfP;
+  visClfP = (async () => {
+    const T = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+    T.env.allowLocalModels = false; T.env.useBrowserCache = true; try { T.env.backends.onnx.wasm.numThreads = 1; } catch (e) {}
+    const files = {};
+    visClf = await T.pipeline('zero-shot-image-classification', 'Xenova/clip-vit-base-patch32', { progress_callback: e => {
+      if (!prog || !e) return; if (e.file && e.total) files[e.file] = { l: e.loaded || 0, t: e.total };
+      const L = Object.values(files); const tot = L.reduce((a, b) => a + b.t, 0), ld = L.reduce((a, b) => a + b.l, 0); prog(tot ? ld / tot : 0, tot);
+    } });
+    return visClf;
+  })().catch(e => { visClfP = null; throw e; });
+  return visClfP;
+}
+async function visMlClassify(src, prog) {
+  if (visMlImpl) return visMlImpl(src);
+  const clf = await visMlLoad(prog), out = await clf(src, VIS_CATS.map(c => c[1]), { hypothesis_template: 'a photo of {}.' });
+  return out.map(o => ({ id: (VIS_CATS.find(c => c[1] === o.label) || [])[0], p: o.score })).filter(o => o.id);
+}
+
+/* Stufe 2: Text im Foto auswerten */
+function visTextFacts(t) {
+  t = String(t || ''); const out = { w: null, g: null, k: null, dates: [], kw: [] }, num = x => parseFloat(String(x).replace(',', '.'));
+  let m = /(\d{1,2}[.,]\d{1,3})\s*kg\b/i.exec(t); if (m) { const v = num(m[1]); if (v >= 1.5 && v <= 40) out.w = v; }
+  if (out.w == null) { m = /(?:^|[^\d.,])(\d{1,2}[ .]?\d{3})\s*g\b/i.exec(t); if (m) { const v = parseFloat(m[1].replace(/[ .]/g, '')); if (v >= 1500 && v <= 25000) out.w = v / 1000; } }
+  m = /(?:kopf(?:umfang)?|k\.?\s?u\.?)\D{0,10}(\d{2}(?:[.,]\d)?)\s*cm/i.exec(t); if (m) { const v = num(m[1]); if (v >= 28 && v <= 56) out.k = v; }
+  const re = /(\d{2,3}(?:[.,]\d)?)\s*cm/gi; while ((m = re.exec(t))) { const v = num(m[1]), pre = t.slice(Math.max(0, m.index - 14), m.index); if (v >= 40 && v <= 140 && !/kopf|k\.?\s?u/i.test(pre)) { out.g = v; break; } }
+  const rd = /(\d{1,2})\.\s?(\d{1,2})\.\s?(\d{4}|\d{2})\b/g; while ((m = rd.exec(t))) { let y = +m[3]; if (y < 100) y += 2000; const mo = +m[2], da = +m[1]; if (mo >= 1 && mo <= 12 && da >= 1 && da <= 31 && y >= 2000 && y <= 2100) { const iso = `${y}-${pad2(mo)}-${pad2(da)}`; if (!out.dates.includes(iso)) out.dates.push(iso); } }
+  [[/ultraschall|sonograph|schwangerschaftswoche|\bssw\b/i, 'ultra'], [/impfpass|impfung|impfstoff|\bstiko\b/i, 'impf'], [/untersuchungsheft|\bU\s?[1-9]\b|vorsorge/i, 'uheft'], [/rezept|apotheke|ibuprofen|paracetamol|nurofen|dosierung|tabletten|zäpfchen/i, 'med'], [/geburtsurkunde|standesamt|geburtenregister/i, 'urkunde'], [/einladung|alles gute|herzlichen glückwunsch|willkommen/i, 'karte']].forEach(([r, k]) => { if (r.test(t)) out.kw.push(k); });
+  return out;
+}
+
+/* Kontext: Alter, Woche, Termine, Orte, Wachstum zum Aufnahmedatum */
+function visCtx(m) {
+  const P = S.profile, c = { nm: P.vorname || 'Luise', date: m.datum || '', age: '', ageS: '', pre: false, week: null, wi: null, same: [], grow: null, ortSame: false };
+  if (P.geburtsdatum && m.datum) {
+    const dd = Math.round((parseD(m.datum) - parseD(P.geburtsdatum)) / 864e5);
+    if (dd < 0) c.pre = true; else { c.age = ageText(P.geburtsdatum, m.datum); c.ageS = dd === 0 ? 'wenige Stunden' : dd < 14 ? dd + (dd === 1 ? ' Tag' : ' Tage') : dd < 91 ? Math.floor(dd / 7) + ' Wochen' : c.age; c.week = Math.floor(dd / 7) + 1; try { c.wi = weekInfo(c.week); } catch (e) {} }
+  }
+  if (m.datum) {
+    (S.school.termine || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Termin', n: t.titel }); });
+    (S.health.meilensteine || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Meilenstein', n: t.titel }); });
+    (P.journey || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Moment', n: t.titel, j: t }); });
+    try { plAll().forEach(o => { if (o.datum === m.datum) { c.same.push({ k: 'Ort', n: o.name }); c.ortSame = true; } }); } catch (e) {}
+    let best = null; (S.health.wachstum || []).forEach(w => { if (!w.datum || (!w.groesse && !w.gewicht)) return; const dd = Math.abs((parseD(w.datum) - parseD(m.datum)) / 864e5); if (dd <= 21 && (!best || dd < best.dd)) best = { w, dd }; });
+    if (best) c.grow = best.w;
+  }
+  return c;
+}
+
+/* Logik: aus Erkanntem und Kontext werden Impulse */
+function visImpulses(st, api) {
+  const m = st.m, c = st.ctx, L = st.labels, top = L[0] && VIS_CAT[L[0].id], fam = famMode(), out = [], conf = L[0] ? L[0].p : 0;
+  const save = async () => { await photoPut(m); api.changed(); };
+  if (!fam && !m.titel && top && top.g !== 'doc') {
+    const base = visCap(top.de), opts = [base]; if (c.ageS && !c.pre) opts.push(`${base} · ${c.ageS}`);
+    out.push({ ic: '✏️', t: 'Beschreibung vorschlagen', s: 'Tippe auf einen Vorschlag, dann wird er als Beschreibung gespeichert.', chips: opts.map(o => ({ l: o, w: true, fn: async () => { m.titel = o; await save(); toast('Beschreibung gespeichert'); } })) });
+  }
+  if (!fam && top && VIS_FIRST[top.id] && conf >= 0.3 && !c.pre) {
+    const prior = S.photos.some(x => x.id !== m.id && x.vis && x.vis.top === top.id && (x.datum || '') <= (m.datum || '9999')), word = VIS_FIRST[top.id].split(' ').pop().toLowerCase(), have = (S.profile.journey || []).some(j => (j.titel || '').toLowerCase().includes(word));
+    if (!prior && !have) out.push({ ic: '⭐', t: 'Vielleicht ein erstes Mal', s: `Unter den Fotos, die ich mir angesehen habe, ist das das früheste mit „${top.de}“${c.ageS ? '. ' + c.nm + ' war ' + c.ageS + ' alt' : ''}. Als Moment festhalten?`, chips: [{ l: VIS_FIRST[top.id] + ' festhalten', w: true, fn: () => { api.close(); editMoment(null, { titel: VIS_FIRST[top.id], datum: m.datum || isoToday(), emoji: VIS_EMOJI[top.g] || '⭐', fotos: [m.id] }); } }] });
+  }
+  if (top && (top.g === 'ort' || top.g === 'unterwegs') && !c.ortSame && top.id !== 'garten') out.push({ ic: '📍', t: 'Ort markieren', s: 'Auf der Karte „Hier war ich schon“ kannst du festhalten, wo das war.', chips: [{ l: 'Karte öffnen', fn: () => { api.close(); go('places'); toast('Tippe auf „+ Ort“'); } }] });
+  if (st.pix && st.pix.docLike || top && top.g === 'doc') out.push({ ic: '🔎', t: 'Text im Bild lesen', s: st.ocr === 'work' ? 'Text wird gelesen …' : st.ocr === 'done' ? (st.text ? 'Gelesen: ' + st.text.replace(/\s+/g, ' ').slice(0, 90) + (st.text.length > 90 ? ' …' : '') : 'Es wurde kein Text erkannt.') : 'Das sieht nach einem Zettel oder Dokument aus. Ich kann den Text lesen und Werte daraus übernehmen.', chips: st.ocr === 'idle' || st.ocr === 'err' ? [{ l: st.ocr === 'err' ? 'Nochmal versuchen' : 'Text lesen', fn: () => api.ocr() }] : [] });
+  if (st.text) {
+    const F = visTextFacts(st.text), date = F.dates[0] || m.datum || isoToday(), wt = (F.w != null ? String(F.w).replace('.', ',') + ' kg' : ''), gt = (F.g != null ? String(F.g).replace('.', ',') + ' cm' : ''), kt = (F.k != null ? 'Kopf ' + String(F.k).replace('.', ',') + ' cm' : '');
+    if (!fam && (F.w != null || F.g != null || F.k != null)) out.push({ ic: '📏', t: 'Messwerte erkannt', s: [wt, gt, kt].filter(Boolean).join(' · ') + ' · am ' + fmtD(date), chips: [{ l: 'In Wachstum übernehmen', w: true, fn: async () => { let w = S.health.wachstum.find(x => x.datum === date); if (!w) { w = { id: uid(), datum: date }; S.health.wachstum.push(w); } if (F.w != null) w.gewicht = String(F.w).replace('.', ','); if (F.g != null) w.groesse = String(F.g).replace('.', ','); if (F.k != null) w.kopf = String(F.k).replace('.', ','); await persist('health'); render(); toast('In Wachstum gespeichert'); } }] });
+    if (!fam && F.dates[0] && F.dates[0] !== m.datum) out.push({ ic: '📅', t: 'Datum im Bild', s: fmtD(F.dates[0]) + ' steht im Foto. Als Aufnahmedatum übernehmen?', chips: [{ l: 'Datum übernehmen', w: true, fn: async () => { m.datum = F.dates[0]; await save(); st.ctx = visCtx(m); api.redraw(); toast('Datum geändert'); } }] });
+    const kwMap = { ultra: ['🩻', 'Ultraschall erkannt', 'Das ist ein besonderes Foto. Als Moment festhalten?', { l: 'Als Moment speichern', w: true, fn: () => { api.close(); editMoment(null, { titel: 'Ultraschallbild', datum: F.dates[0] || m.datum || isoToday(), emoji: '🩻', fotos: [m.id] }); } }], impf: ['💉', 'Impfung erkannt', 'Bei den Impfungen kannst du sie eintragen.', { l: 'Zu den Impfungen', fn: () => { api.close(); healthSeg = 'gesundheit'; go('health'); } }], uheft: ['📘', 'Vorsorge erkannt', 'Im U-Heft kannst du die Untersuchung eintragen.', { l: 'Zum U-Heft', fn: () => { api.close(); healthSeg = 'uheft'; go('health'); } }], med: ['💊', 'Medikament erkannt', 'In der Medikamentenliste kannst du es mit Dosierung eintragen.', { l: 'Zu den Medikamenten', fn: () => { api.close(); healthSeg = 'medikamente'; go('health'); } }], urkunde: ['📑', 'Urkunde erkannt', 'Wichtige Papiere gehören in die Dokumente.', { l: 'Dokumente öffnen', fn: () => { api.close(); go('docs'); } }], karte: ['💌', 'Karte oder Einladung', 'Wenn du magst, hältst du sie als Moment fest.', { l: 'Als Moment speichern', w: true, fn: () => { api.close(); editMoment(null, { titel: 'Karte', datum: m.datum || isoToday(), emoji: '💌', fotos: [m.id] }); } }] };
+    F.kw.forEach(k => { const x = kwMap[k]; if (x) out.push({ ic: x[0], t: x[1], s: x[2], chips: [x[3]] }); });
+  }
+  if (c.week && c.wi && c.week <= 160) out.push({ ic: '🗓️', t: `Lebenswoche ${c.week}: ${c.wi.title}`, s: `${c.nm} war ${c.ageS} alt.`, chips: [{ l: 'Wochen-Begleiter', fn: () => { api.close(); weekSel = c.week; go('weeks'); } }] });
+  else if (c.pre) out.push({ ic: '🤰', t: 'Vor der Geburt', s: 'Dieses Foto ist vor dem Geburtstermin entstanden.' });
+  if (c.grow) out.push({ ic: '📈', t: 'Um diese Zeit gemessen', s: [c.grow.groesse && c.grow.groesse + ' cm', c.grow.gewicht && c.grow.gewicht + ' kg'].filter(Boolean).join(' · ') + ' (' + fmtD(c.grow.datum) + ')', chips: [{ l: 'Wachstum öffnen', fn: () => { api.close(); healthSeg = 'entwicklung'; go('health'); } }] });
+  if (c.same.length) out.push({ ic: '🔗', t: 'Am selben Tag', s: c.same.slice(0, 4).map(x => x.k + ': ' + x.n).join(' · ') });
+  if (!fam && !m.album && top && top.g !== 'doc') { const want = VIS_ALBUM[top.g], ex = albumNames().find(a => want && a.toLowerCase().includes(want.toLowerCase().slice(0, 5))) || want; if (ex) out.push({ ic: '📁', t: 'Album vorschlagen', s: 'Dieses Foto passt ins Album „' + ex + '“.', chips: [{ l: 'In „' + ex + '“ legen', w: true, fn: async () => { m.album = ex; await save(); toast('Album gesetzt'); } }] }); }
+  if (st.pix && st.pix.blurry) out.push({ ic: '🌀', t: 'Etwas unscharf', s: 'Das Foto wirkt leicht verwackelt. Für Erinnerungen ist das okay, fürs Poster nimmst du besser ein schärferes.' });
+  else if (st.pix && st.pix.dim) out.push({ ic: '🌙', t: 'Sehr dunkel', s: 'Das Foto ist ziemlich dunkel. Mehr Licht oder ein Foto am Fenster wirkt oft viel schöner.' });
+  return out;
+}
+
+/* Oberfläche im Foto-Viewer */
+function visAttach(o) {
+  let tok = 0, openP = false, st = null;
+  const api = { changed: () => o.changed && o.changed(), close: () => o.close(), redraw: () => draw(), ocr: () => ocrRun() };
+  const wr = x => famMode() ? false : true;
+  function draw() {
+    if (!st) { o.box.replaceChildren(); return; }
+    const imps = visImpulses(st, api), top = st.labels[0] && VIS_CAT[st.labels[0].id], n = imps.length;
+    const head = top ? visCap(top.de) : (st.ml === 'work' ? 'Ich schaue genauer hin …' : 'Impuls zum Foto');
+    const chip = h('button', { class: 'pv-impchip' + (openP ? ' on' : ''), type: 'button', onclick: e => { e.stopPropagation(); toggle(); } }, h('span', { 'aria-hidden': 'true' }, '✨'), h('b', null, head), n ? h('small', null, n + (n === 1 ? ' Idee' : ' Ideen')) : null);
+    ['pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(ev => chip.addEventListener(ev, e => e.stopPropagation()));
+    const kids = [chip];
+    if (openP) {
+      const rows = imps.map(x => h('div', { class: 'vi-row' }, h('span', { class: 'vi-ic', 'aria-hidden': 'true' }, x.ic), h('div', { class: 'vi-tx' }, h('b', null, x.t), x.s ? h('p', null, x.s) : null,
+        x.chips && x.chips.filter(c => !c.w || wr()).length ? h('div', { class: 'vi-btns' }, x.chips.filter(c => !c.w || wr()).map(c => h('button', { class: 'vi-btn', type: 'button', onclick: async e => { e.stopPropagation(); try { await c.fn(); } catch (er) { toast('Das hat nicht geklappt'); console.error(er); } draw(); } }, c.l))) : null)));
+      const seen = h('div', { class: 'vi-seen' }, h('small', null, st.src === 'ml' ? 'Erkannt (KI auf dem Gerät)' : 'Mein erster Eindruck (Vermutung)'),
+        h('div', { class: 'vi-chips' }, st.labels.length ? st.labels.map(l => h('span', { class: 'vi-lab' }, visCap(VIS_CAT[l.id].de), st.src === 'ml' ? h('i', null, Math.round(l.p * 100) + ' %') : null)) : h('span', { class: 'vi-none' }, 'Noch nichts Eindeutiges erkannt')));
+      const ml = visCfg().ml ? (st.ml === 'err' ? h('div', { class: 'vi-ml' }, h('p', null, 'Die KI-Erkennung konnte nicht geladen werden' + (st.mlMsg ? ' (' + st.mlMsg + ')' : '') + '. Meist hilft eine bessere Internetverbindung.'), h('button', { class: 'vi-btn', type: 'button', onclick: e => { e.stopPropagation(); visFail = false; mlRun(tok); } }, 'Nochmal versuchen')) : st.ml === 'work' ? h('div', { class: 'vi-ml' }, h('p', null, st.pct != null ? `KI-Erkennung wird geladen … ${Math.round(st.pct * 100)} %` : 'Die KI schaut sich das Foto an …'), h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.round((st.pct || 0.04) * 100)}%` }))) : null)
+        : h('div', { class: 'vi-ml' }, h('p', null, 'Genauer erkennen: Eine kleine KI läuft dann direkt auf deinem Gerät. Sie wird einmalig geladen (etwa 150 MB, am besten im WLAN). Fotos verlassen dabei nie das Gerät.'), st.ml === 'work' ? h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.round((st.pct || 0.04) * 100)}%` })) : h('button', { class: 'vi-btn pri', type: 'button', onclick: e => { e.stopPropagation(); mlEnable(); } }, 'KI-Erkennung aktivieren'));
+      const pan = h('div', { class: 'pv-impan', onclick: e => e.stopPropagation() }, h('div', { class: 'vi-head' }, h('b', null, 'Impuls zum Foto'), h('button', { class: 'vi-x', type: 'button', 'aria-label': 'Schließen', onclick: e => { e.stopPropagation(); toggle(); } }, '×')), seen, ...(rows.length ? rows : [h('p', { class: 'vi-none' }, 'Dazu fällt mir gerade nichts ein. Mit Datum und Beschreibung werden die Ideen besser.')]), ml);
+      ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'touchmove'].forEach(ev => pan.addEventListener(ev, e => e.stopPropagation()));
+      kids.push(pan);
+    }
+    o.box.replaceChildren(...kids); o.btn.classList.toggle('on', openP);
+  }
+  function toggle() { openP = !openP; draw(); }
+  async function start(m) {
+    const my = ++tok; st = { m, labels: [], ctx: visCtx(m), ml: 'idle', ocr: 'idle', text: '', src: 'pix', pix: null }; draw();
+    try { const p = await visPixels(m.thumb); if (my !== tok) return; st.pix = p; st.labels = visSceneLabels(p); } catch (e) {}
+    if (m.vis && m.vis.ml && Array.isArray(m.vis.l)) { st.labels = m.vis.l.filter(x => VIS_CAT[x[0]]).map(x => ({ id: x[0], p: x[1] })); st.src = 'ml'; st.ml = 'ready'; }
+    if (my !== tok) return; draw();
+    if (visCfg().ml && st.src !== 'ml') { if (visFail) st.ml = 'err'; else mlRun(my); }
+    if (!famMode() && !m.vis && st.labels[0] && st.labels[0].p >= 0.45 && st.src === 'pix') { m.vis = { v: 1, ml: 0, top: st.labels[0].id }; try { await photoPut(m); } catch (e) {} }
+  }
+  async function mlEnable() { visCfgSet({ ml: true }); st.ml = 'work'; st.pct = null; draw(); mlRun(tok); }
+  function mlRun(my) {
+    if (!st) return; const mine = st; st.ml = 'work'; st.pct = null; draw();
+    visQ = visQ.then(async () => {
+      if (my !== tok) return;
+      try {
+        const res = await visMlClassify(mine.m.thumb, (p) => { if (my === tok) { mine.pct = p; if (openP) draw(); } });
+        res.sort((a, b) => b.p - a.p); const keep = res.filter((x, i) => i < 3 && x.p >= 0.08);
+        if (!keep.length || keep[0].p < 0.12) { mine.ml = 'ready'; if (my === tok) draw(); return; }
+        mine.labels = keep; mine.src = 'ml'; mine.ml = 'ready';
+        if (!famMode()) { mine.m.vis = { v: 1, ml: 1, top: keep[0].id, l: keep.map(x => [x.id, +x.p.toFixed(3)]) }; try { await photoPut(mine.m); } catch (e) {} }
+      } catch (e) { console.error(e); mine.ml = 'err'; mine.mlMsg = String(e && e.message || e).slice(0, 80); visFail = true; }
+      if (my === tok) draw();
+    });
+  }
+  async function ocrRun() {
+    const mine = st; if (!mine || mine.ocr === 'work') return; mine.ocr = 'work'; draw();
+    try {
+      const blob = await o.getBlob(); if (!blob) throw new Error('Datei fehlt');
+      const txt = await ocrBlobs([blob]); mine.text = (txt || '').trim(); mine.ocr = 'done';
+    } catch (e) { console.error(e); mine.ocr = 'err'; toast('Text konnte nicht gelesen werden'); }
+    try { ocrUi.hide(); } catch (e) {}
+    if (st === mine) draw();
+  }
+  return { start, toggle, stop() { tok++; st = null; o.box.replaceChildren(); }, state: () => st, open: () => { if (!openP) toggle(); } };
+}
+
+/* v36: Story-Titel verkleinern, bis das längste Wort in die Zeile passt (kein Umbruch mitten im Wort) */
+function storyFit(root) {
+  root.querySelectorAll('.stv-big').forEach(b => {
+    const inn = b.parentElement; if (!inn) return; const cs0 = getComputedStyle(inn), avail = inn.clientWidth - parseFloat(cs0.paddingLeft || 0) - parseFloat(cs0.paddingRight || 0); if (avail < 80) return;
+    const cs = getComputedStyle(b), words = (b.textContent || '').split(/\s+/).filter(Boolean); if (!words.length) return;
+    const cv = storyFit.cv || (storyFit.cv = document.createElement('canvas').getContext('2d')); let fs = parseFloat(cs.fontSize); const f0 = fs;
+    const wid = px => { cv.font = `${cs.fontWeight} ${px}px ${cs.fontFamily}`; return Math.max(...words.map(w => cv.measureText(w).width)) + 2; };
+    while (fs > 17 && wid(fs) > avail) fs -= 1;
+    if (fs !== f0) { b.style.fontSize = fs + 'px'; b.dataset.fit = String(fs); }
+  });
 }
 
 async function boot() {
@@ -11934,7 +12321,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
+window.__luise = { visPixels, visSceneLabels, visTextFacts, visCtx, visImpulses, visAttach, visSetMl: f => { visMlImpl = f; }, AMB_INFO, ambRender, ambWav, storyFit, ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
 })();
 </script>
 </body>
