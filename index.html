@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="34">
+<meta name="app-version" content="35">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1723,6 +1723,189 @@ body.famode .page-head .pill,body.famode .phhead-r,body.famode .fadd{display:non
 @media (prefers-reduced-motion:reduce){.famgform.shake{animation:none}}
 ul.famlist{background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0 0 0 20px!important;margin:0!important;list-style:disc!important}
 ul.famlist li{padding:0!important;border:0!important;background:none!important;display:list-item!important;min-height:0!important}
+/* ===== v35 ===== */
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes sringRot{to{--ang:360deg}}
+/* Stories: Relief-Ablage, gleichmäßig verteilt */
+.storytray{margin:2px 0 10px;padding:12px 0 8px;border-radius:28px;background:linear-gradient(180deg,color-mix(in srgb,var(--ink) 6%,var(--card)),color-mix(in srgb,var(--card) 82%,var(--bg)));border:1px solid color-mix(in srgb,var(--line) 75%,transparent);box-shadow:inset 0 4px 10px rgba(30,40,60,.12),inset 0 -2px 0 rgba(255,255,255,.75),0 1px 0 rgba(255,255,255,.7);overflow:hidden}
+:root[data-dark] .storytray{box-shadow:inset 0 4px 12px rgba(0,0,0,.5),inset 0 -2px 0 rgba(255,255,255,.05),0 1px 0 rgba(255,255,255,.05)}
+.storytray .storyrow{margin:0;padding:4px 8px 6px;gap:0;scroll-snap-type:x proximity}
+.storytray .story{flex:0 0 calc(100% / 4.35);min-width:76px;width:auto;gap:7px;padding:2px 2px 0;scroll-snap-align:start}
+.storytray .storyrow.few{justify-content:space-around}
+.storytray .storyrow.few .story{flex:1 1 0;min-width:70px;max-width:120px}
+.story small{max-width:100%;width:100%;text-align:center;font-size:12px}
+.sring{position:relative;width:68px;height:68px;padding:3.5px;background:conic-gradient(from var(--ang,0deg),var(--accent),var(--g3),var(--g2),var(--accent));box-shadow:0 7px 14px rgba(30,40,60,.20),0 1px 0 rgba(255,255,255,.6) inset}
+.story:not(.seen) .sring{animation:sringRot 7s linear infinite}
+.story.seen .sring{box-shadow:0 3px 8px rgba(30,40,60,.12)}
+.sin{position:relative;overflow:hidden;border-color:var(--card)}
+.sin img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%}
+.sin .sin-art{display:grid;place-items:center;width:100%;height:100%}.sin .sin-art svg{width:62%;height:62%}
+.sbadge{position:absolute;right:-5px;bottom:-4px;width:27px;height:27px;border-radius:50%;background:var(--card);border:2px solid var(--card);box-shadow:0 2px 7px rgba(0,0,0,.28);padding:3px;display:grid;place-items:center}.sbadge svg{width:100%;height:100%;display:block}
+/* Story-Folien */
+.stv-img.dim{filter:brightness(.66) saturate(1.1)}
+.stv-img.kb0{animation:stvKb 12s ease-out both}.stv-img.kb1{animation:stvKb1 12s ease-out both}.stv-img.kb2{animation:stvKb2 12s ease-out both}
+@keyframes stvKb1{from{transform:scale(1.13) translate(2%,1%)}to{transform:scale(1) translate(0,0)}}
+@keyframes stvKb2{from{transform:scale(1) translate(-2%,1%)}to{transform:scale(1.14) translate(2%,-2%)}}
+.stv-shade2{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.12) 38%,rgba(0,0,0,.55));pointer-events:none}
+.stv-pts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.stv-pts span{position:absolute;bottom:-40px;font-size:calc(17px * var(--s,1));opacity:0;animation:stvPt var(--t,9s) linear var(--d,0s) infinite}
+@keyframes stvPt{0%{transform:translateY(0) rotate(0);opacity:0}12%{opacity:.85}88%{opacity:.55}100%{transform:translateY(-112vh) rotate(40deg);opacity:0}}
+.stv-collage{position:absolute;left:0;right:0;top:calc(84px + env(safe-area-inset-top));height:50%;pointer-events:none}
+.stv-pol{position:absolute;width:41%;margin:0;background:#fffdf8;padding:7px 7px 25px;border-radius:5px;box-shadow:0 16px 32px rgba(0,0,0,.42);transform:rotate(var(--rot,0deg));animation:stvPol .75s cubic-bezier(.3,1.3,.5,1) var(--d,0s) both}
+.stv-pol img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:3px}
+.stv-pol figcaption{position:absolute;left:0;right:0;bottom:5px;text-align:center;font-size:12px;font-weight:700;color:#6b5f4a}
+.stv-pol.r0{left:5%;top:3%;--rot:-7deg}.stv-pol.r1{right:5%;top:0;--rot:6deg}.stv-pol.r2{left:11%;top:52%;--rot:5deg}.stv-pol.r3{right:9%;top:50%;--rot:-5deg}
+.stv-collage.n2 .stv-pol.r0{top:12%}.stv-collage.n2 .stv-pol.r1{top:30%}.stv-collage.n3 .stv-pol.r2{left:28%}
+@keyframes stvPol{from{transform:translateY(-130%) rotate(calc(var(--rot,0deg) * 3)) scale(1.25);opacity:0}to{transform:rotate(var(--rot,0deg));opacity:1}}
+.stv-chart{width:100%;max-width:370px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);border-radius:22px;padding:12px 8px 6px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:stvUp .5s .2s both}
+.stv-chart svg{width:100%;height:auto;display:block;overflow:visible}
+.sc-l{fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:scDraw 1.7s .35s ease-out forwards}
+@keyframes scDraw{to{stroke-dashoffset:0}}
+.sc-a{fill:rgba(255,255,255,.2);opacity:0;animation:scFade .9s 1.3s forwards}
+@keyframes scFade{to{opacity:1}}
+.sc-d{fill:#fff;opacity:0;transform-box:fill-box;transform-origin:center;animation:scPop .45s both}
+@keyframes scPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+.sc-t{fill:#fff;font:700 13px system-ui,sans-serif;opacity:0;animation:scFade .5s 1.6s forwards}.sc-e{font-size:15px}
+.stv-extra{width:100%;max-width:370px;animation:stvUp .5s .2s both}
+.stv-extra .pldots{width:100%;height:auto;display:block;background:rgba(255,255,255,.14);border-radius:22px;border:1px solid rgba(255,255,255,.28)}
+.stv .pld-g{fill:rgba(255,255,255,.4)}.stv .pld-r{stroke:#fff}
+.stv-in.mid.has-extra{gap:10px}
+.stv-row{opacity:0;animation:stvUp .5s calc(.25s + var(--i,0) * .12s) both}
+@media (prefers-reduced-motion:reduce){.sc-l,.sc-a,.sc-d,.sc-t,.stv-pts span,.stv-pol,.stv-chart,.stv-extra,.story .sring{animation:none!important}.sc-l{stroke-dashoffset:0}.sc-a,.sc-d,.sc-t,.stv-row{opacity:1}}
+
+/* KI-Assistent */
+.ai-orb{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(from var(--ang,0deg),var(--accent),var(--g2),var(--g3),var(--accent));animation:sringRot 8s linear infinite;box-shadow:0 10px 28px color-mix(in srgb,var(--accent) 38%,transparent)}
+.ai-orb::before{content:"";position:absolute;inset:3.5px;border-radius:50%;background:radial-gradient(circle at 30% 22%,#fff,color-mix(in srgb,var(--card) 60%,var(--accent)))}
+.ai-orb-in{position:relative;width:60%;height:60%;display:block;animation:aiFloat 3.6s ease-in-out infinite}.ai-orb-in svg{width:100%;height:100%;display:block}
+.ai-orb.big{width:98px;height:98px}.ai-orb.sm{width:44px;height:44px}
+@keyframes aiFloat{50%{transform:translateY(-3px) rotate(7deg) scale(1.07)}}
+.ai-hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding:8px 0 4px}
+.ai-h{margin:0;font-size:22px;line-height:1.2;max-width:15em}
+.ai-p{margin:0;max-width:30em;font-size:14.5px}
+.ai-pop{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%}
+.ai-popq{border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 12%,var(--card)),var(--card));color:var(--ink);padding:9px 14px;border-radius:999px;font:inherit;font-size:14px;cursor:pointer;text-align:left;box-shadow:0 3px 8px rgba(30,40,60,.07);transition:transform .15s}
+.ai-popq:active{transform:scale(.96)}
+.ai-secrow{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:6px}.ai-secrow b{font-size:16px}
+.ai-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}
+.ai-topic{--tc:var(--accent);display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:12px;border-radius:20px;border:1px solid color-mix(in srgb,var(--tc) 30%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--tc) 18%,var(--card)),color-mix(in srgb,var(--tc) 5%,var(--card)));font:inherit;color:var(--ink);cursor:pointer;box-shadow:0 4px 10px rgba(30,40,60,.07);transition:transform .15s;min-height:68px}
+.ai-topic:active{transform:scale(.96)}
+.ai-topic.t1{--tc:var(--g1)}.ai-topic.t2{--tc:var(--g2)}.ai-topic.t3{--tc:var(--g3)}.ai-topic.t4{--tc:var(--accent)}.ai-topic.t5{--tc:var(--g2)}
+.ai-ti{grid-row:1/3;width:44px;height:44px;border-radius:14px;background:color-mix(in srgb,var(--card) 70%,transparent);padding:6px;display:block}.ai-ti svg{width:100%;height:100%;display:block}
+.ai-topic b{font-size:14.5px;line-height:1.2;align-self:end}.ai-topic small{color:var(--mute);font-size:12px;align-self:start}
+.mrow{display:flex;align-items:flex-end;gap:8px;max-width:94%;align-self:flex-start}
+.mrow .msg{max-width:none;min-width:0}
+.mav{flex:none;width:30px;height:30px;border-radius:50%;padding:5px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 30%,var(--card)),color-mix(in srgb,var(--g3) 28%,var(--card)));box-shadow:0 2px 6px rgba(0,0,0,.14);display:block}.mav svg{width:100%;height:100%;display:block}
+.msg{animation:msgIn .3s ease both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
+.msg.me{background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 100%,#fff 14%),var(--accent));box-shadow:0 5px 14px color-mix(in srgb,var(--accent) 30%,transparent)}
+.msg.typ{align-self:flex-start;background:color-mix(in srgb,var(--card) 60%,transparent);border:1px solid var(--line);border-bottom-left-radius:6px;padding:13px 16px;border-radius:18px}
+.mrow .msg.typ{align-self:auto}
+.typing-dots{display:inline-flex;gap:5px;align-items:center;height:12px}.typing-dots i{width:7px;height:7px;border-radius:50%;background:var(--mute);animation:tdot 1.1s infinite ease-in-out}.typing-dots i:nth-child(2){animation-delay:.16s}.typing-dots i:nth-child(3){animation-delay:.32s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-5px);opacity:1}}
+.msg.ai strong{font-weight:700}
+.chat-ideas{flex:none;width:40px;height:40px;border-radius:50%;border:0;background:color-mix(in srgb,var(--accent) 16%,transparent);display:grid;place-items:center;padding:8px;cursor:pointer}.chat-ideas svg{width:100%;height:100%;display:block}
+.ai-follow{padding:2px 2px 4px}.fup{font-size:13.5px;border-style:dashed;animation:msgIn .35s both;white-space:nowrap}
+.ideas-tabs{padding:2px 16px 10px;gap:8px}
+.fc-ic{display:inline-block;width:18px;height:18px;vertical-align:-4px;margin-right:6px}.fc-ic svg{width:100%;height:100%;display:block}
+.ideas-list{display:flex;flex-direction:column;gap:8px}
+.ideas-q{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;padding:13px 16px;border-radius:16px;border:1px solid var(--line);background:var(--card);font:inherit;color:var(--ink);cursor:pointer;min-height:48px;animation:msgIn .3s both}
+.ideas-q i{font-style:normal;opacity:.5;font-size:22px;flex:none}
+.aiw-h{display:flex;align-items:center;gap:12px}.aiw-t{flex:1;min-width:0;display:flex;flex-direction:column}.aiw-t b{font-size:17px}
+
+/* Datenblatt: nichts */
+
+/* Diashow */
+.ssv{position:absolute;inset:0;z-index:6;background:#06060a;overflow:hidden;pointer-events:none}
+.ssv-stage{position:absolute;inset:0}
+.ssv-l{position:absolute;inset:0;overflow:hidden;will-change:transform,opacity}
+.ssv-bd{position:absolute;left:-8%;top:-8%;width:116%;height:116%;object-fit:cover;filter:blur(30px) brightness(.55) saturate(1.35);pointer-events:none}
+.ssv-fr{position:absolute;inset:0;display:grid;place-items:center}
+.ssv-ph{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.5));will-change:transform;display:block}
+.ssv-ph.cover{width:100%;height:100%;object-fit:cover;filter:none}
+.ssv-l.pol .ssv-fr{inset:auto;left:50%;top:50%;translate:-50% -50%;display:block;width:min(84%,560px);background:#fffdf8;padding:14px 14px 58px;border-radius:6px;box-shadow:0 26px 60px rgba(0,0,0,.55)}
+.ssv-l.pol .ssv-ph{width:100%;height:auto;max-height:66vh;aspect-ratio:1/1.05;object-fit:cover;filter:none;border-radius:2px}
+.ssv-fr figcaption{position:absolute;left:10px;right:10px;bottom:14px;text-align:center;color:#5b4f3c;font:italic 600 21px "Snell Roundhand","Apple Chancery","Brush Script MT",cursive;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ssv-cap{position:absolute;left:0;right:0;bottom:0;padding:80px 22px calc(28px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,0,0,.62),transparent);color:#fff;display:flex;flex-direction:column;gap:3px;animation:ssvCap .8s .6s both;pointer-events:none}
+.ssv-cap b{font-size:21px;text-shadow:0 2px 12px rgba(0,0,0,.6)}.ssv-cap small{font-size:14px;opacity:.88}
+@keyframes ssvCap{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ssv-pb{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.14);z-index:3}
+.ssv-prog{display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(0)}
+.ssv-sp{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.ssv-sp span{position:absolute;bottom:-20px;color:rgba(255,255,255,.75);font-size:15px;opacity:0;animation:stvPt var(--t,10s) linear var(--d,0s) infinite}
+.ssv-gear{pointer-events:auto;position:absolute;right:12px;top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.34);color:#fff;display:grid;place-items:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:.55;z-index:4;padding:0}
+.ssv-gear svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (prefers-reduced-motion:reduce){.ssv-sp{display:none}}
+
+/* Hier war ich schon */
+.plstats{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:8px}
+.plst{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 6px;border-radius:18px;background:var(--card);border:1px solid var(--line);text-align:center}.plst b{font-size:18px;line-height:1.15;white-space:nowrap}.plst small{font-size:11.5px;color:var(--mute);margin-top:2px}
+.omapbox{position:relative;height:min(62vh,540px);min-height:340px;border-radius:26px;overflow:hidden;border:1px solid var(--line);box-shadow:0 14px 32px rgba(20,30,50,.18);background:#dbe6ec;isolation:isolate}
+:root[data-dark] .omapbox{background:#1c2229}
+.omap{position:absolute;inset:0;z-index:0;touch-action:none;overflow:hidden;cursor:grab;outline:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}.omap.drag{cursor:grabbing}
+.omap-t{position:absolute;inset:0}
+.omap-tile{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;-webkit-user-drag:none;pointer-events:none;will-change:transform;animation:tileIn .35s both}
+@keyframes tileIn{from{opacity:0}to{opacity:1}}
+.omap-r{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.omap-rl{fill:none;stroke:var(--accent);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:2 9;filter:drop-shadow(0 0 2px rgba(255,255,255,.9))}
+.omap-p{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.opin,.oclu,.omap-me{position:absolute;left:0;top:0;pointer-events:auto;will-change:transform}
+.opin{width:38px;height:48px;border:0;background:none;padding:0;margin:-48px 0 0 -19px;font:inherit;color:inherit}
+.opin-in{position:absolute;inset:0;display:block;transform-origin:50% 100%;transition:transform .22s cubic-bezier(.3,1.5,.5,1);pointer-events:auto}
+.opin::after{content:"";position:absolute;inset:-8px -8px 0}
+.opin-b{position:absolute;inset:0;display:block}.opin-b svg{width:100%;height:100%;display:block;filter:drop-shadow(0 4px 5px rgba(0,0,0,.38))}
+.opin-i{position:absolute;left:7px;top:6px;width:24px;height:24px;border-radius:50%;background:#fff;padding:3px;display:block}.opin-i svg{width:100%;height:100%;display:block}
+.opin.on .opin-in{transform:scale(1.28)}
+.opin-l{position:absolute;left:50%;top:52px;transform:translateX(-50%);white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;font:700 12px system-ui,sans-serif;color:#1d2433;background:rgba(255,255,255,.92);padding:2px 8px;border-radius:999px;box-shadow:0 1px 5px rgba(0,0,0,.28);display:none}
+.omap.lab .opin-l{display:block}.opin.on .opin-l{display:none}
+.opin.drop .opin-in{animation:pinDrop .75s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pinDrop{0%{transform:translateY(-140px) scale(.6);opacity:0}60%{opacity:1}100%{transform:none}}
+.oclu{width:42px;height:42px;margin:-21px 0 0 -21px;border-radius:50%;border:3px solid #fff;background:var(--accent);color:var(--accent-ink);font:800 16px system-ui,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.32);padding:0;display:grid;place-items:center}
+.omap-me{width:0;height:0;pointer-events:none}.omap-me[hidden]{display:none}
+.omap-me i{position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;background:#2f7ff0;border:3px solid #fff;animation:meP 2s infinite}
+@keyframes meP{0%{box-shadow:0 0 0 0 rgba(47,127,240,.55)}100%{box-shadow:0 0 0 22px rgba(47,127,240,0)}}
+.omap-a{position:absolute;left:8px;bottom:5px;font-size:10px;color:#2a2f3a;background:rgba(255,255,255,.75);padding:1px 6px;border-radius:6px;pointer-events:none;z-index:3}
+.omap-off{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(80%,300px);text-align:center;padding:12px 16px;border-radius:16px;background:var(--card);color:var(--ink);font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.22);z-index:4;pointer-events:none}.omap-off[hidden]{display:none}
+.omb-col{position:absolute;right:10px;top:10px;display:flex;flex-direction:column;gap:8px;z-index:5}
+.omb{width:44px;height:44px;border-radius:14px;border:1px solid rgba(255,255,255,.7);background:color-mix(in srgb,var(--card) 84%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--ink);display:grid;place-items:center;padding:0;box-shadow:0 4px 12px rgba(0,0,0,.2);cursor:pointer}
+.omb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.omb.on{background:var(--accent);color:var(--accent-ink)}
+.omb.omb-s{position:absolute;left:10px;top:10px;z-index:5}.omb.omb-l{position:absolute;left:10px;top:62px;z-index:5}
+.omfab{position:absolute;right:14px;bottom:18px;z-index:5;width:58px;height:58px;border-radius:50%;border:0;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 100%,#fff 18%),var(--accent));color:var(--accent-ink);box-shadow:0 10px 24px color-mix(in srgb,var(--accent) 45%,transparent);display:grid;place-items:center;padding:0;cursor:pointer}
+.omfab svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round}
+.omapbox:has(.opcard) .omfab,.omapbox.playing .omfab,.omapbox.picking .omfab{display:none}
+.omempty{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(86%,320px);text-align:center;background:color-mix(in srgb,var(--card) 92%,transparent);padding:18px;border-radius:24px;display:flex;flex-direction:column;gap:6px;align-items:center;z-index:4;pointer-events:none;box-shadow:0 14px 34px rgba(0,0,0,.22)}
+.ome-i{width:72px;height:72px;display:block}.ome-i svg{width:100%;height:100%;display:block}.omempty b{font-size:18px}.omempty small{color:var(--mute);line-height:1.4}
+.opcard{position:absolute;left:10px;right:10px;bottom:10px;z-index:6;background:var(--card);border-radius:22px;padding:14px;box-shadow:0 18px 44px rgba(0,0,0,.3);border:1px solid var(--line);transform:translateY(130%);transition:transform .34s cubic-bezier(.3,1.2,.5,1);display:flex;flex-direction:column;gap:8px}.opcard.in{transform:none}
+.opc-h{display:flex;gap:10px;align-items:center}
+.opc-ic{width:44px;height:44px;border-radius:14px;background:color-mix(in srgb,var(--c,var(--accent)) 18%,var(--card));padding:6px;flex:none;display:block}.opc-ic svg{width:100%;height:100%;display:block}
+.opc-t{flex:1;min-width:0;display:flex;flex-direction:column}.opc-t b{font-size:17px;overflow-wrap:anywhere}.opc-t small{color:var(--mute)}
+.opc-x{flex:none;width:36px;height:36px;border-radius:50%;border:0;background:color-mix(in srgb,var(--ink) 8%,transparent);color:var(--ink);font-size:16px;cursor:pointer;padding:0}
+.opc-w{color:var(--mute)}.opc-n{margin:0;line-height:1.45}
+.opc-ph{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.opc-th{flex:none;width:64px;height:64px;border-radius:12px;overflow:hidden;border:0;padding:0;background:var(--line);cursor:pointer}.opc-th img{width:100%;height:100%;object-fit:cover;display:block}
+.opc-b{display:flex;gap:8px}.opc-b .btn{flex:1 1 0;min-width:0;padding-left:6px;padding-right:6px;white-space:nowrap}
+.oppick{position:absolute;inset:0;z-index:6;pointer-events:none}
+.opp-x{position:absolute;left:50%;top:50%;width:52px;height:52px;margin:-26px 0 0 -26px;filter:drop-shadow(0 2px 3px rgba(255,255,255,.9))}.opp-x svg{width:100%;height:100%;fill:none;stroke:#e23a4c;stroke-width:2.2;stroke-linecap:round}
+.opp-b{position:absolute;left:10px;right:10px;bottom:10px;pointer-events:auto;background:var(--card);border-radius:20px;padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
+.opp-b .btn-row{display:flex;gap:8px}
+.opsearch{position:absolute;left:10px;right:10px;top:10px;z-index:7;background:var(--card);border-radius:20px;padding:8px;box-shadow:0 14px 34px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:6px}
+.ops-h{display:flex;gap:6px;align-items:center}
+.ops-in{flex:1;min-width:0;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--bg);color:var(--ink)}
+.ops-res{max-height:250px;overflow:auto;display:flex;flex-direction:column}
+.ops-r{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:10px;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;color:var(--ink);cursor:pointer}.ops-r small{color:var(--mute)}.ops-m{margin:8px}
+.opcap{position:absolute;left:10px;right:10px;bottom:14px;z-index:6;background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-radius:20px;padding:12px 16px;display:flex;flex-direction:column;gap:2px;box-shadow:0 12px 30px rgba(0,0,0,.25);pointer-events:none}
+.opcap.pop{animation:capPop .5s cubic-bezier(.3,1.4,.5,1)}.opcap small{color:var(--mute)}.opcap b{font-size:18px}
+@keyframes capPop{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+.plsug{display:flex;align-items:center;gap:12px;padding:12px}.plsug-i{width:46px;height:46px;flex:none;display:block}.plsug-i svg{width:100%;height:100%;display:block}.plsug-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.plrow{align-items:center}
+.plpin{width:42px;height:42px;border-radius:14px;background:color-mix(in srgb,var(--c,var(--accent)) 16%,var(--card));padding:6px;flex:none;display:block}.plpin svg{width:100%;height:100%;display:block}
+.pldots{display:block;width:100%;height:auto;border-radius:16px;background:color-mix(in srgb,var(--accent) 7%,var(--card))}
+.pld-g{fill:color-mix(in srgb,var(--mute) 38%,transparent)}
+.pld-r{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:3 6;stroke-linecap:round;stroke-linejoin:round}
+.pld-pulse{opacity:.32;transform-box:fill-box;transform-origin:center;animation:pldP 2.2s ease-out infinite}
+@keyframes pldP{from{transform:scale(.6);opacity:.5}to{transform:scale(2);opacity:0}}
+.plw .plwf{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-size:14px;font-weight:600}
+@media (prefers-reduced-motion:reduce){.pld-pulse,.opin.drop .opin-in,.omap-me i,.ai-orb,.ai-orb-in,.msg,.typing-dots i{animation:none!important}}
+.opcap:empty{display:none}
 </style>
 </head>
 <body>
@@ -2861,6 +3044,7 @@ function journeyFeed(withAuto) {
   if (withAuto) {
     if (p.geburtsdatum) out.push({ key: 'a:birth', datum: p.geburtsdatum, titel: 'Geboren', text: [p.geburtszeit && p.geburtszeit + ' Uhr', p.geburtsort].filter(Boolean).join(' · '), emoji: '🍼', fotos: [], auto: true, o: 0, open: editProfile });
     (S.profile.gruesse || []).forEach(g => out.push({ key: 'a:g:' + g.id, datum: g.datum || isoToday(), titel: 'Gruß von ' + g.name, text: g.text, emoji: '💌', fotos: [], auto: true, o: 2, open: guestAll }));
+    plAll().forEach(o => o.datum && out.push({ key: 'a:o:' + o.id, datum: o.datum, titel: 'Ort: ' + o.name, text: [o.stadt, o.notiz].filter(Boolean).join(' · '), emoji: '📍', fotos: photoOf(o.fotos), auto: true, o: 1, open: () => plOpenId(o.id) }));
     S.health.meilensteine.forEach(m => m.datum && out.push({ key: 'a:ms:' + m.id, datum: m.datum, titel: m.titel, text: m.notiz || '', emoji: '⭐', fotos: [], auto: true, open: () => { healthSeg = 'entwicklung'; go('health'); } }));
     if (!famMode() && S.health.hoer && S.health.hoer.datum) out.push({ key: 'a:hoer', datum: S.health.hoer.datum, titel: 'Neugeborenen-Hörscreening', text: S.health.hoer.ort || '', emoji: '👂', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } });
     (famMode() ? [] : Object.entries(S.health.u)).forEach(([code, u]) => u && u.datum && out.push({ key: 'a:u:' + code, datum: u.datum, titel: code + ' Vorsorgeuntersuchung', text: u.arzt || '', emoji: '🩺', fotos: [], auto: true, open: () => { healthSeg = 'uheft'; go('health'); } }));
@@ -4727,6 +4911,7 @@ function viewMore() {
     li(() => go('tracker'), '', h('span', { class: 'hubico emo' }, '🌙'), liTxt('Schlaf & Alltag', (() => { const p = trPredict(); return p.sleeping ? 'Schläft seit ' + trHM(p.sleeping.t) : p.at ? p.label + ' ca. ' + trHM(trIso(new Date(p.at))) : 'Nickerchen, Mahlzeiten, Windeln, Klänge'; })()), chev()),
     hubRow(ICON.diary, 'Tagesnotizen', 'Stimmung, Essen, Schlaf, Temperatur', 'diary'),
     hubRow(ICON.journey, 'Journey', 'Meilensteine als Timeline, mit Fotos', 'journey'),
+    hubRow(ICON.orte, 'Hier war ich schon', plAll().length ? plural(plAll().length, 'Ort', 'Orte') + ' auf der Karte' : 'Orte auf der Karte markieren', 'places'),
     hubRow(ICON.tree, 'Stammbuch', 'Familie und Verwandtschaftsgrad', 'family'),
     hubRow(ICON.cal, 'Wochen-Begleiter', 'Eine Info zu jeder Lebenswoche', 'weeks'),
     hubRow(ICON.trophy, 'Abzeichen', 'Level, Quiz und Auszeichnungen', 'badges'),
@@ -4800,7 +4985,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 34'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 35'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5647,6 +5832,7 @@ function searchItems() {
   (p.familie || []).forEach(m => add('Stammbuch', ICON.tree, m.name, [m.rolle, m.ort].filter(Boolean).join(' · '), flatTxt(m), () => editMember(m)));
   sc.termine.forEach(t => add('Termine', ICON.cal, t.titel, [t.datum && fmtD(t.datum), t.ort].filter(Boolean).join(' · '), flatTxt(t), () => editTermin(t)));
   (p.journey || []).forEach(m => add('Journey', ICON.journey, m.titel, m.datum ? fmtD(m.datum) : '', flatTxt(m), () => openMoment(m)));
+  (p.orte || []).forEach(o => add('Orte', ICON.orte, o.name, [o.stadt, o.datum && fmtD(o.datum)].filter(Boolean).join(' · '), flatTxt(o), () => plOpenId(o.id)));
   notesAll().forEach(n => add('Tagesnotizen', ICON.diary, noteTitle(n), [n.datum && fmtD(n.datum), n.kategorie].filter(Boolean).join(' · '), flatTxt(n), () => editNote(n)));
   hl.meilensteine.forEach(m => add('Meilensteine', ICON.star, m.titel, m.datum ? fmtD(m.datum) : '', flatTxt(m), () => { healthSeg = 'entwicklung'; go('health'); }));
   hl.impfungen.forEach(v => add('Impfungen', ICON.health, v.name, v.datum ? fmtD(v.datum) : '', flatTxt(v), () => { healthSeg = 'gesundheit'; go('health'); }));
@@ -5692,7 +5878,7 @@ function localAnswer(question) {
   const q = nrm(question), p = S.profile, hl = S.health, sc = S.school, nm = childName(), act = [];
   const A = (label, fn) => act.push([label, fn]);
   const has = (...w) => w.filter(k => q.includes(k)).length;
-  let matched = true; const R = (text) => ({ text, actions: act, matched });
+  let matched = true, topicId = null; const R = (text) => ({ text, actions: act, matched, topic: topicId });
   const fam = p.familie || [];
   // Namen aus Familie oder Kontakten
   const nameHit = (arr) => arr.find(x => (x.name || '').trim() && nrm(x.name).split(/\s+/).some(t => t.length >= 3 && new RegExp('\\b' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b').test(q)));
@@ -5722,7 +5908,7 @@ function localAnswer(question) {
     ['familie', has('familie', 'verwandt', 'oma', 'opa', 'mama', 'papa', 'mutter', 'vater', 'tante', 'onkel', 'cousin', 'grad', 'stammbuch', 'geschwister', 'grosseltern', 'bruder', 'schwester')],
     ['kontakt', has('telefon', 'nummer', 'anrufen', 'kontakt', 'erreichen', 'notfall')],
     ['adresse', has('adresse', 'wohnt', 'route', 'wo ist', 'weg zu', 'anfahrt', 'navigier')],
-    ['geld', has('invest', 'geld', 'spar', 'anlage', 'vermoegen', 'etf', 'sparplan', 'rendite', 'mit 18', 'bargeld', 'spardose', 'depot', 'trade republic', 'republic', 'konto', 'kontostand', 'iban', 'taschengeld', 'geschenk')],
+    ['geld', has('hochrechnung', 'invest', 'geld', 'spar', 'anlage', 'vermoegen', 'etf', 'sparplan', 'rendite', 'mit 18', 'bargeld', 'spardose', 'depot', 'trade republic', 'republic', 'konto', 'kontostand', 'iban', 'taschengeld', 'geschenk')],
     ['dokumente', has('dokument', 'pass ', 'ausweis', 'urkunde', 'versicherung', 'reisepass')],
     ['spirit', has('sternzeichen', 'human design', 'tierzeichen', 'horoskop', 'mondphase', 'sternbild', 'typ ')],
     ['woche', has('lebenswoche', 'wochen-begleiter', 'was ist normal', 'typisch', 'entwicklungsschritt', 'diese woche')],
@@ -5730,13 +5916,14 @@ function localAnswer(question) {
     ['kita', has('kita', 'schule', 'abhol', 'betreuung', 'allergie')],
     ['musik', has('lied', 'musik', 'spotify', 'playlist', 'song')],
     ['rueckblick', has('rueckblick', 'jahresrueckblick', 'monatsrueckblick', 'pdf', 'datenblatt')],
+    ['orte', has('hier war', 'welche orte', 'meine orte', 'unsere orte', 'besucht', 'urlaub', 'ausflug', 'unterwegs', 'staedte', 'laender', 'weitesten', 'entfernt', 'auf der karte', 'wo war')],
     ['summe', has('zusammenfassung', 'ueberblick', 'status', 'neuigkeit', 'was gibt es neues', 'alles wichtige')]
   ].filter(x => x[1] > 0).sort((a, b) => b[1] - a[1]);
-  const top = intents[0] && intents[0][0];
+  const top = intents[0] && intents[0][0]; topicId = top || null;
   const upcoming = () => S.school.termine.map(t => ({ t, d: nextOcc(t) })).filter(x => x.d && daysTo(x.d) >= 0).sort((a, b) => (a.d + (a.t.zeit || '')).localeCompare(b.d + (b.t.zeit || '')));
   const wl = () => hl.wachstum.filter(e => e.datum).slice().sort((a, b) => a.datum.localeCompare(b.datum));
   switch (top) {
-    case 'hilfe': return R('Ich beantworte Fragen zu den Daten in dieser App, ganz ohne Internet und kostenlos. Zum Beispiel:\n' + bullets(['Wie alt ist ' + nm + '?', 'Was steht als Nächstes an?', 'Wie groß und schwer ist ' + nm + '?', 'Welche Impfungen und Vorsorgen sind fällig?', 'Wer ist Oma Anna und wie ist sie verwandt?', 'Wie war die Temperatur zuletzt?', 'Was habe ich in der Journey festgehalten?', 'Wie viel ist angelegt?']) + '\n\nFür freie Fragen über die App hinaus gibt es in den Einstellungen den Modus „Auf dem Gerät“ (kostenlos, einmaliger Download) oder Claude mit eigenem Schlüssel.');
+    case 'hilfe': { A('Ideen ansehen', () => { if (chatIdeasOpen) chatIdeasOpen(); }); return R('Ich beantworte Fragen zu den Daten in dieser App, ganz ohne Internet und kostenlos. Das sind meine Themen:\n' + bullets(AI_TOPICS.map(t => `**${t.t}**: ${aiQ(t.qs[0])}`)) + '\n\nTippe auf „Ideen ansehen“ für alle Fragen.'); }
     case 'alter': {
       const g = p.geburtsdatum; if (!g) { A('Profil bearbeiten', editProfile); return R('Das Geburtsdatum fehlt noch.'); }
       const b = birthDateTime(), a = b && exactAge(b, new Date()), nb = nextBirthday();
@@ -5831,6 +6018,15 @@ function localAnswer(question) {
     case 'woche': {
       const g = p.geburtsdatum; if (!g) return R('Das Geburtsdatum fehlt noch.'); const wn = curWeek(g), wi = weekInfo(wn); A('Wochen-Begleiter öffnen', () => { weekSel = null; go('weeks'); });
       return R(`**Lebenswoche ${wn}: ${wi.title}**\n${wi.text}`);
+    }
+    case 'orte': {
+      const l = plAll(); A('Karte öffnen', () => go('places'));
+      if (!l.length) return R('Es sind noch keine Orte markiert. Öffne die Karte „Hier war ich schon“ und tippe auf „+ Ort“.');
+      const st = plStats(), s = l.slice().sort(plByDate).reverse(), last = s[0];
+      let t = `${nm} war schon an **${plural(st.n, 'Ort', 'Orten')}**` + (st.cities ? ` in ${plural(st.cities, 'Stadt', 'Städten')}` : '') + (st.lands > 1 ? ` und ${plural(st.lands, 'Land', 'Ländern')}` : '') + '.';
+      if (has('zuletzt', 'wo war')) t = `Zuletzt: **${last.name}**${last.datum ? ' (' + fmtD(last.datum) + ')' : ''}${last.stadt ? ', ' + last.stadt : ''}.\n\n` + t;
+      if (st.far && has('weit', 'entfernt')) t += `\nAm weitesten vom Zuhause entfernt: **${st.far.x.name}** (${plKmTxt(st.far.d)}).`;
+      return R(t + '\n' + bullets(s.slice(0, 6).map(x => `**${x.name}**${x.datum ? ', ' + fmtD(x.datum) : ''}${x.stadt ? ', ' + x.stadt : ''}`)));
     }
     case 'badges': { const a = evalBadges(), st = badgeStats(a); A('Abzeichen öffnen', () => go('badges')); return R(`Level **${st.lvl}**: ${st.got.length} von ${a.length} Abzeichen erreicht (${st.pct} %).`); }
     case 'kita': {
@@ -5964,6 +6160,25 @@ function aiSettings() {
     } });
 }
 const AI_SUGGEST = ['Was steht bei uns als Nächstes an?', 'Wie groß und schwer ist sie zuletzt?', 'Welche Vorsorgen und Impfungen sind fällig?', 'Wie war die Temperatur zuletzt?', 'Gib mir einen Überblick.'];
+/* v35: Themen mit fertigen Fragen. Jede Frage wird im Test gegen den lokalen Assistenten geprüft. */
+const AI_TOPICS = [
+  { id: 'heute', t: 'Überblick', ic: 'sun', qs: ['Gib mir einen Überblick.', 'Was steht bei uns als Nächstes an?', 'Welche Termine gibt es diese Woche?', 'Was gibt es Neues?', 'Was kannst du alles beantworten?'] },
+  { id: 'alter', t: 'Alter & Woche', ic: 'cake', qs: ['Wie alt ist {n}?', 'In welcher Lebenswoche sind wir?', 'Wann ist der nächste Geburtstag?', 'Wie viele Tage alt ist {n}?', 'Was ist in dieser Lebenswoche typisch?'] },
+  { id: 'wachstum', t: 'Wachstum', ic: 'ruler', qs: ['Wie groß und schwer ist {n} zuletzt?', 'Wie viel ist {n} gewachsen?', 'Wie groß ist der Kopfumfang?', 'Was sagen die Perzentile?', 'Wie viel wiegt {n}?'] },
+  { id: 'gesundheit', t: 'Vorsorge & Medizin', ic: 'steth', qs: ['Welche Vorsorgen sind fällig?', 'Welche Impfungen stehen an?', 'Welche U-Untersuchungen sind erledigt?', 'Welche Medikamente nehmen wir?', 'Was tun bei Fieber?'] },
+  { id: 'alltag', t: 'Notizen & Alltag', ic: 'moon', qs: ['Wie war die Temperatur zuletzt?', 'Was steht in den letzten Tagesnotizen?', 'Wie war die Stimmung zuletzt?', 'Wie war der Schlaf zuletzt?', 'Was gab es heute?'] },
+  { id: 'familie', t: 'Familie', ic: 'family', qs: ['Wer gehört zur Familie?', 'Wer sind die Großeltern?', 'Wer ist Mama?', 'Wer ist Papa?', 'Wie ist die Verwandtschaft im Stammbuch?'] },
+  { id: 'kontakt', t: 'Kontakte & Adressen', ic: 'phone', qs: ['Welche Kontakte gibt es?', 'Welche Adressen sind gespeichert?', 'Wie ist die Notfallnummer?', 'Wo wohnt die Familie?'] },
+  { id: 'orte', t: 'Hier war ich schon', ic: 'pinmap', qs: ['Welche Orte hat {n} schon besucht?', 'Wo war {n} zuletzt?', 'Wie weit ist der weiteste Ort entfernt?', 'In wie vielen Städten und Ländern war {n} schon?'] },
+  { id: 'geld', t: 'Geld & Sparen', ic: 'moneybag', qs: ['Wie viel Geld ist angespart?', 'Wie hoch ist die Hochrechnung bis 18?', 'Welche Sparpläne laufen?', 'Was liegt im Depot?', 'Wie viel Bargeld ist in der Spardose?'] },
+  { id: 'docs', t: 'Dokumente & Kita', ic: 'idcard', qs: ['Welche Dokumente sind abgelegt?', 'Welche Dokumente laufen bald ab?', 'Wer darf {n} abholen?', 'Gibt es Allergien?', 'Wie heißt die Kita oder Schule?'] },
+  { id: 'spirit', t: 'Sterne & Zeichen', ic: 'galaxy', qs: ['Welches Sternzeichen hat {n}?', 'Welches Tierzeichen hat {n}?', 'Welcher Human-Design-Typ ist {n}?', 'Welche Mondphase war bei der Geburt?'] },
+  { id: 'erleben', t: 'Erinnern & Erleben', ic: 'camera', qs: ['Was sind die letzten Journey-Momente?', 'Welche Meilensteine gibt es?', 'Welche Abzeichen hat {n}?', 'Welche Lieder mag {n}?', 'Kann ich einen Rückblick als PDF machen?'] }
+];
+const AI_POPULAR = ['Gib mir einen Überblick.', 'Was steht bei uns als Nächstes an?', 'Wie groß und schwer ist {n} zuletzt?', 'Welche Vorsorgen sind fällig?', 'Wer gehört zur Familie?', 'Welche Orte hat {n} schon besucht?'];
+const AI_TOPIC_OF = { hilfe: 'heute', summe: 'heute', termine: 'heute', alter: 'alter', woche: 'alter', wachstum: 'wachstum', fristen: 'gesundheit', meds: 'gesundheit', notizen: 'alltag', familie: 'familie', kontakt: 'kontakt', adresse: 'kontakt', orte: 'orte', geld: 'geld', dokumente: 'docs', kita: 'docs', spirit: 'spirit', journey: 'erleben', badges: 'erleben', musik: 'erleben', rueckblick: 'erleben' };
+const aiQ = q => q.replace(/\{n\}/g, childName());
+const aiAllQs = () => AI_TOPICS.flatMap(t => t.qs.map(aiQ));
 function mdNodes(text) {
   const frag = [], inl = s => { const out = []; s.split(/(\*\*[^*]+\*\*)/).forEach(t => { if (/^\*\*[^*]+\*\*$/.test(t)) out.push(h('strong', null, t.slice(2, -2))); else if (t) out.push(t); }); return out; };
   let list = null;
@@ -5974,39 +6189,81 @@ function mdNodes(text) {
   });
   return frag;
 }
+var chatIdeasOpen = null;
+function chatIdeas(ask, startId) {
+  document.querySelectorAll('.ideas-back').forEach(x => x.remove());
+  const back = h('div', { class: 'back ideas-back' }), close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); };
+  let cur = startId || AI_TOPICS[0].id; const chips = h('div', { class: 'chips ideas-tabs' }), body = h('div', { class: 'ideas-list' });
+  const draw = () => {
+    chips.replaceChildren(...AI_TOPICS.map(t => h('button', { class: 'fchip' + (t.id === cur ? ' on' : ''), type: 'button', 'data-topic': t.id, onclick: () => { cur = t.id; draw(); } }, h('span', { class: 'fc-ic', html: IC.svg(t.ic) }), t.t)));
+    const t = AI_TOPICS.find(x => x.id === cur);
+    body.replaceChildren(...t.qs.map(q => h('button', { class: 'ideas-q', type: 'button', onclick: () => { close(); ask(aiQ(q)); } }, h('span', null, aiQ(q)), h('i', { 'aria-hidden': 'true' }, '›'))));
+    const on = chips.querySelector('.on'); if (on && on.scrollIntoView) { try { on.scrollIntoView({ inline: 'center', block: 'nearest' }); } catch (e) {} }
+  };
+  back.append(h('div', { class: 'sheet ideas' }, h('div', { class: 'sheet-head' }, h('button', { class: 'nav-btn', type: 'button', onclick: close }, 'Schließen'), h('b', null, 'Das kannst du mich fragen'), h('span', { class: 'nav-spacer' })), chips, h('div', { class: 'sheet-body' }, body)));
+  back.addEventListener('click', e => { if (e.target === back) close(); });
+  document.body.append(back); draw(); requestAnimationFrame(() => back.classList.add('in'));
+}
+const aiOrb = (cls) => h('div', { class: 'ai-orb ' + (cls || ''), 'aria-hidden': 'true' }, h('span', { class: 'ai-orb-in', html: IC.svg('sparkle') }));
 function viewChat() {
   const wrap = h('div', { class: 'stack chat' }), cfg = aiCfg();
   wrap.append(h('div', { class: 'chat-head' }, backBtn('Übersicht', () => go('home')),
     pageHead('Assistent', h('button', { class: 'pill ghost', type: 'button', onclick: aiSettings }, 'Einstellungen')),
     h('div', { class: 'chips' }, h('span', { class: 'chip modechip' }, cfg.mode === 'lokal' ? 'Lokal · kostenlos' : 'Auf dem Gerät · kostenlos'))));
   let msgs = chatLoad();
-  const list = h('div', { class: 'chat-list' }), sug = h('div', { class: 'chips' }), inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
+  const hero = h('div', { class: 'ai-hero' }), list = h('div', { class: 'chat-list' }), follow = h('div', { class: 'chips ai-follow' });
+  const inp = h('textarea', { rows: 1, placeholder: 'Frage stellen …', 'aria-label': 'Frage', class: 'chat-text' });
   const send = h('button', { class: 'chat-send', type: 'button', 'aria-label': 'Senden', html: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6.5 11.5L12 6l5.5 5.5"/></svg>' }), stop = h('button', { class: 'chat-send stop', type: 'button', 'aria-label': 'Stopp', hidden: true }, '■');
-  const bubble = m => h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : 'ai') + (m.err ? ' err' : '') },
-    m.role === 'user' ? m.text : (m.progress != null ? h('span', null, 'Modell wird geladen … ' + Math.round(m.progress * 100) + ' %', h('span', { class: 'pbar' }, h('i', { style: 'width:' + Math.round(m.progress * 100) + '%' }))) : (m.text ? mdNodes(m.text) : h('span', { class: 'typing' }, '…'))),
-    m.actions && m.actions.length ? h('div', { class: 'macts' }, m.actions.map(([l, f]) => h('button', { class: 'fchip', type: 'button', onclick: f }, l))) : null);
+  const ideasBtn = h('button', { class: 'chat-ideas', type: 'button', 'aria-label': 'Ideen: Was kann ich fragen?', html: IC.svg('sparkle'), onclick: () => chatIdeas(ask) });
+  chatIdeasOpen = (id) => chatIdeas(ask, id);
+  // Startseite
+  const names = childName();
+  hero.append(aiOrb('big'), h('h2', { class: 'ai-h' }, 'Hallo! Was möchtest du über ' + names + ' wissen?'),
+    h('p', { class: 'mute ai-p' }, 'Ich kenne alles, was in der App steht: Termine, Wachstum, Vorsorge, Familie, Orte und mehr. Tippe auf eine Frage oder schreib einfach los.'),
+    h('div', { class: 'ai-pop', role: 'list' }, AI_POPULAR.map(q => h('button', { class: 'ai-popq', type: 'button', role: 'listitem', onclick: () => ask(aiQ(q)) }, aiQ(q)))),
+    h('div', { class: 'ai-secrow' }, h('b', null, 'Themen'), h('button', { class: 'linkbtn ai-dice', type: 'button', onclick: () => { const all = aiAllQs(); ask(all[Math.floor(Math.random() * all.length)]); } }, '🎲 Überrasch mich')),
+    h('div', { class: 'ai-topics' }, AI_TOPICS.map((t, i) => h('button', { class: 'ai-topic t' + (i % 6), type: 'button', 'data-topic': t.id, onclick: () => chatIdeas(ask, t.id) }, h('span', { class: 'ai-ti', html: IC.svg(t.ic) }), h('b', null, t.t), h('small', null, t.qs.length + ' Fragen')))));
+  const bubble = m => {
+    const bub = h('div', { class: 'msg ' + (m.role === 'user' ? 'me' : m.typing ? 'typ' : 'ai') + (m.err ? ' err' : '') },
+      m.role === 'user' ? m.text : (m.typing ? h('span', { class: 'typing-dots', 'aria-label': 'Schreibt …' }, h('i'), h('i'), h('i')) : (m.progress != null ? h('span', null, 'Modell wird geladen … ' + Math.round(m.progress * 100) + ' %', h('span', { class: 'pbar' }, h('i', { style: 'width:' + Math.round(m.progress * 100) + '%' }))) : mdNodes(m.text))),
+      m.actions && m.actions.length ? h('div', { class: 'macts' }, m.actions.map(([l, f]) => h('button', { class: 'fchip', type: 'button', onclick: f }, l))) : null);
+    return m.role === 'user' ? bub : h('div', { class: 'mrow ai' }, h('span', { class: 'mav', html: IC.svg('sparkle') }), bub);
+  };
   const scroll = () => { const v = $('#view'), last = list.lastElementChild; if (last && last.classList.contains('ai') && last.offsetHeight > v.clientHeight * 0.5) last.scrollIntoView({ block: 'start' }); else v.scrollTop = v.scrollHeight; };
-  const draw = () => { list.replaceChildren(...msgs.map(bubble)); sug.style.display = msgs.length ? 'none' : ''; };
-  AI_SUGGEST.forEach(q => sug.append(h('button', { class: 'fchip', type: 'button', onclick: () => ask(q) }, q)));
+  const followUps = (topic, q) => {
+    const t = AI_TOPICS.find(x => x.id === (AI_TOPIC_OF[topic] || '')) || null, pool = (t ? t.qs.map(aiQ) : aiAllQs()).filter(x => x !== q), out = [];
+    const seed = (q || '').length + msgs.length; for (let i = 0; i < pool.length && out.length < 3; i++) out.push(pool[(seed + i) % pool.length]);
+    if (out.length < 3) aiAllQs().filter(x => x !== q && !out.includes(x)).slice(seed % 5).forEach(x => { if (out.length < 3) out.push(x); });
+    return [...new Set(out)];
+  };
+  const draw = () => {
+    list.replaceChildren(...msgs.map(bubble)); hero.style.display = msgs.length ? 'none' : '';
+    const last = msgs[msgs.length - 1]; follow.replaceChildren();
+    if (last && last.role === 'assistant' && !last.typing && !last.err && last.text && !chatBusy) { const prevQ = (msgs[msgs.length - 2] || {}).text || ''; followUps(last.topic, prevQ).forEach(q => follow.append(h('button', { class: 'fchip fup', type: 'button', onclick: () => ask(q) }, q))); }
+    follow.style.display = follow.childElementCount ? '' : 'none';
+  };
   async function ask(q) {
     q = (q || '').trim(); if (!q || chatBusy) return;
     inp.value = ''; inp.style.height = '';
     const mode = aiCfg().mode;
-    msgs.push({ role: 'user', text: q }); const a = { role: 'assistant', text: '' }; msgs.push(a);
+    msgs.push({ role: 'user', text: q }); const a = { role: 'assistant', text: '', typing: true }; msgs.push(a);
     const redraw = () => { const nb = bubble(a); if (list.lastChild) list.lastChild.replaceWith(nb); };
     draw(); scroll();
     const local = localAnswer(q);
-    if (mode === 'lokal' || (mode === 'geraet' && local.matched)) { a.text = local.text; a.actions = local.actions; a.local = true; msgs[msgs.length - 2].local = true; chatSave(msgs.filter(m => m.text)); draw(); scroll(); return; }
+    if (mode === 'lokal' || (mode === 'geraet' && local.matched)) {
+      chatBusy = { abort() {} }; await new Promise(r => setTimeout(r, 380 + Math.min(500, local.text.length * 1.5)));
+      chatBusy = null; a.typing = false; a.text = local.text; a.actions = local.actions; a.local = true; a.topic = local.topic; msgs[msgs.length - 2].local = true; chatSave(msgs.filter(m => m.text)); draw(); scroll(); return;
+    }
     const ctl = new AbortController(); chatBusy = ctl; send.hidden = true; stop.hidden = false; stop.onclick = () => ctl.abort();
     const hist = msgs.slice(0, -1).filter(m => !m.err && !m.local && m.text);
     try {
-      const onDelta = t => { a.progress = null; a.text += t; redraw(); scroll(); };
-      await deviceAsk(hist, onDelta, ctl.signal, pr => { a.progress = pr; redraw(); });
-      a.progress = null; if (!a.text) a.text = '(Keine Antwort erhalten.)';
+      const onDelta = t => { a.typing = false; a.progress = null; a.text += t; redraw(); scroll(); };
+      await deviceAsk(hist, onDelta, ctl.signal, pr => { a.typing = false; a.progress = pr; redraw(); });
+      a.typing = false; a.progress = null; if (!a.text) a.text = '(Keine Antwort erhalten.)';
     } catch (e) {
-      a.progress = null;
+      a.typing = false; a.progress = null;
       if (e.name === 'AbortError') { if (!a.text) msgs.pop(); }
-      else { a.err = true; a.text = (a.text ? a.text + '\n\n' : '') + (e.message === 'Failed to fetch' ? 'Keine Verbindung. Bitte Internet prüfen.' : e.message); if (mode === 'geraet') { a.text += '\n\nIch antworte stattdessen mit dem lokalen Assistenten:'; a.actions = local.actions; msgs.push({ role: 'assistant', text: local.text, actions: local.actions, local: true }); } }
+      else { a.err = true; a.text = (a.text ? a.text + '\n\n' : '') + (e.message === 'Failed to fetch' ? 'Keine Verbindung. Bitte Internet prüfen.' : e.message); if (mode === 'geraet') { a.text += '\n\nIch antworte stattdessen mit dem lokalen Assistenten:\n\n' + local.text; a.actions = local.actions; a.err = false; a.local = true; a.topic = local.topic; } }
     }
     chatBusy = null; send.hidden = false; stop.hidden = true; chatSave(msgs.filter(m => m.text)); draw(); scroll();
   }
@@ -6014,18 +6271,17 @@ function viewChat() {
   inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); ask(inp.value); } });
   inp.addEventListener('focus', () => { setTimeout(scroll, 380); });
   inp.addEventListener('input', () => { inp.style.height = 'auto'; inp.style.height = Math.min(inp.scrollHeight, 130) + 'px'; });
+  msgs.forEach(m => { if (m.typing) m.typing = false; });
   draw();
-  wrap.append(list, sug, h('div', { class: 'chat-in' }, inp, send, stop));
+  wrap.append(hero, list, follow, h('div', { class: 'chat-in' }, ideasBtn, inp, send, stop));
   if (msgs.length) wrap.append(h('button', { class: 'linkbtn', onclick: () => { if (confirm('Den Chatverlauf löschen?')) { ls.del(chatKey()); render(); } } }, 'Verlauf löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, cfg.mode === 'lokal' ? 'Der lokale Assistent liest nur die Daten dieser App. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.' : 'KI-Antworten können Fehler enthalten. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
+  wrap.append(h('p', { class: 'mute', style: 'font-size:12px;text-align:center' }, cfg.mode === 'lokal' ? 'Der lokale Assistent liest nur die Daten dieser App. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.' : 'KI-Antworten können falsch sein. Bei Gesundheitsfragen bitte ärztlichen Rat einholen.'));
   if (chatPrefill) { const q = chatPrefill; chatPrefill = null; setTimeout(() => ask(q), 120); }
-  setTimeout(scroll, 60);
+  if (msgs.length) setTimeout(scroll, 60);
   return wrap;
 }
 function wChat() {
-  const cfg = aiCfg();
-  return h('div', { class: 'card stack' }, h('div', { class: 'sec-head' }, h('h2', null, 'Assistent'), ghostBtn('Chat öffnen', () => go('chat'))),
-    h('p', { class: 'mute' }, 'Frag zu Luises Daten, kostenlos und offline:'),
+  return h('div', { class: 'card stack aiw' }, h('div', { class: 'aiw-h' }, aiOrb('sm'), h('div', { class: 'aiw-t' }, h('b', null, 'Assistent'), h('small', { class: 'mute' }, 'Frag zu ' + childName() + 's Daten, kostenlos und offline')), ghostBtn('Chat öffnen', () => go('chat'))),
     h('div', { class: 'chips' }, AI_SUGGEST.slice(0, 3).map(q => h('button', { class: 'fchip', type: 'button', onclick: () => { chatPrefill = q; go('chat'); } }, q))));
 }
 
@@ -7252,7 +7508,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 34;
+const APP_VERSION = 35;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -8122,8 +8378,9 @@ async function openPhotoViewer(list, start, vopts) {
   const bar = h('div', { class: 'pv-bar' }, info, strip, h('div', { class: 'pv-acts' }, famMode() ? [infoBtn, showBtn] : [heartBtn, shareBtn, infoBtn, showBtn, moreBtn]));
   const top = h('div', { class: 'pv-top' }, cnt);
   const step = d => { const n = i + d; if (n < 0 || n >= list.length) { if (timer && list.length > 1) { i = d > 0 ? 0 : list.length - 1; load(); } return; } i = n; load(); };
-  const stopShow = () => { if (timer) { clearInterval(timer); timer = null; } api.el.classList.remove('show', 'ui-off'); showBtn.classList.remove('on'); };
-  const startShow = () => { stopShow(); if (list.length < 2) { toast('Für die Diashow braucht es mindestens 2 Fotos'); return; } api.el.classList.add('show', 'ui-off'); showBtn.classList.add('on'); timer = setInterval(() => step(1), 3600); };
+  let ssCtl = null;
+  const stopShow = () => { const was = !!ssCtl; if (ssCtl) { ssCtl.stop(); ssCtl = null; } timer = null; api.el.classList.remove('show', 'ui-off'); showBtn.classList.remove('on'); if (was && alive) load(); };
+  const startShow = () => { stopShow(); if (list.length < 2) { toast('Für die Diashow braucht es mindestens 2 Fotos'); return; } api.el.classList.add('show', 'ui-off'); showBtn.classList.add('on'); timer = true; ssCtl = ssvStart({ host: api.el, list, start: i, onIndex: k => { i = k; cnt.textContent = `${i + 1} / ${list.length}`; paintHeart(); paintInfo(); strip.querySelectorAll('.pv-th').forEach((b, q) => b.classList.toggle('on', q === i)); } }); };
   const api = openLightbox(BLANK, '', { bar, hint: '', extra: [top, pop, h('button', { class: 'lb-nav l', 'aria-label': 'Zurück', onclick: () => { stopShow(); step(-1); } }, '‹'), h('button', { class: 'lb-nav r', 'aria-label': 'Weiter', onclick: () => { stopShow(); step(1); } }, '›')],
     onSwipe: d => { stopShow(); step(d); }, onSwipeDown: () => api.close(), onTap: () => { if (timer) stopShow(); else api.el.classList.toggle('ui-off'); },
     onClose: () => { alive = false; stopShow(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
@@ -9313,7 +9570,7 @@ const famSave = () => ls.set('luise_fam_sel', JSON.stringify([...famSet()]));
 function famFilter(data, keep) {
   const k = (data.children && data.children[0]) || {}, P = k.profile || (k.profile = {}), H = k.health || (k.health = {}), Sc = k.school || (k.school = {});
   const del = (o, ...ks) => ks.forEach(x => { delete o[x]; });
-  if (!keep.has('journey')) del(P, 'journey'); else if (!keep.has('fotos')) (P.journey || []).forEach(m => { m.fotos = []; });
+  if (!keep.has('journey')) del(P, 'journey', 'orte'); else if (!keep.has('fotos')) { (P.journey || []).forEach(m => { m.fotos = []; }); (P.orte || []).forEach(m => { m.fotos = []; }); }
   if (!keep.has('fotos')) data.photos = [];
   if (!keep.has('woche')) del(H, 'leaps');
   if (!keep.has('schlaf')) del(H, 'track');
@@ -9985,12 +10242,24 @@ function bpFooters(pages, W, H, text) {
   });
 }
 function bpMaker(W, H, M, top, bottom) {
-  const st = { pages: [], cv: null, cx: null, y: 0 };
+  const st = { pages: [], cv: null, cx: null, y: 0, count: 0 };
   st.newPage = () => { const p = bpPage(W, H, st.pages.length); st.cv = p.cv; st.cx = p.cx; st.pages.push(p.cv); st.y = top; };
   st.need = hh => { if (st.y + hh > H - bottom) st.newPage(); };
   st.wrap = (t, maxW) => { const out = [], cx = st.cx; String(t).split('\n').forEach(par => { let line = ''; par.split(/\s+/).forEach(w => { const test = line ? line + ' ' + w : w; if (cx.measureText(test).width > maxW && line) { out.push(line); line = w; } else line = test; }); out.push(line); }); return out; };
-  st.section = t => {
-    st.need(160); const cx = st.cx; st.y += 34; const label = t.toUpperCase(); cx.font = `600 23px ${BPF.body}`;
+  /* Umbruch für gesperrten Text (Buchstabenabstand) mit Wortbruch und Auslassung */
+  st.wrapSp = (t, maxW, sp, maxL) => {
+    const cx = st.cx, out = [], fits = s => bpSpacedW(cx, s, sp) <= maxW; let line = '';
+    String(t).split(/\s+/).filter(Boolean).forEach(w => {
+      if (!fits(w)) { if (line) { out.push(line); line = ''; } let part = ''; for (const ch of w) { if (fits(part + ch)) part += ch; else { if (part) out.push(part); part = ch; } } line = part; return; }
+      const test = line ? line + ' ' + w : w; if (fits(test)) line = test; else { out.push(line); line = w; }
+    });
+    if (line) out.push(line);
+    if (out.length > maxL) { const keep = out.slice(0, maxL); let last = keep[maxL - 1]; while (last.length > 1 && !fits(last + '…')) last = last.slice(0, -1); keep[maxL - 1] = last.trim() + '…'; return keep; }
+    return out;
+  };
+  /* Überschrift nur, wenn danach noch mindestens eine Zeile auf die Seite passt */
+  st.section = (t, firstH) => {
+    st.need(34 + 56 + 26 + (firstH || 110)); const cx = st.cx; st.y += 34; const label = t.toUpperCase(); cx.font = `600 23px ${BPF.body}`;
     const tw = bpSpacedW(cx, label, 4), pw = tw + 100, y = st.y;
     cx.fillStyle = BPC.sageD; bpRR(cx, M, y, pw, 56, 28); cx.fill(); bpLeaf(cx, M + 22, y + 36, -.9, 26, 9, BPC.sageL); bpLeaf(cx, M + 22, y + 36, -2.1, 22, 8, BPC.sage);
     cx.fillStyle = BPC.card; bpSpaced(cx, label, M + 58, y + 36, 4);
@@ -9998,18 +10267,24 @@ function bpMaker(W, H, M, top, bottom) {
     cx.fillStyle = BPC.terra; cx.beginPath(); cx.arc(W - M, y + 28, 6, 0, Math.PI * 2); cx.fill();
     st.y += 56 + 26;
   };
+  /* Zeile mit Bezeichnung links und Wert rechts. Die Seite wird erst gewählt, wenn die Höhe feststeht. */
   st.row = (k, v) => {
-    if (!v) return; const cx = st.cx; cx.font = `500 29px ${BPF.body}`; const lines = st.wrap(v, W - 2 * M - 390); st.need(lines.length * 40 + 30);
-    const y = st.y; cx.fillStyle = BPC.terra; cx.font = `600 20px ${BPF.body}`; const kl = st.wrap(k, 340); kl.slice(0, 2).forEach((l, i) => bpSpaced(cx, l.toUpperCase(), M, y + 30 + i * 26, 2.4));
-    cx.fillStyle = BPC.ink; cx.font = `500 29px ${BPF.body}`; lines.forEach((l, i) => cx.fillText(l, M + 390, y + 30 + i * 40));
-    const hh = Math.max(lines.length * 40, kl.slice(0, 2).length * 26 + 8) + 16; cx.fillStyle = BPC.sandD; for (let x = M; x < W - M; x += 12) cx.fillRect(x, y + hh + 6, 3, 3);
-    st.y += hh + 20;
+    if (!v) return; const vw = W - 2 * M - 390, KX = 330;
+    const calc = () => { const cx = st.cx; cx.font = `500 29px ${BPF.body}`; const lines = st.wrap(String(v), vw); cx.font = `600 20px ${BPF.body}`; const kl = st.wrapSp(String(k).toUpperCase(), KX, 2.4, 3); return { lines, kl, hh: Math.max(lines.length * 40, kl.length * 26 + 8) + 16 }; };
+    let m = calc();
+    if (m.hh > H - bottom - top - 120) { st.para(k, String(v)); return; }
+    if (st.y + m.hh + 20 > H - bottom) { st.newPage(); m = calc(); }
+    const cx = st.cx, y = st.y; cx.textAlign = 'left'; cx.fillStyle = BPC.terra; cx.font = `600 20px ${BPF.body}`;
+    m.kl.forEach((l, i) => bpSpaced(cx, l, M, y + 30 + i * 26, 2.4));
+    cx.fillStyle = BPC.ink; cx.font = `500 29px ${BPF.body}`; m.lines.forEach((l, i) => cx.fillText(l, M + 390, y + 30 + i * 40));
+    cx.fillStyle = BPC.sandD; for (let x = M; x < W - M; x += 12) cx.fillRect(x, y + m.hh + 6, 3, 3);
+    st.y += m.hh + 20; st.count++;
   };
   st.para = (k, v) => {
     if (!v) return; st.need(130); let cx = st.cx; cx.fillStyle = BPC.sageD; cx.font = `italic 700 32px ${BPF.head}`; cx.fillText(k, M + 36, st.y + 30);
     bpLeaf(cx, M + 4, st.y + 22, -.6, 28, 10, BPC.sage); st.y += 52; st.cx.font = `400 28px ${BPF.body}`; const lines = st.wrap(v, W - 2 * M - 36);
     lines.forEach(l => { st.need(42); st.cx.fillStyle = BPC.ink; st.cx.font = `400 28px ${BPF.body}`; st.cx.fillText(l, M + 36, st.y + 28); st.y += 40; });
-    st.y += 14;
+    st.y += 14; st.count++;
   };
   return st;
 }
@@ -10021,21 +10296,22 @@ async function buildDatasheet(sel) {
   let im = null; if (p.foto) { try { im = await loadImg(await (await fetch(p.foto)).blob()); } catch (e) {} }
   const box = bpRainbowArch(B.cx, W - M - 270, 150, 270, 330); await bpArchPhoto(B.cx, box, im, (p.vorname || '♡').slice(0, 1));
   let cx = B.cx; cx.fillStyle = BPC.terra; cx.font = `600 24px ${FONT}`; bpSpaced(cx, 'DATENBLATT  ·  STECKBRIEF', M, 250, 5);
-  let fs = 112; cx.fillStyle = BPC.ink; do { cx.font = `700 ${fs}px ${BPF.script}`; fs -= 4; } while (cx.measureText(name).width > W - 2 * M - 320 && fs > 48);
+  let fs = 112; cx.fillStyle = BPC.ink; do { cx.font = `700 ${fs}px ${BPF.script}`; fs -= 4; } while (cx.measureText(name).width > (W - M - 270) - M - 40 && fs > 48);
   cx.fillText(name, M, 370);
-  cx.fillStyle = BPC.mute; cx.font = `italic 400 32px ${BPF.head}`; cx.fillText(p.geburtsdatum ? `geboren am ${fmtD(p.geburtsdatum)} · ${ageText(p.geburtsdatum)}` : 'Wichtige Informationen auf einen Blick', M, 428);
+  cx.fillStyle = BPC.mute; { const sub = p.geburtsdatum ? `geboren am ${fmtD(p.geburtsdatum)} · ${ageText(p.geburtsdatum)}` : 'Wichtige Informationen auf einen Blick', subW = (W - M - 270) - M - 40; let sf = 32; do { cx.font = `italic 400 ${sf}px ${BPF.head}`; sf -= 2; } while (cx.measureText(sub).width > subW && sf > 22);
+  const sl = B.wrap(sub, subW); sl.slice(0, 2).forEach((l, i) => cx.fillText(l, M, 428 + i * 40)); }
   bpDivider(cx, M, W - M, 520); B.y = 540;
   const block = (t, rows) => { rows = rows.filter(r => r[1]); if (!rows.length) return; B.section(t); rows.forEach(r => B.row(r[0], r[1])); };
   if (sel.stamm) block('Stammdaten', [['Geburtsort', p.geburtsort], ['Staatsangehörigkeit', p.staatsangehoerigkeit], ['Größe', p.groesse], ['Schuhgröße', p.schuhgroesse]].concat((p.extras || []).map(x => [x.label, x.value])));
   if (sel.vers) block('Versicherung', [['Krankenkasse', p.krankenkasse], ['Versichertennummer', p.versnr]]);
   if (sel.steuer) block('Steuer', [['Steuer-ID', p.steuerid]]);
   if (sel.gesund) block('Gesundheit', [['Blutgruppe', hl.blutgruppe], ['Allergien', hl.allergien], ['Dauermedikation', hl.medikamente], ['Aktuelle Medikamente', medsText()], ['Wichtige Hinweise', hl.hinweise], ['Kinderarzt', [hl.kinderarzt, hl.kinderarzt_tel].filter(Boolean).join(', ')]]);
-  if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name + (k.rolle ? ' (' + k.rolle + ')' : ''), k.tel || '–']));
+  if (sel.kontakte) block('Kontakte', (p.kontakte || []).map(k => [k.name, [k.rolle, k.tel].filter(Boolean).join('  ·  ') || '–']));
   if (sel.kita) block('Kita / Schule', [['Einrichtung', sc.einrichtung], ['Gruppe / Klasse', sc.gruppe], ['Ansprechpartner/in', sc.ansprechpartner], ['Telefon', sc.tel], ['Adresse', sc.adresse], ['Bring- und Abholzeiten', sc.zeiten]].concat((sc.abholer || []).map(a => ['Abholberechtigt: ' + a.name + (a.rolle ? ' (' + a.rolle + ')' : ''), a.tel || '–'])));
   if (sel.betreuung) { const any = CARE_FIELDS.some(f => c[f.key]); if (any) { B.section('Betreuungs-Infos'); CARE_FIELDS.forEach(f => B.para(f.label, c[f.key])); } }
   if (sel.familie) block('Familie', (p.familie || []).map(m => [m.name, [m.rolle, m.geb && 'geb. ' + fmtD(m.geb), m.tel, m.ort].filter(Boolean).join('  ·  ')]));
   if (sel.adressen) block('Adressen', (p.adressen || []).map(a => [a.label, [addrText(a), a.tel].filter(Boolean).join('  ·  ') || '–']));
-  if (B.y < 700) { B.cx.fillStyle = BPC.mute; B.cx.font = `italic 400 30px ${BPF.head}`; B.cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, B.y + 50); }
+  if (!B.count) { B.cx.fillStyle = BPC.mute; B.cx.font = `italic 400 30px ${BPF.head}`; B.cx.fillText('Für die gewählten Bereiche sind noch keine Angaben eingetragen.', M, B.y + 50); }
   bpFooters(B.pages, W, H, `Stand ${fmtD(isoToday())} · MyLuiseApp`);
   const blobs = await Promise.all(B.pages.map(pg => new Promise(r => pg.toBlob(r, 'image/jpeg', 0.9))));
   return { pdf: await pdfFromJpegs(blobs), preview: blobs[0], pages: blobs };
@@ -10688,13 +10964,25 @@ function shopView(wrap, c, bal) {
     wrap.append(grid, h('p', { class: 'fine' }, hint));
   });
 }
-/* ============ v33: Stories aus den aktuellen Themen ============ */
+/* ============ v35: Stories (Fotos, Animationen, Karte, Diagramm) ============ */
 const STORY_PAL = [['--g1', '--g3'], ['--g2', '--g1'], ['--g3', '--g2'], ['--accent', '--g3'], ['--g1', '--accent'], ['--g2', '--g3'], ['--g3', '--g1'], ['--accent', '--g2']];
 const storyOn = () => ls.get('luise_stories') !== '0';
 const storySeen = () => { try { const o = JSON.parse(ls.get('luise_story_seen') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } };
 function storyMark(id, sig) { const o = storySeen(); o[id] = sig; const k = Object.keys(o); if (k.length > 40) delete o[k[0]]; ls.set('luise_story_seen', JSON.stringify(o)); }
 function storyHash(str) { let n = 7; for (let i = 0; i < str.length; i++) n = (n * 31 + str.charCodeAt(i)) >>> 0; return n.toString(36); }
 const storyClip = (s, n) => { s = String(s || ''); return s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, '') + ' …'; };
+const storyPics = (n, seed) => { const l = (S.photos || []).filter(f => f.thumb); if (!l.length) return []; const o = l.map((f, i) => ({ f, k: parseInt(storyHash(f.id + isoToday() + (seed || '')), 36) })).sort((a, b) => a.k - b.k); return o.slice(0, n).map(x => x.f); };
+const storyBg = seed => { const f = storyPics(1, seed)[0]; return f ? { bgpid: f.id, bgthumb: f.thumb } : {}; };
+function storySeries(ent, key) { return ent.filter(e => num(e[key]) != null).slice(-8).map(e => ({ x: parseD(e.datum).getTime() / 864e5, y: num(e[key]) })); }
+function storyChartEl(pts, unit) {
+  const W = 320, H = 170, pd = 26, xs = pts.map(p => p.x), ys = pts.map(p => p.y), x0 = Math.min(...xs), y0 = Math.min(...ys), rx = (Math.max(...xs) - x0) || 1, ry = (Math.max(...ys) - y0) || 1;
+  const X = x => pd + (x - x0) / rx * (W - 2 * pd), Y = y => H - pd - (y - y0) / ry * (H - 2 * pd - 18), P = pts.map(p => [X(p.x), Y(p.y)]);
+  const d = P.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' '), area = d + ` L${P[P.length - 1][0].toFixed(1)} ${H - pd + 6} L${P[0][0].toFixed(1)} ${H - pd + 6} Z`, lp = P[P.length - 1], fp = P[0];
+  const f1 = v => fmtNum(Math.round(v * 10) / 10);
+  const el = h('div', { class: 'stv-chart', 'aria-hidden': 'true' });
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}"><path class="sc-a" d="${area}"/><path class="sc-l" pathLength="1" d="${d}"/>${P.map((q, i) => `<circle class="sc-d" style="animation-delay:${(0.5 + i * 0.12).toFixed(2)}s" cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${i === P.length - 1 ? 6 : 3.600}"/>`).join('')}<text class="sc-t" x="${Math.max(fp[0], 14).toFixed(1)}" y="${(fp[1] + 26).toFixed(1)}">${f1(pts[0].y)} ${unit}</text><text class="sc-t sc-e" x="${Math.min(lp[0], W - 14).toFixed(1)}" y="${(lp[1] - 14).toFixed(1)}" text-anchor="end">${f1(pts[pts.length - 1].y)} ${unit}</text></svg>`;
+  return el;
+}
 function storyBuild() {
   const p = S.profile, out = [], today = isoToday(), nm = (p.vorname || '').trim() || 'Dein Kind', hr = new Date().getHours();
   const add = (id, label, art, slides) => {
@@ -10708,20 +10996,22 @@ function storyBuild() {
     autoDeadlines().forEach(x => { if (!x.date) return; const n = daysTo(x.date); if (n >= -3 && n <= 14 && x.lvl !== 'info') rows.push({ n, z: '99', r: [x.title, x.status || x.sub || ''] }); });
     rows.sort((a, b) => a.n - b.n || a.z.localeCompare(b.z));
     add('today', 'Heute', hr < 18 ? 'sun' : 'moon', [
-      { k: 'hero', art: hr < 18 ? 'sun' : 'moon', kicker: dt, big: hr < 11 ? 'Guten Morgen' : hr < 18 ? 'Guten Tag' : 'Guten Abend', text: p.geburtsdatum ? `${nm} ist ${ageText(p.geburtsdatum)} alt${hasWk ? ' und in Lebenswoche ' + wk : ''}.` : 'Schön, dass du da bist.' },
+      { k: 'hero', art: hr < 18 ? 'sun' : 'moon', pt: hr < 18 ? '☀️' : '⭐', ...storyBg('today'), kicker: dt, big: hr < 11 ? 'Guten Morgen' : hr < 18 ? 'Guten Tag' : 'Guten Abend', text: p.geburtsdatum ? `${nm} ist ${ageText(p.geburtsdatum)} alt${hasWk ? ' und in Lebenswoche ' + wk : ''}.` : 'Schön, dass du da bist.' },
       rows.length ? { k: 'list', kicker: 'Heute und bald', big: rows.length === 1 ? '1 Sache steht an' : rows.length + ' Dinge stehen an', rows: rows.slice(0, 4).map(x => x.r), cta: { label: 'Alle Termine und Fristen', fn: () => go('dates') } } : null]);
   }
   // Lebenswoche und Vorsorge
   if (hasWk) {
     const wi = weekInfo(wk), nu = (() => { try { return newsNextU(); } catch (e) { return null; } })(), parts = wi.text.length > 230 ? [storyClip(wi.text, 200), wi.text.slice(storyClip(wi.text, 200).replace(/ …$/, '').length).trim()] : [wi.text];
     add('week', 'Woche ' + wk, 'sparkle', [
-      { k: 'hero', art: 'sparkle', kicker: 'Lebenswoche ' + wk, big: wi.title, text: parts[0] },
+      { k: 'hero', art: 'sparkle', pt: '✨', ...storyBg('week'), kicker: 'Lebenswoche ' + wk, big: wi.title, text: parts[0] },
       parts[1] ? { k: 'hero', art: 'sparkle', kicker: 'Lebenswoche ' + wk, big: 'Gut zu wissen', text: storyClip(parts[1], 260), cta: { label: 'Wochen-Begleiter', fn: () => { weekSel = null; go('weeks'); } } } : null,
       nu ? { k: 'hero', art: 'steth', kicker: 'Vorsorge', big: nu.due ? nu.def[0] + ' ist jetzt fällig' : nu.def[0], text: nu.due ? `Zeitfenster: ${nu.def[1]}. Termin in der Praxis vereinbaren.` : `Nächste Vorsorge ab ${fmtD(nu.from)}.`, cta: { label: 'Vorsorge-Heft', fn: () => { healthSeg = 'uheft'; go('health'); } } } : null]);
   }
   // Erinnerungen
   { const sl = [];
     let mem = []; try { mem = phMemories(); } catch (e) {}
+    { const pics = mem.slice(0, 4).map(m => m.f); storyPics(4, 'col').forEach(f => { if (pics.length < 4 && !pics.includes(f)) pics.push(f); });
+      if (pics.length >= 2) sl.push({ k: 'collage', pics: pics.map(f => ({ pid: f.id, thumb: f.thumb, cap: f.datum ? fmtD(f.datum) : '' })), kicker: 'Erinnerungen', big: mem.length ? mem[0].label : 'Schöne Momente', text: plural(S.photos.length, 'Foto', 'Fotos') + ' in der Galerie', cta: { label: 'Zur Galerie', fn: () => go('photos') } }); }
     mem.slice(0, 4).forEach(m => sl.push({ k: 'photo', pid: m.f.id, thumb: m.f.thumb, kicker: m.label, big: m.f.datum ? fmtD(m.f.datum) : '', text: m.f.titel || '', cta: { label: 'Foto ansehen', fn: () => openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(m.f))) } }));
     memToday().filter(x => x.kind !== 'Foto').slice(0, 2).forEach(x => sl.push({ k: 'hero', art: 'feet', kicker: x.label, big: storyClip(x.title, 60), text: x.kind + ' vom ' + fmtD(x.datum), cta: x.open ? { label: 'Öffnen', fn: x.open } : null }));
     add('mem', 'Erinnerung', 'camera', sl);
@@ -10732,9 +11022,12 @@ function storyBuild() {
       const sx = sexKey(), pn = sx && p.geburtsdatum && num(l.groesse) != null ? pctNote(sx, 'h', p.geburtsdatum, ent, 'groesse') : '';
       const dH = pr && num(l.groesse) != null && num(pr.groesse) != null ? num(l.groesse) - num(pr.groesse) : null, dW = pr && num(l.gewicht) != null && num(pr.gewicht) != null ? num(l.gewicht) - num(pr.gewicht) : null;
       const go1 = () => { healthSeg = 'entwicklung'; go('health'); };
+      const sw = storySeries(ent, 'gewicht'), sh = storySeries(ent, 'groesse');
       add('grow', 'Wachstum', 'ruler', [
-        { k: 'hero', art: 'ruler', kicker: 'Letzte Messung · ' + fmtD(l.datum), big: [l.groesse && l.groesse + ' cm', l.gewicht && l.gewicht + ' kg'].filter(Boolean).join(' · '), text: pn ? 'Größe: ' + pn : '', cta: { label: 'Entwicklung ansehen', fn: go1 } },
-        (dH != null || dW != null) ? { k: 'hero', art: 'ruler', kicker: 'Seit ' + fmtD(pr.datum), big: [dH != null && (dH >= 0 ? '+' : '') + fmtNum(dH) + ' cm', dW != null && (dW >= 0 ? '+' : '') + fmtNum(dW) + ' kg'].filter(Boolean).join(' · '), text: `In ${plural(Math.max(1, Math.round((parseD(l.datum) - parseD(pr.datum)) / 864e5)), 'Tag', 'Tagen')} gewachsen.`, cta: { label: 'Entwicklung ansehen', fn: go1 } } : null]);
+        { k: 'hero', art: 'ruler', pt: '🌱', ...storyBg('grow'), kicker: 'Letzte Messung · ' + fmtD(l.datum), big: [l.groesse && l.groesse + ' cm', l.gewicht && l.gewicht + ' kg'].filter(Boolean).join(' · '), text: pn ? 'Größe: ' + pn : '', cta: { label: 'Entwicklung ansehen', fn: go1 } },
+        (dH != null || dW != null) ? { k: 'hero', art: 'ruler', kicker: 'Seit ' + fmtD(pr.datum), big: [dH != null && (dH >= 0 ? '+' : '') + fmtNum(dH) + ' cm', dW != null && (dW >= 0 ? '+' : '') + fmtNum(dW) + ' kg'].filter(Boolean).join(' · '), text: `In ${plural(Math.max(1, Math.round((parseD(l.datum) - parseD(pr.datum)) / 864e5)), 'Tag', 'Tagen')} gewachsen.`, cta: { label: 'Entwicklung ansehen', fn: go1 } } : null,
+        sw.length >= 2 ? { k: 'chart', art: 'ruler', kicker: 'Gewicht', big: 'So ist es gewachsen', unit: 'kg', pts: sw, text: `${plural(sw.length, 'Messung', 'Messungen')} im Verlauf`, cta: { label: 'Entwicklung ansehen', fn: go1 } } : null,
+        sh.length >= 2 ? { k: 'chart', art: 'ruler', kicker: 'Größe', big: 'Immer ein Stück größer', unit: 'cm', pts: sh, text: `${plural(sh.length, 'Messung', 'Messungen')} im Verlauf`, cta: { label: 'Entwicklung ansehen', fn: go1 } } : null]);
     }
   }
   // Schlaf und Alltag
@@ -10749,7 +11042,7 @@ function storyBuild() {
   // Coins
   { const c = coinData(), done = c.lastStart === today, st = coinStreakNow(), deal = (() => { try { return coinDeal(); } catch (e) { return null; } })();
     add('coins', 'Coins', 'coin', [
-      { k: 'hero', art: 'coin', kicker: 'Dein Guthaben', big: coinBalance() + ' Coins', text: st ? `${plural(st, 'Tag', 'Tage')} in Folge dabei.` : 'Heute geht die Serie los.', cta: done ? { label: 'Coin-Welt öffnen', fn: () => go('coins') } : { label: 'Tagesbonus abholen', fn: () => { coinStart(); } } },
+      { k: 'hero', art: 'coin', kicker: 'Dein Guthaben', pt: '🪙', count: { n: coinBalance(), post: ' Coins' }, big: coinBalance() + ' Coins', text: st ? `${plural(st, 'Tag', 'Tage')} in Folge dabei.` : 'Heute geht die Serie los.', cta: done ? { label: 'Coin-Welt öffnen', fn: () => go('coins') } : { label: 'Tagesbonus abholen', fn: () => { coinStart(); } } },
       { k: 'hero', art: 'sprout', lt: 'fox', kicker: 'Luises Lichtung', big: 'Mini-Spiele warten', text: 'Waldpaare, Pilz-Echo und mehr. Bis zu drei Runden pro Spiel zählen am Tag.', cta: { label: 'Spielen', fn: () => { coinSeg = 'play'; go('coins'); } } },
       deal ? { k: 'hero', art: 'gift', kicker: 'Tagesangebot im Laden', big: deal.it.name, text: `Heute ${deal.price} statt ${deal.it.cost} Coins.`, cta: { label: 'Zum Laden', fn: () => { coinSeg = 'shop'; shopSeg = 'all'; go('coins'); } } } : null]);
   }
@@ -10758,9 +11051,14 @@ function storyBuild() {
     autoDeadlines().filter(x => x.id && x.id.startsWith('fbday:') && x.date && daysTo(x.date) <= 30).slice(0, 3).forEach(x => rows.push([x.title, x.status || '']));
     const d = nb ? daysTo(nb.iso) : 999;
     add('bday', 'Geburtstag', 'cake', [
-      nb && d <= 90 ? { k: 'hero', art: 'cake', kicker: `Bis zum ${nb.age}. Geburtstag`, big: d === 0 ? 'Heute!' : plural(d, 'Tag', 'Tage'), text: wd(nb.iso), cta: { label: 'Termine', fn: () => go('dates') } } : null,
+      nb && d <= 90 ? { k: 'hero', art: 'cake', kicker: `Bis zum ${nb.age}. Geburtstag`, pt: '🎈', count: d > 0 ? { n: d, post: d === 1 ? ' Tag' : ' Tage' } : null, big: d === 0 ? 'Heute!' : plural(d, 'Tag', 'Tage'), text: wd(nb.iso), cta: { label: 'Termine', fn: () => go('dates') } } : null,
       rows.length ? { k: 'list', kicker: 'In der Familie', big: 'Bald wird gefeiert', rows, cta: { label: 'Stammbuch', fn: () => go('family') } } : null]);
   }
+  // Orte
+  { const pl = plAll(); if (pl.length) { const last = pl.slice().sort(plByDate).pop(), sts = plStats(), lf = (last.fotos || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean)[0];
+    add('places', 'Orte', 'pinmap', [
+      { k: 'hero', art: 'pinmap', pt: '📍', kicker: 'Hier war ich schon', big: plural(sts.n, 'Ort', 'Orte'), count: { n: sts.n, post: sts.n === 1 ? ' Ort' : ' Orte' }, text: [sts.cities ? 'in ' + plural(sts.cities, 'Stadt', 'Städten') : '', sts.lands > 1 ? plural(sts.lands, 'Land', 'Ländern') : ''].filter(Boolean).join(' und '), extra: () => plDots(pl, 320, 170), cta: { label: 'Karte öffnen', fn: () => go('places') } },
+      { k: 'hero', art: 'pinmap', pt: '📍', bgpid: lf && lf.id, bgthumb: lf && lf.thumb, kicker: 'Zuletzt', big: last.name, text: [last.datum ? fmtD(last.datum) : '', last.stadt].filter(Boolean).join(' · '), cta: { label: 'Auf der Karte zeigen', fn: () => plOpenId(last.id) } }]); } }
   // News
   { let c = null, st = null; try { c = newsRead(); st = newsStage(); } catch (e) {}
     const its = c && st && c.stage === st.id && Array.isArray(c.items) ? c.items.filter(x => x.t && x.u).slice(0, 4) : [];
@@ -10769,15 +11067,17 @@ function storyBuild() {
   return out;
 }
 function storyArt(s, sz) { return IC.svg(s.art); }
+function storyThumb(s) { for (const sl of s.slides) { if (sl.pid && sl.thumb) return sl.thumb; if (sl.pics && sl.pics[0]) return sl.pics[0].thumb; if (sl.bgthumb) return sl.bgthumb; } return ''; }
 function storyRow() {
   if (!storyOn()) return null;
   let list = []; try { list = storyBuild(); } catch (e) { console.error(e); return null; }
   if (!list.length) return null;
   const seen = storySeen();
   list.sort((a, b) => (seen[a.id] === a.sig ? 1 : 0) - (seen[b.id] === b.sig ? 1 : 0));
-  return h('div', { class: 'storyrow', role: 'list', 'aria-label': 'Stories' }, list.map((s, i) => { const sn = seen[s.id] === s.sig;
+  const row = h('div', { class: 'storyrow' + (list.length <= 4 ? ' few' : ''), role: 'list', 'aria-label': 'Stories' }, list.map((s, i) => { const sn = seen[s.id] === s.sig, th = storyThumb(s);
     return h('button', { class: 'story' + (sn ? ' seen' : ''), type: 'button', role: 'listitem', 'data-story': s.id, 'aria-label': s.label + (sn ? '' : ', neu'), onclick: () => storyOpen(s.id, list.map(x => x.id)) },
-      h('span', { class: 'sring' }, h('span', { class: 'sin p' + (i % 4), html: storyArt(s) })), h('small', null, s.label)); }));
+      h('span', { class: 'sring' }, h('span', { class: 'sin p' + (i % 4) }, th ? h('img', { src: th, alt: '', draggable: 'false' }) : h('span', { class: 'sin-art', html: storyArt(s) })), th ? h('span', { class: 'sbadge', html: storyArt(s) }) : null), h('small', null, s.label)); }));
+  return h('div', { class: 'storytray' }, row);
 }
 var storyCtl = null;
 function storyClose() { if (storyCtl) { storyCtl.stop(); storyCtl = null; } document.querySelectorAll('.stv').forEach(x => x.remove()); render(); }
@@ -10794,25 +11094,41 @@ function storyOpen(startId, order) {
   closeBtn.addEventListener('click', e => { e.stopPropagation(); storyClose(); });
   root.append(stage, bars, head, closeBtn);
   const pal = i => STORY_PAL[i % STORY_PAL.length];
-  function slideEl(s, story, i) {
-    const [a, b] = pal(i), kids = [];
+  function countUp(node, c) {
+    if (!c || !node || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t0 = performance.now(), dur2 = 1100; node.textContent = (c.pre || '') + '0' + (c.post || '');
+    const step = now => { if (!node.isConnected) return; const t = Math.min(1, (now - t0) / dur2), e = 1 - Math.pow(1 - t, 3); node.textContent = (c.pre || '') + Math.round(c.n * e) + (c.post || ''); if (t < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+  function slideEl(s, story, i, idx) {
+    const [a, b] = pal(i), kids = [], kb = 'kb' + ((idx || 0) % 3);
     const bg = h('div', { class: 'stv-bg', style: `background:linear-gradient(165deg,color-mix(in srgb,var(${a}) 88%,#000),color-mix(in srgb,var(${b}) 70%,#000))` });
+    const photoBg = (pid, th, cls) => { const im = h('img', { class: 'stv-img ' + cls + ' ' + kb, alt: '', draggable: 'false' }); im.src = th || ''; if (pid) hiImg(im, pid); return im; };
     if (s.k === 'photo') {
-      const img = h('img', { class: 'stv-img', alt: '', draggable: 'false' });
+      const img = h('img', { class: 'stv-img ' + kb, alt: '', draggable: 'false' });
       if (s.pid) { img.src = s.thumb || ''; hiImg(img, s.pid); } else if (s.ext) { img.referrerPolicy = 'no-referrer'; img.src = s.ext; img.onerror = () => { img.remove(); bg.classList.add('plain'); }; }
       kids.push(bg, img, h('div', { class: 'stv-shade' }));
+    } else if (s.k === 'collage') {
+      kids.push(bg, photoBg(s.pics[0].pid, s.pics[0].thumb, 'dim'), h('div', { class: 'stv-shade2' }),
+        h('div', { class: 'stv-collage n' + s.pics.length }, s.pics.map((p, k) => h('figure', { class: 'stv-pol r' + k, style: `--d:${(0.15 + k * 0.22).toFixed(2)}s` }, h('img', { src: p.thumb, alt: '', draggable: 'false' }), h('figcaption', null, p.cap || '')))));
+    } else if (s.bgthumb) {
+      kids.push(bg, photoBg(s.bgpid, s.bgthumb, 'dim'), h('div', { class: 'stv-shade2' }));
     } else kids.push(bg, h('div', { class: 'stv-orb o1' }), h('div', { class: 'stv-orb o2' }));
-    const inn = h('div', { class: 'stv-in ' + (s.k === 'photo' ? 'bottom' : 'mid') + (s.small ? ' small' : '') });
-    if (s.k !== 'photo' && s.art) inn.append(h('div', { class: 'stv-art', html: IC.svg(s.art) }));
-    if (s.k === 'list') inn.append(h('small', { class: 'stv-k' }, s.kicker), h('h2', { class: 'stv-big' }, s.big), h('div', { class: 'stv-rows' }, (s.rows || []).map(r => h('div', { class: 'stv-row' }, h('b', null, storyClip(r[0], 48)), h('span', null, r[1] || '')))));
-    else inn.append(h('small', { class: 'stv-k' }, s.kicker || ''), h('h2', { class: 'stv-big' }, s.big || ''), s.text ? h('p', { class: 'stv-t' }, s.text) : null);
+    if (s.pt) { const pts = h('div', { class: 'stv-pts', 'aria-hidden': 'true' }); for (let k = 0; k < 11; k++) { const r = (k * 37 + i * 11) % 100; pts.append(h('span', { style: `left:${(k * 9 + r % 7) % 96}%;--d:${((k * 0.7) % 6).toFixed(1)}s;--t:${(7 + (k % 4) * 1.6).toFixed(1)}s;--s:${(0.8 + (r % 8) / 10).toFixed(1)}` }, s.pt)); } kids.push(pts); }
+    const bottom = s.k === 'photo' || s.k === 'collage', inn = h('div', { class: 'stv-in ' + (bottom ? 'bottom' : 'mid') + (s.small ? ' small' : '') });
+    const put = (...k) => k.filter(Boolean).forEach(x => inn.append(x));
+    if (!bottom && s.art && !s.extra && s.k !== 'chart') put(h('div', { class: 'stv-art', html: IC.svg(s.art) }));
+    const big = h('h2', { class: 'stv-big' }, s.big || '');
+    if (s.k === 'list') put(h('small', { class: 'stv-k' }, s.kicker), big, h('div', { class: 'stv-rows' }, (s.rows || []).map((r, k) => h('div', { class: 'stv-row', style: `--i:${k}` }, h('b', null, storyClip(r[0], 48)), h('span', null, r[1] || '')))));
+    else put(h('small', { class: 'stv-k' }, s.kicker || ''), big, s.k === 'chart' ? storyChartEl(s.pts, s.unit) : null, s.extra ? h('div', { class: 'stv-extra' }, s.extra()) : null, s.text ? h('p', { class: 'stv-t' }, s.text) : null);
+    if (s.count) countUp(big, s.count);
     if (s.cta) { const cb = h('button', { class: 'stv-cta', type: 'button', onclick: e => { e.stopPropagation(); const f = s.cta.fn; storyCtl && storyCtl.stop(); storyCtl = null; document.querySelectorAll('.stv').forEach(x => x.remove()); render(); try { f(); } catch (er) { console.error(er); } } }, s.cta.label);
-      cb.addEventListener('pointerdown', e => e.stopPropagation()); cb.addEventListener('pointerup', e => e.stopPropagation()); inn.append(cb); }
+      cb.addEventListener('pointerdown', e => e.stopPropagation()); cb.addEventListener('pointerup', e => e.stopPropagation()); put(cb); }
     return h('div', { class: 'stv-slide k-' + (s.k || 'hero') }, ...kids, inn);
   }
   function show() {
-    const st = list[si], s = st.slides[ci]; el = 0; dur = s.k === 'list' ? 7000 : s.small ? 7000 : s.text && s.text.length > 150 ? 7500 : 5500;
-    stage.replaceChildren(slideEl(s, st, si));
+    const st = list[si], s = st.slides[ci]; el = 0; dur = s.k === 'list' || s.k === 'chart' || s.k === 'collage' ? 7000 : s.small ? 7000 : s.text && s.text.length > 150 ? 7500 : 5500;
+    stage.replaceChildren(slideEl(s, st, si, ci));
     bars.replaceChildren(...st.slides.map((x, k) => h('i', null, h('b', { style: k < ci ? 'transform:scaleX(1)' : '' }))));
     head.replaceChildren(h('span', { class: 'stv-av p' + (si % 4), html: storyArt(st) }), h('b', null, st.label), h('small', null, `${ci + 1} von ${st.slides.length}`));
     storyMark(st.id, st.sig);
@@ -10851,6 +11167,7 @@ function storyCard() {
   return h('div', { class: 'card stack' }, h('h2', null, 'Stories'), h('p', { class: 'mute' }, 'Auf der Startseite fasst die App täglich zusammen, was gerade wichtig ist: Heute, Lebenswoche, Erinnerungen, Wachstum, Alltag, Coins, Geburtstage und News. Tippen geht weiter, gedrückt halten pausiert, nach unten wischen schließt.'),
     h('label', { class: 'field check' }, cb, h('span', null, 'Stories auf der Startseite zeigen')));
 }
+
 /* ============ v33: Widgets mit mehr Nutzen (M-Größe, Schnell-Aktionen) ============ */
 const wxOpen = (fn, label) => ({ role: 'button', tabindex: '0', 'aria-label': label, onclick: fn, onkeydown: e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } } });
 const wxBtn = (label, fn, cls) => h('button', { class: 'wxb' + (cls ? ' ' + cls : ''), type: 'button', onclick: e => { e.stopPropagation(); fn(); } }, label);
@@ -11086,7 +11403,7 @@ const _editProfile34 = editProfile; editProfile = function () { if (famMode()) r
 const _editDoc34 = editDoc; editDoc = function () { if (famMode()) return; return _editDoc34.apply(this, arguments); };
 const _editSong34 = editSong; editSong = function () { if (famMode()) return; return _editSong34.apply(this, arguments); };
 const _editPlaylist34 = editPlaylist; editPlaylist = function () { if (famMode()) return; return _editPlaylist34.apply(this, arguments); };
-const jOpen = e => { if (famMode() && e.auto && !/^a:g:/.test(String(e.key))) return; e.open(); };
+const jOpen = e => { if (famMode() && e.auto && !/^a:(g|o):/.test(String(e.key))) return; e.open(); };
 
 /* Gästebuch */
 let guestRefresh = null;
@@ -11147,6 +11464,459 @@ WIDGETS.famshow = { name: 'Diashow', desc: 'Alle Fotos als Diashow starten', ren
     last = Date.now();
   }, 15000);
 })();
+/* ============ v35: Hier war ich schon (Orte-Karte ohne Bibliothek) ============ */
+ICON.orte = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.500 12h17M12 3.500c2.600 2.400 3.800 5.300 3.800 8.500s-1.200 6.100-3.800 8.500c-2.600-2.400-3.800-5.300-3.800-8.500S9.400 5.900 12 3.500z"/></svg>';
+IC.D.pinmap = '<path d="M5 14l13-5 12 5 13-5v29l-13 5-12-5-13 5z" fill="#dff2d0"/><path d="M18 9v29M30 14v29" stroke="#b9d9a3" stroke-width="1.600"/><path d="M5 30c8-3 12 4 20 1s12-8 18-6v-8c-6-2-10 3-18 6S13 20 5 23z" fill="#bfe3f5" fill-opacity=".8"/><path d="M24 3c-6.200 0-10.500 4.500-10.500 10.300 0 7.700 10.500 17.700 10.500 17.700s10.500-10 10.500-17.700C34.500 7.500 30.200 3 24 3z" fill="#ee4d80"/><circle cx="24" cy="13.300" r="4.200" fill="#fff"/>';
+COIN_RULES.place = { n: 2, cap: 2, label: 'Ort markiert', emoji: '📍', go: () => go('places') };
+const PL_CATS = [
+  { k: 'home', n: 'Zuhause', c: '#e8903c', ic: 'house' }, { k: 'fam', n: 'Familie & Freunde', c: '#e0587f', ic: 'heartred' },
+  { k: 'out', n: 'Ausflug', c: '#3fa85b', ic: 'tree' }, { k: 'trip', n: 'Urlaub', c: '#2f8fd8', ic: 'beach' },
+  { k: 'med', n: 'Arzt & Klinik', c: '#d8504a', ic: 'hospital' }, { k: 'food', n: 'Essen & Café', c: '#b8793e', ic: 'icecream' },
+  { k: 'fest', n: 'Fest & Feier', c: '#9a5bd6', ic: 'party' }, { k: 'misc', n: 'Sonstiges', c: '#5f7390', ic: 'star' }
+];
+const plCat = k => PL_CATS.find(x => x.k === k) || PL_CATS[PL_CATS.length - 1];
+const plAll = () => (S.profile.orte = S.profile.orte || []);
+const plByDate = (a, b) => (a.datum || '9999').localeCompare(b.datum || '9999') || (a.ts || 0) - (b.ts || 0);
+const plKm = (a, b) => { const r = d => d * Math.PI / 180, dl = r(b.lat - a.lat), dn = r(b.lng - a.lng), x = Math.sin(dl / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dn / 2) ** 2; return 12742 * Math.asin(Math.min(1, Math.sqrt(x))); };
+const plKmTxt = km => km < 1 ? Math.round(km * 1000) + ' m' : km < 10 ? fmtNum(km) + ' km' : nf(Math.round(km)) + ' km';
+function plStats() {
+  const l = plAll(), home = l.find(x => x.kat === 'home'), s = l.slice().sort(plByDate);
+  let leg = 0; for (let i = 1; i < s.length; i++) leg += plKm(s[i - 1], s[i]);
+  let far = null; if (home) l.forEach(x => { if (x === home) return; const d = plKm(home, x); if (!far || d > far.d) far = { x, d }; });
+  return { n: l.length, cities: new Set(l.map(x => x.stadt).filter(Boolean)).size, lands: new Set(l.map(x => x.land).filter(Boolean)).size, home, far, leg };
+}
+/* Web-Mercator */
+const PL_MIN = 2, PL_MAX = 18;
+const plLat = l => Math.max(-85.0511, Math.min(85.0511, l));
+const mPx = (lat, lng, z) => { const s = 256 * Math.pow(2, z), sl = Math.sin(plLat(lat) * Math.PI / 180); return [(lng + 180) / 360 * s, (0.5 - Math.log((1 + sl) / (1 - sl)) / (4 * Math.PI)) * s]; };
+const mLL = (x, y, z) => { const s = 256 * Math.pow(2, z), n = Math.PI - 2 * Math.PI * y / s; return [180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))), x / s * 360 - 180]; };
+function plFit(list, w, hh) {
+  if (!list.length) return null;
+  if (list.length === 1) return { lat: list[0].lat, lng: list[0].lng, z: 13 };
+  const la = list.map(x => x.lat), lo = list.map(x => x.lng), t = Math.max(...la), b = Math.min(...la), le = Math.min(...lo), ri = Math.max(...lo);
+  for (let z = 16; z >= PL_MIN; z -= .25) {
+    const a = mPx(t, le, z), d = mPx(b, ri, z);
+    if (Math.abs(d[0] - a[0]) <= w - 120 && Math.abs(d[1] - a[1]) <= hh - 170) { const c = mLL((a[0] + d[0]) / 2, (a[1] + d[1]) / 2, z); return { lat: c[0], lng: c[1], z }; }
+  }
+  const c = mLL(mPx(t, le, PL_MIN)[0] / 2 + mPx(b, ri, PL_MIN)[0] / 2, mPx(t, le, PL_MIN)[1] / 2 + mPx(b, ri, PL_MIN)[1] / 2, PL_MIN); return { lat: c[0], lng: c[1], z: PL_MIN };
+}
+const plViewLoad = () => { try { const v = JSON.parse(ls.get('luise_map_view') || 'null'); if (v && isFinite(v.lat) && isFinite(v.lng) && isFinite(v.z)) return v; } catch (e) {} return null; };
+const plViewSave = v => ls.set('luise_map_view', JSON.stringify({ lat: +v.lat.toFixed(5), lng: +v.lng.toFixed(5), z: +v.z.toFixed(2) }));
+const plPinSvg = (c) => `<svg viewBox="0 0 34 44" aria-hidden="true"><path d="M17 43C17 43 2 28.500 2 16a15 15 0 0 1 30 0c0 12.500-15 27-15 27z" fill="${c}" stroke="#fff" stroke-width="2.400" stroke-linejoin="round"/></svg>`;
+
+/* Karte */
+function plMap(o) {
+  const view = o.view, el = h('div', { class: 'omap', tabindex: '0', role: 'application', 'aria-label': 'Karte' }), tl = h('div', { class: 'omap-t' }), pl = h('div', { class: 'omap-p' });
+  const NS = 'http://www.w3.org/2000/svg', rs = document.createElementNS(NS, 'svg'); rs.setAttribute('class', 'omap-r');
+  const path = document.createElementNS(NS, 'path'); path.setAttribute('class', 'omap-rl'); rs.append(path);
+  const off = h('div', { class: 'omap-off', hidden: true }, 'Die Karte lädt gerade nicht (offline?). Deine Orte und die Liste funktionieren trotzdem.');
+  const attr = h('div', { class: 'omap-a' }, '© OpenStreetMap-Mitwirkende · © CARTO');
+  const me = h('div', { class: 'omap-me', hidden: true }, h('i'));
+  pl.append(me); el.append(tl, rs, pl, attr, off);
+  const tiles = new Map(), pins = new Map(); let raf = 0, errs = 0, oks = 0, cleanT = 0, flyId = 0, routeLimit = 99999, needFit = !!o.fitFirst, ro = null, sized = false;
+  const size = () => [el.clientWidth || 360, el.clientHeight || 420];
+  const dark = () => document.documentElement.hasAttribute('data-dark');
+  const src = (z, x, y, alt) => { const n = Math.pow(2, z), xx = ((x % n) + n) % n; return alt ? `https://tile.openstreetmap.org/${z}/${xx}/${y}.png` : `https://${'abcd'[(xx + y) % 4]}.basemaps.cartocdn.com/rastertiles/${dark() ? 'dark_all' : 'voyager'}/${z}/${xx}/${y}@2x.png`; };
+  function newTile(z, tx, ty) {
+    const im = h('img', { class: 'omap-tile', alt: '', draggable: 'false', decoding: 'async' }); im._z = z; im._tx = tx; im._ty = ty; im._alt = false;
+    im.onload = () => { im._ok = true; oks++; off.hidden = true; if (!cleanT) cleanT = setTimeout(clean, 120); };
+    im.onerror = () => { if (!im._alt) { im._alt = true; im.src = src(z, tx, ty, true); return; } im._ok = true; im._bad = true; errs++; if (errs > 4 && !oks) off.hidden = false; };
+    im.src = src(z, tx, ty, false); return im;
+  }
+  function clean() {
+    cleanT = 0; const zt = Math.max(1, Math.min(PL_MAX, Math.round(view.z)));
+    const cur = [...tiles.values()].filter(t => t._z === zt && t._used);
+    const ready = cur.length && cur.every(t => t._ok);
+    for (const [k, t] of tiles) if (t._z !== zt && (ready || tiles.size > 140)) { t.remove(); tiles.delete(k); }
+  }
+  function paint() {
+    raf = 0; const [w, hh] = size(), z = view.z, zt = Math.max(1, Math.min(PL_MAX, Math.round(z))), n = Math.pow(2, zt);
+    const [cx, cy] = mPx(view.lat, view.lng, zt), sc = Math.pow(2, z - zt);
+    tiles.forEach(t => { t._used = false; });
+    const x0 = Math.floor((cx - w / 2 / sc) / 256), x1 = Math.floor((cx + w / 2 / sc) / 256), y0 = Math.floor((cy - hh / 2 / sc) / 256), y1 = Math.floor((cy + hh / 2 / sc) / 256);
+    for (let tx = x0; tx <= x1; tx++) for (let ty = y0; ty <= y1; ty++) {
+      if (ty < 0 || ty >= n) continue; const key = zt + '/' + tx + '/' + ty; let t = tiles.get(key);
+      if (!t) { t = newTile(zt, tx, ty); tiles.set(key, t); tl.append(t); } t._used = true;
+    }
+    tiles.forEach(t => {
+      const s2 = Math.pow(2, z - t._z), c2 = t._z === zt ? [cx, cy] : mPx(view.lat, view.lng, t._z), px = (t._tx * 256 - c2[0]) * s2 + w / 2, py = (t._ty * 256 - c2[1]) * s2 + hh / 2, sz = 256 * s2 + .7;
+      t.style.transform = `translate(${px.toFixed(2)}px,${py.toFixed(2)}px)`; t.style.width = t.style.height = sz.toFixed(2) + 'px'; t.style.zIndex = t._z === zt ? 2 : 1;
+    });
+    if (!cleanT) cleanT = setTimeout(clean, 450);
+    drawPins(w, hh); el.classList.toggle('lab', z >= 12);
+  }
+  const queue = () => { if (!raf) raf = requestAnimationFrame(paint); };
+  const proj = (lat, lng, w, hh) => { const c = mPx(view.lat, view.lng, view.z), q = mPx(lat, lng, view.z); return [q[0] - c[0] + w / 2, q[1] - c[1] + hh / 2]; };
+  function drawPins(w, hh) {
+    const list = o.places(), keep = new Set(), pts = list.map(p => { const q = proj(p.lat, p.lng, w, hh); return { p, x: q[0], y: q[1] }; });
+    const vis = pts.filter(a => a.x > -70 && a.x < w + 70 && a.y > -90 && a.y < hh + 90), groups = new Map();
+    if (view.z < 14.5) vis.forEach(a => { const k = Math.floor(a.x / 54) + ':' + Math.floor(a.y / 54); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(a); }); else vis.forEach(a => groups.set(a.p.id, [a]));
+    groups.forEach(g => {
+      if (g.length === 1) {
+        const a = g[0], key = 'p' + a.p.id; keep.add(key); let e = pins.get(key);
+        if (!e) { const c = plCat(a.p.kat); e = h('button', { class: 'opin', type: 'button', 'aria-label': a.p.name + ', ' + c.n, 'data-id': a.p.id }, h('span', { class: 'opin-in' }, h('span', { class: 'opin-b', html: plPinSvg(c.c) }), h('span', { class: 'opin-i', html: IC.svg(c.ic) }), h('span', { class: 'opin-l' }, a.p.name))); e._tap = () => o.onSelect(a.p.id); e._fresh = a.p.id === o.fresh(); pins.set(key, e); pl.append(e); if (e._fresh) { e.classList.add('drop'); setTimeout(() => e.classList.remove('drop'), 900); } }
+        e.classList.toggle('on', a.p.id === o.selected()); e.style.transform = `translate(${a.x.toFixed(1)}px,${a.y.toFixed(1)}px)`; e.style.zIndex = a.p.id === o.selected() ? 50 : Math.round(a.y);
+      } else {
+        const key = 'c' + g.map(a => a.p.id).sort().join(','); keep.add(key); let e = pins.get(key); const cx2 = g.reduce((s, a) => s + a.x, 0) / g.length, cy2 = g.reduce((s, a) => s + a.y, 0) / g.length;
+        if (!e) { e = h('button', { class: 'oclu', type: 'button', 'aria-label': g.length + ' Orte, zum Vergrößern tippen' }, String(g.length)); const items = g.map(a => a.p); e._tap = () => { const f = plFit(items, ...size()); if (f) fly(f.lat, f.lng, Math.min(f.z, PL_MAX - 1), 600); }; pins.set(key, e); pl.append(e); }
+        e.style.transform = `translate(${cx2.toFixed(1)}px,${cy2.toFixed(1)}px)`; e.style.zIndex = Math.round(cy2);
+      }
+    });
+    pins.forEach((e, k) => { if (!keep.has(k)) { e.remove(); pins.delete(k); } });
+    // Weg zwischen den Orten
+    const seq = list.filter(p => p.datum).sort(plByDate).slice(0, routeLimit), on = o.route() && seq.length > 1;
+    rs.style.display = on ? '' : 'none';
+    if (on) {
+      let d = ''; seq.forEach((p, i) => { const q = proj(p.lat, p.lng, w, hh); if (!i) { d = `M${q[0].toFixed(1)} ${q[1].toFixed(1)}`; return; } const pr = proj(seq[i - 1].lat, seq[i - 1].lng, w, hh), mx = (pr[0] + q[0]) / 2, my = (pr[1] + q[1]) / 2, dx = q[0] - pr[0], dy = q[1] - pr[1]; d += ` Q${(mx - dy * .18).toFixed(1)} ${(my + dx * .18).toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; });
+      path.setAttribute('d', d);
+    }
+    if (me._ll) { const q = proj(me._ll[0], me._ll[1], w, hh); me.style.transform = `translate(${q[0].toFixed(1)}px,${q[1].toFixed(1)}px)`; }
+  }
+  function set(lat, lng, z) { view.lat = plLat(lat); view.lng = ((lng + 540) % 360) - 180; view.z = Math.max(PL_MIN, Math.min(PL_MAX, z)); queue(); }
+  function fly(lat, lng, z, ms, done, off) {
+    const id = ++flyId; z = Math.max(PL_MIN, Math.min(PL_MAX, z)); ms = ms == null ? 800 : ms;
+    if (off) { const tp = mPx(lat, lng, z), c2 = mLL(tp[0], tp[1] + off, z); lat = c2[0]; lng = c2[1]; }
+    if (!ms) { set(lat, lng, z); plViewSave(view); if (done) done(); return; }
+    const a = { lat: view.lat, lng: view.lng, z: view.z }, zc = Math.min(a.z, z), pa = mPx(a.lat, a.lng, zc), pb = mPx(lat, lng, zc), [w, hh] = size();
+    const dip = Math.min(3.2, Math.log2(1 + Math.hypot(pb[0] - pa[0], pb[1] - pa[1]) / Math.max(w, hh))), t0 = performance.now();
+    const step = now => {
+      if (id !== flyId) return; const t = Math.min(1, (now - t0) / ms), e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      const c = mLL(pa[0] + (pb[0] - pa[0]) * e, pa[1] + (pb[1] - pa[1]) * e, zc); set(c[0], c[1], a.z + (z - a.z) * e - dip * Math.sin(Math.PI * t));
+      if (t < 1) requestAnimationFrame(step); else { set(lat, lng, z); plViewSave(view); if (done) done(); }
+    };
+    requestAnimationFrame(step);
+  }
+  const stopFly = () => { flyId++; };
+  function zoomAt(px, py, nz) {
+    const [w, hh] = size(); nz = Math.max(PL_MIN, Math.min(PL_MAX, nz)); const c = mPx(view.lat, view.lng, view.z), f = Math.pow(2, nz - view.z);
+    const wx = (c[0] + px - w / 2) * f, wy = (c[1] + py - hh / 2) * f, ll = mLL(wx - (px - w / 2), wy - (py - hh / 2), nz); set(ll[0], ll[1], nz);
+  }
+  /* Gesten */
+  const ptrs = new Map(); let pinch = null, drag = null, lp = 0, moved = false, tapT = null, downT = null, lastTap = 0, lastXY = [0, 0];
+  const rel = e => { const r = el.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  el.addEventListener('pointerdown', e => {
+    if (e.button > 0) return; stopFly(); o.onUser && o.onUser(); const p = rel(e); ptrs.set(e.pointerId, p); moved = false; downT = e.target.closest && e.target.closest('.opin,.oclu');
+    if (ptrs.size === 1) { drag = { x: p[0], y: p[1], lat: view.lat, lng: view.lng, z: view.z }; clearTimeout(lp); lastXY = p; if (o.onLong) lp = setTimeout(() => { if (!moved && ptrs.size === 1 && !downT) { moved = true; Haptic.fire('select'); const [w, hh] = size(), c = mPx(view.lat, view.lng, view.z), ll = mLL(c[0] + lastXY[0] - w / 2, c[1] + lastXY[1] - hh / 2, view.z); o.onLong(ll[0], ll[1]); } }, 560); }
+    else if (ptrs.size === 2) { clearTimeout(lp); const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]) || 1, z: view.z, lat: view.lat, lng: view.lng }; drag = null; moved = true; }
+  });
+  el.addEventListener('pointermove', e => {
+    if (!ptrs.has(e.pointerId)) return; const p = rel(e); ptrs.set(e.pointerId, p); lastXY = p;
+    if (pinch && ptrs.size >= 2) {
+      const [a, b] = [...ptrs.values()], d = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1, mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, [w, hh] = size();
+      const nz = Math.max(PL_MIN, Math.min(PL_MAX, pinch.z + Math.log2(d / pinch.d))), c0 = mPx(pinch.lat, pinch.lng, pinch.z), f = Math.pow(2, nz - pinch.z);
+      const ll = mLL((c0[0]) * f + 0, (c0[1]) * f, nz); // Mitte bleibt, Zoom um die Mitte der Finger
+      const wx = (c0[0] + (pinch.mx != null ? pinch.mx : mx) - w / 2) * f, wy = (c0[1] + (pinch.my != null ? pinch.my : my) - hh / 2) * f; if (pinch.mx == null) { pinch.mx = mx; pinch.my = my; }
+      const c2 = mLL(wx - (mx - w / 2), wy - (my - hh / 2), nz); set(c2[0], c2[1], nz); void ll; return;
+    }
+    if (drag && ptrs.size === 1) {
+      const dx = p[0] - drag.x, dy = p[1] - drag.y;
+      if (!moved && Math.hypot(dx, dy) > 6) { moved = true; clearTimeout(lp); try { el.setPointerCapture(e.pointerId); } catch (x) {} el.classList.add('drag'); }
+      if (moved) { const c = mPx(drag.lat, drag.lng, drag.z), ll = mLL(c[0] - dx, c[1] - dy, drag.z); set(ll[0], ll[1], drag.z); }
+    }
+  });
+  const up = e => {
+    if (!ptrs.has(e.pointerId)) return; const wasOne = ptrs.size === 1, p = ptrs.get(e.pointerId); ptrs.delete(e.pointerId); clearTimeout(lp); el.classList.remove('drag');
+    if (ptrs.size < 2) pinch = null;
+    if (wasOne) {
+      if (!moved) {
+        if (downT && downT._tap) { downT._tap(); } else {
+          const now = Date.now(); if (now - lastTap < 320) { lastTap = 0; zoomAt(p[0], p[1], view.z + 1.2); plViewSave(view); } else { lastTap = now; o.onTapMap && o.onTapMap(); }
+        }
+      } else plViewSave(view);
+      drag = null;
+    } else if (ptrs.size === 1) { const [k, v] = [...ptrs.entries()][0]; drag = { x: v[0], y: v[1], lat: view.lat, lng: view.lng, z: view.z }; moved = true; plViewSave(view); }
+  };
+  el.addEventListener('pointerup', up); el.addEventListener('pointercancel', e => { ptrs.delete(e.pointerId); pinch = null; drag = null; clearTimeout(lp); el.classList.remove('drag'); });
+  el.addEventListener('wheel', e => { e.preventDefault(); stopFly(); const p = rel(e); zoomAt(p[0], p[1], view.z - e.deltaY * .0025); clearTimeout(el._ws); el._ws = setTimeout(() => plViewSave(view), 300); }, { passive: false });
+  el.addEventListener('keydown', e => { const [w, hh] = size(); if (e.key === '+' || e.key === '=') zoomAt(w / 2, hh / 2, view.z + 1); else if (e.key === '-') zoomAt(w / 2, hh / 2, view.z - 1); else return; e.preventDefault(); plViewSave(view); });
+  const refresh = () => {
+    const [w, hh] = size(); if (needFit && w > 50) { needFit = false; const f = plFit(o.places(), w, hh); if (f) { view.lat = f.lat; view.lng = f.lng; view.z = f.z; plViewSave(view); } }
+    sized = true; queue();
+  };
+  try { ro = new ResizeObserver(() => { if (el.isConnected) refresh(); }); ro.observe(el); } catch (e) {}
+  const api = {
+    el, view, refresh: () => { queue(); }, set, fly, zoomBy: d => { const [w, hh] = size(); zoomAt(w / 2, hh / 2, view.z + d); plViewSave(view); },
+    center: () => [view.lat, view.lng], size, stop: stopFly, setRouteLimit: n => { routeLimit = n; queue(); },
+    setMe: (lat, lng) => { me._ll = [lat, lng]; me.hidden = false; queue(); }, fit: (list, ms) => { const f = plFit(list, ...size()); if (f) fly(f.lat, f.lng, f.z, ms); },
+    destroy: () => { try { ro && ro.disconnect(); } catch (e) {} stopFly(); }
+  };
+  requestAnimationFrame(() => refresh());
+  return api;
+}
+
+/* Orte suchen und benennen (OpenStreetMap Nominatim) */
+async function plFetchJson(url, ms) {
+  const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms || 6500);
+  try { const r = await fetch(url, { signal: ctl.signal, headers: { Accept: 'application/json' } }); if (!r.ok) throw new Error('HTTP ' + r.status); return await r.json(); } finally { clearTimeout(t); }
+}
+const plAddr = r => { const a = r.address || {}; return { stadt: a.city || a.town || a.village || a.municipality || a.county || '', land: a.country || '' }; };
+async function plSearch(q) {
+  const j = await plFetchJson('https://nominatim.openstreetmap.org/search?format=jsonv2&addressdetails=1&limit=7&accept-language=de&q=' + encodeURIComponent(q));
+  return (Array.isArray(j) ? j : []).map(r => Object.assign({ name: r.name || (r.display_name || '').split(',')[0], sub: (r.display_name || '').split(',').slice(1, 4).join(',').trim(), lat: +r.lat, lng: +r.lon }, plAddr(r))).filter(r => isFinite(r.lat) && isFinite(r.lng));
+}
+async function plReverse(lat, lng) {
+  try {
+    const j = await plFetchJson(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=17&accept-language=de&lat=${lat}&lon=${lng}`, 4500), a = j.address || {};
+    return Object.assign({ name: j.name || a.amenity || a.tourism || a.leisure || a.shop || [a.road, a.house_number].filter(Boolean).join(' ') || plAddr(j).stadt || '' }, plAddr(j));
+  } catch (e) { return { name: '', stadt: '', land: '' }; }
+}
+function plLocate(cb) {
+  if (!navigator.geolocation) { toast('Der Standort wird hier nicht unterstützt'); return; }
+  suppressLockUntil = Date.now() + 120000; toast('Standort wird gesucht …');
+  navigator.geolocation.getCurrentPosition(pos => cb(pos.coords.latitude, pos.coords.longitude), err => toast(err && err.code === 1 ? 'Standort nicht erlaubt. Du kannst ihn in den iPhone-Einstellungen freigeben.' : 'Der Standort wurde nicht gefunden'), { enableHighAccuracy: true, timeout: 12000, maximumAge: 30000 });
+}
+
+/* Seite */
+let plSel = null, plFresh = null, plMapApi = null, plPlayTok = 0, plPlaying = false, plRouteOn = ls.get('luise_pl_route') !== '0', plSug = null;
+const plFind = id => plAll().find(x => x.id === id);
+function plOpenId(id) { plSel = id; go('places'); }
+function plEdit(item, seed) {
+  const isNew = !item, arr = plAll(), base = item || Object.assign({ datum: isoToday(), kat: 'out' }, seed || {});
+  openSheet({
+    title: isNew ? 'Ort hinzufügen' : 'Ort bearbeiten', saveLabel: 'Sichern', values: Object.assign({}, base, { kat: plCat(base.kat).n }),
+    fields: [
+      { key: 'name', label: 'Name des Ortes', required: true, ph: 'z. B. Omas Garten, Ostsee, Kinderarzt' },
+      { key: 'kat', label: 'Art', type: 'select', options: PL_CATS.map(c => c.n) },
+      { key: 'datum', label: 'Wann war das?', type: 'date', hint: 'Mit Datum erscheint der Ort auch in der Journey und im Reiseweg.' },
+      { key: 'notiz', label: 'Erinnerung', type: 'textarea', ph: 'Was war hier schön?' },
+      { key: 'fotos', type: 'custom', build: () => momentPhotosField(item && item.fotos) },
+      { key: 'neu', label: 'Neue Fotos hochladen', type: 'file', accept: 'image/*', multiple: true, hint: 'Sie landen auch im Album „Orte“ der Galerie.' },
+      { key: 'pos', type: 'custom', build: () => h('p', { class: 'mute', style: 'font-size:13px' }, 'Position: ' + base.lat.toFixed(4) + ', ' + base.lng.toFixed(4) + (base.stadt ? ' · ' + [base.stadt, base.land].filter(Boolean).join(', ') : '')) }
+    ],
+    onSave: async v => {
+      const { neu, fotos, kat, pos, ...rest } = v, ids = neu && neu.length ? await addPhotos(neu, { album: 'Orte', datum: rest.datum || isoToday(), silent: true }) : [];
+      const t = isNew ? { id: uid(), lat: base.lat, lng: base.lng, ts: Date.now(), stadt: base.stadt || '', land: base.land || '', src: base.src || '' } : item;
+      Object.assign(t, rest, { kat: (PL_CATS.find(c => c.n === kat) || PL_CATS[2]).k, fotos: (fotos || []).concat(ids) });
+      if (isNew) { arr.push(t); plFresh = t.id; } plSel = t.id;
+      await persist('profile'); if (isNew) coinEarn('place'); render();
+    },
+    onDelete: isNew ? null : async () => { arr.splice(arr.indexOf(item), 1); if (plSel === item.id) plSel = null; await persist('profile'); render(); }
+  });
+}
+async function plStartAdd(lat, lng, name, extra) {
+  let seed = Object.assign({ lat, lng, name: name || '' }, extra || {});
+  if (!seed.name || !seed.stadt) { toast('Ort wird gesucht …'); const r = await plReverse(lat, lng); seed = Object.assign({ stadt: r.stadt, land: r.land }, seed, { name: seed.name || r.name }); }
+  plEdit(null, seed);
+}
+function plCard(box, p, api) {
+  box.querySelectorAll('.opcard').forEach(x => x.remove()); if (!p) return;
+  const ro = famMode(), c = plCat(p.kat), st = plStats(), ph = (p.fotos || []).map(id => S.photos.find(x => x.id === id)).filter(Boolean), a = ageAt(S.profile, p.datum);
+  const sub = [p.datum ? fmtD(p.datum) : '', a ? 'mit ' + a : '', c.n].filter(Boolean).join(' · '), where = [p.stadt, p.land].filter(Boolean).join(', ');
+  const km = st.home && st.home.id !== p.id ? plKmTxt(plKm(st.home, p)) + ' vom Zuhause' : '';
+  const card = h('div', { class: 'opcard', role: 'dialog', 'aria-label': p.name },
+    h('div', { class: 'opc-h' }, h('span', { class: 'opc-ic', style: `--c:${c.c}`, html: IC.svg(c.ic) }), h('div', { class: 'opc-t' }, h('b', null, p.name), h('small', null, sub)),
+      h('button', { class: 'opc-x', type: 'button', 'aria-label': 'Schließen', onclick: () => { plSel = null; plCard(box, null); api.refresh(); } }, '✕')),
+    [where, km].filter(Boolean).length ? h('small', { class: 'opc-w' }, [where, km].filter(Boolean).join(' · ')) : null,
+    p.notiz ? h('p', { class: 'opc-n' }, p.notiz) : null,
+    ph.length ? h('div', { class: 'opc-ph' }, ph.slice(0, 6).map((m, i) => h('button', { class: 'opc-th', type: 'button', 'aria-label': 'Foto ansehen', onclick: () => openPhotoViewer(ph, i) }, h('img', { src: m.thumb, alt: '' })))) : null,
+    h('div', { class: 'opc-b' }, h('button', { class: 'btn', type: 'button', onclick: () => routeSheet(p.name, p.lat + ',' + p.lng) }, 'Route'),
+      ro ? null : h('button', { class: 'btn ghost', type: 'button', onclick: () => plEdit(p) }, 'Bearbeiten'), ro ? null : h('button', { class: 'btn ghost', type: 'button', onclick: () => plMove(p, api) }, 'Verschieben')));
+  box.append(card); requestAnimationFrame(() => card.classList.add('in'));
+}
+function plMove(p, api) {
+  const box = api.el.parentNode; box.querySelectorAll('.opcard').forEach(x => x.remove()); api.fly(p.lat, p.lng, Math.max(api.view.z, 15), 500);
+  plPickUi(box, api, 'Karte verschieben, dann „Hier setzen“ tippen', async (lat, lng) => { p.lat = lat; p.lng = lng; const r = await plReverse(lat, lng); if (r.stadt) { p.stadt = r.stadt; p.land = r.land; } await persist('profile'); toast('Ort verschoben'); render(); });
+}
+function plPickUi(box, api, text, onOk) {
+  box.querySelectorAll('.oppick').forEach(x => x.remove());
+  const done = () => { bar.remove(); box.classList.remove('picking'); };
+  const bar = h('div', { class: 'oppick' }, h('div', { class: 'opp-x', 'aria-hidden': 'true', html: '<svg viewBox="0 0 24 24"><path d="M12 3v7M12 14v7M3 12h7M14 12h7"/><circle cx="12" cy="12" r="2"/></svg>' }),
+    h('div', { class: 'opp-b' }, h('small', null, text), h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => { const [la, ln] = api.center(); done(); onOk(la, ln); } }, 'Hier setzen'), h('button', { class: 'btn ghost', type: 'button', onclick: done }, 'Abbrechen'))));
+  box.append(bar); box.classList.add('picking');
+}
+function plSearchUi(box, api) {
+  box.querySelectorAll('.opsearch').forEach(x => x.remove());
+  const inp = h('input', { type: 'search', class: 'ops-in', placeholder: 'Ort, Adresse oder Sehenswürdigkeit …', autocomplete: 'off', autocapitalize: 'words', 'aria-label': 'Ort suchen' }), res = h('div', { class: 'ops-res' }), t = { id: 0 };
+  const close = () => { pn.remove(); };
+  const pn = h('div', { class: 'opsearch' }, h('div', { class: 'ops-h' }, inp, h('button', { class: 'opc-x', type: 'button', 'aria-label': 'Schließen', onclick: close }, '✕')), res);
+  const go1 = async () => {
+    const q = inp.value.trim(); if (q.length < 3) { res.replaceChildren(); return; }
+    res.replaceChildren(h('p', { class: 'mute ops-m' }, 'Suche läuft …')); const me = ++t.id;
+    try { const l = await plSearch(q); if (me !== t.id) return;
+      res.replaceChildren(...(l.length ? l.map(r => h('button', { class: 'ops-r', type: 'button', onclick: () => { close(); api.fly(r.lat, r.lng, 15, 800, () => plEdit(null, { lat: r.lat, lng: r.lng, name: r.name, stadt: r.stadt, land: r.land })); } }, h('b', null, r.name), h('small', null, r.sub))) : [h('p', { class: 'mute ops-m' }, 'Nichts gefunden. Probiere Stadt und Straße.')]));
+    } catch (e) { if (me === t.id) res.replaceChildren(h('p', { class: 'mute ops-m' }, 'Die Suche braucht Internet und hat gerade nicht geklappt.')); }
+  };
+  let db = 0; inp.addEventListener('input', () => { clearTimeout(db); db = setTimeout(go1, 520); }); inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); clearTimeout(db); go1(); } });
+  box.append(pn); setTimeout(() => { try { inp.focus(); } catch (e) {} }, 120);
+}
+function plAddMenu(api, box) {
+  actionSheet('Ort hinzufügen', 'Wo war ' + (S.profile.vorname || 'Luise') + ' schon?', [
+    { label: 'Aktueller Standort', onclick: () => plLocate((la, ln) => { if (api) { api.setMe(la, ln); api.fly(la, ln, 16, 800, () => plStartAdd(la, ln)); } else plStartAdd(la, ln); }) },
+    { label: 'Ort suchen', ghost: true, onclick: () => { if (api && box) plSearchUi(box, api); else go('places'); } },
+    { label: 'Auf der Karte wählen', ghost: true, onclick: () => { if (api && box) plPickUi(box, api, 'Karte verschieben, dann „Hier setzen“ tippen', (la, ln) => plStartAdd(la, ln)); else go('places'); } }]);
+}
+function plPlay(api, box, btn) {
+  const seq = plAll().filter(p => p.datum).sort(plByDate);
+  if (seq.length < 2) { toast('Für die Reise brauchen mindestens zwei Orte ein Datum'); return; }
+  if (plPlaying) { plPlayTok++; plPlaying = false; plEndPlay(api, box, btn); return; }
+  plPlaying = true; const tok = ++plPlayTok; plRouteOn = true; btn.classList.add('on'); btn.setAttribute('aria-label', 'Reise stoppen'); box.classList.add('playing'); box.querySelectorAll('.opcard,.oppick,.opsearch').forEach(x => x.remove());
+  api.setRouteLimit(1); const cap = h('div', { class: 'opcap' }); box.append(cap);
+  const wait = ms => new Promise(r => setTimeout(r, ms)), alive = () => tok === plPlayTok && box.isConnected;
+  (async () => {
+    for (let i = 0; i < seq.length && alive(); i++) {
+      const p = seq[i], a = ageAt(S.profile, p.datum);
+      await new Promise(r => api.fly(p.lat, p.lng, i ? 12.5 : 13, i ? 2200 : 900, r, api.size()[1] * .12)); if (!alive()) break;
+      api.setRouteLimit(i + 1); plSel = p.id; cap.replaceChildren(h('small', null, 'Station ' + (i + 1) + ' von ' + seq.length), h('b', null, p.name), h('span', null, [fmtD(p.datum), a && 'mit ' + a].filter(Boolean).join(' · '))); cap.classList.remove('pop'); void cap.offsetWidth; cap.classList.add('pop'); api.refresh(); Haptic.fire('light');
+      await wait(1700);
+    }
+    if (alive()) { api.setRouteLimit(99999); cap.remove(); api.fit(plAll(), 1200); await wait(1300); }
+    if (tok === plPlayTok) { plPlaying = false; plEndPlay(api, box, btn); }
+  })();
+}
+function plEndPlay(api, box, btn) { api.setRouteLimit(99999); btn.classList.remove('on'); btn.setAttribute('aria-label', 'Reise abspielen'); box.classList.remove('playing'); box.querySelectorAll('.opcap').forEach(x => x.remove()); api.refresh(); }
+const plIco = {
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>', minus: '<svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>',
+  loc: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.500"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',
+  route: '<svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.200"/><circle cx="18" cy="6" r="2.200"/><path d="M8 18h5a3.500 3.500 0 0 0 0-7h-2a3.500 3.500 0 0 1 0-7h5" stroke-dasharray="1.500 3"/></svg>',
+  play: '<svg viewBox="0 0 24 24"><path d="M8 5.500v13l11-6.500z" fill="currentColor"/></svg>', stop: '<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor"/></svg>',
+  search: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.500"/><path d="M16 16l4.500 4.500"/></svg>', fit: '<svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>'
+};
+function viewPlaces() {
+  plPlayTok++; plPlaying = false; const ro = famMode(), list = plAll(), st = plStats(), wrap = h('div', { class: 'stack plpage' });
+  wrap.append(pageHead('Hier war ich schon', ro ? null : h('button', { class: 'pill', type: 'button', onclick: () => plAddMenu(plMapApi, box) }, '+ Ort')));
+  const saved = plViewLoad(), view = saved || { lat: 51.4, lng: 9.8, z: 5.2 };
+  const box = h('div', { class: 'omapbox' + (list.length ? '' : ' empty') });
+  const api = plMap({ view, fitFirst: !saved && list.length > 0, places: plAll, selected: () => plSel, fresh: () => plFresh, route: () => plRouteOn,
+    onSelect: id => { plSel = id; const p = plFind(id); plCard(box, p, api); api.refresh(); if (p) api.fly(p.lat, p.lng, Math.max(api.view.z, 13), 600, null, api.size()[1] * .2); Haptic.fire('select'); },
+    onTapMap: () => { if (plSel) { plSel = null; plCard(box, null); api.refresh(); } },
+    onUser: () => { if (plPlaying) { plPlayTok++; plPlaying = false; plEndPlay(api, box, playBtn); } },
+    onLong: ro ? null : (la, ln) => plStartAdd(la, ln) });
+  plMapApi = api;
+  const btn = (cls, ico, label, fn) => h('button', { class: 'omb ' + cls, type: 'button', 'aria-label': label, title: label, html: ico, onclick: fn });
+  const playBtn = btn('play', plIco.play, 'Reise abspielen', () => plPlay(api, box, playBtn)), routeBtn = btn('rt' + (plRouteOn ? ' on' : ''), plIco.route, 'Weg zeigen', () => { plRouteOn = !plRouteOn; ls.set('luise_pl_route', plRouteOn ? '1' : '0'); routeBtn.classList.toggle('on', plRouteOn); api.refresh(); });
+  const ctl = h('div', { class: 'omb-col' }, btn('z', plIco.plus, 'Vergrößern', () => api.zoomBy(1)), btn('z', plIco.minus, 'Verkleinern', () => api.zoomBy(-1)), list.length ? btn('fit', plIco.fit, 'Alle Orte zeigen', () => api.fit(list, 700)) : null, routeBtn, list.filter(p => p.datum).length > 1 ? playBtn : null);
+  box.append(api.el, ctl);
+  if (!ro) { box.append(btn('omb-s', plIco.search, 'Ort suchen', () => plSearchUi(box, api)), btn('omb-l', plIco.loc, 'Mein Standort', () => plLocate((la, ln) => { api.setMe(la, ln); api.fly(la, ln, 15, 800); })));
+    box.append(h('button', { class: 'omfab', type: 'button', 'aria-label': 'Ort hinzufügen', html: plIco.plus, onclick: () => plAddMenu(api, box) })); }
+  if (!list.length) box.append(h('div', { class: 'omempty' }, h('span', { class: 'ome-i', html: IC.svg('pinmap') }), h('b', null, 'Noch keine Orte'), h('small', null, ro ? 'Hier erscheinen bald die Orte, an denen ' + (S.profile.vorname || 'Luise') + ' schon war.' : 'Tippe auf +, suche einen Ort oder halte die Karte gedrückt. Zum Beispiel das Zuhause, die Klinik oder Omas Garten.')));
+  // Zahlen
+  const stat = (n, l) => h('div', { class: 'plst' }, h('b', null, n), h('small', null, l));
+  wrap.append(h('div', { class: 'plstats' }, stat(String(st.n), st.n === 1 ? 'Ort' : 'Orte'), st.cities ? stat(String(st.cities), st.cities === 1 ? 'Stadt' : 'Städte') : null, st.lands ? stat(String(st.lands), st.lands === 1 ? 'Land' : 'Länder') : null, st.far ? stat(plKmTxt(st.far.d), 'am weitesten') : (st.leg > 0 ? stat(plKmTxt(st.leg), 'Reiseweg') : null)));
+  wrap.append(box);
+  // Vorschlag Geburtsort
+  const gb = (S.profile.geburtsort || '').trim();
+  if (!ro && gb && !list.some(x => x.src === 'geburt')) wrap.append(h('div', { class: 'card plsug' }, h('span', { class: 'plsug-i', html: IC.svg('baby') }), h('div', { class: 'plsug-t' }, h('b', null, 'Geburtsort markieren?'), h('small', { class: 'mute' }, gb + ' als ersten Ort auf die Karte setzen.')),
+    h('button', { class: 'btn', type: 'button', onclick: async e => { e.currentTarget.disabled = true; try { const r = await plSearch(gb); if (!r.length) { toast('Den Geburtsort habe ich nicht gefunden. Tippe auf „+ Ort“.'); e.currentTarget.disabled = false; return; } const x = r[0]; plEdit(null, { lat: x.lat, lng: x.lng, name: 'Geburtsort ' + gb, stadt: x.stadt || gb, land: x.land, kat: 'med', datum: S.profile.geburtsdatum || isoToday(), src: 'geburt' }); } catch (er) { toast('Dafür braucht es Internet'); } e.currentTarget.disabled = false; } }, 'Markieren')));
+  // Liste
+  if (list.length) {
+    wrap.append(sectionHead('Meine Orte', h('small', { class: 'mute' }, plural(list.length, 'Ort', 'Orte'))));
+    const sorted = list.slice().sort((a, b) => plByDate(b, a)), card = h('div', { class: 'card' });
+    sorted.forEach(p => { const c = plCat(p.kat), a = ageAt(S.profile, p.datum);
+      card.append(li(() => { plSel = p.id; plCard(box, p, api); box.scrollIntoView({ behavior: 'smooth', block: 'center' }); api.fly(p.lat, p.lng, Math.max(14, api.view.z), 800, null, api.size()[1] * .2); api.refresh(); }, 'plrow', h('span', { class: 'plpin', style: `--c:${c.c}`, html: IC.svg(c.ic) }), liTxt(p.name, [p.datum ? fmtD(p.datum) : '', a && 'mit ' + a, [p.stadt].filter(Boolean).join('')].filter(Boolean).join(' · ') || c.n), chev())); });
+    wrap.append(card);
+  }
+  if (plSel && plFind(plSel)) setTimeout(() => { const p = plFind(plSel); if (p && box.isConnected) { plCard(box, p, api); if (plFresh === plSel || !saved) api.fly(p.lat, p.lng, Math.max(14, api.view.z), 700, null, api.size()[1] * .2); api.refresh(); } plFresh = null; }, 60);
+  else plSel = null;
+  return wrap;
+}
+/* Mini-Karte ohne Kacheln für das Widget */
+function plDots(list, w, hh) {
+  const NSv = 'http://www.w3.org/2000/svg', svg = document.createElementNS(NSv, 'svg'); svg.setAttribute('viewBox', `0 0 ${w} ${hh}`); svg.setAttribute('class', 'pldots'); svg.setAttribute('aria-hidden', 'true');
+  const add = (t, a) => { const e = document.createElementNS(NSv, t); Object.entries(a).forEach(([k, v]) => e.setAttribute(k, v)); svg.append(e); return e; };
+  for (let x = 12; x < w; x += 18) for (let y = 12; y < hh; y += 18) add('circle', { cx: x, cy: y, r: 1.2, class: 'pld-g' });
+  if (!list.length) return svg;
+  const la = list.map(p => p.lat), lo = list.map(p => p.lng), mid = (Math.min(...la) + Math.max(...la)) / 2, k = Math.cos(mid * Math.PI / 180), x = p => p.lng * k, y = p => -p.lat;
+  const xs = list.map(x), ys = list.map(y), dx = Math.max(...xs) - Math.min(...xs) || .02, dy = Math.max(...ys) - Math.min(...ys) || .02, pad = 22, sc = Math.min((w - 2 * pad) / dx, (hh - 2 * pad) / dy);
+  const px = p => (x(p) - (Math.min(...xs) + Math.max(...xs)) / 2) * sc + w / 2, py = p => (y(p) - (Math.min(...ys) + Math.max(...ys)) / 2) * sc + hh / 2;
+  const seq = list.filter(p => p.datum).sort(plByDate); if (seq.length > 1) add('path', { d: seq.map((p, i) => (i ? 'L' : 'M') + px(p).toFixed(1) + ' ' + py(p).toFixed(1)).join(' '), class: 'pld-r' });
+  const last = list.slice().sort(plByDate).pop();
+  list.forEach(p => { const c = plCat(p.kat); if (p === last) add('circle', { cx: px(p).toFixed(1), cy: py(p).toFixed(1), r: 9, fill: c.c, class: 'pld-pulse' }); add('circle', { cx: px(p).toFixed(1), cy: py(p).toFixed(1), r: 5.2, fill: c.c, stroke: '#fff', 'stroke-width': 2 }); });
+  return svg;
+}
+function wPlaces(w, sz) {
+  const l = plAll(), ro = famMode(); if (ro && !l.length) return null;
+  const open = () => go('places');
+  if (!l.length) return miniCard('Hier war ich schon', 'Noch kein Ort', 'Karte öffnen', open);
+  const st = plStats(), last = l.slice().sort(plByDate).pop();
+  if (sz !== 'm') return miniCard('Hier war ich schon', plural(st.n, 'Ort', 'Orte'), last ? 'Zuletzt: ' + last.name : '', open);
+  return h('div', Object.assign({ class: 'card wx stack plw' }, wxOpen(open, 'Hier war ich schon')),
+    h('div', { class: 'wxhead' }, h('small', { class: 'wk' }, 'Hier war ich schon'), h('span', { class: 'chip' }, plural(st.n, 'Ort', 'Orte'))),
+    plDots(l, 300, 120),
+    h('div', { class: 'plwf' }, h('span', null, last ? [last.name, last.datum && fmtD(last.datum)].filter(Boolean).join(' · ') : ''), st.far ? h('small', { class: 'mute' }, plKmTxt(st.far.d) + ' am weitesten') : (st.cities ? h('small', { class: 'mute' }, plural(st.cities, 'Stadt', 'Städte')) : null)));
+}
+WIDGETS.places = { name: 'Hier war ich schon', desc: 'Orte-Karte mit Zähler und letztem Ort', half: true, render: wPlaces };
+views.places = () => withBack(viewPlaces());
+SUB.push('places'); FAM_PAGES.push('places'); FAM_WIDGETS.push('places');
+
+/* ============ v35: Diashow mit Effekten, Überblendungen und Ken-Burns-Bewegung ============ */
+const SSV_FX = [['mix', 'Mix: jedes Foto anders'], ['fade', 'Weich überblenden'], ['slide', 'Schieben'], ['zoom', 'Heranzoomen'], ['flip', 'Umblättern (3D)'], ['circle', 'Kreis aufziehen'], ['wipe', 'Aufwischen'], ['drop', 'Polaroid fällt herein'], ['spin', 'Drehen']];
+const SSV_SPEED = [['slow', 'Gemütlich', 5600], ['normal', 'Normal', 3600], ['fast', 'Flott', 2400]];
+const ssvCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_show_cfg') || '{}') || {}; } catch (e) {} return { fx: SSV_FX.some(x => x[0] === c.fx) ? c.fx : 'mix', speed: SSV_SPEED.some(x => x[0] === c.speed) ? c.speed : 'normal', cap: c.cap !== false }; };
+function ssvStart(o) {
+  const host = o.host, list = o.list, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cfg = ssvCfg(), idx = Math.max(0, Math.min(o.start || 0, list.length - 1)), alive = true, paused = false, token = 0, cur = null, fxPrev = '', n = 0, urls = new Map();
+  const root = h('div', { class: 'ssv', 'aria-hidden': 'true' }), stageEl = h('div', { class: 'ssv-stage' }), prog = h('i', { class: 'ssv-prog' }), spark = h('div', { class: 'ssv-sp' });
+  for (let k = 0; k < 9; k++) spark.append(h('span', { style: `left:${(k * 11 + 6) % 96}%;--d:${(k * 0.9) % 7}s;--t:${(9 + (k % 4) * 2)}s` }, k % 3 ? '·' : '✦'));
+  const gear = h('button', { class: 'ssv-gear', type: 'button', 'aria-label': 'Diashow einstellen', html: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.500M12 18.500V21M3 12h2.500M18.500 12H21M5.600 5.600l1.800 1.800M16.600 16.600l1.800 1.800M5.600 18.400l1.800-1.800M16.600 7.400l1.800-1.800"/></svg>' });
+  ['pointerdown', 'pointerup', 'click', 'touchstart', 'touchend'].forEach(ev => gear.addEventListener(ev, e => e.stopPropagation()));
+  gear.addEventListener('click', e => { e.stopPropagation(); settings(); });
+  root.append(stageEl, spark, h('div', { class: 'ssv-pb' }, prog), gear); host.append(root);
+  const dwell = () => (SSV_SPEED.find(x => x[0] === cfg.speed) || SSV_SPEED[1])[2];
+  const pick = () => { if (cfg.fx !== 'mix') return cfg.fx; const all = SSV_FX.slice(1).map(x => x[0]); let f; do { f = all[Math.floor(Math.random() * all.length)]; } while (f === fxPrev && all.length > 1); return f; };
+  async function urlOf(k) {
+    const m = list[k]; if (!m) return ''; if (urls.has(m.id)) return urls.get(m.id);
+    let u = m.thumb || ''; try { const rec = await pfileGet(m.id); if (rec) u = mkUrl(new Blob([rec.data], { type: 'image/jpeg' })); } catch (e) {}
+    urls.set(m.id, u); if (urls.size > 6) { const key = urls.keys().next().value, old = urls.get(key); urls.delete(key); if (old && old.startsWith('blob:')) setTimeout(() => rmUrl(old), 4000); } return u;
+  }
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  async function layerFor(k, fx) {
+    const m = list[k], u = await urlOf(k), im = new Image(); im.decoding = 'async'; im.src = u; try { await im.decode(); } catch (e) {}
+    const sw = host.clientWidth || innerWidth, sh = host.clientHeight || innerHeight, ar = (im.naturalWidth || 1) / (im.naturalHeight || 1), sar = sw / sh, pol = fx === 'drop';
+    const lay = h('div', { class: 'ssv-l' + (pol ? ' pol' : '') }), bd = h('img', { class: 'ssv-bd', alt: '', src: u, draggable: 'false' });
+    const photo = h('img', { class: 'ssv-ph' + (!pol && Math.abs(ar - sar) < .3 ? ' cover' : ''), alt: '', src: u, draggable: 'false' });
+    const a = ageAt(S.profile, m.datum), capTxt = [m.titel, m.datum ? fmtD(m.datum) : '', a ? 'mit ' + a : ''].filter(Boolean);
+    const fr = h('div', { class: 'ssv-fr' }, photo, pol && cfg.cap && capTxt.length ? h('figcaption', null, capTxt.slice(0, 2).join(' · ')) : null);
+    lay.append(bd, fr);
+    if (!pol && cfg.cap && capTxt.length) lay.append(h('div', { class: 'ssv-cap' }, h('b', null, capTxt[0]), capTxt[1] ? h('small', null, capTxt.slice(1).join(' · ')) : null));
+    return { lay, photo, fr, fx, m, pol };
+  }
+  const E = 'cubic-bezier(.33,.9,.4,1)';
+  function enter(L, O, fx, D) {
+    const A = (el, kf, opt) => el.animate(kf, Object.assign({ duration: D, easing: E, fill: 'both' }, opt || {}));
+    const dir = (n % 2) ? 1 : -1;
+    switch (fx) {
+      case 'slide': A(L.lay, [{ transform: `translateX(${100 * dir}%)` }, { transform: 'none' }]); if (O) { A(O.lay, [{ transform: 'none', opacity: 1 }, { transform: `translateX(${-28 * dir}%) scale(.94)`, opacity: 0 }]); } break;
+      case 'zoom': A(L.lay, [{ transform: 'scale(1.5)', opacity: 0, filter: 'blur(14px)' }, { transform: 'none', opacity: 1, filter: 'blur(0)' }]); if (O) A(O.lay, [{ opacity: 1 }, { opacity: 0, transform: 'scale(.9)' }], { duration: D * .8 }); break;
+      case 'flip': host.classList.add('ssv-3d'); A(L.lay, [{ transform: `perspective(1200px) rotateY(${-85 * dir}deg)`, opacity: 0 }, { transform: 'perspective(1200px) rotateY(0)', opacity: 1 }], { duration: D * 1.1 }); if (O) A(O.lay, [{ transform: 'perspective(1200px) rotateY(0)', opacity: 1 }, { transform: `perspective(1200px) rotateY(${85 * dir}deg)`, opacity: 0 }], { duration: D * 1.1 }); break;
+      case 'circle': A(L.lay, [{ clipPath: `circle(0% at ${rnd(30, 70).toFixed(0)}% ${rnd(35, 65).toFixed(0)}%)` }, { clipPath: 'circle(95% at 50% 50%)' }], { duration: D * 1.15 }); break;
+      case 'wipe': A(L.lay, [{ clipPath: dir > 0 ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)' }, { clipPath: 'inset(0 0 0 0)' }], { duration: D * 1.05 }); break;
+      case 'drop': A(L.lay, [{ opacity: 0 }, { opacity: 1 }], { duration: D * .6 }); A(L.fr, [{ transform: `translateY(-110%) rotate(${-14 * dir}deg) scale(1.1)` }, { transform: `translateY(0) rotate(${(rnd(-4, 4)).toFixed(1)}deg) scale(1)` }], { duration: D * 1.2, easing: 'cubic-bezier(.3,1.35,.5,1)' }); if (O) A(O.lay, [{ opacity: 1 }, { opacity: 0 }], { duration: D * .9 }); break;
+      case 'spin': A(L.lay, [{ transform: `rotate(${-10 * dir}deg) scale(.55)`, opacity: 0 }, { transform: 'none', opacity: 1 }]); if (O) A(O.lay, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `rotate(${10 * dir}deg) scale(1.2)` }]); break;
+      default: A(L.lay, [{ opacity: 0 }, { opacity: 1 }]); if (O) A(O.lay, [{ opacity: 1 }, { opacity: 0 }], { delay: D * .35, duration: D * .65 });
+    }
+    // Ken Burns
+    const dx = rnd(-3, 3), dy = rnd(-3, 3), z = 1.07 + Math.random() * .07, total = dwell() + D;
+    if (!reduce) L.photo.animate([{ transform: `scale(${L.pol ? 1 : 1.02}) translate(0,0)` }, { transform: `scale(${L.pol ? 1.04 : z}) translate(${dx}%,${dy}%)` }], { duration: total, easing: 'linear', fill: 'both' });
+    L.bdAnim = L.lay.querySelector('.ssv-bd').animate([{ transform: 'scale(1.25)' }, { transform: `scale(1.4) translate(${-dx}%,${-dy}%)` }], { duration: total, easing: 'linear', fill: 'both' });
+  }
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  async function run() {
+    const my = ++token; let first = true;
+    while (alive && my === token) {
+      const fx = first ? 'fade' : (reduce ? 'fade' : pick()); fxPrev = fx; const L = await layerFor(idx, fx); if (!alive || my !== token) return;
+      const O = cur; L.lay.style.zIndex = String((n % 2000) + 2); stageEl.append(L.lay);
+      const D = first ? 700 : (reduce ? 400 : 1150); enter(L, O, fx, D);
+      if (o.onIndex) o.onIndex(idx);
+      const t0 = performance.now(), total = dwell();
+      prog.style.transition = 'none'; prog.style.transform = 'scaleX(0)'; void prog.offsetWidth; prog.style.transition = `transform ${total}ms linear`; prog.style.transform = 'scaleX(1)';
+      cur = L; n++; first = false;
+      if (O) setTimeout(() => { O.lay.remove(); host.classList.remove('ssv-3d'); }, D + 120);
+      const nxt = (idx + 1) % list.length; urlOf(nxt); // vorladen
+      let waited = 0; while (alive && my === token && waited < total) { await sleep(120); if (!paused && !document.hidden) waited += 120; else { prog.style.transition = 'none'; } }
+      idx = nxt;
+    }
+  }
+  function settings() {
+    paused = true; const was = prog.style.transform; void was;
+    openSheet({ top: true, famOk: true, title: 'Diashow', saveLabel: 'Übernehmen', values: { fx: (SSV_FX.find(x => x[0] === cfg.fx) || SSV_FX[0])[1], speed: SSV_SPEED.find(x => x[0] === cfg.speed)[1], cap: cfg.cap },
+      fields: [{ key: 'fx', label: 'Übergang', type: 'select', options: SSV_FX.map(x => x[1]) }, { key: 'speed', label: 'Tempo', type: 'select', options: SSV_SPEED.map(x => x[1]) }, { key: 'cap', label: 'Beschreibung und Datum einblenden', type: 'checkbox' }],
+      onSave: async v => { cfg = { fx: (SSV_FX.find(x => x[1] === v.fx) || SSV_FX[0])[0], speed: (SSV_SPEED.find(x => x[1] === v.speed) || SSV_SPEED[1])[0], cap: !!v.cap }; ls.set('luise_show_cfg', JSON.stringify(cfg)); } });
+    const poll = setInterval(() => { if (!alive) { clearInterval(poll); return; } if (!document.querySelector('.back.in')) { clearInterval(poll); paused = false; } }, 350);
+  }
+  run();
+  return { stop() { alive = false; token++; try { root.remove(); } catch (e) {} host.classList.remove('ssv-3d'); urls.forEach(u => { if (u && u.startsWith('blob:')) rmUrl(u); }); urls.clear(); }, pause() { paused = true; }, resume() { paused = false; }, index: () => idx };
+}
+
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
@@ -11164,7 +11934,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup };
+window.__luise = { ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
 })();
 </script>
 </body>
