@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="36">
+<meta name="app-version" content="37">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1951,6 +1951,70 @@ ul.famlist li{padding:0!important;border:0!important;background:none!important;d
 @media (prefers-reduced-motion:reduce){.pv-impchip,.pv-impan{animation:none!important}}
 :root[data-dark] .omap-t{filter:invert(.92) hue-rotate(180deg) brightness(.95) contrast(.88) saturate(.7)}
 .stv-in{z-index:3}
+/* ===== v37 ===== */
+.mediaseg{display:grid;grid-template-columns:1fr 1fr;width:100%}
+.mediaseg button{padding:10px 8px;font-weight:700}
+.vgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.vgt{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:3px;cursor:pointer;min-width:0}
+.vgt-img{position:relative;display:block;aspect-ratio:9/12;border-radius:18px;overflow:hidden;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 30%,var(--card)),var(--card));box-shadow:0 6px 18px rgba(0,0,0,.14)}
+.vgt-img img{width:100%;height:100%;object-fit:cover;display:block}
+.vgt-ph{position:absolute;inset:0;display:grid;place-items:center;font-size:34px}
+.vgt-play{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(0,0,0,.42);color:#fff;display:grid;place-items:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.vgt-play svg{width:24px;height:24px}
+.vgt-d{position:absolute;right:8px;bottom:8px;font-style:normal;font-size:12px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:2px 7px;border-radius:99px}
+.vgt b{font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vgt small{color:var(--mute);font-size:12px}
+.vlinks p{margin:0}
+.vlinklist{display:flex;flex-direction:column;gap:8px}
+.vlink{display:flex;align-items:center;gap:6px;padding:8px;border-radius:16px;background:color-mix(in srgb,var(--card) 70%,var(--accent) 6%);border:1px solid var(--line)}
+.vlink-main{all:unset;box-sizing:border-box;flex:1;min-width:0;display:flex;align-items:center;gap:10px;cursor:pointer;padding:2px}
+.vlink-ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff}.vlink-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2}
+.vlink-ic.yt{background:#e03a3a}.vlink-ic.ig{background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af)}
+.vlink-tx{display:flex;flex-direction:column;min-width:0}.vlink-tx b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vlink-tx small{color:var(--mute);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vlink-go{flex:none;font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;padding:8px 6px}
+.vlink-x{all:unset;flex:none;width:34px;height:34px;display:grid;place-items:center;font-size:22px;color:var(--mute);cursor:pointer;border-radius:50%}
+body.famode .vadd{display:none!important}
+/* Familienmodus: Widgets anpassen */
+.famexit .famedit{display:inline-flex;align-items:center;gap:7px;min-height:44px}
+.famexit .famedit .glk{width:16px;height:16px;display:inline-block}
+.famexit .famedit .glk svg{width:100%;height:100%}
+.wvid{position:relative;overflow:hidden;padding:0;min-height:128px;display:block;text-align:left;color:#fff}
+.wvid-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wvid-ph{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(145deg,var(--g1),var(--g3));color:#fff}.wvid-ph svg{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:1.8}
+.wvid-play{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.42);display:grid;place-items:center;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}.wvid-play svg{width:18px;height:18px}
+.wvid-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.66));display:flex;flex-direction:column}.wvid-cap b{font-size:15px}.wvid-cap small{opacity:.85;font-size:12px}
+/* Bilderkennung 2: Motive in der Galerie */
+.phmot{gap:10px}
+.phtags{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 4px;margin:0 -2px}.phtags::-webkit-scrollbar{display:none}
+.phtags.wrap{flex-wrap:wrap;overflow:visible}
+.phtag{all:unset;box-sizing:border-box;flex:none;display:inline-flex;align-items:center;gap:7px;min-height:36px;padding:0 13px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;background:color-mix(in srgb,var(--card) 82%,var(--accent) 10%);border:1px solid var(--line);color:var(--ink);white-space:nowrap}
+.phtag i{font-style:normal;font-size:12px;opacity:.6;font-weight:700}
+.phtag.on{background:var(--accent);color:#fff;border-color:transparent}.phtag.on i{opacity:.85}
+.phtag:active{transform:scale(.96)}
+.phtagon{display:flex;align-items:center;gap:8px;font-size:14px}.phtagon b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.phdet{padding:14px;display:flex;flex-direction:column;gap:10px}
+.phdet-r{display:flex;align-items:center;gap:12px}
+.phdet-i{flex:none;width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:20px;background:color-mix(in srgb,var(--accent) 18%,var(--card))}
+.phdet-t{flex:1;min-width:0;display:flex;flex-direction:column}.phdet-t b{font-size:15px}.phdet-t small{color:var(--mute);font-size:12.5px}
+.phdet-s{margin:0;font-size:12.5px;line-height:1.4;color:var(--mute)}
+.phdet .vi-bar{background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.wmot{gap:10px}.wmot-h{display:flex;flex-direction:column}.wmot-h small{color:var(--mute);font-size:12.5px}
+/* Foto-Viewer: Stichwörter, Ähnliches */
+.vi-seenh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}.vi-seenh small{margin:0!important}
+.vi-all{all:unset;font-size:12.5px;font-weight:700;color:#fff;padding:5px 11px;border-radius:99px;background:var(--accent);cursor:pointer}
+.vi-lab{padding-right:4px}.vi-lab.ok{background:color-mix(in srgb,var(--accent) 55%,rgba(255,255,255,.12));font-weight:600}
+.vi-lt{padding-right:2px}
+.vi-lb{all:unset;box-sizing:border-box;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;font-size:17px;line-height:1;cursor:pointer;background:rgba(255,255,255,.14)}.vi-lb.yes{background:color-mix(in srgb,var(--accent) 70%,#fff 0%)}
+.vi-add{all:unset;margin-top:8px;font-size:13px;font-weight:700;opacity:.85;cursor:pointer;padding:6px 2px}
+.vi-addf{display:flex;gap:8px;margin-top:8px}
+.vi-in{flex:1;min-width:0;box-sizing:border-box;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);color:#fff;border-radius:12px;padding:9px 12px;font-size:16px}.vi-in::placeholder{color:rgba(255,255,255,.55)}
+.vi-sim small{display:block;opacity:.7;font-size:12px;margin-bottom:6px}
+.vi-simr{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.vi-simr::-webkit-scrollbar{display:none}
+.vi-simb{all:unset;flex:none;width:62px;height:62px;border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(255,255,255,.2)}.vi-simb img{width:100%;height:100%;object-fit:cover;display:block}
+/* Diashow: erkannte Motive */
+.ssv-det{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ssv-tag{font-size:12.5px;font-weight:600;padding:4px 11px;border-radius:99px;background:rgba(255,255,255,.2);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff}
+.ssv-tag.first{background:linear-gradient(135deg,#f6b73c,#e8803a);color:#2a1700}
+/* Familienmodus: Video-Feed nur ansehen */
+body.famode .vrail .vact.like,body.famode .vrail .vact.com,body.famode .vrail .vact.sv,body.famode .vrail .vact.more{display:none!important}
 </style>
 </head>
 <body>
@@ -2906,7 +2970,7 @@ function wBday() {
 }
 function wPhoto(w, sz) {
   if (!S.photos.length) return miniCard('Foto des Tages', 'Noch keine Fotos', 'Zur Galerie', () => go('photos'));
-  const key = isoToday().replace(/-/g, ''), idx = (+key) % S.photos.length, m = S.photos[idx];
+  const key = isoToday().replace(/-/g, ''), okI = S.photos.map((p, i) => i).filter(i => visShowOk(S.photos[i])), idx = okI.length ? okI[(+key) % okI.length] : (+key) % S.photos.length, m = S.photos[idx];
   return h('button', { class: 'card mini wphoto' + (sz === 'l' ? ' big' : sz === 'm' ? ' wide' : ''), type: 'button', onclick: () => openPhotoViewer(S.photos, idx), 'aria-label': 'Foto des Tages öffnen' }, hiImg(h('img', { src: m.thumb, alt: '' }), m.id), h('span', { class: 'wcap' }, h('small', null, 'Foto des Tages'), m.datum ? fmtD(m.datum) : ''));
 }
 function wSpotOld() {
@@ -2958,7 +3022,7 @@ function homeLayout() {
   } catch (e) {}
   return HOME_DEFAULT.map(normItem);
 }
-const saveLayout = l => ls.set('luise_home_v2', JSON.stringify(l));
+let saveLayout = l => ls.set('luise_home_v2', JSON.stringify(l));
 let homeEdit = false;
 function layoutFromDom(grid) {
   const cur = homeLayout();
@@ -3013,7 +3077,7 @@ function widgetPreview(id, sz) {
 const markCut = w => setTimeout(() => { w.classList.toggle('cut', w.scrollHeight > w.clientHeight + 2); }, 90);
 function addWidgetSheet(opts) {
   opts = opts || {}; let ov = null;
-  const used = new Set(homeLayout().map(x => x.id)), free = Object.keys(WIDGETS).filter(k => !used.has(k));
+  const used = new Set(homeLayout().map(x => x.id)), free = Object.keys(WIDGETS).filter(k => !used.has(k) && (!famMode() || FAM_WIDGETS.includes(k)));
   if (!free.length) { toast('Alle Widgets sind schon auf der Startseite'); return; }
   let lastAdded = null;
   const body = h('div', { class: 'stack' }, h('p', { class: 'mute' }, opts.replace ? 'Wähle ein Widget. Es nimmt den Platz von „' + WIDGETS[opts.replace].name + '“ ein.' : opts.before ? 'Wähle ein Widget. Es wird vor „' + WIDGETS[opts.before].name + '“ eingesetzt.' : 'So sieht das Widget mit deinen Daten aus. Wähle eine Größe und tippe auf „Hinzufügen“. Es erscheint ganz unten auf der Startseite, dort kannst du es verschieben.'));
@@ -3048,11 +3112,11 @@ function viewHome() {
   const fw = famWelcomeCard(); if (fw) wrap.append(fw);
   const fa = famAskCard(); if (fa) wrap.append(fa);
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
-    h('b', null, 'Startseite anpassen'),
+    h('b', null, famMode() ? 'Familienmodus: Startseite anpassen' : 'Startseite anpassen'),
     h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit S, M und L unter dem Widget änderst du die Größe, mit − entfernst du es.'),
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: templateSheet }, 'Vorlage'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del('luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', onclick: addWidgetSheet }, '+ Widget'), h('button', { class: 'btn ghost', onclick: templateSheet }, 'Vorlage'), h('button', { class: 'btn ghost', onclick: () => { if (confirm('Startseite auf die Standard-Anordnung zurücksetzen?')) { ls.del(famMode() ? FAM_LKEY : 'luise_home_v2'); render(); } } }, 'Zurücksetzen'), h('button', { class: 'btn ghost', onclick: () => { homeEdit = false; render(); } }, 'Fertig'))));
   const grid = h('div', { class: 'wgrid' + (homeEdit ? ' editing' : '') });
-  (famMode() ? famLayout(homeLayout()) : homeLayout()).forEach((item, i, arr) => {
+  homeLayout().forEach((item, i, arr) => {
     const def = WIDGETS[item.id];
     let el = null;
     try { el = def.render(item.w, item.sz); } catch (e) { console.error(e); el = h('div', { class: 'card' }, 'Widget-Fehler: ' + e.message); }
@@ -4944,7 +5008,6 @@ function viewMore() {
   const dn = S.docs.length, exp = S.docs.filter(d => d.ablauf && daysTo(d.ablauf) <= 90).length;
   const bigTile = (ico, title, sub, to) => h('button', { class: 'tile hubtile', type: 'button', onclick: () => go(to) }, h('span', { class: 'ico', html: ico }), h('span', null, title), h('small', null, sub));
   wrap.append(h('div', { class: 'tiles' }, bigTile(ICON.chat, 'KI-Assistent', 'Fragen zu den App-Daten', 'chat'), bigTile(ICON.search, 'Suche', 'Alles in der App finden', 'search')));
-  wrap.append(h('button', { class: 'tile hubtile wide', type: 'button', onclick: () => openVideoFeed('alle') }, h('span', { class: 'ico', html: ICON.video }), h('span', { class: 'tx' }, h('span', null, 'Reels'), h('small', null, 'Eigene Videos, YouTube Shorts und Instagram-Links'))));
   const grp = (title, cls, ...rows) => { wrap.append(sectionHead(title)); wrap.append(h('div', { class: 'card hubgrp ' + cls }, ...rows)); };
   grp('Organisation', 'gA',
     hubRow(ICON.docs, 'Dokumente', dn ? plural(dn, 'Dokument', 'Dokumente') + (exp ? ` · ${exp} läuft bald ab` : ' · Scannen, ablegen, suchen') : 'Urkunden, Impfpass, Versicherung', 'docs'),
@@ -5006,7 +5069,7 @@ function viewSettings() {
     try { await importBackup(f); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); }
   } });
   wrap.append(h('div', { class: 'card stack' },
-    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Sie enthält Profile, Gesundheit, Fotos, Dokumente, Reels-Likes und Kommentare, Coins sowie Design, Anordnung der Widgets und alle Einstellungen. Nicht enthalten sind eigene Videos (zu groß) und der Sperr-Code (aus Sicherheitsgründen).' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
+    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Sie enthält Profile, Gesundheit, Fotos, Dokumente, Video-Likes und Kommentare, Coins sowie Design, Anordnung der Widgets und alle Einstellungen. Nicht enthalten sind eigene Videos (zu groß) und der Sperr-Code (aus Sicherheitsgründen).' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
     backupFile
       ? h('button', { class: 'btn wide', onclick: async () => {
           const f = backupFile;
@@ -5030,7 +5093,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 36'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 37'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -7554,7 +7617,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 36;
+const APP_VERSION = 37;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7615,13 +7678,13 @@ function initPull() {
 const TABS = [
   { id: 'home', label: 'Übersicht', icon: ICON.home },
   { id: 'news', label: 'News', icon: ICON.news },
-  { id: 'photos', label: 'Fotos', icon: ICON.photo },
+  { id: 'photos', label: 'Galerie', icon: ICON.photo },
   { id: 'health', label: 'Gesundheit', icon: ICON.health },
   { id: 'more', label: 'Mehr', icon: ICON.more }
 ];
 const SUB = ['tracker', 'settings', 'docs', 'school', 'badges', 'spirit', 'weeks', 'products', 'hd', 'songs', 'dates', 'addr', 'invest', 'kids', 'journey', 'family', 'diary', 'quiz', 'offers', 'coins'];
 const withBack = v => famMode() ? h('div', { class: 'stack' }, tab === 'journey' ? null : backBtn('Start', () => go('home')), v) : h('div', { class: 'stack' }, backBtn('Mehr', () => go('more')), v);
-const FAM_TABS = [{ id: 'home', label: 'Start', icon: ICON.home }, { id: 'photos', label: 'Fotos', icon: ICON.photo }, { id: 'journey', label: 'Journey', icon: ICON.journey }];
+const FAM_TABS = [{ id: 'home', label: 'Start', icon: ICON.home }, { id: 'photos', label: 'Galerie', icon: ICON.photo }, { id: 'journey', label: 'Journey', icon: ICON.journey }];
 const curTabId = () => famMode() ? (tab === 'photos' ? 'photos' : tab === 'journey' ? 'journey' : 'home') : (['search', 'chat'].includes(tab) ? 'home' : SUB.includes(tab) ? 'more' : tab);
 const withBackTo = (id, label, v) => h('div', { class: 'stack' }, backBtn(String(label).replace(/^‹\s*/, ''), () => go(id)), v);
 const views = {
@@ -8301,14 +8364,15 @@ const phMonthLabel = key => key ? new Date(+key.slice(0, 4), +key.slice(5, 7) - 
 function phFiltered() {
   const q = phSearch.trim().toLowerCase();
   let list = S.photos.filter(f => photoAlbum === 'Alle' || (photoAlbum === FAV ? f.fav : f.album === photoAlbum));
-  if (q) list = list.filter(f => [f.titel, f.album, f.datum ? fmtD(f.datum) : '', f.datum ? phMonthLabel(f.datum.slice(0, 7)) : '', f.fav ? 'favorit' : ''].join(' ').toLowerCase().includes(q));
+  if (phTag) list = list.filter(f => visHasTag(f, phTag));
+  if (q) list = list.filter(f => [f.titel, f.album, f.datum ? fmtD(f.datum) : '', f.datum ? phMonthLabel(f.datum.slice(0, 7)) : '', f.fav ? 'favorit' : '', visTagText(f)].join(' ').toLowerCase().includes(q));
   const cmp = (a, b) => (b.datum || '').localeCompare(a.datum || '') || b.created - a.created;
   return list.sort(phSort === 'new' ? cmp : (a, b) => cmp(b, a));
 }
 function phMemories() {
   const t = new Date(), out = [];
   S.photos.forEach(f => {
-    if (!f.datum) return; const d = parseD(f.datum);
+    if (!f.datum || !visShowOk(f)) return; const d = parseD(f.datum);
     const mo = (t.getFullYear() - d.getFullYear()) * 12 + t.getMonth() - d.getMonth();
     if (mo < 1 || Math.abs(d.getDate() - t.getDate()) > 1) return;
     const yrs = mo / 12;
@@ -8346,7 +8410,7 @@ function phBulkBar() {
     btn('shareI', 'Teilen', () => phShareFiles(ids)),
     btn('trashI', 'Löschen', async () => { if (!confirm(`${n} ${n === 1 ? 'Foto' : 'Fotos'} wirklich löschen?`)) return; await phDelete(ids); phSel = new Set(); toast('Gelöscht'); render(); }, 'danger')));
 }
-function viewPhotos() {
+function viewPhotoGrid() {
   const wrap = h('div', { class: 'stack photopage' }), p = S.profile;
   const input = h('input', { type: 'file', accept: 'image/*', multiple: true, style: 'display:none', onchange: async e => {
     let files = Array.from(e.target.files || []); e.target.value = '';
@@ -8384,8 +8448,9 @@ function viewPhotos() {
   albums.forEach(a => cards.push([a, S.photos.filter(f => f.album === a)]));
   if (cards.length > 1) wrap.append(h('div', { class: 'phalb' }, cards.map(([name, l]) => h('button', { class: 'pha' + (name === photoAlbum ? ' on' : ''), type: 'button', 'data-album': name, onclick: () => { photoAlbum = name; render(); } },
     h('span', { class: 'pha-img' }, h('img', { src: cover(l).thumb, alt: '' })), h('b', null, name === FAV ? '♥ Favoriten' : name), h('small', null, String(l.length))))));
+  { const vb = visGalleryBar(); if (vb) wrap.append(vb); }
   // Werkzeugleiste
-  const search = h('input', { type: 'search', class: 'phsearch', placeholder: 'Suchen: Titel, Album, Monat', value: phSearch, 'aria-label': 'Fotos suchen', oninput: e => { phSearch = e.target.value; const pos = e.target.selectionStart; render(); const el = document.querySelector('.phsearch'); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (x) {} } } });
+  const search = h('input', { type: 'search', class: 'phsearch', placeholder: 'Suchen: Titel, Album, Monat, Motiv', value: phSearch, 'aria-label': 'Fotos suchen', oninput: e => { phSearch = e.target.value; const pos = e.target.selectionStart; render(); const el = document.querySelector('.phsearch'); if (el) { el.focus(); try { el.setSelectionRange(pos, pos); } catch (x) {} } } });
   const list = phFiltered();
   const tools = h('div', { class: 'phtools' }, h('label', { class: 'phsearchw' }, phIcon('search'), search),
     h('button', { class: 'phtb', type: 'button', 'aria-label': phSort === 'new' ? 'Neueste zuerst' : 'Älteste zuerst', title: phSort === 'new' ? 'Neueste zuerst' : 'Älteste zuerst', onclick: () => { phSort = phSort === 'new' ? 'old' : 'new'; render(); } }, phIcon('sortI')),
@@ -8432,7 +8497,7 @@ async function openPhotoViewer(list, start, vopts) {
     onClose: () => { alive = false; stopShow(); vis.stop(); if (url) rmUrl(url); document.removeEventListener('keydown', onKey); } });
   const onKey = e => { if (!alive) return; if (e.key === 'ArrowLeft') { stopShow(); step(-1); } else if (e.key === 'ArrowRight') { stopShow(); step(1); } else if (e.key === 'Escape') api.close(); else if ((e.key === 'l' || e.key === 'L') && !famMode()) favToggle(); };
   document.addEventListener('keydown', onKey);
-  const vis = visAttach({ box: impBox, btn: impBtn, close: () => api.close(), changed: () => { paintInfo(); render(); }, getBlob: async () => { if (blob) return blob; const rec = await pfileGet(list[i].id); return rec ? new Blob([rec.data], { type: 'image/jpeg' }) : null; } });
+  const vis = visAttach({ box: impBox, btn: impBtn, close: () => api.close(), changed: () => { paintInfo(); render(); }, jump: m2 => { const k = list.indexOf(m2); if (k >= 0) { stopShow(); i = k; load(); } else { api.close(); openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(m2))); } }, getBlob: async () => { if (blob) return blob; const rec = await pfileGet(list[i].id); return rec ? new Blob([rec.data], { type: 'image/jpeg' }) : null; } });
   impBtn.onclick = () => vis.toggle();
   const paintHeart = () => { const m = list[i]; heartBtn.replaceChildren(phIcon(m.fav ? 'heartF' : 'heartO', m.fav ? 'on' : ''), h('small', null, m.fav ? 'Favorit' : 'Merken')); heartBtn.classList.toggle('on', !!m.fav); };
   const paintInfo = () => {
@@ -8440,7 +8505,7 @@ async function openPhotoViewer(list, start, vopts) {
     info.classList.toggle('on', infoOn);
     info.replaceChildren(h('b', { class: 'pvi-t' }, m.titel || 'Ohne Beschreibung'),
       h('p', null, [m.datum ? fmtD(m.datum) : 'Ohne Datum', a ? 'Luise war ' + a + ' alt' : ''].filter(Boolean).join(' · ')),
-      h('div', { class: 'pvi-chips' }, m.album ? h('span', { class: 'chip' }, '📁 ' + m.album) : null, m.fav ? h('span', { class: 'chip' }, '♥ Favorit') : null, m.size ? h('span', { class: 'chip' }, Math.round(m.size / 1024) + ' KB') : null),
+      h('div', { class: 'pvi-chips' }, m.album ? h('span', { class: 'chip' }, '📁 ' + m.album) : null, m.fav ? h('span', { class: 'chip' }, '♥ Favorit') : null, ...(m.tags || []).map(k => h('span', { class: 'chip' }, '🏷 ' + visTagName(k))), m.size ? h('span', { class: 'chip' }, Math.round(m.size / 1024) + ' KB') : null),
       famMode() ? null : h('button', { class: 'linkbtn', type: 'button', onclick: () => edit() }, 'Beschreibung, Datum, Album ändern'));
   };
   const load = async () => {
@@ -8565,6 +8630,7 @@ function vidShorts(tid) {
   return out;
 }
 function vidItems(f) {
+  if (f !== 'gemerkt') f = 'eigene';
   const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)).map(m => ({ k: 'own', m }));
   const mine = (S.profile.ytVideos || []).map(y => y.ig ? { k: 'ig', code: y.ig, t: y.titel || 'Instagram-Reel', y } : { k: 'yt', vid: y.vid, t: y.titel || 'YouTube-Video', ch: y.kanal || '', y });
   const card = tid => ({ k: 'topic', topic: tid });
@@ -8597,6 +8663,7 @@ function vfHeart(card, x, y) {
   card.append(e); setTimeout(() => e.remove(), 950);
 }
 async function vfLike(it, card, only) {
+  if (famMode()) return;
   const key = vidKey(it), s = vsoc(key), on = only ? 1 : (s.like ? 0 : 1);
   const pr = on !== s.like ? vsocSet(key, { like: on }, vidSnap(it)) : null;
   if (card._paintRail) card._paintRail();
@@ -8606,6 +8673,7 @@ async function vfLike(it, card, only) {
   if (pr) await pr;
 }
 async function vfSave(it, card) {
+  if (famMode()) return;
   const key = vidKey(it), s = vsoc(key), on = s.save ? 0 : 1;
   const pr = vsocSet(key, { save: on }, vidSnap(it)); if (card._paintRail) card._paintRail();
   toast(on ? 'Gemerkt. Du findest es oben unter „Gemerkt“.' : 'Nicht mehr gemerkt');
@@ -8624,6 +8692,7 @@ async function vfShare(it) {
   shareText(it.t || 'Reel', url);
 }
 function vfComments(it, card) {
+  if (famMode()) return;
   if (!vf) return; const key = vidKey(it);
   const list = h('div', { class: 'vc-list' }), inp = h('input', { class: 'vc-in', type: 'text', placeholder: 'Kommentieren …', maxlength: 400, enterkeyhint: 'send', 'aria-label': 'Kommentar schreiben' }), cnt = h('b');
   const close = () => { back.classList.remove('in'); setTimeout(() => back.remove(), 220); if (vv) { vv.removeEventListener('resize', fit); vv.removeEventListener('scroll', fit); } };
@@ -8692,7 +8761,7 @@ function vfOwnCard(it) {
   const more = () => actionSheet(m.titel, `${fmtD(m.datum)}${m.size ? ' · ' + fmtSize(m.size) : ''}`, [
     { label: card.dataset.fit === 'cover' ? 'Ganzes Bild zeigen' : 'Bild füllen (heranzoomen)', onclick: () => { vfitSet(m.id, card.dataset.fit === 'cover' ? 'contain' : 'cover'); vfitApply(card, vd, m.id); toast(card.dataset.fit === 'cover' ? 'Bild gefüllt' : 'Ganzes Bild'); } },
     { label: 'Umbenennen', onclick: () => openSheet({ title: 'Umbenennen', values: { titel: m.titel }, fields: [{ key: 'titel', label: 'Titel', required: true, cap: 'words' }], onSave: async v => { m.titel = v.titel; await videoPut(m); if (vf) vfRebuild(true); } }) },
-    { label: 'Löschen', ghost: true, onclick: async () => { if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); await vsocSet('o:' + m.id, { like: 0, save: 0, c: [] }); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]);
+    { label: 'Löschen', ghost: true, onclick: async () => { if (famMode()) { toast('Im Familienmodus kann man nur ansehen'); return; } if (!confirm('Dieses Video löschen?')) return; card._off(); await vfileDel(m.id); await videoDel(m.id); S.videos = S.videos.filter(x => x.id !== m.id); await vsocSet('o:' + m.id, { like: 0, save: 0, c: [] }); toast('Video gelöscht'); if (vf) vfRebuild(true); } }]);
   card.append(h('div', { class: 'vmedia own' }, vd), h('div', { class: 'vshade' }), h('div', { class: 'vplaybig', html: VIC.play }), vfTap(card, it, toggle),
     vfInfo(S.profile.vorname || 'Wir', (S.profile.vorname || 'W').slice(0, 1).toUpperCase(), 'linear-gradient(135deg,#f58529,#dd2a7b,#8134af)', m.titel, `Eigenes Video · ${[fmtD(m.datum), vidDurTxt(m.dur)].filter(Boolean).join(' · ')}`),
     vfRail(card, it, more), h('div', { class: 'vprog' }, prog));
@@ -8768,6 +8837,11 @@ function vfStatus() {
   if (!vf) return; const s = vf.el.querySelector('.vstat'); if (!s) return;
   s.textContent = vidBusy ? 'Suche Shorts …' : (vidErr && vf.filter !== 'eigene' && vf.filter !== 'gemerkt' ? vidErr : ''); s.hidden = !s.textContent;
 }
+function vfJump(key) {
+  if (!vf) return; const items = vidItems(vf.filter), k = items.findIndex(it => (it.m && it.m.id === key) || it.vid === key || it.code === key);
+  if (k <= 0) return; const c = vf.feed.children[k]; if (!c) return;
+  vf.feed.style.scrollSnapType = 'none'; vf.feed.scrollTop = c.offsetTop; setTimeout(() => { if (vf) vf.feed.style.scrollSnapType = ''; }, 60);
+}
 function vfRebuild(keepScroll) {
   if (!vf) return; const keep = vf.feed.scrollTop;
   vf.feed.querySelectorAll('.vcard').forEach(c => { if (c._off) c._off(); vf.io.unobserve(c); });
@@ -8818,25 +8892,24 @@ function addLink() {
   });
 }
 function addYtVideo() { addLink(); }
-function openVideoFeed(filter) {
+function openVideoFeed(filter, startKey) {
   if (vf) closeVideoFeed();
   const feed = h('div', { class: 'vfeed' }), chips = h('div', { class: 'vchips' });
-  const el = h('div', { class: 'vwrap', role: 'dialog', 'aria-label': 'Reels' });
+  const el = h('div', { class: 'vwrap', role: 'dialog', 'aria-label': 'Videos' });
   const io = new IntersectionObserver(es => es.forEach(e => { const c = e.target; if (e.isIntersecting && e.intersectionRatio >= 0.6) { if (vf) vf.cur = c; if (c._on) c._on(); } else if (!e.isIntersecting || e.intersectionRatio < 0.3) { if (c._off) c._off(); } }), { root: feed, threshold: [0, 0.3, 0.6, 0.9] });
-  vf = { el, feed, chips, io, filter: filter || 'alle', seen: new Set(), cur: null };
+  vf = { el, feed, chips, io, filter: filter === 'gemerkt' ? 'gemerkt' : 'eigene', seen: new Set(), cur: null };
   if (!vidMsgOn) { vidMsgOn = true; window.addEventListener('message', vidOnMsg); }
-  [['alle', 'Für dich', '✨'], ['gemerkt', 'Gemerkt', '🔖'], ['eigene', 'Eigene', '🎬']].concat(VID_TOPICS.map(t => [t.id, t.name, t.emoji])).forEach(([id, l, em]) => chips.append(h('button', { class: 'fchip', 'data-f': id, type: 'button', onclick: () => { vf.filter = id; vfRebuild(); } }, em + ' ' + l)));
+  [['eigene', 'Videos', '🎬'], ['gemerkt', 'Gemerkt', '🔖']].forEach(([id, l, em]) => chips.append(h('button', { class: 'fchip', 'data-f': id, type: 'button', onclick: () => { vf.filter = id; vfRebuild(); } }, em + ' ' + l)));
   el.append(feed,
     h('div', { class: 'vtop' },
-      h('div', { class: 'vbar' }, h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Reels schließen', html: VIC.back, onclick: closeVideoFeed }), h('b', null, 'Reels'),
+      h('div', { class: 'vbar' }, h('button', { class: 'vbtn', type: 'button', 'aria-label': 'Videos schließen', html: VIC.back, onclick: closeVideoFeed }), h('b', null, 'Videos'),
         h('span', { class: 'vbar-r' },
           h('button', { class: 'vbtn vsndtop', type: 'button', 'aria-label': 'Ton an oder aus', html: vidMuted ? VIC.mute : VIC.sound, onclick: () => vfSetMuted(!vidMuted) }),
           h('button', { class: 'vbtn vadd', type: 'button', 'aria-label': 'Video hinzufügen', html: VIC.plus, onclick: () => actionSheet('Video hinzufügen', 'Eigene Videos bleiben auf diesem iPhone. Instagram und YouTube lassen sich nur über Links einbinden.', [{ label: 'Eigenes Video hochladen', onclick: addVideo }, { label: 'YouTube- oder Instagram-Link einfügen', ghost: true, onclick: addLink }, { label: 'Neue Shorts laden', ghost: true, onclick: async () => { vidBusy = false; ls.set(VID_REPO_KEY, ''); await vidLoadRepo(); vidLoadSuggest(true); vfRebuild(); } }]) }))),
       chips, h('div', { class: 'vstat', hidden: true })));
-  document.body.append(el); vfRebuild();
+  document.body.append(el); vfRebuild(); if (startKey) vfJump(startKey);
   vidKeyFn = e => { if (!vf) return; if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return; if (e.key === 'Escape') { if (vf.el.querySelector('.vcom-back')) vf.el.querySelector('.vcom-back').click(); else closeVideoFeed(); } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); vf.feed.scrollBy({ top: (e.key === 'ArrowDown' ? 1 : -1) * vf.feed.clientHeight, behavior: 'smooth' }); } else if (e.key === 'm') vfSetMuted(!vidMuted); else if (e.key === 'l' && vf.cur && vf.cur._like) vf.cur._like(); };
   document.addEventListener('keydown', vidKeyFn);
-  vidLoadRepo().then(ok => { if (vf && ok && vf.feed.scrollTop < 20) vfRebuild(); if (!ok || !vidShorts('schlaf').length) vidLoadSuggest(false); }).catch(() => vidLoadSuggest(false));
 }
 
 /* ============ v21: Haptisches Feedback (neu) ============ */
@@ -9860,7 +9933,8 @@ function famAskCard() {
     h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: () => famActivate(() => famSetMode(true)) }, 'Einschalten'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { ls.set('luise_famask', '0'); render(); } }, 'Nicht jetzt')));
 }
 function famExitRow() {
-  return h('div', { class: 'famexit' }, h('p', { class: 'homehint' }, 'Familienmodus: Start, Fotos und Journey, nur zum Ansehen.'),
+  return h('div', { class: 'famexit' }, h('p', { class: 'homehint' }, 'Familienmodus: Start, Galerie und Journey, nur zum Ansehen.'),
+    homeEdit ? null : h('button', { class: 'linkbtn famedit', type: 'button', onclick: () => famGate('edit') }, h('span', { class: 'glk', 'aria-hidden': 'true', html: ICON.glock }), 'Startseite anpassen'),
     h('button', { class: 'linkbtn famlock', type: 'button', onclick: () => famGate() }, h('span', { class: 'glk', 'aria-hidden': 'true', html: ICON.glock }), 'Familienmodus beenden'));
 }
 /* Fotos in voller Qualität nachladen (Vorschau bleibt als Platzhalter) */
@@ -11019,7 +11093,7 @@ const storySeen = () => { try { const o = JSON.parse(ls.get('luise_story_seen') 
 function storyMark(id, sig) { const o = storySeen(); o[id] = sig; const k = Object.keys(o); if (k.length > 40) delete o[k[0]]; ls.set('luise_story_seen', JSON.stringify(o)); }
 function storyHash(str) { let n = 7; for (let i = 0; i < str.length; i++) n = (n * 31 + str.charCodeAt(i)) >>> 0; return n.toString(36); }
 const storyClip = (s, n) => { s = String(s || ''); return s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, '') + ' …'; };
-const storyPics = (n, seed) => { const l = (S.photos || []).filter(f => f.thumb); if (!l.length) return []; const o = l.map((f, i) => ({ f, k: parseInt(storyHash(f.id + isoToday() + (seed || '')), 36) })).sort((a, b) => a.k - b.k); return o.slice(0, n).map(x => x.f); };
+const storyPics = (n, seed) => { const l = (S.photos || []).filter(f => f.thumb && visShowOk(f)); if (!l.length) return []; const o = l.map((f, i) => ({ f, k: parseInt(storyHash(f.id + isoToday() + (seed || '')), 36) })).sort((a, b) => a.k - b.k); return o.slice(0, n).map(x => x.f); };
 const storyBg = seed => { const f = storyPics(1, seed)[0]; return f ? { bgpid: f.id, bgthumb: f.thumb } : {}; };
 function storySeries(ent, key) { return ent.filter(e => num(e[key]) != null).slice(-8).map(e => ({ x: parseD(e.datum).getTime() / 864e5, y: num(e[key]) })); }
 function storyChartEl(pts, unit) {
@@ -11060,10 +11134,12 @@ function storyBuild() {
     let mem = []; try { mem = phMemories(); } catch (e) {}
     { const pics = mem.slice(0, 4).map(m => m.f); storyPics(4, 'col').forEach(f => { if (pics.length < 4 && !pics.includes(f)) pics.push(f); });
       if (pics.length >= 2) sl.push({ k: 'collage', pics: pics.map(f => ({ pid: f.id, thumb: f.thumb, cap: f.datum ? fmtD(f.datum) : '' })), kicker: 'Erinnerungen', big: mem.length ? mem[0].label : 'Schöne Momente', text: plural(S.photos.length, 'Foto', 'Fotos') + ' in der Galerie', cta: { label: 'Zur Galerie', fn: () => go('photos') } }); }
-    mem.slice(0, 4).forEach(m => sl.push({ k: 'photo', pid: m.f.id, thumb: m.f.thumb, kicker: m.label, big: m.f.datum ? fmtD(m.f.datum) : '', text: m.f.titel || '', cta: { label: 'Foto ansehen', fn: () => openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(m.f))) } }));
+    mem.slice(0, 4).forEach(m => sl.push({ k: 'photo', pid: m.f.id, thumb: m.f.thumb, kicker: m.label, big: m.f.datum ? fmtD(m.f.datum) : '', text: m.f.titel || visTagLine(m.f), cta: { label: 'Foto ansehen', fn: () => openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(m.f))) } }));
     memToday().filter(x => x.kind !== 'Foto').slice(0, 2).forEach(x => sl.push({ k: 'hero', art: 'feet', kicker: x.label, big: storyClip(x.title, 60), text: x.kind + ' vom ' + fmtD(x.datum), cta: x.open ? { label: 'Öffnen', fn: x.open } : null }));
     add('mem', 'Erinnerung', 'camera', sl);
   }
+  // Entdeckt (Bilderkennung)
+  add('motive', 'Entdeckt', 'sparkle', visStorySlides());
   // Wachstum
   { const ent = S.health.wachstum.filter(e => e.datum && (num(e.groesse) != null || num(e.gewicht) != null)).sort((a, b) => a.datum.localeCompare(b.datum)), l = ent[ent.length - 1], pr = ent[ent.length - 2];
     if (l) {
@@ -11391,7 +11467,7 @@ function famActivate(done, cancel) {
 
 /* Beenden: Codewort, nach drei Fehlversuchen nur noch das Geburtsdatum */
 let famGateOpen = false;
-function famGate() {
+function famGate(purpose) {
   if (famGateOpen || !famMode()) return;
   famGateOpen = true;
   const inp = h('input', { type: 'text', class: 'famin', autocomplete: 'off', autocapitalize: 'none', autocorrect: 'off', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Eingabe' });
@@ -11404,7 +11480,7 @@ function famGate() {
   const paint = (note) => {
     const st = stage(), wait = Math.ceil(famWaitLeft() / 1000), n = Math.min(3, famFails());
     title.textContent = st === 'code' ? 'Codewort eingeben' : 'Geburtsdatum eingeben';
-    sub.textContent = st === 'code' ? 'Der Familienmodus lässt sich nur mit dem Codewort beenden.' : 'Das Codewort gilt nicht mehr. Jetzt geht es nur noch mit dem Geburtsdatum von ' + guestWho() + '.';
+    sub.textContent = st === 'code' ? (purpose === 'edit' ? 'Zum Anpassen der Startseite im Familienmodus brauchst du das Codewort.' : 'Der Familienmodus lässt sich nur mit dem Codewort beenden.') : 'Das Codewort gilt nicht mehr. Jetzt geht es nur noch mit dem Geburtsdatum von ' + guestWho() + '.';
     inp.placeholder = st === 'code' ? 'Codewort' : 'TT.MM.JJJJ';
     inp.setAttribute('inputmode', st === 'code' ? 'text' : 'numeric');
     inp.classList.toggle('sec', st === 'code');
@@ -11422,6 +11498,7 @@ function famGate() {
       const unread = guestUnread();
       ls.set('luise_famfail', '0'); ls.del('luise_famwait');
       dlg.close(); Haptic.fire('success');
+      if (purpose === 'edit') { homeEdit = true; render(); toast('Anordnung ändern, danach „Fertig“'); return; }
       famSetMode(false, true);
       if (unread) setTimeout(() => toast('Willkommen zurück · ' + plural(unread, 'neuer Gruß', 'neue Grüße') + ' im Gästebuch'), 2600);
       return;
@@ -11508,6 +11585,7 @@ WIDGETS.famshow = { name: 'Diashow', desc: 'Alle Fotos als Diashow starten', ren
   setInterval(() => {
     if (!famMode() || document.hidden || Date.now() - last < 240000) return;
     if (document.querySelector('.lb, .back')) return;
+    if (homeEdit) { homeEdit = false; render(); }
     const v = $('#view'); if (tab !== 'home' || (v && v.scrollTop > 40)) { go('home'); if (v) v.scrollTop = 0; }
     last = Date.now();
   }, 15000);
@@ -11897,7 +11975,7 @@ SUB.push('places'); FAM_PAGES.push('places'); FAM_WIDGETS.push('places');
 /* ============ v35: Diashow mit Effekten, Überblendungen und Ken-Burns-Bewegung ============ */
 const SSV_FX = [['mix', 'Mix: jedes Foto anders'], ['fade', 'Weich überblenden'], ['slide', 'Schieben'], ['zoom', 'Heranzoomen'], ['flip', 'Umblättern (3D)'], ['circle', 'Kreis aufziehen'], ['wipe', 'Aufwischen'], ['drop', 'Polaroid fällt herein'], ['spin', 'Drehen']];
 const SSV_SPEED = [['slow', 'Gemütlich', 5600], ['normal', 'Normal', 3600], ['fast', 'Flott', 2400]];
-const ssvCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_show_cfg') || '{}') || {}; } catch (e) {} return { fx: SSV_FX.some(x => x[0] === c.fx) ? c.fx : 'mix', speed: SSV_SPEED.some(x => x[0] === c.speed) ? c.speed : 'normal', cap: c.cap !== false, music: AMB_STYLES.some(x => x[0] === c.music) ? c.music : 'sanft', mvol: AMB_VOLS.some(x => x[0] === c.mvol) ? c.mvol : 'mittel' }; };
+const ssvCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_show_cfg') || '{}') || {}; } catch (e) {} return { fx: SSV_FX.some(x => x[0] === c.fx) ? c.fx : 'mix', speed: SSV_SPEED.some(x => x[0] === c.speed) ? c.speed : 'normal', cap: c.cap !== false, music: AMB_STYLES.some(x => x[0] === c.music) ? c.music : 'sanft', mvol: AMB_VOLS.some(x => x[0] === c.mvol) ? c.mvol : 'mittel', det: c.det !== false, nodoc: c.nodoc !== false }; };
 function ssvStart(o) {
   const host = o.host, list = o.list, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let cfg = ssvCfg(), idx = Math.max(0, Math.min(o.start || 0, list.length - 1)), alive = true, paused = false, token = 0, cur = null, fxPrev = '', n = 0, urls = new Map();
@@ -11926,10 +12004,12 @@ function ssvStart(o) {
     const sw = host.clientWidth || innerWidth, sh = host.clientHeight || innerHeight, ar = (im.naturalWidth || 1) / (im.naturalHeight || 1), sar = sw / sh, pol = fx === 'drop';
     const lay = h('div', { class: 'ssv-l' + (pol ? ' pol' : '') }), bd = h('img', { class: 'ssv-bd', alt: '', src: u, draggable: 'false' });
     const photo = h('img', { class: 'ssv-ph' + (!pol && Math.abs(ar - sar) < .3 ? ' cover' : ''), alt: '', src: u, draggable: 'false' });
-    const a = ageAt(S.profile, m.datum), capTxt = [m.titel, m.datum ? fmtD(m.datum) : '', a ? 'mit ' + a : ''].filter(Boolean);
+    const a = ageAt(S.profile, m.datum), capTxt = [m.titel, m.datum ? fmtD(m.datum) : '', a ? visWith(a) : ''].filter(Boolean);
     const fr = h('div', { class: 'ssv-fr' }, photo, pol && cfg.cap && capTxt.length ? h('figcaption', null, capTxt.slice(0, 2).join(' · ')) : null);
     lay.append(bd, fr);
-    if (!pol && cfg.cap && capTxt.length) lay.append(h('div', { class: 'ssv-cap' }, h('b', null, capTxt[0]), capTxt[1] ? h('small', null, capTxt.slice(1).join(' · ')) : null));
+    const dets = cfg.det && !pol ? visCapTags(m) : [];
+    if (!pol && ((cfg.cap && capTxt.length) || dets.length)) lay.append(h('div', { class: 'ssv-cap' }, cfg.cap && capTxt.length ? h('b', null, capTxt[0]) : null, cfg.cap && capTxt[1] ? h('small', null, capTxt.slice(1).join(' · ')) : null,
+      dets.length ? h('div', { class: 'ssv-det' }, dets.map(x => h('span', { class: 'ssv-tag' + (x.first ? ' first' : '') }, (x.first ? '⭐ ' : '') + x.t))) : null));
     return { lay, photo, fr, fx, m, pol };
   }
   const E = 'cubic-bezier(.33,.9,.4,1)';
@@ -11963,16 +12043,17 @@ function ssvStart(o) {
       prog.style.transition = 'none'; prog.style.transform = 'scaleX(0)'; void prog.offsetWidth; prog.style.transition = `transform ${total}ms linear`; prog.style.transform = 'scaleX(1)';
       cur = L; n++; first = false;
       if (O) setTimeout(() => { O.lay.remove(); host.classList.remove('ssv-3d'); }, D + 120);
-      const nxt = (idx + 1) % list.length; urlOf(nxt); // vorladen
+      let nxt = (idx + 1) % list.length; if (cfg.nodoc) for (let q = 0; q < list.length && !visShowOk(list[nxt]); q++) nxt = (nxt + 1) % list.length;
+      urlOf(nxt); // vorladen
       let waited = 0; while (alive && my === token && waited < total) { await sleep(120); if (!paused && !document.hidden) waited += 120; else { prog.style.transition = 'none'; } }
       idx = nxt;
     }
   }
   function settings() {
     paused = true; const was = prog.style.transform; void was;
-    openSheet({ top: true, famOk: true, title: 'Diashow', saveLabel: 'Übernehmen', values: { fx: (SSV_FX.find(x => x[0] === cfg.fx) || SSV_FX[0])[1], speed: SSV_SPEED.find(x => x[0] === cfg.speed)[1], cap: cfg.cap, music: (AMB_STYLES.find(x => x[0] === cfg.music) || AMB_STYLES[1])[1], mvol: (AMB_VOLS.find(x => x[0] === cfg.mvol) || AMB_VOLS[1])[1] },
-      fields: [{ key: 'fx', label: 'Übergang', type: 'select', options: SSV_FX.map(x => x[1]) }, { key: 'speed', label: 'Tempo', type: 'select', options: SSV_SPEED.map(x => x[1]) }, { key: 'cap', label: 'Beschreibung und Datum einblenden', type: 'checkbox' }, { key: 'music', label: 'Entspannte Musik', type: 'select', options: AMB_STYLES.map(x => x[1]) }, { key: 'mvol', label: 'Lautstärke der Musik', type: 'select', options: AMB_VOLS.map(x => x[1]) }],
-      onSave: async v => { cfg = { fx: (SSV_FX.find(x => x[1] === v.fx) || SSV_FX[0])[0], speed: (SSV_SPEED.find(x => x[1] === v.speed) || SSV_SPEED[1])[0], cap: !!v.cap, music: (AMB_STYLES.find(x => x[1] === v.music) || AMB_STYLES[1])[0], mvol: (AMB_VOLS.find(x => x[1] === v.mvol) || AMB_VOLS[1])[0] }; if (cfg.music !== 'aus') lastMus = cfg.music; ls.set('luise_show_cfg', JSON.stringify(cfg)); paintMus(); mus.set(cfg); } });
+    openSheet({ top: true, famOk: true, title: 'Diashow', saveLabel: 'Übernehmen', values: { fx: (SSV_FX.find(x => x[0] === cfg.fx) || SSV_FX[0])[1], speed: SSV_SPEED.find(x => x[0] === cfg.speed)[1], cap: cfg.cap, music: (AMB_STYLES.find(x => x[0] === cfg.music) || AMB_STYLES[1])[1], mvol: (AMB_VOLS.find(x => x[0] === cfg.mvol) || AMB_VOLS[1])[1], det: cfg.det, nodoc: cfg.nodoc },
+      fields: [{ key: 'fx', label: 'Übergang', type: 'select', options: SSV_FX.map(x => x[1]) }, { key: 'speed', label: 'Tempo', type: 'select', options: SSV_SPEED.map(x => x[1]) }, { key: 'cap', label: 'Beschreibung und Datum einblenden', type: 'checkbox' }, { key: 'music', label: 'Entspannte Musik', type: 'select', options: AMB_STYLES.map(x => x[1]) }, { key: 'mvol', label: 'Lautstärke der Musik', type: 'select', options: AMB_VOLS.map(x => x[1]) }, { key: 'det', label: 'Erkannte Motive und „Erstes Mal“ einblenden', type: 'checkbox' }, { key: 'nodoc', label: 'Dokumente und Screenshots überspringen', type: 'checkbox' }],
+      onSave: async v => { cfg = { fx: (SSV_FX.find(x => x[1] === v.fx) || SSV_FX[0])[0], speed: (SSV_SPEED.find(x => x[1] === v.speed) || SSV_SPEED[1])[0], cap: !!v.cap, music: (AMB_STYLES.find(x => x[1] === v.music) || AMB_STYLES[1])[0], mvol: (AMB_VOLS.find(x => x[1] === v.mvol) || AMB_VOLS[1])[0], det: !!v.det, nodoc: !!v.nodoc }; if (cfg.music !== 'aus') lastMus = cfg.music; ls.set('luise_show_cfg', JSON.stringify(cfg)); paintMus(); mus.set(cfg); } });
     const poll = setInterval(() => { if (!alive) { clearInterval(poll); return; } if (!document.querySelector('.back.in')) { clearInterval(poll); paused = false; } }, 350);
   }
   run();
@@ -12077,36 +12158,133 @@ function ambPlayer() {
   };
 }
 
-/* ============ v36: Bilderkennung mit Logik: Impulse zum Foto ============
+
+/* v36: Story-Titel verkleinern, bis das längste Wort in die Zeile passt (kein Umbruch mitten im Wort) */
+function storyFit(root) {
+  root.querySelectorAll('.stv-big').forEach(b => {
+    const inn = b.parentElement; if (!inn) return; const cs0 = getComputedStyle(inn), avail = inn.clientWidth - parseFloat(cs0.paddingLeft || 0) - parseFloat(cs0.paddingRight || 0); if (avail < 80) return;
+    const cs = getComputedStyle(b), words = (b.textContent || '').split(/\s+/).filter(Boolean); if (!words.length) return;
+    const cv = storyFit.cv || (storyFit.cv = document.createElement('canvas').getContext('2d')); let fs = parseFloat(cs.fontSize); const f0 = fs;
+    const wid = px => { cv.font = `${cs.fontWeight} ${px}px ${cs.fontFamily}`; return Math.max(...words.map(w => cv.measureText(w).width)) + 2; };
+    while (fs > 17 && wid(fs) > avail) fs -= 1;
+    if (fs !== f0) { b.style.fontSize = fs + 'px'; b.dataset.fit = String(fs); }
+  });
+}
+
+/* ============ v37: Fotos und Videos in einem Bereich (Umschalter oben) ============ */
+let mediaSeg = 'fotos', phTag = null;
+function mediaSwitch() {
+  const vn = (S.videos || []).length + ((S.profile.ytVideos || []).length), pn = S.photos.length;
+  const el = seg([['fotos', 'Fotos' + (pn ? ' · ' + pn : '')], ['videos', 'Videos' + (vn ? ' · ' + vn : '')]], mediaSeg, id => { if (id === mediaSeg) return; mediaSeg = id; phSel = null; render(); });
+  el.classList.add('mediaseg'); return el;
+}
+function viewPhotos() {
+  if (mediaSeg === 'videos') return viewVideosTab();
+  const w = viewPhotoGrid(), head = w.firstElementChild; if (head) head.after(mediaSwitch()); return w;
+}
+function vidLinkRow(y) {
+  const ig = !!y.ig, key = y.vid || y.ig, nm = y.titel || (ig ? 'Instagram-Reel' : 'YouTube-Video');
+  const url = ig ? 'https://www.instagram.com/reel/' + y.ig + '/' : 'https://www.youtube.com/watch?v=' + y.vid;
+  return h('div', { class: 'vlink' },
+    h('button', { class: 'vlink-main', type: 'button', onclick: () => openVideoFeed('eigene', key) },
+      h('span', { class: 'vlink-ic ' + (ig ? 'ig' : 'yt'), 'aria-hidden': 'true', html: ig ? VIC.ig : VIC.yt }),
+      h('span', { class: 'vlink-tx' }, h('b', null, nm), h('small', null, ig ? 'Instagram' : ('YouTube' + (y.kanal ? ' · ' + y.kanal : ''))))),
+    h('a', { class: 'vlink-go', href: url, target: '_blank', rel: 'noopener noreferrer', 'aria-label': nm + ' extern öffnen' }, 'Öffnen'),
+    famMode() ? null : h('button', { class: 'vlink-x', type: 'button', 'aria-label': nm + ' entfernen', onclick: async () => { if (!confirm('Diesen Link entfernen?')) return; S.profile.ytVideos = (S.profile.ytVideos || []).filter(x => x !== y); await persist('profile'); render(); } }, '×'));
+}
+function viewVideosTab() {
+  const fam = famMode(), wrap = h('div', { class: 'stack photopage vidpage' });
+  const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)), links = S.profile.ytVideos || [];
+  const saved = Object.values(S.profile.vidSocial || {}).filter(x => x.save).length;
+  wrap.append(pageHead('Videos', fam ? null : h('div', { class: 'phhead-r' }, h('button', { class: 'pill', type: 'button', onclick: () => addVideo() }, '+ Video'))), mediaSwitch());
+  wrap.append(sectionHead('Eigene Videos', own.length ? h('button', { class: 'linkbtn', type: 'button', onclick: () => openVideoFeed('eigene') }, 'Alle abspielen') : null));
+  if (!own.length) wrap.append(h('div', { class: 'card stack phempty' }, h('div', { class: 'phempty-e', 'aria-hidden': 'true' }, '🎬'), h('h2', null, 'Noch keine Videos'),
+    h('p', { class: 'mute' }, 'Hier sind Videos von ' + (S.profile.vorname || 'Luise') + '. Sie bleiben nur auf diesem iPhone und sind nicht in der Sicherung.'),
+    fam ? null : h('button', { class: 'btn wide', type: 'button', onclick: () => addVideo() }, 'Erstes Video hinzufügen')));
+  else wrap.append(h('div', { class: 'vgrid' }, own.map(m => h('button', { class: 'vgt', type: 'button', 'aria-label': (m.titel || 'Video') + ' abspielen', onclick: () => openVideoFeed('eigene', m.id) },
+    h('span', { class: 'vgt-img' }, m.poster ? h('img', { src: m.poster, alt: '', loading: 'lazy' }) : h('span', { class: 'vgt-ph', 'aria-hidden': 'true' }, '🎬'), h('span', { class: 'vgt-play', 'aria-hidden': 'true', html: VIC.play }), m.dur ? h('i', { class: 'vgt-d' }, vidDurTxt(m.dur)) : null),
+    h('b', null, m.titel || 'Video'), h('small', null, m.datum ? fmtD(m.datum) : '')))));
+  wrap.append(sectionHead('Link-Merker'));
+  wrap.append(h('div', { class: 'card stack vlinks' },
+    h('p', { class: 'mute' }, 'Instagram- und YouTube-Links, die du dir merken möchtest. In der App auf „Teilen“ und „Link kopieren“ tippen, hier einfügen. Das Video spielt dann in dieser App.'),
+    fam ? null : h('button', { class: 'btn wide', type: 'button', onclick: () => addLink() }, '+ Link einfügen'),
+    links.length ? h('div', { class: 'vlinklist' }, links.map(vidLinkRow)) : h('p', { class: 'empty' }, 'Noch keine Links gemerkt.'),
+    saved ? h('button', { class: 'linkbtn', type: 'button', onclick: () => openVideoFeed('gemerkt') }, '🔖 Gemerkt im Player (' + saved + ')') : null));
+  return wrap;
+}
+
+/* ============ v37: Bilderkennung 2: Motive, Stichwörter, Ähnliches, Galerie-Filter, Stories und Diashow ============
    Stufe 1 (immer, ohne Internet): Szene aus Farben/Helligkeit + Logik aus Datum, Alter, Terminen, Orten, Wachstum
    Stufe 2 (auf Tipp): Text im Foto lesen (OCR) und daraus Werte, Daten und Hinweise ableiten
-   Stufe 3 (optional): KI-Erkennung auf dem Gerät (CLIP), wird einmalig nachgeladen */
-const VIS_CATS = [
-  ['neugeboren', 'a newborn baby', 'ein Neugeborenes', 'baby'], ['schlaf', 'a baby sleeping', 'ein schlafendes Baby', 'baby'], ['laecheln', 'a smiling baby', 'ein lächelndes Baby', 'baby'],
-  ['weinen', 'a crying baby', 'ein weinendes Baby', 'baby'], ['bauch', 'a baby lying on its tummy', 'Bauchlage', 'baby'], ['baden', 'a baby in a bathtub', 'Baden', 'baby'],
-  ['trinken', 'a baby drinking milk from a bottle', 'Fläschchen und Trinken', 'baby'], ['brei', 'a baby eating food with a spoon', 'Essen und Brei', 'baby'], ['kinderwagen', 'a baby in a stroller', 'Kinderwagen', 'baby'],
-  ['trage', 'a baby in a baby carrier', 'Babytrage', 'baby'], ['krabbeln', 'a baby crawling on the floor', 'Krabbeln', 'baby'], ['laufen', 'a toddler walking', 'erste Schritte', 'baby'],
-  ['spielen', 'a baby playing with toys', 'Spielzeit', 'baby'], ['portraet', 'a close-up portrait of a baby face', 'ein Porträt', 'baby'],
-  ['arzt', 'a baby at the doctor', 'Arztbesuch', 'gesund'], ['ultraschall', 'an ultrasound scan image', 'ein Ultraschallbild', 'gesund'], ['klinik', 'a hospital room', 'Klinik', 'gesund'],
-  ['mama', 'a mother with her baby', 'Mama mit Baby', 'people'], ['papa', 'a father with his baby', 'Papa mit Baby', 'people'], ['grosseltern', 'grandparents with a baby', 'Oma und Opa', 'people'],
-  ['familie', 'a family portrait', 'ein Familienfoto', 'people'], ['kinder', 'a group of children playing', 'Kinder', 'people'], ['geschwister', 'two siblings together', 'Geschwister', 'people'], ['selfie', 'a selfie', 'ein Selfie', 'people'],
-  ['kuchen', 'a birthday cake with candles', 'Geburtstag', 'anlass'], ['weihnacht', 'a christmas tree with presents', 'Weihnachten', 'anlass'], ['ostern', 'easter eggs and an easter bunny', 'Ostern', 'anlass'], ['geschenk', 'a gift box', 'ein Geschenk', 'anlass'],
-  ['strand', 'a beach with sand and sea', 'Strand', 'ort'], ['meer', 'the sea and the coast', 'Meer', 'ort'], ['berge', 'a mountain landscape', 'Berge', 'ort'], ['see', 'a lake', 'See', 'ort'],
-  ['wald', 'a forest with trees', 'Wald', 'ort'], ['wiese', 'a meadow with flowers', 'Wiese und Blumen', 'ort'], ['garten', 'a garden', 'Garten', 'ort'], ['spielplatz', 'a playground with a swing', 'Spielplatz', 'ort'],
-  ['zoo', 'a zoo with animals', 'Zoo', 'ort'], ['bauernhof', 'farm animals', 'Bauernhof', 'ort'], ['stadt', 'a city street with buildings', 'Stadt', 'ort'], ['schnee', 'a snowy landscape', 'Schnee', 'ort'], ['pool', 'a swimming pool', 'Schwimmbad', 'ort'],
-  ['auto', 'the inside of a car', 'Autofahrt', 'unterwegs'], ['zug', 'a train', 'Zugfahrt', 'unterwegs'], ['flug', 'an airplane', 'Flugreise', 'unterwegs'],
-  ['restaurant', 'a meal on a restaurant table', 'Essen gehen', 'essen'], ['kinderzimmer', 'a baby room with a crib', 'Kinderzimmer', 'zuhause'], ['spielzeug', 'toys and stuffed animals', 'Spielzeug und Kuscheltiere', 'zuhause'], ['buch', 'a picture book', 'Vorlesen', 'zuhause'],
-  ['hund', 'a dog', 'ein Hund', 'tier'], ['katze', 'a cat', 'eine Katze', 'tier'], ['sonnenuntergang', 'a sunset sky', 'Sonnenuntergang', 'natur'],
-  ['dokument', 'a paper document with printed text', 'ein Dokument oder Zettel', 'doc'], ['screenshot', 'a screenshot of a phone screen', 'ein Screenshot', 'doc']
+   Stufe 3 (optional): KI auf dem Gerät (CLIP): Bild- und Begriffs-Vektoren, gruppenweise Auswertung, Ähnlichkeitssuche
+   Ergebnis je Foto: m.vis = { v:2, ml:0|1, top, l:[[id,p]], e:'Vektor', q:{b,d,x}, no:[verworfen] } und m.tags = [bestätigt] */
+const VIS_RAW = [
+  /* Baby */
+  ['neugeboren', 'Neugeborenes', 'baby', 'a newborn baby', 'a tiny newborn baby wrapped in a blanket'], ['schlaf', 'Schlafendes Baby', 'baby', 'a baby sleeping', 'a sleeping infant'],
+  ['laecheln', 'Lächelndes Baby', 'baby', 'a smiling baby', 'a laughing baby'], ['weinen', 'Weinendes Baby', 'baby', 'a crying baby'], ['bauch', 'Bauchlage', 'baby', 'a baby lying on its tummy'],
+  ['baden', 'Baden', 'baby', 'a baby in a bathtub', 'a child taking a bath'], ['trinken', 'Fläschchen', 'baby', 'a baby drinking milk from a bottle'], ['brei', 'Essen und Brei', 'baby', 'a baby eating food with a spoon', 'a baby in a high chair eating'],
+  ['kinderwagen', 'Kinderwagen', 'baby', 'a baby in a stroller', 'a baby pram'], ['trage', 'Babytrage', 'baby', 'a baby in a baby carrier', 'a baby in a sling'], ['krabbeln', 'Krabbeln', 'baby', 'a baby crawling on the floor'],
+  ['laufen', 'Erste Schritte', 'baby', 'a toddler walking', 'a toddler taking first steps'], ['spielen', 'Spielzeit', 'baby', 'a baby playing with toys'], ['sitzen', 'Sitzen', 'baby', 'a baby sitting up'],
+  ['portraet', 'Porträt', 'baby', 'a close-up portrait of a baby face'], ['kuscheln', 'Kuscheln', 'baby', 'a parent cuddling a baby', 'a baby hugging a soft toy'], ['fuesse', 'Füße und Hände', 'baby', 'tiny baby feet and toes', 'tiny baby hands'],
+  ['schnuller', 'Schnuller', 'baby', 'a baby with a pacifier'], ['gaehnen', 'Gähnen', 'baby', 'a yawning baby'], ['kostuem', 'Verkleidung', 'baby', 'a baby in a costume', 'a baby wearing a funny hat'],
+  /* Gesundheit */
+  ['arzt', 'Arztbesuch', 'gesund', 'a baby at the doctor'], ['ultraschall', 'Ultraschallbild', 'gesund', 'an ultrasound scan image'], ['klinik', 'Klinik', 'gesund', 'a hospital room'],
+  ['fieber', 'Fieber und Krankheit', 'gesund', 'a thermometer', 'a sick child resting in bed'], ['impfung', 'Impfung', 'gesund', 'a child getting a vaccination'],
+  /* Menschen */
+  ['mama', 'Mama mit Baby', 'people', 'a mother with her baby'], ['papa', 'Papa mit Baby', 'people', 'a father with his baby'], ['grosseltern', 'Oma und Opa', 'people', 'grandparents with a baby', 'an elderly couple with a child'],
+  ['familie', 'Familienfoto', 'people', 'a family portrait'], ['kinder', 'Kinder', 'people', 'a group of children playing'], ['geschwister', 'Geschwister', 'people', 'two siblings together'], ['selfie', 'Selfie', 'people', 'a selfie'],
+  ['freunde', 'Freunde', 'people', 'a group of friends'], ['paar', 'Paar', 'people', 'a couple together'],
+  /* Anlässe */
+  ['kuchen', 'Geburtstag', 'anlass', 'a birthday cake with candles', 'a birthday party'], ['weihnacht', 'Weihnachten', 'anlass', 'a christmas tree with presents'], ['ostern', 'Ostern', 'anlass', 'easter eggs and an easter bunny'],
+  ['geschenk', 'Geschenk', 'anlass', 'a gift box'], ['luftballons', 'Luftballons', 'anlass', 'colorful balloons'], ['taufe', 'Taufe', 'anlass', 'a baptism in a church'], ['hochzeit', 'Hochzeit', 'anlass', 'a wedding'],
+  ['halloween', 'Halloween', 'anlass', 'halloween pumpkins'], ['feuerwerk', 'Feuerwerk', 'anlass', 'fireworks in the night sky'], ['laterne', 'Laternenumzug', 'anlass', 'children with paper lanterns'],
+  /* Orte */
+  ['strand', 'Strand', 'ort', 'a beach with sand and sea'], ['meer', 'Meer', 'ort', 'the sea and the coast'], ['berge', 'Berge', 'ort', 'a mountain landscape'], ['see', 'See', 'ort', 'a lake'],
+  ['wald', 'Wald', 'ort', 'a forest with trees'], ['wiese', 'Wiese und Blumen', 'ort', 'a meadow with flowers'], ['garten', 'Garten', 'ort', 'a garden'], ['spielplatz', 'Spielplatz', 'ort', 'a playground with a swing', 'a slide at a playground'],
+  ['zoo', 'Zoo', 'ort', 'a zoo with animals'], ['bauernhof', 'Bauernhof', 'ort', 'farm animals', 'a farm'], ['stadt', 'Stadt', 'ort', 'a city street with buildings'], ['schnee', 'Schnee', 'ort', 'a snowy landscape'],
+  ['pool', 'Schwimmbad', 'ort', 'a swimming pool'], ['park', 'Park', 'ort', 'a city park with a path and trees'], ['museum', 'Museum', 'ort', 'inside a museum'], ['kirche', 'Kirche', 'ort', 'a church building'],
+  ['schloss', 'Schloss', 'ort', 'a castle'], ['fluss', 'Fluss', 'ort', 'a river with a bridge'], ['feld', 'Feld', 'ort', 'a field of grain'], ['dorf', 'Dorf', 'ort', 'a village with houses'],
+  ['hotel', 'Hotelzimmer', 'ort', 'a hotel room'], ['zelt', 'Camping', 'ort', 'a tent for camping'],
+  /* Unterwegs */
+  ['auto', 'Autofahrt', 'unterwegs', 'the inside of a car'], ['zug', 'Zugfahrt', 'unterwegs', 'a train'], ['flug', 'Flugreise', 'unterwegs', 'an airplane'], ['fahrrad', 'Fahrrad', 'unterwegs', 'a bicycle ride'],
+  ['schiff', 'Schiff', 'unterwegs', 'a boat on the water'], ['bus', 'Bus und Bahn', 'unterwegs', 'a bus or a tram'],
+  /* Essen */
+  ['restaurant', 'Essen gehen', 'essen', 'a meal on a restaurant table'], ['eis', 'Eis', 'essen', 'ice cream'], ['obst', 'Obst', 'essen', 'fresh fruit'], ['fruehstueck', 'Frühstück', 'essen', 'a breakfast table'],
+  ['kochen', 'Kochen und Backen', 'essen', 'cooking or baking in a kitchen'],
+  /* Zuhause */
+  ['kinderzimmer', 'Kinderzimmer', 'zuhause', 'a baby room with a crib'], ['spielzeug', 'Spielzeug', 'zuhause', 'toys and stuffed animals'], ['buch', 'Vorlesen', 'zuhause', 'a picture book'],
+  ['sofa', 'Wohnzimmer', 'zuhause', 'a living room with a sofa'], ['kueche', 'Küche', 'zuhause', 'a kitchen'], ['malen', 'Malen und Basteln', 'zuhause', 'a child painting or drawing', 'arts and crafts'],
+  ['musik', 'Musik', 'zuhause', 'a musical instrument', 'a child making music'], ['bauklotz', 'Bauklötze', 'zuhause', 'wooden building blocks'], ['puzzle', 'Puzzle', 'zuhause', 'a jigsaw puzzle'], ['bett', 'Bett', 'zuhause', 'a bed with pillows'],
+  /* Tiere */
+  ['hund', 'Hund', 'tier', 'a dog'], ['katze', 'Katze', 'tier', 'a cat'], ['pferd', 'Pferd', 'tier', 'a horse'], ['vogel', 'Vogel', 'tier', 'a bird'], ['kuh', 'Kuh und Schaf', 'tier', 'a cow', 'a sheep'],
+  ['fisch', 'Fische', 'tier', 'fish in an aquarium'], ['schmetterling', 'Schmetterling', 'tier', 'a butterfly'], ['ente', 'Enten', 'tier', 'ducks on a pond'], ['hase', 'Hase', 'tier', 'a rabbit'],
+  /* Natur */
+  ['sonnenuntergang', 'Sonnenuntergang', 'natur', 'a sunset sky'], ['blumen', 'Blumen', 'natur', 'a close-up of flowers'], ['regenbogen', 'Regenbogen', 'natur', 'a rainbow'], ['sterne', 'Sternenhimmel', 'natur', 'a starry night sky', 'the moon at night'],
+  ['herbst', 'Herbstlaub', 'natur', 'autumn leaves'], ['wolken', 'Wolken', 'natur', 'clouds in the sky'], ['regen', 'Regen', 'natur', 'rain and puddles'],
+  /* Papiere */
+  ['dokument', 'Dokument oder Zettel', 'doc', 'a paper document with printed text'], ['screenshot', 'Screenshot', 'doc', 'a screenshot of a phone screen'], ['karte', 'Karte oder Brief', 'doc', 'a greeting card or a letter'],
+  ['zeichnung', 'Zeichnung', 'doc', 'a child drawing on paper']
 ];
-const VIS_CAT = {}; VIS_CATS.forEach(c => { VIS_CAT[c[0]] = { id: c[0], en: c[1], de: c[2], g: c[3] }; });
+const VIS_CATS = VIS_RAW.map(r => ({ id: r[0], de: r[1], g: r[2], pr: r.slice(3) }));
+const VIS_NEUTRAL = ['a photo of an ordinary object', 'a blurry photo', 'a photo of a wall', 'a dark photo', 'a photo of nothing in particular'];
+const VIS_CAT = {}; VIS_CATS.forEach(c => { c.en = c.pr[0]; VIS_CAT[c.id] = c; });
 const VIS_ALBUM = { ort: 'Ausflüge', unterwegs: 'Unterwegs', people: 'Familie', baby: 'Baby-Momente', anlass: 'Feste', tier: 'Tiere', zuhause: 'Zuhause', gesund: 'Gesundheit', essen: 'Essen', natur: 'Natur' };
-const VIS_FIRST = { strand: 'Erster Strandtag', meer: 'Erstes Mal am Meer', schnee: 'Erster Schnee', zoo: 'Erster Zoobesuch', pool: 'Erstes Mal im Schwimmbad', spielplatz: 'Erster Spielplatz', brei: 'Erster Brei', krabbeln: 'Erstes Krabbeln', laufen: 'Erste Schritte', baden: 'Erstes Bad', kinderwagen: 'Erste Kinderwagen-Fahrt', flug: 'Erster Flug', zug: 'Erste Zugfahrt', auto: 'Erste Autofahrt', weihnacht: 'Erstes Weihnachten', ostern: 'Erstes Ostern', hund: 'Erste Begegnung mit einem Hund', katze: 'Erste Begegnung mit einer Katze', bauernhof: 'Erster Bauernhof', berge: 'Erste Berge', see: 'Erster Seeausflug', wald: 'Erster Waldspaziergang', ultraschall: 'Ultraschallbild', kuchen: 'Geburtstagsfeier' };
+const VIS_FIRST = { strand: 'Erster Strandtag', meer: 'Erstes Mal am Meer', schnee: 'Erster Schnee', zoo: 'Erster Zoobesuch', pool: 'Erstes Mal im Schwimmbad', spielplatz: 'Erster Spielplatz', brei: 'Erster Brei', krabbeln: 'Erstes Krabbeln', laufen: 'Erste Schritte', baden: 'Erstes Bad', kinderwagen: 'Erste Kinderwagen-Fahrt', flug: 'Erster Flug', zug: 'Erste Zugfahrt', auto: 'Erste Autofahrt', weihnacht: 'Erstes Weihnachten', ostern: 'Erstes Ostern', hund: 'Erste Begegnung mit einem Hund', katze: 'Erste Begegnung mit einer Katze', bauernhof: 'Erster Bauernhof', berge: 'Erste Berge', see: 'Erster Seeausflug', wald: 'Erster Waldspaziergang', ultraschall: 'Ultraschallbild', kuchen: 'Geburtstagsfeier', sitzen: 'Erstes Sitzen', eis: 'Erstes Eis', fahrrad: 'Erste Fahrradtour', schiff: 'Erste Schifffahrt', pferd: 'Erstes Pferd', schmetterling: 'Erster Schmetterling', malen: 'Erstes Malen', halloween: 'Erstes Halloween', feuerwerk: 'Erstes Feuerwerk', regenbogen: 'Erster Regenbogen', zelt: 'Erstes Zelten', laterne: 'Erster Laternenumzug', museum: 'Erster Museumsbesuch', hotel: 'Erste Hotelübernachtung', taufe: 'Taufe', obst: 'Erstes Obst', kostuem: 'Erste Verkleidung', musik: 'Erste Musik', ente: 'Erste Enten' };
 const VIS_EMOJI = { ort: '🌿', unterwegs: '🚗', people: '👨‍👩‍👧', baby: '👶', anlass: '🎉', tier: '🐾', zuhause: '🏠', gesund: '🩺', essen: '🍽️', natur: '🌅', doc: '📄' };
+const VIS_DOCS = ['dokument', 'screenshot'];
 const visCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_vis_cfg') || '{}') || {}; } catch (e) {} return { ml: !!c.ml }; };
 const visCfgSet = v => ls.set('luise_vis_cfg', JSON.stringify(Object.assign(visCfg(), v)));
+const visWith = a => 'mit ' + String(a).replace(/^unter /, 'weniger als ');
 const visCap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
+const visHash = str => { let n = 7; for (let i = 0; i < str.length; i++) n = (n * 31 + str.charCodeAt(i)) >>> 0; return n.toString(36); };
 const visImg = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = src; });
+const visNorm = v => { let n = 0; for (let i = 0; i < v.length; i++) n += v[i] * v[i]; n = Math.sqrt(n) || 1; const o = new Float32Array(v.length); for (let i = 0; i < v.length; i++) o[i] = v[i] / n; return o; };
+const visDot = (a, b) => { let s = 0; const n = Math.min(a.length, b.length); for (let i = 0; i < n; i++) s += a[i] * b[i]; return s; };
+const VIS_Q = 300;
+function visEnc(v) { let s = ''; for (let i = 0; i < v.length; i++) s += String.fromCharCode(Math.max(-127, Math.min(127, Math.round(v[i] * VIS_Q))) & 255); return btoa(s); }
+function visDec(b) { const s = atob(b), v = new Float32Array(s.length); for (let i = 0; i < s.length; i++) { let c = s.charCodeAt(i); if (c > 127) c -= 256; v[i] = c / VIS_Q; } return visNorm(v); }
+const visEncAll = list => btoa(list.map(v => atob(visEnc(v))).join(''));
+function visDecAll(b, n) { const s = atob(b), dim = s.length / n, out = []; for (let k = 0; k < n; k++) out.push(visDec(btoa(s.slice(k * dim, (k + 1) * dim)))); return out; }
 
 /* Stufe 1a: Bildmerkmale aus den Pixeln */
 async function visPixels(src) {
@@ -12147,28 +12325,150 @@ function visSceneLabels(p) {
   if (f.skin > 0.3 && !p.docLike) add('portraet', 0.3 + f.skin * 0.5);
   return out.sort((a, b) => b.p - a.p).slice(0, 3);
 }
+const visQual = p => p ? { b: p.blurry ? 1 : 0, d: p.dim ? 1 : 0, x: p.docLike ? 1 : 0 } : null;
 
-/* Stufe 3: KI-Erkennung auf dem Gerät (optional) */
-let visClf = null, visClfP = null, visMlImpl = null, visQ = Promise.resolve(), visFail = false;
+/* Stufe 3: KI auf dem Gerät (optional). Begriffe werden einmal berechnet und gespeichert, jedes Foto liefert einen kleinen Vektor. */
+const VIS_MODEL = 'Xenova/clip-vit-base-patch32';
+let visLL = null, visLLP = null, visTE = null, visMlImpl = null, visQ2 = Promise.resolve(), visFail = false;
 async function visMlLoad(prog) {
-  if (visClf) return visClf; if (visClfP) return visClfP;
-  visClfP = (async () => {
+  if (visLL) return visLL; if (visLLP) return visLLP;
+  visLLP = (async () => {
     const T = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
     T.env.allowLocalModels = false; T.env.useBrowserCache = true; try { T.env.backends.onnx.wasm.numThreads = 1; } catch (e) {}
-    const files = {};
-    visClf = await T.pipeline('zero-shot-image-classification', 'Xenova/clip-vit-base-patch32', { progress_callback: e => {
-      if (!prog || !e) return; if (e.file && e.total) files[e.file] = { l: e.loaded || 0, t: e.total };
-      const L = Object.values(files); const tot = L.reduce((a, b) => a + b.t, 0), ld = L.reduce((a, b) => a + b.l, 0); prog(tot ? ld / tot : 0, tot);
-    } });
-    return visClf;
-  })().catch(e => { visClfP = null; throw e; });
-  return visClfP;
+    const W = [0.02, 0.4, 0.01, 0.57]; let stage = 0; const files = {};
+    const pc = e => { if (!prog || !e) return; if (e.file && e.total) files[stage + e.file] = { l: e.loaded || 0, t: e.total }; let done = 0; for (let s = 0; s < 4; s++) { const L = Object.keys(files).filter(k => k[0] === String(s)).map(k => files[k]), t = L.reduce((a, b) => a + b.t, 0), l = L.reduce((a, b) => a + b.l, 0); done += W[s] * (s < stage ? 1 : t ? l / t : 0); } prog(Math.min(0.97, done)); };
+    try {
+      const o = { progress_callback: pc };
+      const tok = await T.AutoTokenizer.from_pretrained(VIS_MODEL, o); stage = 1;
+      const tm = await T.CLIPTextModelWithProjection.from_pretrained(VIS_MODEL, o); stage = 2;
+      const proc = await T.AutoProcessor.from_pretrained(VIS_MODEL, o); stage = 3;
+      const vm = await T.CLIPVisionModelWithProjection.from_pretrained(VIS_MODEL, o);
+      visLL = { T, tok, tm, proc, vm, RawImage: T.RawImage };
+    } catch (e) {
+      console.warn('CLIP-Einzelmodelle nicht verfügbar, nutze Pipeline', e);
+      visLL = { T, pipe: await T.pipeline('zero-shot-image-classification', VIS_MODEL, { progress_callback: pc }) };
+    }
+    return visLL;
+  })().catch(e => { visLLP = null; throw e; });
+  return visLLP;
 }
-async function visMlClassify(src, prog) {
-  if (visMlImpl) return visMlImpl(src);
-  const clf = await visMlLoad(prog), out = await clf(src, VIS_CATS.map(c => c[1]), { hypothesis_template: 'a photo of {}.' });
-  return out.map(o => ({ id: (VIS_CATS.find(c => c[1] === o.label) || [])[0], p: o.score })).filter(o => o.id);
+async function visTable(L, prog) {
+  if (visTE) return visTE;
+  const nc = VIS_CATS.length, nn = VIS_NEUTRAL.length, n = nc + nn, sig = visHash(JSON.stringify([VIS_RAW, VIS_NEUTRAL, VIS_MODEL]));
+  let vecs = null;
+  try { const c = JSON.parse(ls.get('luise_vis_te') || 'null'); if (c && c.sig === sig && c.n === n && c.b) vecs = visDecAll(c.b, n); } catch (e) {}
+  if (!vecs) {
+    const prompts = [], owner = [];
+    VIS_CATS.forEach((c, i) => c.pr.forEach(p => { prompts.push('a photo of ' + p + '.'); owner.push(i); })); VIS_NEUTRAL.forEach((p, j) => { prompts.push(p); owner.push(nc + j); });
+    const emb = []; let dim = 512;
+    for (let i = 0; i < prompts.length; i += 16) {
+      const inp = L.tok(prompts.slice(i, i + 16), { padding: true, truncation: true }), o = await L.tm(inp), d = o.text_embeds.data; dim = o.text_embeds.dims[1];
+      for (let r = 0; r < d.length / dim; r++) emb.push(visNorm(d.slice(r * dim, (r + 1) * dim)));
+      if (prog) prog(i / prompts.length, 'Begriffe werden vorbereitet');
+    }
+    const acc = Array.from({ length: n }, () => new Float32Array(dim));
+    emb.forEach((e, k) => { const a = acc[owner[k]]; for (let j = 0; j < dim; j++) a[j] += e[j]; });
+    vecs = acc.map(visNorm);
+    try { ls.set('luise_vis_te', JSON.stringify({ sig, n, b: visEncAll(vecs) })); } catch (e) {}
+  }
+  const groups = {}; VIS_CATS.forEach((c, i) => { (groups[c.g] = groups[c.g] || []).push(i); });
+  visTE = { ids: VIS_CATS.map(c => c.id), vecs: vecs.slice(0, nc), neutral: vecs.slice(nc), groups };
+  return visTE;
 }
+/* Auswertung: je Gruppe eine eigene Wahrscheinlichkeit (mit „nichts davon“ als Gegenpol), dazu ein Mindestabstand zum besten Treffer */
+function visScoreVec(v, T) {
+  const sims = T.vecs.map(x => visDot(v, x)), nul = T.neutral.length ? Math.max(...T.neutral.map(x => visDot(v, x))) : 0, all = [];
+  Object.keys(T.groups).forEach(g => {
+    const idx = T.groups[g], lg = idx.map(i => 100 * sims[i]).concat(100 * nul), mx = Math.max(...lg), ex = lg.map(l => Math.exp(l - mx)), sum = ex.reduce((a, b) => a + b, 0);
+    idx.forEach((i, k) => all.push({ id: T.ids[i], p: ex[k] / sum, s: sims[i], g }));
+  });
+  return all;
+}
+function visPick(all) {
+  const best = Math.max(...all.map(x => x.s)), per = {}, out = [];
+  all.filter(x => x.p >= 0.3 && x.s >= 0.19 && x.s >= best - 0.045).sort((a, b) => b.p - a.p || b.s - a.s).forEach(x => { per[x.g] = (per[x.g] || 0) + 1; if (per[x.g] <= 2 && out.length < 6) out.push({ id: x.id, p: x.p, s: x.s }); });
+  return out;
+}
+/* liefert { l:[{id,p}], e:Int8-Vektor|null } */
+async function visMlRunRaw(src, prog) {
+  if (visMlImpl) { const r = await visMlImpl(src); return Array.isArray(r) ? { l: r, e: null } : r; }
+  const L = await visMlLoad(prog);
+  if (L.pipe) { const out = await L.pipe(src, VIS_CATS.map(c => c.pr[0]), { hypothesis_template: 'a photo of {}.' }); return { l: out.map(o => ({ id: (VIS_CATS.find(c => c.pr[0] === o.label) || {}).id, p: o.score })).filter(o => o.id), e: null }; }
+  const T = await visTable(L, prog), img = await L.RawImage.read(src), px = await L.proc(img), o = await L.vm(px), v = visNorm(o.image_embeds.data);
+  return { l: visPick(visScoreVec(v, T)), e: visEnc(v) };
+}
+function visMlRun(src, prog) { const p = visQ2.then(() => visMlRunRaw(src, prog)); visQ2 = p.catch(() => {}); return p; }
+
+/* Ergebnis am Foto festhalten */
+function visRecord(m, o) {
+  const old = m.vis && m.vis.v === 2 ? m.vis : null, l = (o.l || []).slice().sort((a, b) => b.p - a.p).filter(x => VIS_CAT[x.id]).slice(0, 8);
+  const rec = { v: 2, ml: o.ml ? 1 : 0, top: l[0] ? l[0].id : '', l: l.map(x => [x.id, +x.p.toFixed(3)]), t: Date.now() };
+  if (o.e) rec.e = o.e; else if (old && old.e) rec.e = old.e;
+  const q = o.q || (old && old.q); if (q) rec.q = q;
+  if (old && old.no && old.no.length) rec.no = old.no.slice();
+  if (!o.ml && old && old.ml) return old;
+  return rec;
+}
+const visHasMl = m => !!(m.vis && m.vis.v === 2 && m.vis.ml);
+const visPending = ml => S.photos.filter(m => m.thumb && (!m.vis || m.vis.v !== 2 || (ml && !m.vis.ml)));
+
+/* Tags: bestätigte (m.tags) und automatische Vorschläge */
+function visAuto(m) {
+  const v = m && m.vis; if (!v || !Array.isArray(v.l)) return [];
+  return v.l.filter(x => VIS_CAT[x[0]] && x[1] >= (v.ml ? 0.45 : 0.6) && !(v.no || []).includes(x[0])).map(x => ({ k: x[0], p: x[1] }));
+}
+const visTagName = k => VIS_CAT[k] ? VIS_CAT[k].de : String(k);
+function visTagsOf(m) {
+  const out = [], seen = new Set();
+  ((m && m.tags) || []).forEach(t => { if (!seen.has(t)) { seen.add(t); out.push({ k: t, de: visTagName(t), auto: false }); } });
+  visAuto(m).forEach(x => { if (!seen.has(x.k)) { seen.add(x.k); out.push({ k: x.k, de: visTagName(x.k), auto: true, p: x.p }); } });
+  return out;
+}
+const visTagLine = m => visTagsOf(m).filter(t => !VIS_DOCS.includes(t.k)).slice(0, 2).map(t => t.de).join(' · ');
+const visHasTag = (m, k) => visTagsOf(m).some(t => t.k === k);
+const visTagText = m => visTagsOf(m).map(t => t.de).join(' ');
+function visTagCounts() {
+  const map = new Map();
+  S.photos.forEach(m => visTagsOf(m).forEach(t => { const e = map.get(t.k) || { k: t.k, de: t.de, n: 0 }; e.n++; map.set(t.k, e); }));
+  return [...map.values()].sort((a, b) => b.n - a.n || a.de.localeCompare(b.de, 'de'));
+}
+function visIsDoc(m) {
+  if (!m) return false;
+  if ((m.tags || []).some(t => VIS_DOCS.includes(t))) return true;
+  return m.vis && m.vis.ml ? visAuto(m).some(x => VIS_DOCS.includes(x.k)) : false;
+}
+const visShowOk = m => !visIsDoc(m);
+const visSharp = m => !(m && m.vis && m.vis.q && m.vis.q.b);
+async function visConfirm(m, ks) {
+  ks = [].concat(ks); const tags = (m.tags || []).slice(); ks.forEach(k => { if (!tags.includes(k)) tags.push(k); }); m.tags = tags;
+  if (m.vis && m.vis.no) m.vis.no = m.vis.no.filter(x => !ks.includes(x)); await photoPut(m);
+}
+async function visDismiss(m, k) {
+  m.tags = (m.tags || []).filter(x => x !== k);
+  if (VIS_CAT[k]) { m.vis = m.vis || { v: 2, ml: 0, top: '', l: [] }; m.vis.no = Array.from(new Set([...(m.vis.no || []), k])); }
+  await photoPut(m);
+}
+/* Das früheste Foto mit einem Motiv: „Erstes Mal“ (nur gesicherte Treffer: KI-erkannt oder bestätigt) */
+function visFirstOf(m) {
+  if (!m) return null;
+  const mine = visTagsOf(m).filter(t => VIS_FIRST[t.k] && (!t.auto || (m.vis && m.vis.ml && t.p >= 0.5)));
+  for (const t of mine) {
+    const earlier = S.photos.some(x => x.id !== m.id && visHasTag(x, t.k) && ((x.datum || '9999') < (m.datum || '9999') || ((x.datum || '9999') === (m.datum || '9999') && (x.created || 0) < (m.created || 0))));
+    if (!earlier) return { k: t.k, t: VIS_FIRST[t.k] };
+  }
+  return null;
+}
+function visCapTags(m) {
+  const out = [], f = visFirstOf(m); if (f) out.push({ t: f.t, first: true });
+  visTagsOf(m).filter(t => !VIS_DOCS.includes(t.k) && (!f || t.k !== f.k) && (!t.auto || (m.vis && m.vis.ml))).slice(0, f ? 2 : 3).forEach(t => out.push({ t: t.de }));
+  return out;
+}
+function visSimilar(m, n) {
+  if (!m || !m.vis || !m.vis.e) return []; const v = visDec(m.vis.e), out = [];
+  S.photos.forEach(x => { if (x.id === m.id || !x.vis || !x.vis.e) return; const s = visDot(v, visDec(x.vis.e)); if (s >= 0.8) out.push({ m: x, s }); });
+  return out.sort((a, b) => b.s - a.s).slice(0, n || 6);
+}
+function visOpenTag(k) { phTag = k || null; photoAlbum = 'Alle'; phSearch = ''; phSel = null; mediaSeg = 'fotos'; go('photos'); }
 
 /* Stufe 2: Text im Foto auswerten */
 function visTextFacts(t) {
@@ -12184,12 +12484,13 @@ function visTextFacts(t) {
 
 /* Kontext: Alter, Woche, Termine, Orte, Wachstum zum Aufnahmedatum */
 function visCtx(m) {
-  const P = S.profile, c = { nm: P.vorname || 'Luise', date: m.datum || '', age: '', ageS: '', pre: false, week: null, wi: null, same: [], grow: null, ortSame: false };
+  const P = S.profile, c = { nm: P.vorname || 'Luise', date: m.datum || '', age: '', ageS: '', pre: false, week: null, wi: null, same: [], grow: null, ortSame: false, month: '' };
   if (P.geburtsdatum && m.datum) {
     const dd = Math.round((parseD(m.datum) - parseD(P.geburtsdatum)) / 864e5);
     if (dd < 0) c.pre = true; else { c.age = ageText(P.geburtsdatum, m.datum); c.ageS = dd === 0 ? 'wenige Stunden' : dd < 14 ? dd + (dd === 1 ? ' Tag' : ' Tage') : dd < 91 ? Math.floor(dd / 7) + ' Wochen' : c.age; c.week = Math.floor(dd / 7) + 1; try { c.wi = weekInfo(c.week); } catch (e) {} }
   }
   if (m.datum) {
+    try { c.month = parseD(m.datum).toLocaleDateString('de-DE', { month: 'long' }); } catch (e) {}
     (S.school.termine || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Termin', n: t.titel }); });
     (S.health.meilensteine || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Meilenstein', n: t.titel }); });
     (P.journey || []).forEach(t => { if (t.datum === m.datum && t.titel) c.same.push({ k: 'Moment', n: t.titel, j: t }); });
@@ -12202,18 +12503,33 @@ function visCtx(m) {
 
 /* Logik: aus Erkanntem und Kontext werden Impulse */
 function visImpulses(st, api) {
-  const m = st.m, c = st.ctx, L = st.labels, top = L[0] && VIS_CAT[L[0].id], fam = famMode(), out = [], conf = L[0] ? L[0].p : 0;
+  const m = st.m, c = st.ctx, L = (st.labels || []).filter(x => VIS_CAT[x.id]), top = L[0] && VIS_CAT[L[0].id], fam = famMode(), out = [], conf = L[0] ? L[0].p : 0;
   const save = async () => { await photoPut(m); api.changed(); };
+  const real = L.filter(x => VIS_CAT[x.id].g !== 'doc');
   if (!fam && !m.titel && top && top.g !== 'doc') {
-    const base = visCap(top.de), opts = [base]; if (c.ageS && !c.pre) opts.push(`${base} · ${c.ageS}`);
-    out.push({ ic: '✏️', t: 'Beschreibung vorschlagen', s: 'Tippe auf einen Vorschlag, dann wird er als Beschreibung gespeichert.', chips: opts.map(o => ({ l: o, w: true, fn: async () => { m.titel = o; await save(); toast('Beschreibung gespeichert'); } })) });
+    const b1 = top.de, sec = real.slice(1).find(x => x.p >= 0.35 && VIS_CAT[x.id].g !== top.g), opts = [b1];
+    if (sec) opts.push(`${b1} und ${VIS_CAT[sec.id].de}`);
+    if (c.ageS && !c.pre) opts.push(`${b1} · ${c.ageS}`);
+    if (c.month) opts.push(`${b1} im ${c.month}`);
+    out.push({ ic: '✏️', t: 'Beschreibung vorschlagen', s: 'Tippe auf einen Vorschlag, dann wird er als Beschreibung gespeichert.', chips: opts.slice(0, 4).map(o => ({ l: o, w: true, fn: async () => { m.titel = o; await save(); toast('Beschreibung gespeichert'); } })) });
   }
-  if (!fam && top && VIS_FIRST[top.id] && conf >= 0.3 && !c.pre) {
-    const prior = S.photos.some(x => x.id !== m.id && x.vis && x.vis.top === top.id && (x.datum || '') <= (m.datum || '9999')), word = VIS_FIRST[top.id].split(' ').pop().toLowerCase(), have = (S.profile.journey || []).some(j => (j.titel || '').toLowerCase().includes(word));
-    if (!prior && !have) out.push({ ic: '⭐', t: 'Vielleicht ein erstes Mal', s: `Unter den Fotos, die ich mir angesehen habe, ist das das früheste mit „${top.de}“${c.ageS ? '. ' + c.nm + ' war ' + c.ageS + ' alt' : ''}. Als Moment festhalten?`, chips: [{ l: VIS_FIRST[top.id] + ' festhalten', w: true, fn: () => { api.close(); editMoment(null, { titel: VIS_FIRST[top.id], datum: m.datum || isoToday(), emoji: VIS_EMOJI[top.g] || '⭐', fotos: [m.id] }); } }] });
+  if (!fam && !c.pre) {
+    const cand = real.filter(x => VIS_FIRST[x.id] && x.p >= 0.3).map(x => x.id); (m.tags || []).forEach(k => { if (VIS_FIRST[k] && !cand.includes(k)) cand.push(k); });
+    let shown = 0;
+    for (const k of cand) {
+      if (shown >= 2) break;
+      const prior = S.photos.some(x => x.id !== m.id && x.vis && visHasTag(x, k) && (x.datum || '') <= (m.datum || '9999')), word = VIS_FIRST[k].split(' ').pop().toLowerCase(), have = (S.profile.journey || []).some(j => (j.titel || '').toLowerCase().includes(word));
+      if (prior || have) continue; shown++;
+      out.push({ ic: '⭐', t: 'Vielleicht ein erstes Mal', s: `Unter den Fotos, die ich mir angesehen habe, ist das das früheste mit „${visTagName(k)}“${c.ageS ? '. ' + c.nm + ' war ' + c.ageS + ' alt' : ''}. Als Moment festhalten?`, chips: [{ l: VIS_FIRST[k] + ' festhalten', w: true, fn: () => { api.close(); editMoment(null, { titel: VIS_FIRST[k], datum: m.datum || isoToday(), emoji: VIS_EMOJI[VIS_CAT[k].g] || '⭐', fotos: [m.id] }); } }] });
+    }
+  }
+  if (top && top.g !== 'doc') {
+    const k = top.id, n = S.photos.filter(x => x.id !== m.id && visHasTag(x, k)).length;
+    if (n >= 1) out.push({ ic: '🔍', t: 'Mehr davon', s: `${plural(n + 1, 'Foto', 'Fotos')} mit „${top.de}“ in der Galerie.`, chips: [{ l: 'Alle ansehen', fn: () => { api.close(); visOpenTag(k); } }] });
   }
   if (top && (top.g === 'ort' || top.g === 'unterwegs') && !c.ortSame && top.id !== 'garten') out.push({ ic: '📍', t: 'Ort markieren', s: 'Auf der Karte „Hier war ich schon“ kannst du festhalten, wo das war.', chips: [{ l: 'Karte öffnen', fn: () => { api.close(); go('places'); toast('Tippe auf „+ Ort“'); } }] });
   if (st.pix && st.pix.docLike || top && top.g === 'doc') out.push({ ic: '🔎', t: 'Text im Bild lesen', s: st.ocr === 'work' ? 'Text wird gelesen …' : st.ocr === 'done' ? (st.text ? 'Gelesen: ' + st.text.replace(/\s+/g, ' ').slice(0, 90) + (st.text.length > 90 ? ' …' : '') : 'Es wurde kein Text erkannt.') : 'Das sieht nach einem Zettel oder Dokument aus. Ich kann den Text lesen und Werte daraus übernehmen.', chips: st.ocr === 'idle' || st.ocr === 'err' ? [{ l: st.ocr === 'err' ? 'Nochmal versuchen' : 'Text lesen', fn: () => api.ocr() }] : [] });
+  if (top && top.g === 'doc') out.push({ ic: '🧹', t: 'Wird übersprungen', s: 'Dokumente und Screenshots werden in Diashow und Stories ausgelassen.' });
   if (st.text) {
     const F = visTextFacts(st.text), date = F.dates[0] || m.datum || isoToday(), wt = (F.w != null ? String(F.w).replace('.', ',') + ' kg' : ''), gt = (F.g != null ? String(F.g).replace('.', ',') + ' cm' : ''), kt = (F.k != null ? 'Kopf ' + String(F.k).replace('.', ',') + ' cm' : '');
     if (!fam && (F.w != null || F.g != null || F.k != null)) out.push({ ic: '📏', t: 'Messwerte erkannt', s: [wt, gt, kt].filter(Boolean).join(' · ') + ' · am ' + fmtD(date), chips: [{ l: 'In Wachstum übernehmen', w: true, fn: async () => { let w = S.health.wachstum.find(x => x.datum === date); if (!w) { w = { id: uid(), datum: date }; S.health.wachstum.push(w); } if (F.w != null) w.gewicht = String(F.w).replace('.', ','); if (F.g != null) w.groesse = String(F.g).replace('.', ','); if (F.k != null) w.kopf = String(F.k).replace('.', ','); await persist('health'); render(); toast('In Wachstum gespeichert'); } }] });
@@ -12226,59 +12542,152 @@ function visImpulses(st, api) {
   if (c.grow) out.push({ ic: '📈', t: 'Um diese Zeit gemessen', s: [c.grow.groesse && c.grow.groesse + ' cm', c.grow.gewicht && c.grow.gewicht + ' kg'].filter(Boolean).join(' · ') + ' (' + fmtD(c.grow.datum) + ')', chips: [{ l: 'Wachstum öffnen', fn: () => { api.close(); healthSeg = 'entwicklung'; go('health'); } }] });
   if (c.same.length) out.push({ ic: '🔗', t: 'Am selben Tag', s: c.same.slice(0, 4).map(x => x.k + ': ' + x.n).join(' · ') });
   if (!fam && !m.album && top && top.g !== 'doc') { const want = VIS_ALBUM[top.g], ex = albumNames().find(a => want && a.toLowerCase().includes(want.toLowerCase().slice(0, 5))) || want; if (ex) out.push({ ic: '📁', t: 'Album vorschlagen', s: 'Dieses Foto passt ins Album „' + ex + '“.', chips: [{ l: 'In „' + ex + '“ legen', w: true, fn: async () => { m.album = ex; await save(); toast('Album gesetzt'); } }] }); }
+  if (!fam) { const pend = visPending(visCfg().ml).length; if (pend >= 3 && !visBatch.on) out.push({ ic: '🗂️', t: 'Alle Fotos erkennen', s: `${plural(pend, 'Foto', 'Fotos')} habe ich mir noch nicht angesehen. Danach klappen Motiv-Filter, Suche, Stories und „Erstes Mal“ viel besser.`, chips: [{ l: 'Jetzt erkennen', w: true, fn: () => { visBatchRun(); } }] }); }
   if (st.pix && st.pix.blurry) out.push({ ic: '🌀', t: 'Etwas unscharf', s: 'Das Foto wirkt leicht verwackelt. Für Erinnerungen ist das okay, fürs Poster nimmst du besser ein schärferes.' });
   else if (st.pix && st.pix.dim) out.push({ ic: '🌙', t: 'Sehr dunkel', s: 'Das Foto ist ziemlich dunkel. Mehr Licht oder ein Foto am Fenster wirkt oft viel schöner.' });
   return out;
 }
 
+/* Alle Fotos erkennen (läuft im Hintergrund, mit Fortschritt) */
+const visBatch = { on: false, stop: false, i: 0, n: 0 };
+function visBatchPaint() {
+  const t = document.querySelector('.vb-txt'), b = document.querySelector('.vb-bar i');
+  if (t) t.textContent = `${visBatch.i} von ${visBatch.n} Fotos`; if (b) b.style.width = Math.round(100 * visBatch.i / Math.max(1, visBatch.n)) + '%';
+}
+async function visBatchRun() {
+  if (visBatch.on || famMode()) return; const ml = visCfg().ml, todo = visPending(ml);
+  if (!todo.length) { toast('Alle Fotos sind schon erkannt'); return; }
+  Object.assign(visBatch, { on: true, stop: false, i: 0, n: todo.length }); try { render(); } catch (e) {}
+  let fail = 0, mlOk = ml && !visFail;
+  for (const m of todo) {
+    if (visBatch.stop) break;
+    try {
+      const px = await visPixels(m.thumb); let rec = null;
+      if (mlOk) { try { const r = await visMlRun(m.thumb, p => { visBatch.pct = p; }); rec = visRecord(m, { ml: 1, l: r.l, e: r.e, q: visQual(px) }); } catch (e) { console.error(e); visFail = true; mlOk = false; toast('KI-Erkennung nicht verfügbar, nutze die einfache Erkennung'); } }
+      if (!rec) rec = visRecord(m, { ml: 0, l: visSceneLabels(px), q: visQual(px) });
+      if (rec !== m.vis) { m.vis = rec; await photoPut(m); }
+    } catch (e) { fail++; console.error(e); }
+    visBatch.i++; visBatchPaint(); await new Promise(r => setTimeout(r, 0));
+  }
+  const done = visBatch.i, was = visBatch.stop; visBatch.on = false;
+  try { render(); } catch (e) {}
+  toast(was ? `Pausiert nach ${done} Fotos` : fail ? `${done - fail} Fotos erkannt, ${fail} nicht lesbar` : `${plural(done, 'Foto', 'Fotos')} erkannt`);
+}
+function visGalleryBar() {
+  if (!S.photos.length) return null; const fam = famMode(), kids = [], tags = visTagCounts();
+  if (phTag) kids.push(h('div', { class: 'phtagon' }, h('span', null, 'Motiv:'), h('b', null, visTagName(phTag)), h('button', { class: 'linkbtn', type: 'button', onclick: () => { phTag = null; render(); } }, 'Zurücksetzen')));
+  if (tags.length) kids.push(h('div', { class: 'phtags', role: 'group', 'aria-label': 'Motive' }, tags.slice(0, 16).map(t => h('button', { class: 'phtag' + (t.k === phTag ? ' on' : ''), type: 'button', 'data-tag': t.k, onclick: () => { phTag = phTag === t.k ? null : t.k; render(); } }, t.de, h('i', null, String(t.n))))));
+  const ml = visCfg().ml, pend = visPending(ml).length, N = S.photos.length;
+  if (!fam && (pend || visBatch.on) && !phSel) {
+    const busy = visBatch.on, seen = N - visPending(false).length;
+    kids.push(h('div', { class: 'card phdet' + (busy ? ' busy' : '') },
+      h('div', { class: 'phdet-r' }, h('span', { class: 'phdet-i', 'aria-hidden': 'true' }, '✨'),
+        h('div', { class: 'phdet-t' }, h('b', null, busy ? 'Ich schaue die Fotos an …' : 'Motive in deinen Fotos'), h('small', { class: 'vb-txt' }, busy ? `${visBatch.i} von ${visBatch.n} Fotos` : seen ? `${seen} von ${N} Fotos angesehen` : 'Ich erkenne Strand, Zoo, Familie und mehr.')),
+        busy ? h('button', { class: 'pill ghost', type: 'button', onclick: () => { visBatch.stop = true; } }, 'Stopp') : h('button', { class: 'pill', type: 'button', onclick: () => visBatchRun() }, 'Erkennen')),
+      busy ? h('div', { class: 'vi-bar vb-bar' }, h('i', { style: `width:${Math.round(100 * visBatch.i / Math.max(1, visBatch.n))}%` })) : null,
+      !busy && !ml ? h('p', { class: 'phdet-s' }, 'Mit der KI auf dem Gerät klappt es genauer (einmalig etwa 150 MB, am besten im WLAN). Fotos verlassen das Gerät nie.') : null,
+      !busy && !ml ? h('button', { class: 'linkbtn', type: 'button', onclick: () => { visCfgSet({ ml: true }); visFail = false; visBatchRun(); } }, 'KI aktivieren und alle Fotos erkennen') : null));
+  }
+  return kids.length ? h('div', { class: 'phmot stack' }, kids) : null;
+}
+function wMotive() {
+  const tags = visTagCounts().slice(0, 8), N = S.photos.length;
+  if (!tags.length) return miniCard('Motive', N ? 'Noch nicht erkannt' : 'Keine Fotos', famMode() ? 'Hier erscheinen Motive' : 'Fotos erkennen lassen', () => visOpenTag(null));
+  return h('div', { class: 'card stack wmot' }, h('div', { class: 'wmot-h' }, h('b', null, 'Motive'), h('small', null, 'Was auf den Fotos zu sehen ist')),
+    h('div', { class: 'phtags wrap' }, tags.map(t => h('button', { class: 'phtag', type: 'button', onclick: () => visOpenTag(t.k) }, t.de, h('i', null, String(t.n))))));
+}
+WIDGETS.motive = { name: 'Motive', desc: 'Was auf Luises Fotos zu sehen ist, zum Antippen', render: wMotive };
+
+/* Story „Entdeckt“: Motive, Lieblingsmotive und erste Male */
+function visStorySlides() {
+  const nm = (S.profile.vorname || '').trim() || 'Dein Kind', tags = visTagCounts().filter(t => !VIS_DOCS.includes(t.k) && VIS_CAT[t.k] && VIS_CAT[t.k].g !== 'doc');
+  const tagged = S.photos.filter(m => m.thumb && visShowOk(m) && visTagsOf(m).length);
+  if (tagged.length < 3 || !tags.length) return [];
+  const sl = [], pics = k => S.photos.filter(m => m.thumb && visShowOk(m) && visHasTag(m, k)).sort((a, b) => (visSharp(b) - visSharp(a)) || (b.datum || '').localeCompare(a.datum || ''));
+  const names = tags.slice(0, 4).map(t => t.de);
+  sl.push({ k: 'hero', art: 'sparkle', pt: '✨', ...(() => { const f = pics(tags[0].k)[0]; return f ? { bgpid: f.id, bgthumb: f.thumb } : {}; })(), kicker: 'Entdeckt in den Fotos', big: plural(tags.length, 'Motiv', 'Motive'), text: `Auf ${nm}s Fotos habe ich gesehen: ${names.join(', ')}${tags.length > 4 ? ' und mehr' : ''}.`, cta: { label: 'Motive ansehen', fn: () => visOpenTag(null) } });
+  tags.slice(0, 2).forEach((t, i) => { const p = pics(t.k).slice(0, 4); if (p.length >= 2) sl.push({ k: 'collage', pics: p.map(f => ({ pid: f.id, thumb: f.thumb, cap: f.datum ? fmtD(f.datum) : '' })), kicker: i ? 'Auch oft dabei' : 'Lieblingsmotiv', big: t.de, text: plural(t.n, 'Foto', 'Fotos'), cta: { label: 'Alle Fotos ansehen', fn: () => visOpenTag(t.k) } }); });
+  const firsts = [], seen = new Set();
+  S.photos.filter(m => m.datum && m.thumb && visShowOk(m)).sort((a, b) => a.datum.localeCompare(b.datum) || (a.created || 0) - (b.created || 0)).forEach(m => { const f = visFirstOf(m); if (f && !seen.has(f.k)) { seen.add(f.k); firsts.push({ m, f }); } });
+  if (firsts.length) {
+    sl.push({ k: 'list', kicker: 'Erste Male', big: firsts.length === 1 ? '1 erstes Mal' : firsts.length + ' erste Male', rows: firsts.slice(0, 4).map(x => [x.f.t, fmtD(x.m.datum) + (ageAt(S.profile, x.m.datum) ? ' · ' + visWith(ageAt(S.profile, x.m.datum)) : '')]), cta: { label: 'Zur Galerie', fn: () => go('photos') } });
+    firsts.slice(0, 2).forEach(x => sl.push({ k: 'photo', pid: x.m.id, thumb: x.m.thumb, kicker: x.f.t, big: fmtD(x.m.datum), text: x.m.titel || '', cta: { label: 'Foto ansehen', fn: () => openPhotoViewer(S.photos, Math.max(0, S.photos.indexOf(x.m))) } }));
+  }
+  return sl;
+}
+
 /* Oberfläche im Foto-Viewer */
 function visAttach(o) {
-  let tok = 0, openP = false, st = null;
+  let tok = 0, openP = false, st = null, adding = false;
   const api = { changed: () => o.changed && o.changed(), close: () => o.close(), redraw: () => draw(), ocr: () => ocrRun() };
-  const wr = x => famMode() ? false : true;
+  const wr = () => !famMode();
+  const labelsOf = m => { const v = m.vis; if (v && v.v === 2 && Array.isArray(v.l) && v.l.length) return v.l.filter(x => VIS_CAT[x[0]] && !(v.no || []).includes(x[0])).map(x => ({ id: x[0], p: x[1] })); if (v && Array.isArray(v.l) && v.ml) return v.l.filter(x => VIS_CAT[x[0]]).map(x => ({ id: x[0], p: x[1] })); return []; };
+  function chipRow() {
+    const m = st.m, conf = (m.tags || []).slice(), sug = st.labels.filter(l => !conf.includes(l.id)), kids = [];
+    conf.forEach(k => kids.push(h('span', { class: 'vi-lab ok' }, h('span', { class: 'vi-lt' }, '✓ ' + visTagName(k)), wr() ? h('button', { class: 'vi-lb', type: 'button', 'aria-label': visTagName(k) + ' entfernen', onclick: async e => { e.stopPropagation(); await visDismiss(m, k); st.labels = st.labels.filter(x => x.id !== k); api.changed(); draw(); } }, '×') : null)));
+    sug.forEach(l => kids.push(h('span', { class: 'vi-lab' }, h('span', { class: 'vi-lt' }, visTagName(l.id)), st.src === 'ml' ? h('i', null, Math.round(l.p * 100) + ' %') : null,
+      wr() ? h('button', { class: 'vi-lb yes', type: 'button', 'aria-label': visTagName(l.id) + ' bestätigen', onclick: async e => { e.stopPropagation(); await visConfirm(m, l.id); api.changed(); draw(); } }, '✓') : null,
+      wr() ? h('button', { class: 'vi-lb', type: 'button', 'aria-label': visTagName(l.id) + ' verwerfen', onclick: async e => { e.stopPropagation(); await visDismiss(m, l.id); st.labels = st.labels.filter(x => x.id !== l.id); api.changed(); draw(); } }, '×') : null)));
+    return { kids, nsug: sug.length };
+  }
   function draw() {
     if (!st) { o.box.replaceChildren(); return; }
-    const imps = visImpulses(st, api), top = st.labels[0] && VIS_CAT[st.labels[0].id], n = imps.length;
-    const head = top ? visCap(top.de) : (st.ml === 'work' ? 'Ich schaue genauer hin …' : 'Impuls zum Foto');
+    const imps = visImpulses(st, api), top = st.labels[0] && VIS_CAT[st.labels[0].id], n = imps.length, m = st.m;
+    const first = top ? visCap(top.de) : (m.tags && m.tags[0] ? visCap(visTagName(m.tags[0])) : null);
+    const head = first || (st.ml === 'work' ? 'Ich schaue genauer hin …' : 'Impuls zum Foto');
     const chip = h('button', { class: 'pv-impchip' + (openP ? ' on' : ''), type: 'button', onclick: e => { e.stopPropagation(); toggle(); } }, h('span', { 'aria-hidden': 'true' }, '✨'), h('b', null, head), n ? h('small', null, n + (n === 1 ? ' Idee' : ' Ideen')) : null);
     ['pointerdown', 'pointerup', 'touchstart', 'touchend'].forEach(ev => chip.addEventListener(ev, e => e.stopPropagation()));
     const kids = [chip];
     if (openP) {
       const rows = imps.map(x => h('div', { class: 'vi-row' }, h('span', { class: 'vi-ic', 'aria-hidden': 'true' }, x.ic), h('div', { class: 'vi-tx' }, h('b', null, x.t), x.s ? h('p', null, x.s) : null,
         x.chips && x.chips.filter(c => !c.w || wr()).length ? h('div', { class: 'vi-btns' }, x.chips.filter(c => !c.w || wr()).map(c => h('button', { class: 'vi-btn', type: 'button', onclick: async e => { e.stopPropagation(); try { await c.fn(); } catch (er) { toast('Das hat nicht geklappt'); console.error(er); } draw(); } }, c.l))) : null)));
-      const seen = h('div', { class: 'vi-seen' }, h('small', null, st.src === 'ml' ? 'Erkannt (KI auf dem Gerät)' : 'Mein erster Eindruck (Vermutung)'),
-        h('div', { class: 'vi-chips' }, st.labels.length ? st.labels.map(l => h('span', { class: 'vi-lab' }, visCap(VIS_CAT[l.id].de), st.src === 'ml' ? h('i', null, Math.round(l.p * 100) + ' %') : null)) : h('span', { class: 'vi-none' }, 'Noch nichts Eindeutiges erkannt')));
-      const ml = visCfg().ml ? (st.ml === 'err' ? h('div', { class: 'vi-ml' }, h('p', null, 'Die KI-Erkennung konnte nicht geladen werden' + (st.mlMsg ? ' (' + st.mlMsg + ')' : '') + '. Meist hilft eine bessere Internetverbindung.'), h('button', { class: 'vi-btn', type: 'button', onclick: e => { e.stopPropagation(); visFail = false; mlRun(tok); } }, 'Nochmal versuchen')) : st.ml === 'work' ? h('div', { class: 'vi-ml' }, h('p', null, st.pct != null ? `KI-Erkennung wird geladen … ${Math.round(st.pct * 100)} %` : 'Die KI schaut sich das Foto an …'), h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.round((st.pct || 0.04) * 100)}%` }))) : null)
-        : h('div', { class: 'vi-ml' }, h('p', null, 'Genauer erkennen: Eine kleine KI läuft dann direkt auf deinem Gerät. Sie wird einmalig geladen (etwa 150 MB, am besten im WLAN). Fotos verlassen dabei nie das Gerät.'), st.ml === 'work' ? h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.round((st.pct || 0.04) * 100)}%` })) : h('button', { class: 'vi-btn pri', type: 'button', onclick: e => { e.stopPropagation(); mlEnable(); } }, 'KI-Erkennung aktivieren'));
-      const pan = h('div', { class: 'pv-impan', onclick: e => e.stopPropagation() }, h('div', { class: 'vi-head' }, h('b', null, 'Impuls zum Foto'), h('button', { class: 'vi-x', type: 'button', 'aria-label': 'Schließen', onclick: e => { e.stopPropagation(); toggle(); } }, '×')), seen, ...(rows.length ? rows : [h('p', { class: 'vi-none' }, 'Dazu fällt mir gerade nichts ein. Mit Datum und Beschreibung werden die Ideen besser.')]), ml);
+      const cr = chipRow();
+      const seen = h('div', { class: 'vi-seen' }, h('div', { class: 'vi-seenh' }, h('small', null, st.src === 'ml' ? 'Erkannt (KI auf dem Gerät)' : 'Mein erster Eindruck (Vermutung)'),
+        wr() && cr.nsug >= 2 ? h('button', { class: 'vi-all', type: 'button', onclick: async e => { e.stopPropagation(); await visConfirm(m, st.labels.map(l => l.id)); api.changed(); draw(); } }, 'Alle übernehmen') : null),
+        h('div', { class: 'vi-chips' }, cr.kids.length ? cr.kids : h('span', { class: 'vi-none' }, 'Noch nichts Eindeutiges erkannt')),
+        wr() ? (adding ? h('form', { class: 'vi-addf', onsubmit: async e => { e.preventDefault(); e.stopPropagation(); const inp = e.target.querySelector('input'), v = (inp.value || '').trim().slice(0, 30); if (v) { await visConfirm(m, VIS_CATS.find(c => c.de.toLowerCase() === v.toLowerCase())?.id || v); api.changed(); } adding = false; draw(); } },
+          h('input', { type: 'text', class: 'vi-in', placeholder: 'z. B. Opa, Lieblingsdecke', maxlength: '30', 'aria-label': 'Eigenes Stichwort' }), h('button', { class: 'vi-btn pri', type: 'submit' }, 'Hinzufügen'))
+          : h('button', { class: 'vi-add', type: 'button', onclick: e => { e.stopPropagation(); adding = true; draw(); const i = o.box.querySelector('.vi-in'); if (i) i.focus(); } }, '＋ Eigenes Stichwort')) : null);
+      const sim = st.sim && st.sim.length ? h('div', { class: 'vi-sim' }, h('small', null, 'Ähnliche Fotos'), h('div', { class: 'vi-simr' }, st.sim.map(x => h('button', { class: 'vi-simb', type: 'button', 'aria-label': 'Ähnliches Foto ansehen', onclick: e => { e.stopPropagation(); if (o.jump) o.jump(x.m); } }, h('img', { src: x.m.thumb, alt: '' }))))) : null;
+      const prog = st.pct != null ? Math.round(st.pct * 100) : null;
+      const ml = visCfg().ml ? (st.ml === 'err' ? h('div', { class: 'vi-ml' }, h('p', null, 'Die KI-Erkennung konnte nicht geladen werden' + (st.mlMsg ? ' (' + st.mlMsg + ')' : '') + '. Meist hilft eine bessere Internetverbindung.'), h('button', { class: 'vi-btn', type: 'button', onclick: e => { e.stopPropagation(); visFail = false; mlRun(tok); } }, 'Nochmal versuchen')) : st.ml === 'work' ? h('div', { class: 'vi-ml' }, h('p', null, st.msg ? st.msg + (prog != null ? ` … ${prog} %` : ' …') : prog != null ? `KI-Erkennung wird geladen … ${prog} %` : 'Die KI schaut sich das Foto an …'), h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.max(4, prog || 0)}%` }))) : null)
+        : h('div', { class: 'vi-ml' }, h('p', null, 'Genauer erkennen: Eine kleine KI läuft dann direkt auf deinem Gerät. Sie wird einmalig geladen (etwa 150 MB, am besten im WLAN). Fotos verlassen dabei nie das Gerät.'), st.ml === 'work' ? h('div', { class: 'vi-bar' }, h('i', { style: `width:${Math.max(4, prog || 0)}%` })) : h('button', { class: 'vi-btn pri', type: 'button', onclick: e => { e.stopPropagation(); mlEnable(); } }, 'KI-Erkennung aktivieren'));
+      const pan = h('div', { class: 'pv-impan', onclick: e => e.stopPropagation() }, h('div', { class: 'vi-head' }, h('b', null, 'Impuls zum Foto'), h('button', { class: 'vi-x', type: 'button', 'aria-label': 'Schließen', onclick: e => { e.stopPropagation(); toggle(); } }, '×')), seen, sim, ...(rows.length ? rows : [h('p', { class: 'vi-none' }, 'Dazu fällt mir gerade nichts ein. Mit Datum und Beschreibung werden die Ideen besser.')]), ml);
       ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'touchmove'].forEach(ev => pan.addEventListener(ev, e => e.stopPropagation()));
       kids.push(pan);
     }
+    const keep = o.box.querySelector('.vi-in') && o.box.querySelector('.vi-in').value;
     o.box.replaceChildren(...kids); o.btn.classList.toggle('on', openP);
+    if (keep) { const i = o.box.querySelector('.vi-in'); if (i) i.value = keep; }
   }
   function toggle() { openP = !openP; draw(); }
   async function start(m) {
-    const my = ++tok; st = { m, labels: [], ctx: visCtx(m), ml: 'idle', ocr: 'idle', text: '', src: 'pix', pix: null }; draw();
+    const my = ++tok; adding = false; st = { m, labels: [], ctx: visCtx(m), ml: 'idle', ocr: 'idle', text: '', src: 'pix', pix: null, sim: [] }; draw();
     try { const p = await visPixels(m.thumb); if (my !== tok) return; st.pix = p; st.labels = visSceneLabels(p); } catch (e) {}
-    if (m.vis && m.vis.ml && Array.isArray(m.vis.l)) { st.labels = m.vis.l.filter(x => VIS_CAT[x[0]]).map(x => ({ id: x[0], p: x[1] })); st.src = 'ml'; st.ml = 'ready'; }
+    const stored = labelsOf(m);
+    if (m.vis && m.vis.ml && stored.length) { st.labels = stored; st.src = 'ml'; st.ml = 'ready'; st.sim = visSimilar(m, 6); }
+    else if (m.vis && m.vis.v === 2 && !m.vis.ml && stored.length) { st.labels = stored; }
+    else if (m.vis && m.vis.ml && !stored.length) { st.labels = []; st.src = 'ml'; st.ml = 'ready'; }
     if (my !== tok) return; draw();
-    if (visCfg().ml && st.src !== 'ml') { if (visFail) st.ml = 'err'; else mlRun(my); }
-    if (!famMode() && !m.vis && st.labels[0] && st.labels[0].p >= 0.45 && st.src === 'pix') { m.vis = { v: 1, ml: 0, top: st.labels[0].id }; try { await photoPut(m); } catch (e) {} }
+    if (visCfg().ml && !(m.vis && m.vis.ml)) { if (visFail) st.ml = 'err'; else mlRun(my); }
+    if (!famMode() && !m.vis && st.pix) { m.vis = visRecord(m, { ml: 0, l: visSceneLabels(st.pix), q: visQual(st.pix) }); try { await photoPut(m); } catch (e) {} }
+    else if (!famMode() && m.vis && m.vis.v === 2 && !m.vis.q && st.pix) { m.vis.q = visQual(st.pix); try { await photoPut(m); } catch (e) {} }
   }
-  async function mlEnable() { visCfgSet({ ml: true }); st.ml = 'work'; st.pct = null; draw(); mlRun(tok); }
+  async function mlEnable() { visCfgSet({ ml: true }); visFail = false; st.ml = 'work'; st.pct = null; draw(); mlRun(tok); }
   function mlRun(my) {
-    if (!st) return; const mine = st; st.ml = 'work'; st.pct = null; draw();
-    visQ = visQ.then(async () => {
+    if (!st) return; const mine = st; st.ml = 'work'; st.pct = null; st.msg = ''; draw();
+    (async () => {
       if (my !== tok) return;
       try {
-        const res = await visMlClassify(mine.m.thumb, (p) => { if (my === tok) { mine.pct = p; if (openP) draw(); } });
-        res.sort((a, b) => b.p - a.p); const keep = res.filter((x, i) => i < 3 && x.p >= 0.08);
+        const r = await visMlRun(mine.m.thumb, (p, msg) => { if (my === tok) { mine.pct = p; mine.msg = msg || ''; if (openP) draw(); } });
+        const keep = (r.l || []).filter(x => VIS_CAT[x.id]).sort((a, b) => b.p - a.p).slice(0, 6);
         if (!keep.length || keep[0].p < 0.12) { mine.ml = 'ready'; if (my === tok) draw(); return; }
-        mine.labels = keep; mine.src = 'ml'; mine.ml = 'ready';
-        if (!famMode()) { mine.m.vis = { v: 1, ml: 1, top: keep[0].id, l: keep.map(x => [x.id, +x.p.toFixed(3)]) }; try { await photoPut(mine.m); } catch (e) {} }
+        const no = (mine.m.vis && mine.m.vis.no) || [];
+        mine.labels = keep.filter(x => !no.includes(x.id)); mine.src = 'ml'; mine.ml = 'ready'; mine.msg = '';
+        if (!famMode()) { mine.m.vis = visRecord(mine.m, { ml: 1, l: keep, e: r.e, q: visQual(mine.pix) }); try { await photoPut(mine.m); } catch (e) {} mine.sim = visSimilar(mine.m, 6); }
       } catch (e) { console.error(e); mine.ml = 'err'; mine.mlMsg = String(e && e.message || e).slice(0, 80); visFail = true; }
       if (my === tok) draw();
-    });
+    })();
   }
   async function ocrRun() {
     const mine = st; if (!mine || mine.ocr === 'work') return; mine.ocr = 'work'; draw();
@@ -12292,17 +12701,41 @@ function visAttach(o) {
   return { start, toggle, stop() { tok++; st = null; o.box.replaceChildren(); }, state: () => st, open: () => { if (!openP) toggle(); } };
 }
 
-/* v36: Story-Titel verkleinern, bis das längste Wort in die Zeile passt (kein Umbruch mitten im Wort) */
-function storyFit(root) {
-  root.querySelectorAll('.stv-big').forEach(b => {
-    const inn = b.parentElement; if (!inn) return; const cs0 = getComputedStyle(inn), avail = inn.clientWidth - parseFloat(cs0.paddingLeft || 0) - parseFloat(cs0.paddingRight || 0); if (avail < 80) return;
-    const cs = getComputedStyle(b), words = (b.textContent || '').split(/\s+/).filter(Boolean); if (!words.length) return;
-    const cv = storyFit.cv || (storyFit.cv = document.createElement('canvas').getContext('2d')); let fs = parseFloat(cs.fontSize); const f0 = fs;
-    const wid = px => { cv.font = `${cs.fontWeight} ${px}px ${cs.fontFamily}`; return Math.max(...words.map(w => cv.measureText(w).width)) + 2; };
-    while (fs > 17 && wid(fs) > avail) fs -= 1;
-    if (fs !== f0) { b.style.fontSize = fs + 'px'; b.dataset.fit = String(fs); }
-  });
+/* ============ v37: Familienmodus mit eigener Widget-Anordnung (Anpassen nur mit Codewort) ============ */
+const FAM_LKEY = 'luise_fam_layout_v1';
+['videos', 'motive', 'zodiac', 'spot', 'erinnerung'].forEach(id => { if (!FAM_WIDGETS.includes(id)) FAM_WIDGETS.push(id); });
+const FAM_DEFAULT = [['hero', 'm'], ['famshow', 'm'], ['photo', 's'], ['bday', 's'], ['week', 'm'], ['journey', 'm'], ['places', 's'], ['family', 's'], ['guest', 'm']];
+const FAM_TEMPLATES = [
+  ['Ruhig', 'Begrüßung, Diashow, Foto und Journey', [['hero', 'm'], ['famshow', 'm'], ['photo', 's'], ['bday', 's'], ['journey', 'm']]],
+  ['Besuch', 'Alles für Familie und Freunde', FAM_DEFAULT],
+  ['Fotos & Videos', 'Diashow, Foto, Videos, Motive und Erinnerungen', [['hero', 'm'], ['famshow', 'm'], ['photo', 's'], ['videos', 's'], ['motive', 'm'], ['erinnerung', 'm'], ['journey', 'm']]]
+];
+function famLayoutGet() {
+  try {
+    const l = JSON.parse(ls.get(FAM_LKEY) || 'null');
+    if (Array.isArray(l)) { const out = l.filter(x => x && FAM_WIDGETS.includes(x.id) && WIDGETS[x.id]).map(normItem); return out; }
+  } catch (e) {}
+  return FAM_DEFAULT.map(([id, sz]) => newWidgetItem(id, sz));
 }
+const homeLayoutMain = homeLayout;
+homeLayout = function () { return famMode() ? famLayoutGet() : homeLayoutMain(); };
+const saveLayoutMain = saveLayout;
+saveLayout = function (l) { if (famMode()) ls.set(FAM_LKEY, JSON.stringify(l)); else saveLayoutMain(l); };
+const _templateSheet37 = templateSheet;
+templateSheet = function () {
+  if (!famMode()) return _templateSheet37();
+  actionSheet('Vorlage wählen', 'Ersetzt die Anordnung im Familienmodus. Danach kannst du weiter verschieben.', FAM_TEMPLATES.map(([n, d, ids]) => ({ label: n + ' · ' + d, ghost: true, onclick: () => { saveLayout(ids.map(([id, sz]) => newWidgetItem(id, sz))); render(); } })));
+};
+function wVideos(w, sz) {
+  const own = (S.videos || []).slice().sort((a, b) => (b.datum + b.id).localeCompare(a.datum + a.id)), links = (S.profile.ytVideos || []).length, m = own[0];
+  const open = () => { mediaSeg = 'videos'; go('photos'); };
+  if (!m && !links) return miniCard('Videos', 'Noch keine', famMode() ? 'Hier erscheinen Videos' : 'Videos und Links sammeln', open);
+  const sub = [own.length && plural(own.length, 'Video', 'Videos'), links && plural(links, 'Link', 'Links')].filter(Boolean).join(' · ');
+  return h('button', { class: 'card mini wvid', type: 'button', onclick: open, 'aria-label': 'Videos öffnen' },
+    m && m.poster ? h('img', { class: 'wvid-img', src: m.poster, alt: '' }) : h('span', { class: 'wvid-ph', 'aria-hidden': 'true', html: ICON.video }),
+    h('span', { class: 'wvid-play', 'aria-hidden': 'true', html: VIC.play }), h('span', { class: 'wvid-cap' }, h('b', null, 'Videos'), h('small', null, sub)));
+}
+WIDGETS.videos = { name: 'Videos', desc: 'Das neueste Video, Anzahl und gemerkte Links', half: true, render: wVideos };
 
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
@@ -12321,7 +12754,7 @@ async function boot() {
   render();
 }
 boot();
-window.__luise = { visPixels, visSceneLabels, visTextFacts, visCtx, visImpulses, visAttach, visSetMl: f => { visMlImpl = f; }, AMB_INFO, ambRender, ambWav, storyFit, ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
+window.__luise = { visScoreVec, visPick, visTagsOf, visTagCounts, visFirstOf, visStorySlides, visBatchRun, visBatch, visRecord, visEnc, visDec, visSimilar, visShowOk, visCapTags, visPending, visConfirm, visDismiss, visIsDoc, VIS_CATS, VIS_NEUTRAL, mediaSwitch, famLayoutGet, FAM_TEMPLATES, viewVideosTab, ssvCfg, wMotive, openVideoFeed, vidItems, getPhTag: () => phTag, setPhTag: v => { phTag = v; }, getMediaSeg: () => mediaSeg, setMediaSeg: v => { mediaSeg = v; }, famGate, homeLayout, visPixels, visSceneLabels, visTextFacts, visCtx, visImpulses, visAttach, visSetMl: f => { visMlImpl = f; }, AMB_INFO, ambRender, ambWav, storyFit, ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
 })();
 </script>
 </body>
