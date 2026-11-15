@@ -2,12 +2,13 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="app-version" content="37">
+<meta name="app-version" content="39">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MyLuiseApp">
+<link rel="manifest" href="manifest.json">
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#f4f2ee" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121214" media="(prefers-color-scheme: dark)">
@@ -2015,6 +2016,116 @@ body.famode .vadd{display:none!important}
 .ssv-tag.first{background:linear-gradient(135deg,#f6b73c,#e8803a);color:#2a1700}
 /* Familienmodus: Video-Feed nur ansehen */
 body.famode .vrail .vact.like,body.famode .vrail .vact.com,body.famode .vrail .vact.sv,body.famode .vrail .vact.more{display:none!important}
+
+/* v38: Gästebuch mit Foto + Sprachnachricht, Gruß-Datei, Familien-Update */
+.gmed{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.gpho{display:block;padding:0;border:0;background:none;border-radius:14px;overflow:hidden;cursor:zoom-in;max-width:100%}
+.gpho img{display:block;width:100%;max-height:320px;object-fit:cover;border-radius:14px}
+.gau{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--accent) 9%,var(--card));color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.gau-i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-size:12px;letter-spacing:-1px}
+.gau-m{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.gau-t{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gau-bar{display:block;height:4px;border-radius:2px;background:var(--line);overflow:hidden}
+.gau-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s linear}
+.gen-f{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;flex-wrap:wrap}
+.gen-f .chip{margin-top:0}
+.gentry.dup{opacity:.62}
+.gentry > .chip{margin-top:10px}
+.gmini{display:flex;align-items:center;gap:8px;margin-top:6px}
+.gmini img{width:44px;height:44px;border-radius:10px;object-fit:cover;flex:none}
+.gmini-a{font-size:12.5px;font-weight:600;color:var(--mute)}
+.gform{margin-top:4px}
+.gf-add{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:10px 14px;border-radius:16px;border:1.5px dashed var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer;text-align:left}
+.gf-add b{display:block;font-size:15px}.gf-add small{display:block;font-size:12.5px}
+.gf-ic{font-size:22px;line-height:1;flex:none}
+.gf-has{display:flex;align-items:center;gap:12px;padding:8px;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.gf-has .gau{flex:1}
+.gf-img{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}
+.gf-tx{flex:1;min-width:0}.gf-tx b{display:block}.gf-tx small{display:block;font-size:12.5px}
+.grec{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;border:1px solid color-mix(in srgb,#e5484d 45%,transparent);background:color-mix(in srgb,#e5484d 9%,var(--card))}
+.grec .btn{margin-left:auto;min-height:40px}
+.grec-dot{width:12px;height:12px;border-radius:50%;background:#e5484d;flex:none;animation:grecP 1.1s ease-in-out infinite}
+.grec-t{font-variant-numeric:tabular-nums;font-weight:600}
+@keyframes grecP{50%{opacity:.25;transform:scale(.8)}}
+@media (prefers-reduced-motion:reduce){.grec-dot{animation:none}}
+.gsend-hero{display:flex;gap:14px;align-items:flex-start}
+.gsend-hero p{margin:4px 0 0;line-height:1.4}
+.gsend-i{font-size:30px;line-height:1;flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 14%,var(--card));border:1px solid var(--line)}
+.gimpbtn{margin-bottom:2px}
+.famupd{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.famupd-h{display:flex;gap:12px;align-items:center}
+.famupd-h b{display:block}.famupd-h small{display:block;font-size:12.5px;margin-top:2px}
+.famupd-i{font-size:22px;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;flex:none;background:color-mix(in srgb,var(--accent) 12%,var(--card))}
+.famupd.old{border-color:color-mix(in srgb,var(--warn,#c98a00) 50%,transparent)}
+.famwarn{border-color:color-mix(in srgb,var(--warn,#c98a00) 55%,transparent);background:color-mix(in srgb,var(--warn,#c98a00) 8%,var(--card))}
+.famwarn p{margin:4px 0 0}
+.famupd-p .card p{margin:4px 0 0}
+.famsent-l{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.famsent-r{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.famsent-r:first-child{border-top:0}
+.famsent-n{font-weight:600;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.famsent-r small{flex:none;text-align:right}
+
+/* v39: Monatsbild, Kamera-Hilfe, Zeitraffer-Video, Video-Sicherung */
+.mbh-h{display:flex;gap:12px;align-items:center}
+.mbh-h b{display:block;line-height:1.3}.mbh-h small{display:block;font-size:13px;margin-top:2px}
+.mbh-i{flex:none;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:24px;background:color-mix(in srgb,var(--accent) 13%,var(--card));border:1px solid var(--line)}
+.mbh-ok{margin:0;font-weight:600;color:var(--accent)}
+.mbh-due{margin:0;font-weight:600}
+.mbnudge{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 10%,var(--card)),var(--card))}
+.mbnudge .btn-row{align-items:center}
+.mbgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mbt{position:relative;display:block;aspect-ratio:4/5;padding:0;border:0;border-radius:14px;overflow:hidden;background:var(--accent-bg);cursor:pointer;font:inherit;color:var(--ink)}
+.mbt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.mbt-l{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 7px;font-size:12.5px;font-weight:700;color:#fff;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.55));text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.mbt.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:1.5px dashed var(--line);background:transparent;text-align:center;padding:6px}
+.mbt.empty b{font-size:13px;line-height:1.2}.mbt.empty small{font-size:11.5px;color:var(--mute)}
+.mbt-p{font-size:22px;line-height:1;color:var(--accent);margin-bottom:4px}
+.mbt.fut{opacity:.55;cursor:default}
+.mbt[disabled]{cursor:default}
+.mbentry{display:flex;align-items:center;gap:12px;width:100%;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.mbe-th{display:flex;flex:none}
+.mbe-th img{width:38px;height:48px;object-fit:cover;border-radius:9px;border:2px solid var(--card);margin-left:-12px;box-shadow:var(--shadow)}
+.mbe-th img:first-child{margin-left:0}
+.mbe-ph{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:var(--accent-bg)}
+.mbe-tx{flex:1;min-width:0}.mbe-tx b{display:block}.mbe-tx small{display:block;font-size:12.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wmb{position:relative}
+.wmb-tag{position:absolute;top:8px;left:8px;z-index:2;max-width:calc(100% - 16px);padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(255,255,255,.88);color:#1c1b19;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.wmb-tag.due{background:var(--accent);color:var(--accent-ink)}
+.mbpick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.mbpick-t{position:relative;padding:0;border:0;background:var(--accent-bg);border-radius:12px;overflow:hidden;aspect-ratio:4/5;cursor:pointer}
+.mbpick-t img{width:100%;height:100%;object-fit:cover;display:block}
+.mbpick-t small{position:absolute;left:0;right:0;bottom:0;padding:10px 6px 4px;font-size:11px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.5));text-align:left}
+.mbcam{position:fixed;inset:0;z-index:960;background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;padding:env(safe-area-inset-top) 0 calc(14px + env(safe-area-inset-bottom));touch-action:none;-webkit-user-select:none;user-select:none}
+.mbc-top{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 12px;gap:8px}
+.mbc-top b{font-size:15px}
+.mbc-x{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:17px;cursor:pointer}
+.mbc-stage{position:relative;width:min(100vw,calc((100dvh - 250px) * .8));aspect-ratio:4/5;overflow:hidden;background:#111;border-radius:6px}
+.mbc-v,.mbc-g,.mbc-r{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.mbc-g{pointer-events:none;transition:opacity .2s}
+.mbc-g[hidden],.mbc-r[hidden]{display:none}
+.mbc-r{z-index:3;background:#000}
+.mbc-grid{position:absolute;inset:0;pointer-events:none;z-index:2}
+.mbc-grid i{position:absolute;background:rgba(255,255,255,.28)}
+.mbc-grid i:nth-child(1),.mbc-grid i:nth-child(2){top:0;bottom:0;width:1px}.mbc-grid i:nth-child(1){left:33.33%}.mbc-grid i:nth-child(2){left:66.66%}
+.mbc-grid i:nth-child(3),.mbc-grid i:nth-child(4){left:0;right:0;height:1px}.mbc-grid i:nth-child(3){top:33.33%}.mbc-grid i:nth-child(4){top:66.66%}
+.mbc-stage.flash::after{content:"";position:absolute;inset:0;z-index:4;background:#fff;animation:mbFl .3s ease-out forwards}
+@keyframes mbFl{from{opacity:.85}to{opacity:0}}
+.mbc-hint{max-width:min(100vw,420px);padding:10px 20px 0;font-size:13.5px;line-height:1.4;text-align:center;color:rgba(255,255,255,.78)}
+.mbc-bar{margin-top:auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;width:100%;max-width:460px;padding:12px 18px 4px}
+.mbc-bar[hidden]{display:none}
+.mbc-bar .btn{min-width:0}
+.mbc-bar .btn:first-child{justify-self:stretch}.mbc-bar .btn:last-child{grid-column:3;justify-self:stretch}
+.mbc-b{justify-self:center;min-height:40px;padding:0 14px;border-radius:999px;border:0;background:rgba(255,255,255,.14);color:#fff;font:inherit;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer}
+.mbc-b:first-child{justify-self:start}.mbc-b:last-child{justify-self:end}
+.mbc-shot{width:74px;height:74px;border-radius:50%;border:5px solid #fff;background:#fff;box-shadow:inset 0 0 0 3px #000;cursor:pointer}
+.mbc-shot:active{transform:scale(.94)}
+.mbv-cv{width:100%;height:auto;aspect-ratio:4/5;border-radius:16px;background:#000;display:block}
+.mbv-bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.mbv-bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.mbv-out{width:100%;aspect-ratio:4/5;border-radius:16px;background:#000;display:block}
+.mbv-box[hidden]{display:none}
+.bkvid{margin:0}
 </style>
 </head>
 <body>
@@ -3111,6 +3222,7 @@ function viewHome() {
   if (!homeEdit && !famMode()) { const sr = storyRow(); if (sr) wrap.append(sr); }
   const fw = famWelcomeCard(); if (fw) wrap.append(fw);
   const fa = famAskCard(); if (fa) wrap.append(fa);
+  const mbn = mbNudge(); if (mbn) wrap.append(mbn);
   if (homeEdit) wrap.append(h('div', { class: 'wedit-bar card' },
     h('b', null, famMode() ? 'Familienmodus: Startseite anpassen' : 'Startseite anpassen'),
     h('p', { class: 'mute' }, 'Ziehe ein Widget am Griff ≡ an eine neue Stelle. Mit S, M und L unter dem Widget änderst du die Größe, mit − entfernst du es.'),
@@ -3138,7 +3250,7 @@ function viewHome() {
     grid.append(wg);
   });
   wrap.append(grid);
-  if (famMode()) wrap.append(famExitRow());
+  if (famMode()) { if (!homeEdit) wrap.append(famStandCard()); wrap.append(famExitRow()); }
   else if (!homeEdit) { wrap.append(h('div', { class: 'btn-row' }, h('button', { class: 'btn ghost', type: 'button', onclick: () => addWidgetSheet() }, '+ Widget'), h('button', { class: 'btn ghost', type: 'button', onclick: () => { homeEdit = true; render(); } }, 'Anordnen')));
     wrap.append(h('p', { class: 'homehint' }, 'Tipp: Ein Widget gedrückt halten, um es zu ändern, zu tauschen oder zu entfernen.')); }
   return wrap;
@@ -4922,7 +5034,7 @@ async function openDoc(d) {
 let backupFile = null;
 const ab2b64 = buf => { const b = new Uint8Array(buf); let s = ''; const C = 0x8000; for (let i = 0; i < b.length; i += C) s += String.fromCharCode.apply(null, b.subarray(i, i + C)); return btoa(s); };
 const b642ab = b64 => { const s = atob(b64); const u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; };
-async function buildBackup(only, opts) {
+async function buildBackup_v38(only, opts) {
   const kids = [];
   for (const c of CH) {
     if (only && c.id !== only) continue;
@@ -4934,25 +5046,35 @@ async function buildBackup(only, opts) {
   for (const d of (opts && opts.noDocs ? [] : await docsAll())) { if (only && (d.cid || 'main') !== only) continue; const rec = await fileGet(d.id); docs.push({ meta: d, mime: rec ? rec.mime : d.mime, b64: rec ? ab2b64(rec.data) : null }); }
   const photos = [];
   for (const f of (opts && opts.noPhotos ? [] : await photosAll())) { if (only && (f.cid || 'main') !== only) continue; const rec = await pfileGet(f.id); photos.push({ meta: f, b64: rec ? ab2b64(rec.data) : null }); }
-  const json = JSON.stringify(Object.assign({ app: 'luise-identitaet', version: 4, exportedAt: new Date().toISOString(), appVersion: APP_VERSION, children: kids, docs, photos }, only ? {} : { settings: settingsSnapshot() }));
+  const json = JSON.stringify(Object.assign({ app: 'luise-identitaet', version: 4, exportedAt: new Date().toISOString(), appVersion: APP_VERSION, children: kids, docs, photos }, only ? {} : { settings: settingsSnapshot() }, opts && opts.videos ? { version: 5, videos: opts.videos } : {}));
   const nm = only ? 'Profil-' + (kidName(CH.find(c => c.id === only)) || 'Kind') : 'MyLuiseApp-Sicherung';
   return new File([json], `${nm}-${isoToday()}.json`, { type: 'application/json' });
 }
-async function importBackup(file, asNew) {
-  let data;
-  try { data = JSON.parse(await file.text()); } catch (e) { throw new Error('Datei ist keine gültige Sicherung'); }
+async function importBackup(file, asNew, opts) {
+  let data, zip = null;
+  try {
+    if (!(opts && opts.data) && file && await zipIs(file)) {
+      zip = await zipRead(file); const jn = zip.names.find(n => n === 'sicherung.json') || zip.names.find(n => /\.json$/i.test(n) && !n.includes('/'));
+      if (!jn) throw new Error('In der ZIP-Datei ist keine Sicherung');
+      data = JSON.parse(await (await zip.blob(jn, 'application/json')).text());
+    } else data = (opts && opts.data) || JSON.parse(await file.text());
+  } catch (e) { throw new Error(e && e.zip ? e.message : 'Datei ist keine gültige Sicherung'); }
+  if (data && data.app === 'luise-identitaet' && data.kind === 'gruss') { await guestImportPreview(data); return; }
+  if (data && data.app === 'luise-identitaet' && data.family && famMode() && !(opts && opts.famUpd)) { famUpdatePreview(data); return; }
   if (!data || data.app !== 'luise-identitaet' || !Array.isArray(data.docs)) throw new Error('Datei ist keine gültige Sicherung');
   const kids = Array.isArray(data.children) ? data.children : [{ id: 'main', name: '', profile: data.profile, health: data.health, school: data.school }];
   if (asNew) {
     const map = {};
     const oldId = CH.length === 1 && !S.profile.vorname && !S.docs.length && !S.photos.length && !(S.profile.journey || []).length ? CH[0].id : null;
     const stale = data.family ? CH.filter(c => c.fam && kids.some(k => k.id === c.src)) : [];
-    if (stale.length && !confirm('Dieses Profil gibt es hier schon. Mit dem neuen Stand aktualisieren? Eigene Änderungen daran gehen verloren.')) return;
+    if (stale.length && !(opts && opts.famUpd) && !confirm('Dieses Profil gibt es hier schon. Mit dem neuen Stand aktualisieren? Eigene Änderungen daran gehen verloren.')) return;
+    const keepG = [];
+    for (const c of stale) { const p = await kvGet('profile' + kidSfx(c.id)); ((p && p.gruesse) || []).forEach(g => keepG.push(g)); }
     for (const c of stale) await famRemoveChild(c);
     for (const k of kids) {
       const nid = 'k' + uid(); map[k.id] = nid;
-      CH.push(Object.assign({ id: nid, name: (k.profile && k.profile.vorname) || k.name || '' }, data.family ? { fam: 1, src: k.id, famAt: data.family.at } : {}));
-      await kvSet('profile@' + nid, k.profile || {}); await kvSet('health@' + nid, k.health || {}); await kvSet('school@' + nid, k.school || {});
+      CH.push(Object.assign({ id: nid, name: (k.profile && k.profile.vorname) || k.name || '' }, data.family ? { fam: 1, src: k.id, famAt: data.family.at, famFrom: data.family.from || '', famTo: data.family.to || '' } : {}));
+      await kvSet('profile@' + nid, gKeep(k.profile || {}, keepG)); await kvSet('health@' + nid, k.health || {}); await kvSet('school@' + nid, k.school || {});
     }
     await kvSet('children', CH);
     for (const d of data.docs) {
@@ -4967,8 +5089,9 @@ async function importBackup(file, asNew) {
       if (f.b64) await pfilePut({ id, data: b642ab(f.b64) });
       await photoPut(meta);
     }
+    await vidRestore(data, zip, map, (i, n) => toast('Video ' + i + ' von ' + n + ' wird eingespielt …'));
     if (oldId) await famRemoveChild({ id: oldId });
-    await switchChild(map[kids[0].id]); toast(data.family ? 'Familien-Profil von ' + (data.family.from || 'der Familie') + ' eingespielt' : 'Profil hinzugefügt'); go('home');
+    await switchChild(map[kids[0].id]); toast(data.family ? (opts && opts.famUpd ? 'Aktualisiert · Stand ' + new Date(data.family.at).toLocaleDateString('de-DE') : 'Familien-Profil von ' + (data.family.from || 'der Familie') + ' eingespielt') : 'Profil hinzugefügt'); go('home');
     return;
   }
   if (!confirm('Alle aktuellen Daten werden durch die Sicherung ersetzt. Fortfahren?')) return;
@@ -4986,6 +5109,7 @@ async function importBackup(file, asNew) {
     if (f.b64) await pfilePut({ id: f.meta.id, data: b642ab(f.b64) });
     await photoPut(f.meta);
   }
+  if (zip && Array.isArray(data.videos) && data.videos.length) { await clearVideos(); await vidRestore(data, zip, null, (i, n) => toast('Video ' + i + ' von ' + n + ' wird eingespielt …')); }
   const hadSettings = data.settings && typeof data.settings === 'object';
   if (hadSettings) restoreSettings(data.settings);
   await loadState(); render();
@@ -5063,13 +5187,14 @@ function viewSettings() {
     lock ? h('button', { class: 'linkbtn', onclick: removeLock }, 'Code entfernen') : null));
   wrap.append(sectionHead('Datensicherung'));
   const lb = parseInt(ls.get('luise_lastbackup'), 10);
-  const file = h('input', { type: 'file', accept: '.json,application/json', style: 'display:none', onchange: async e => {
+  const file = h('input', { type: 'file', accept: '.json,.zip,application/json,application/zip', style: 'display:none', onchange: async e => {
     const f = e.target.files[0]; e.target.value = '';
     if (!f) return;
     try { await importBackup(f); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); }
   } });
   wrap.append(h('div', { class: 'card stack' },
-    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Sie enthält Profile, Gesundheit, Fotos, Dokumente, Video-Likes und Kommentare, Coins sowie Design, Anordnung der Widgets und alle Einstellungen. Nicht enthalten sind eigene Videos (zu groß) und der Sperr-Code (aus Sicherheitsgründen).' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
+    h('p', { class: 'mute' }, 'Alle Daten liegen nur auf diesem Gerät. Erstelle regelmäßig eine Sicherung und lege sie z. B. in iCloud Drive ab. Sie enthält Profile, Gesundheit, Fotos, eigene Videos, Dokumente, Video-Likes und Kommentare, Coins sowie Design, Anordnung der Widgets und alle Einstellungen. Nicht enthalten ist der Sperr-Code (aus Sicherheitsgründen).' + (lb ? ' Letzte Sicherung: ' + new Date(lb).toLocaleDateString('de-DE') + '.' : '')),
+    backupVidNote(),
     backupFile
       ? h('button', { class: 'btn wide', onclick: async () => {
           const f = backupFile;
@@ -5081,7 +5206,7 @@ function viewSettings() {
         } }, `Sicherung sichern (${fmtSize(f_size())})`)
       : h('button', { class: 'btn wide', onclick: async e => {
           const b = e.currentTarget; b.disabled = true; b.textContent = 'Wird erstellt …';
-          try { backupFile = await buildBackup(); } catch (err) { toast('Fehler: ' + (err.message || err)); }
+          try { backupFile = await buildBackup(null, { withVideos: true, onProg: p => { b.textContent = 'Wird erstellt … ' + Math.round(p * 100) + ' %'; } }); } catch (err) { toast('Fehler: ' + (err.message || err)); }
           render();
         } }, 'Sicherung erstellen'),
     h('button', { class: 'btn ghost wide', onclick: () => { suppressLockUntil = Date.now() + 180000; file.click(); } }, 'Sicherung einspielen'), file));
@@ -5093,7 +5218,7 @@ function viewSettings() {
     if (!confirm('Letzte Rückfrage: Alles unwiderruflich löschen?')) return;
     await wipeAll();
   } }, 'Alle Daten löschen'));
-  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 37'));
+  wrap.append(h('p', { class: 'mute', style: 'text-align:center;font-size:13px' }, 'MyLuiseApp · Version 39'));
   return wrap;
 }
 const f_size = () => backupFile ? backupFile.size : 0;
@@ -5145,7 +5270,7 @@ function viewKids() {
   wrap.append(h('div', { class: 'card' }, CH.map(c => li(() => c.id === CID ? go('home') : switchChild(c.id), '',
     h('span', { class: 'hubico', html: ICON.kids }), liTxt(kidName(c), (c.id === CID ? 'Dieses Profil ist gerade geöffnet' : 'Tippen zum Wechseln') + (c.fam ? ' · Familien-Ansicht' + (c.famAt ? ', Stand ' + new Date(c.famAt).toLocaleDateString('de-DE') : '') : '')),
     c.id === CID ? h('span', { class: 'chip ok' }, 'aktiv') : chev()))));
-  const file = h('input', { type: 'file', accept: '.json,application/json', style: 'display:none', onchange: async e => {
+  const file = h('input', { type: 'file', accept: '.json,.zip,application/json,application/zip', style: 'display:none', onchange: async e => {
     const f = e.target.files[0]; e.target.value = '';
     if (!f) return;
     try { await importBackup(f, true); } catch (err) { toast(err.message || 'Fehler beim Importieren'); }
@@ -7617,7 +7742,7 @@ function viewQuiz() {
 ls.del('luise_ai_key');
 
 /* ============ Runterziehen zum Neuladen + Update-Prüfung ============ */
-const APP_VERSION = 37;
+const APP_VERSION = 39;
 async function appUpdateAvailable() {
   try {
     if (!/^https?:$/.test(location.protocol)) return false;
@@ -7887,7 +8012,7 @@ function addVideo() {
   openSheet({
     title: 'Video hochladen', saveLabel: 'Hochladen',
     fields: [
-      { key: 'datei', label: 'Video', type: 'file', accept: 'video/*', required: true, fillTitle: 'titel', hint: 'Aus der Mediathek wählen oder direkt aufnehmen. Das Video bleibt nur auf diesem iPhone und ist nicht in der Sicherung.' },
+      { key: 'datei', label: 'Video', type: 'file', accept: 'video/*', required: true, fillTitle: 'titel', hint: 'Aus der Mediathek wählen oder direkt aufnehmen. Das Video ist in deiner Sicherung enthalten.' },
       { key: 'titel', label: 'Titel', cap: 'words', ph: 'z. B. Erstes Lächeln' }
     ],
     onSave: async v => {
@@ -9734,21 +9859,26 @@ function openFamilyShare() {
     rows.push([id, inp, row]); return row;
   }));
   const kid = kidName(CH.find(c => c.id === CID));
+  const anIn = h('input', { type: 'text', class: 'faman', placeholder: 'z. B. Oma Gisela', autocomplete: 'off', autocapitalize: 'words', maxlength: 40 }); anIn.value = ls.get('luise_fam_an') || '';
+  const anField = h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Für wen ist die Datei?'), anIn, h('small', null, 'Erscheint in deiner Versandliste und beim Empfänger.'));
+  const sentBox = h('div', null, famSentCard());
   const go2 = h('button', { class: 'btn wide', type: 'button', onclick: async () => {
     if (!sel.size) { toast('Wähle mindestens einen Bereich'); return; }
     go2.disabled = true; go2.textContent = 'Wird erstellt …';
     try {
       const f = await buildBackup(CID, { noDocs: !sel.has('docs'), noPhotos: !sel.has('fotos') });
       const data = famFilter(JSON.parse(await f.text()), sel);
+      const pre = FPRE.find(p => p[2].length && p[2].length === sel.size && p[2].every(x => sel.has(x))), an = anIn.value.trim().slice(0, 40) || (pre && pre[0] !== 'alles' ? pre[1] : 'Familie');
+      ls.set('luise_fam_an', anIn.value.trim().slice(0, 40)); data.family.to = an;
       const out = new File([JSON.stringify(data)], `Familie-${kid}-${isoToday()}.json`, { type: 'application/json' });
       go2.disabled = false; go2.textContent = 'Datei erstellen und teilen';
       toast(`Datei: ${(out.size / 1048576).toFixed(1).replace('.', ',')} MB`);
-      await shareOrDownload(out, 'Familien-Profil ' + kid);
+      if (await shareOrDownload(out, 'Familien-Profil ' + kid)) { famSentAdd({ an, at: data.family.at, n: sel.size }); sentBox.replaceChildren(famSentCard() || ''); }
     } catch (err) { go2.disabled = false; go2.textContent = 'Datei erstellen und teilen'; toast('Fehler: ' + (err.message || err)); }
   } }, 'Datei erstellen und teilen');
   const body = h('div', { class: 'stack fam' },
     h('div', { class: 'famhero' }, h('span', { class: 'famhero-i', html: IC.svg('family') }), h('p', null, `Wähle, was Familie von ${kid} sehen darf. Die Datei enthält nur diese Bereiche, alles andere bleibt bei dir.`)),
-    presets, sum, list, go2,
+    presets, sum, list, anField, go2, sentBox,
     h('div', { class: 'card stack fambox' }, h('b', null, 'So kommt es aufs andere Handy'),
       h('ol', { class: 'famsteps' }, h('li', null, 'Die App öffnen (Link in Safari, dann „Zum Home-Bildschirm“).'), h('li', null, 'Auf der Startseite „Datei einspielen“ tippen und diese Datei wählen.'), h('li', null, 'Später eine neue Datei schicken: Sie aktualisiert das Profil dort.')),
       h('p', { class: 'fine' }, 'Es gibt keinen Online-Abgleich. Jedes Handy hat seine eigene Kopie. Sensible Bereiche nur an Menschen schicken, denen du das anvertraust.')));
@@ -9757,7 +9887,7 @@ function openFamilyShare() {
 }
 function famWelcomeCard() {
   if (S.profile.vorname || S.docs.length || S.photos.length || (S.profile.journey || []).length || CH.length > 1) return null;
-  const file = h('input', { type: 'file', accept: '.json,application/json', style: 'display:none', onchange: async e => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; try { await importBackup(f, true); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); } } });
+  const file = h('input', { type: 'file', accept: '.json,.zip,application/json,application/zip', style: 'display:none', onchange: async e => { const f = e.target.files[0]; e.target.value = ''; if (!f) return; try { await importBackup(f, true); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); } } });
   return h('div', { class: 'card stack famwel' }, h('div', { class: 'famwel-h' }, h('span', { class: 'famhero-i', html: IC.svg('family') }), h('div', null, h('b', null, 'Datei von der Familie bekommen?'), h('small', { class: 'mute' }, 'Spiele sie hier ein, dann siehst du alle Inhalte, die für dich geteilt wurden.'))),
     h('button', { class: 'btn wide', type: 'button', onclick: () => { suppressLockUntil = Date.now() + 180000; file.click(); } }, 'Datei einspielen'), file);
 }
@@ -10763,6 +10893,7 @@ function notifDue() {
   });
   if (c.kinds.frist) autoDeadlines().forEach(d => { if (d.lvl === 'info' && daysTo(d.date) > 3) return; if (d.lvl === 'info' && d.kind === 'Geburtstag' && daysTo(d.date) > 1) return; out.push({ key: 'f:' + d.id + ':' + Math.floor(Date.now() / (3 * 864e5)), title: d.title, body: (d.status ? d.status + '. ' : '') + (d.sub || '') }); });
   if (c.kinds.coins && new Date().getHours() >= 9 && coinData().lastStart !== today) out.push({ key: 'c:' + today, title: 'Dein Tagesbonus wartet', body: 'Hol dir heute Coins und spiele eine Runde in der Lichtung.' });
+  try { const md = mbDueNow(); if (md && md.days === 0 && c.kinds.termin) out.push({ key: 'mb:' + CID + ':' + md.n, title: '📸 Monatsbild', body: mbName() + ' ist heute ' + mbLabel(md.n) + ' alt. Zeit für das Monatsbild!' }); } catch (e) {}
   return out;
 }
 async function notifCheck(force) {
@@ -10814,10 +10945,10 @@ function notifCard() {
 })();
 /* ============ v32: App-Icon in vier Designs ============ */
 function iconKey() { const v = ls.get('luise_icon'); if (DESIGNS[v]) return v; const d = ls.get('luise_design'); return DESIGNS[d] ? d : 'standard'; }
-function iconDraw(k, N) {
+function iconDraw(k, N, pad) {
   N = N || 512; const D = DESIGNS[k] || DESIGNS.standard, P = D.l, c = document.createElement('canvas'); c.width = c.height = N; const x = c.getContext('2d'); x.scale(N / 512, N / 512);
   const bg = x.createLinearGradient(0, 0, 512, 512); bg.addColorStop(0, P.g1); bg.addColorStop(.58, P.g2); bg.addColorStop(1, P.g3); x.fillStyle = bg; x.fillRect(0, 0, 512, 512);
-  const gl = x.createRadialGradient(140, 100, 10, 140, 100, 380); gl.addColorStop(0, 'rgba(255,255,255,.4)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gl; x.fillRect(0, 0, 512, 512);
+  const gl = x.createRadialGradient(140, 100, 10, 140, 100, 380); gl.addColorStop(0, 'rgba(255,255,255,.4)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = gl; x.fillRect(0, 0, 512, 512); if (pad) { x.translate(256, 256); x.scale(pad, pad); x.translate(-256, -256); }
   const heart = (cx, cy, s, fill) => { x.fillStyle = fill; x.beginPath(); x.moveTo(cx, cy + s * .9); x.bezierCurveTo(cx - s * 1.5, cy - s * .1, cx - s * .8, cy - s * 1.1, cx, cy - s * .4); x.bezierCurveTo(cx + s * .8, cy - s * 1.1, cx + s * 1.5, cy - s * .1, cx, cy + s * .9); x.fill(); };
   const star = (cx, cy, R, r, fill) => { x.fillStyle = fill; x.beginPath(); for (let i = 0; i < 10; i++) { const rr = i % 2 ? r : R, a = -Math.PI / 2 + i * Math.PI / 5; x.lineTo(cx + rr * Math.cos(a), cy + rr * Math.sin(a)); } x.closePath(); x.fill(); };
   // dezentes Motiv je Design
@@ -10857,6 +10988,7 @@ function iconCard() {
     h('div', { class: 'btn-row' },
       h('button', { class: 'btn ghost' + (auto ? ' on' : ''), type: 'button', 'data-icon-auto': '', onclick: () => { ls.del('luise_icon'); iconApply(); render(); toast('Icon folgt dem Farbdesign'); } }, auto ? 'Automatisch (wie Farbdesign) ✓' : 'Automatisch wie Farbdesign'),
       h('button', { class: 'btn ghost', type: 'button', onclick: iconShare }, 'Icon-Bild sichern')),
+    h('button', { class: 'linkbtn', type: 'button', 'data-act': 'icon-android', onclick: iconAndroid }, 'Icon für Android sichern (icon-512.png)'),
     h('p', { class: 'fine' }, 'Wichtig: iOS übernimmt das Symbol nur beim Hinzufügen zum Home-Bildschirm. Beim Entfernen der App vom Home-Bildschirm werden die App-Daten auf dem iPhone gelöscht. Erstelle deshalb vorher unter „Sicherung“ eine Datei, füge die App mit dem neuen Icon über Safari („Teilen“, „Zum Home-Bildschirm“) hinzu und spiele die Sicherung wieder ein. Erst danach das alte Symbol entfernen.'));
 }
 /* ============ v32: Marken & Produkte, einfach per Tippen ============ */
@@ -11532,7 +11664,7 @@ const jOpen = e => { if (famMode() && e.auto && !/^a:(g|o):/.test(String(e.key))
 
 /* Gästebuch */
 let guestRefresh = null;
-function guestAll() {
+function guestAll_v37() {
   const mine = !famMode(); if (mine) ls.set('luise_guest_seen', String(Date.now()));
   const wrap = h('div', { class: 'stack' });
   const fill = () => {
@@ -11546,7 +11678,7 @@ function guestAll() {
   const ov = openFull({ title: 'Gästebuch', body: wrap, onClose: () => { guestRefresh = null; render(); } });
   return ov;
 }
-function guestWrite() {
+function guestWrite_v37() {
   openSheet({ famOk: true, title: 'Gruß hinterlassen', saveLabel: 'Senden',
     fields: [{ key: 'name', label: 'Dein Name', required: true, ph: 'z. B. Oma Gisela', cap: 'words' }, { key: 'text', label: 'Deine Nachricht an ' + guestWho(), type: 'textarea', required: true, ph: 'Liebe Worte, Wünsche, ein kleines Gedicht …' }],
     onSave: async v => {
@@ -11563,8 +11695,8 @@ function wGuest(w, sz) {
   const l = guestList(), un = famMode() ? 0 : guestUnread(), items = l.slice(0, sz === 'l' ? 4 : 2);
   return h('div', { class: 'card stack guestw' },
     h('div', { class: 'guesth' }, h('span', { class: 'guesti', html: ICON.gmail }), h('div', { class: 'guesttx' }, h('b', null, 'Gästebuch'), h('small', { class: 'mute' }, l.length ? plural(l.length, 'Gruß', 'Grüße') : 'Noch leer')), un ? h('span', { class: 'chip ok' }, un + ' neu') : null),
-    items.length ? h('div', { class: 'guestl' }, items.map(g => h('div', { class: 'gentry mini' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, g.datum ? fmtD(g.datum) : '')), h('p', null, g.text)))) : h('p', { class: 'mute guestempty' }, 'Hinterlasse ' + guestWho() + ' ein paar liebe Worte. Sie landen auch in der Journey.'),
-    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: guestWrite }, 'Gruß hinterlassen'), l.length > items.length || (l.length && !famMode()) ? h('button', { class: 'btn ghost', type: 'button', onclick: guestAll }, 'Alle lesen') : null));
+    items.length ? h('div', { class: 'guestl' }, items.map(g => h('div', { class: 'gentry mini' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, g.datum ? fmtD(g.datum) : '')), h('p', null, g.text), gMini(g)))) : h('p', { class: 'mute guestempty' }, 'Hinterlasse ' + guestWho() + ' ein paar liebe Worte. Sie landen auch in der Journey.'),
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', onclick: guestWrite }, 'Gruß hinterlassen'), l.length > items.length || (l.length && !famMode()) || l.some(g => g.lokal) ? h('button', { class: 'btn ghost', type: 'button', onclick: guestAll }, 'Alle lesen') : null));
 }
 function wFamShow() {
   const ph = S.photos; if (ph.length < 2) return null;
@@ -12180,7 +12312,7 @@ function mediaSwitch() {
 }
 function viewPhotos() {
   if (mediaSeg === 'videos') return viewVideosTab();
-  const w = viewPhotoGrid(), head = w.firstElementChild; if (head) head.after(mediaSwitch()); return w;
+  const w = viewPhotoGrid(), head = w.firstElementChild; if (head) { const ms = mediaSwitch(); head.after(ms); const me = mbEntry(); if (me) ms.after(me); } return w;
 }
 function vidLinkRow(y) {
   const ig = !!y.ig, key = y.vid || y.ig, nm = y.titel || (ig ? 'Instagram-Reel' : 'YouTube-Video');
@@ -12199,7 +12331,7 @@ function viewVideosTab() {
   wrap.append(pageHead('Videos', fam ? null : h('div', { class: 'phhead-r' }, h('button', { class: 'pill', type: 'button', onclick: () => addVideo() }, '+ Video'))), mediaSwitch());
   wrap.append(sectionHead('Eigene Videos', own.length ? h('button', { class: 'linkbtn', type: 'button', onclick: () => openVideoFeed('eigene') }, 'Alle abspielen') : null));
   if (!own.length) wrap.append(h('div', { class: 'card stack phempty' }, h('div', { class: 'phempty-e', 'aria-hidden': 'true' }, '🎬'), h('h2', null, 'Noch keine Videos'),
-    h('p', { class: 'mute' }, 'Hier sind Videos von ' + (S.profile.vorname || 'Luise') + '. Sie bleiben nur auf diesem iPhone und sind nicht in der Sicherung.'),
+    h('p', { class: 'mute' }, 'Hier sind Videos von ' + (S.profile.vorname || 'Luise') + '. Sie sind in deiner Sicherung enthalten.'),
     fam ? null : h('button', { class: 'btn wide', type: 'button', onclick: () => addVideo() }, 'Erstes Video hinzufügen')));
   else wrap.append(h('div', { class: 'vgrid' }, own.map(m => h('button', { class: 'vgt', type: 'button', 'aria-label': (m.titel || 'Video') + ' abspielen', onclick: () => openVideoFeed('eigene', m.id) },
     h('span', { class: 'vgt-img' }, m.poster ? h('img', { src: m.poster, alt: '', loading: 'lazy' }) : h('span', { class: 'vgt-ph', 'aria-hidden': 'true' }, '🎬'), h('span', { class: 'vgt-play', 'aria-hidden': 'true', html: VIC.play }), m.dur ? h('i', { class: 'vgt-d' }, vidDurTxt(m.dur)) : null),
@@ -12737,6 +12869,776 @@ function wVideos(w, sz) {
 }
 WIDGETS.videos = { name: 'Videos', desc: 'Das neueste Video, Anzahl und gemerkte Links', half: true, render: wVideos };
 
+/* ============ v38: Gästebuch mit Foto + Sprachnachricht, Gruß-Datei, Familien-Update ============ */
+const G_AUDIO_MAX = 60;
+const gGen = n => /[sßxz]$/i.test(n) ? n + '’' : n + 's';
+const gFileSafe = s => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/ß/g, 'ss').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30) || 'Gruss';
+const gDur = s => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+const gCur = () => CH.find(c => c.id === CID) || {};
+const gAgo = iso => { const d = Math.floor((Date.now() - new Date(iso).getTime()) / 864e5); return d <= 0 ? 'heute' : d === 1 ? 'gestern' : 'vor ' + d + ' Tagen'; };
+const gDate = iso => { try { return new Date(iso).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }); } catch (e) { return ''; } };
+
+/* --- Foto verkleinern (max. 1280 px, JPEG) --- */
+async function gImg(file) {
+  const u = mkUrl(file);
+  try {
+    const im = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild lässt sich nicht lesen')); i.src = u; });
+    const W = im.naturalWidth || im.width, H = im.naturalHeight || im.height, s = Math.min(1, 1280 / Math.max(W, H, 1));
+    const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(W * s)); c.height = Math.max(1, Math.round(H * s));
+    c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+    return c.toDataURL('image/jpeg', 0.8);
+  } finally { rmUrl(u); }
+}
+
+/* --- Abspielen --- */
+let gPlaying = null;
+function gAudioBtn(a, label) {
+  let au = null, url = null, tm = null;
+  const tx = h('span', { class: 'gau-t' }, (label || 'Sprachnachricht') + ' · ' + gDur(a.dur));
+  const ic = h('span', { class: 'gau-i', 'aria-hidden': 'true' }, '▶');
+  const bar = h('span', { class: 'gau-bar' }, h('i'));
+  const stop = () => { if (au) { au.pause(); au.currentTime = 0; } ic.textContent = '▶'; b.classList.remove('on'); bar.firstChild.style.width = '0%'; clearInterval(tm); if (gPlaying === stop) gPlaying = null; };
+  const b = h('button', { class: 'gau', type: 'button', 'aria-label': (label || 'Sprachnachricht') + ' abspielen', onclick: async e => {
+    e.stopPropagation();
+    if (b.classList.contains('on')) { stop(); return; }
+    if (gPlaying) gPlaying();
+    try {
+      if (!au) { url = mkUrl(new Blob([b642ab(a.b64)], { type: a.mime || 'audio/mp4' })); au = new Audio(url); au.onended = stop; }
+      await au.play(); gPlaying = stop; ic.textContent = '❚❚'; b.classList.add('on');
+      tm = setInterval(() => { if (!b.isConnected) { stop(); if (url) rmUrl(url); return; } const d = au.duration && isFinite(au.duration) ? au.duration : (a.dur || 1); bar.firstChild.style.width = Math.min(100, au.currentTime / d * 100) + '%'; }, 200);
+    } catch (err) { toast('Abspielen nicht möglich'); stop(); }
+  } }, ic, h('span', { class: 'gau-m' }, tx, bar));
+  return b;
+}
+function gMedia(g, mini) {
+  if (!g.foto && !g.audio) return null;
+  return h('div', { class: 'gmed' + (mini ? ' mini' : '') },
+    g.foto ? h('button', { class: 'gpho', type: 'button', 'aria-label': 'Foto von ' + g.name + ' ansehen', onclick: e => { e.stopPropagation(); openLightbox(g.foto, 'Foto von ' + g.name); } }, h('img', { src: g.foto, alt: 'Foto von ' + g.name, loading: 'lazy' })) : null,
+    g.audio && g.audio.b64 ? gAudioBtn(g.audio) : null);
+}
+
+/* --- Aufnahme + Foto im Formular --- */
+function gMediaField() {
+  let foto = null, audio = null, mr = null, stream = null, chunks = [], t0 = 0, tm = null;
+  const wrap = h('div', { class: 'gform stack' });
+  const pin = h('input', { type: 'file', accept: 'image/*', style: 'display:none', onchange: async e => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
+    try { foto = await gImg(f); upd(); Haptic.fire('select'); } catch (err) { toast(err.message || 'Foto konnte nicht geladen werden'); }
+  } });
+  const phBox = h('div', { class: 'gf-row' }), auBox = h('div', { class: 'gf-row' });
+  const killStream = () => { if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } clearInterval(tm); };
+  const stopRec = () => { if (mr && mr.state !== 'inactive') mr.stop(); else killStream(); };
+  const startRec = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) { toast('Aufnehmen geht auf diesem Gerät leider nicht'); return; }
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); }
+    catch (err) { toast('Kein Zugriff aufs Mikrofon. Bitte in den Einstellungen erlauben.'); return; }
+    const mime = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'].find(m => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+    try { mr = new MediaRecorder(stream, Object.assign({ audioBitsPerSecond: 48000 }, mime ? { mimeType: mime } : {})); }
+    catch (err) { try { mr = new MediaRecorder(stream); } catch (e2) { killStream(); toast('Aufnehmen geht auf diesem Gerät leider nicht'); return; } }
+    chunks = []; t0 = Date.now();
+    mr.ondataavailable = ev => { if (ev.data && ev.data.size) chunks.push(ev.data); };
+    mr.onstop = async () => {
+      const dur = (Date.now() - t0) / 1000; killStream();
+      const blob = new Blob(chunks, { type: (mr.mimeType || mime || 'audio/mp4').split(';')[0] }); mr = null;
+      if (!blob.size || dur < 0.6) { toast('Aufnahme war zu kurz'); upd(); return; }
+      audio = { mime: blob.type, b64: ab2b64(await blob.arrayBuffer()), dur: Math.min(G_AUDIO_MAX, Math.round(dur * 10) / 10) };
+      upd(); Haptic.fire('success');
+    };
+    mr.start(250); Haptic.fire('select'); upd();
+    tm = setInterval(() => {
+      if (!wrap.isConnected) { stopRec(); return; }
+      const s = (Date.now() - t0) / 1000; const t = wrap.querySelector('.grec-t'); if (t) t.textContent = gDur(s) + ' / ' + gDur(G_AUDIO_MAX);
+      if (s >= G_AUDIO_MAX) stopRec();
+    }, 250);
+  };
+  const upd = () => {
+    phBox.replaceChildren(foto
+      ? h('div', { class: 'gf-has' }, h('img', { class: 'gf-img', src: foto, alt: 'Ausgewähltes Foto' }), h('span', { class: 'gf-tx' }, h('b', null, 'Foto'), h('small', { class: 'mute' }, 'wird mitgeschickt')),
+          h('button', { class: 'linkbtn', type: 'button', onclick: () => { foto = null; upd(); } }, 'Entfernen'))
+      : h('button', { class: 'gf-add', type: 'button', onclick: () => { suppressLockUntil = Date.now() + 180000; pin.click(); } }, h('span', { class: 'gf-ic', 'aria-hidden': 'true' }, '📷'), h('span', null, h('b', null, 'Foto hinzufügen'), h('small', { class: 'mute' }, 'optional'))));
+    if (mr) auBox.replaceChildren(h('div', { class: 'grec on' }, h('span', { class: 'grec-dot', 'aria-hidden': 'true' }), h('span', { class: 'grec-t' }, '0:00 / ' + gDur(G_AUDIO_MAX)),
+      h('button', { class: 'btn', type: 'button', onclick: stopRec }, 'Stopp')));
+    else if (audio) auBox.replaceChildren(h('div', { class: 'gf-has' }, gAudioBtn(audio, 'Deine Aufnahme'), h('button', { class: 'linkbtn', type: 'button', onclick: () => { audio = null; upd(); } }, 'Löschen')));
+    else auBox.replaceChildren(h('button', { class: 'gf-add', type: 'button', onclick: startRec }, h('span', { class: 'gf-ic', 'aria-hidden': 'true' }, '🎙️'), h('span', null, h('b', null, 'Sprachnachricht aufnehmen'), h('small', { class: 'mute' }, 'bis zu 1 Minute, optional'))));
+  };
+  upd();
+  wrap.append(phBox, auBox, pin);
+  wrap._val = () => { if (mr) stopRec(); return { foto, audio }; };
+  return wrap;
+}
+
+/* --- Gruß schreiben --- */
+function guestWrite() {
+  openSheet({ famOk: true, title: 'Gruß hinterlassen', saveLabel: 'Senden',
+    fields: [{ key: 'name', label: 'Dein Name', required: true, ph: 'z. B. Oma Gisela', cap: 'words' }, { key: 'text', label: 'Deine Nachricht an ' + guestWho(), type: 'textarea', required: true, ph: 'Liebe Worte, Wünsche, ein kleines Gedicht …' },
+      { key: 'media', type: 'custom', build: () => gMediaField() }],
+    onSave: async v => {
+      const name = String(v.name || '').trim().slice(0, 40), text = String(v.text || '').trim().slice(0, 700), md = v.media || {};
+      if (!name || !text) return false;
+      const g = { id: uid(), name, text, ts: Date.now(), datum: isoToday() };
+      if (md.foto) g.foto = md.foto; if (md.audio) g.audio = md.audio;
+      if (famMode()) g.lokal = 1;
+      (S.profile.gruesse = S.profile.gruesse || []).push(g); await persist('profile');
+      if (!famMode()) ls.set('luise_guest_seen', String(g.ts + 1));
+      Haptic.fire('success'); render();
+      if (guestRefresh) guestRefresh();
+      if (famMode()) setTimeout(() => guestSendSheet(g), 260); else toast('Gruß gespeichert');
+    } });
+}
+
+/* --- Gruß als Datei --- */
+function guestFile(list) {
+  const clean = list.map(g => { const o = { id: g.id, name: g.name, text: g.text, ts: g.ts, datum: g.datum }; if (g.foto) o.foto = g.foto; if (g.audio) o.audio = g.audio; return o; });
+  const c = gCur(), data = { app: 'luise-identitaet', kind: 'gruss', v: 1, for: guestWho(), src: c.src || CID, at: new Date().toISOString(), gruesse: clean };
+  const who = list.length === 1 ? list[0].name : 'Familie';
+  return new File([JSON.stringify(data)], `Gruss-fuer-${gFileSafe(guestWho())}-von-${gFileSafe(who)}.json`, { type: 'application/json' });
+}
+async function guestShare(g) {
+  const f = guestFile([g]);
+  const ok = await shareOrDownload(f, 'Gruß für ' + guestWho());
+  if (ok) {
+    const x = (S.profile.gruesse || []).find(y => y.id === g.id); if (x) { x.sent = Date.now(); await persist('profile'); }
+    toast('Danke! Jetzt muss die Datei nur noch eingespielt werden.'); if (guestRefresh) guestRefresh();
+  }
+  return ok;
+}
+function guestSendSheet(g) {
+  let ov;
+  const body = h('div', { class: 'stack gsend' },
+    h('div', { class: 'gsend-hero' }, h('span', { class: 'gsend-i', 'aria-hidden': 'true' }, '💌'), h('div', null, h('b', null, 'Dein Gruß ist gespeichert'),
+      h('p', { class: 'mute' }, 'Damit er auch bei ' + guestWho() + ' ankommt, schick ihn als kleine Datei an ' + gGen(guestWho()) + ' Eltern, zum Beispiel per Telegram, WhatsApp oder Mail.'))),
+    h('div', { class: 'card gentry' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, fmtD(g.datum))), h('p', null, g.text), gMedia(g)),
+    h('button', { class: 'btn wide', type: 'button', onclick: async () => { if (await guestShare(g)) ov.close(); } }, 'Als Datei teilen'),
+    h('button', { class: 'btn ghost wide', type: 'button', onclick: () => ov.close() }, 'Später'),
+    h('p', { class: 'fine' }, 'Du findest den Gruß jederzeit im Gästebuch und kannst ihn dort noch einmal teilen.'));
+  ov = openFull({ title: 'Gruß verschicken', body });
+  return ov;
+}
+
+/* --- Gruß-Datei einspielen (mit Vorschau) --- */
+function gClean(x) {
+  if (!x || typeof x !== 'object') return null;
+  const name = String(x.name || '').trim().slice(0, 40), text = String(x.text || '').trim().slice(0, 700);
+  if (!name || !text) return null;
+  const g = { id: /^[\w-]{4,40}$/.test(String(x.id || '')) ? String(x.id) : uid(), name, text, ts: +x.ts || Date.now(), datum: /^\d{4}-\d{2}-\d{2}$/.test(x.datum || '') ? x.datum : isoToday() };
+  if (typeof x.foto === 'string' && /^data:image\/(jpeg|png|webp);base64,/.test(x.foto) && x.foto.length < 4e6) g.foto = x.foto;
+  if (x.audio && typeof x.audio.b64 === 'string' && /^audio\/[\w.+-]+$/.test(x.audio.mime || '') && x.audio.b64.length < 6e6 && /^[A-Za-z0-9+/=]+$/.test(x.audio.b64.slice(0, 200))) g.audio = { mime: x.audio.mime, b64: x.audio.b64, dur: Math.min(G_AUDIO_MAX + 5, +x.audio.dur || 0) };
+  return g;
+}
+async function guestImportPreview(data) {
+  const list = (Array.isArray(data.gruesse) ? data.gruesse : []).map(gClean).filter(Boolean);
+  if (!list.length) { toast('In der Datei ist kein Gruß'); return; }
+  const tgt = CH.find(c => c.id === data.src && !c.fam) || gCur();
+  const tid = tgt.id || CID;
+  const cur = tid === CID ? (S.profile.gruesse || []) : (((await kvGet('profile' + kidSfx(tid))) || {}).gruesse || []);
+  const have = new Set(cur.map(g => g.id)), sig = new Set(cur.map(g => g.name + '|' + g.ts));
+  const isDup = g => have.has(g.id) || sig.has(g.name + '|' + g.ts);
+  const fresh = list.filter(g => !isDup(g));
+  let ov;
+  const go2 = h('button', { class: 'btn wide', type: 'button', disabled: fresh.length ? null : true, onclick: async () => {
+    go2.disabled = true;
+    const add = fresh.map(g => Object.assign({}, g, { imp: Date.now() }));
+    if (tid === CID) { (S.profile.gruesse = S.profile.gruesse || []).push(...add); await persist('profile'); }
+    else { const p = (await kvGet('profile' + kidSfx(tid))) || {}; p.gruesse = (p.gruesse || []).concat(add); await kvSet('profile' + kidSfx(tid), p); }
+    ov.close(); Haptic.fire('success');
+    toast(add.length === 1 ? 'Gruß von ' + add[0].name + ' ist jetzt im Gästebuch' : plural(add.length, 'Gruß', 'Grüße') + ' im Gästebuch');
+    if (tid !== CID) await switchChild(tid);
+    render(); if (guestRefresh) guestRefresh(); else if (!famMode()) guestAll();
+  } }, fresh.length ? (fresh.length === 1 ? 'Ins Gästebuch übernehmen' : plural(fresh.length, 'Gruß', 'Grüße') + ' übernehmen') : 'Schon alles im Gästebuch');
+  const body = h('div', { class: 'stack gimp' },
+    h('div', { class: 'gsend-hero' }, h('span', { class: 'gsend-i', 'aria-hidden': 'true' }, '💌'), h('div', null, h('b', null, list.length === 1 ? 'Ein Gruß für ' + (tgt.id === CID ? guestWho() : kidName(tgt)) : plural(list.length, 'Gruß', 'Grüße') + ' für ' + (tgt.id === CID ? guestWho() : kidName(tgt))),
+      h('p', { class: 'mute' }, 'Schau ihn dir an und übernimm ihn dann ins Gästebuch.'))),
+    list.map(g => h('div', { class: 'card gentry' + (isDup(g) ? ' dup' : '') },
+      h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, fmtD(g.datum))),
+      h('p', null, g.text), gMedia(g),
+      isDup(g) ? h('span', { class: 'chip' }, 'Schon im Gästebuch') : h('span', { class: 'chip ok' }, 'Neu'))),
+    go2, h('button', { class: 'btn ghost wide', type: 'button', onclick: () => ov.close() }, 'Abbrechen'));
+  ov = openFull({ title: 'Gruß einspielen', body });
+  return ov;
+}
+function gPickFile(onFile) {
+  const inp = h('input', { type: 'file', accept: '.json,application/json,text/plain', style: 'display:none', onchange: async e => {
+    const f = e.target.files && e.target.files[0]; e.target.value = ''; inp.remove(); if (!f) return;
+    try { await onFile(f); } catch (err) { toast(err.message || 'Fehler beim Einspielen'); }
+  } });
+  document.body.append(inp); suppressLockUntil = Date.now() + 180000; inp.click();
+}
+async function gReadJson(f) { try { return JSON.parse(await f.text()); } catch (e) { throw new Error('Die Datei lässt sich nicht lesen'); } }
+async function guestImportFile(f) {
+  const d = await gReadJson(f);
+  if (!d || d.app !== 'luise-identitaet') throw new Error('Das ist keine Datei aus der App');
+  if (d.kind === 'gruss') return guestImportPreview(d);
+  if (d.family && famMode()) return famUpdatePreview(d);
+  throw new Error('Das ist keine Gruß-Datei');
+}
+
+/* --- Gästebuch-Übersicht --- */
+function guestAll() {
+  const fam = famMode(), mine = !fam; if (mine) ls.set('luise_guest_seen', String(Date.now()));
+  const wrap = h('div', { class: 'stack' });
+  const fill = () => {
+    const l = guestList();
+    const top = mine ? h('button', { class: 'btn ghost wide gimpbtn', type: 'button', onclick: () => gPickFile(guestImportFile) }, '📥 Gruß-Datei einspielen') : null;
+    wrap.replaceChildren(...[top].filter(Boolean), ...(l.length ? l.map(g => h('div', { class: 'card gentry' }, h('div', { class: 'gen-h' }, h('b', null, g.name), h('small', { class: 'mute' }, g.datum ? fmtD(g.datum) : '')),
+      h('p', null, g.text), gMedia(g),
+      fam && g.lokal ? h('div', { class: 'gen-f' }, g.sent ? h('span', { class: 'chip ok' }, 'Verschickt ✓') : h('span', { class: 'chip' }, 'Noch nicht verschickt'),
+        h('button', { class: 'linkbtn', type: 'button', onclick: () => guestShare(g) }, g.sent ? 'Nochmal teilen' : 'Als Datei teilen')) : null,
+      mine ? h('div', { class: 'gen-f' }, g.imp ? h('small', { class: 'mute' }, 'per Datei bekommen') : h('span'),
+        h('button', { class: 'linkbtn', type: 'button', onclick: async () => { if (!confirm('Diesen Gruß löschen?')) return; S.profile.gruesse = (S.profile.gruesse || []).filter(x => x.id !== g.id); await persist('profile'); fill(); render(); } }, 'Löschen')) : null))
+      : [h('p', { class: 'empty' }, 'Noch keine Grüße. Schreibe den ersten für ' + guestWho() + '.')]),
+      h('button', { class: 'btn wide', type: 'button', onclick: guestWrite }, 'Gruß hinterlassen'),
+      mine ? h('p', { class: 'fine' }, 'Grüße von Oma, Opa & Co. kommen als Datei (z. B. per Telegram). In Telegram die Datei antippen, „In Dateien sichern“ wählen und hier einspielen.') : null);
+  };
+  fill(); guestRefresh = fill;
+  const ov = openFull({ title: 'Gästebuch', body: wrap, onClose: () => { guestRefresh = null; render(); } });
+  return ov;
+}
+
+/* --- Familienmodus: neue Familien-Datei einspielen --- */
+function famUpdatePreview(data) {
+  const c = gCur(), stale = CH.find(x => x.fam && x.src === ((data.children && data.children[0] && data.children[0].id) || 'main'));
+  const k = (data.children && data.children[0]) || {}, nm = (k.profile && k.profile.vorname) || k.name || 'Kind';
+  const older = stale && stale.famAt && data.family.at && new Date(data.family.at) < new Date(stale.famAt);
+  const secs = (data.family.sections || []).map(id => (FSEC.find(s => s[0] === id) || [id, id])[1]);
+  let ov;
+  const go2 = h('button', { class: 'btn wide', type: 'button', onclick: async () => {
+    go2.disabled = true; go2.textContent = 'Wird eingespielt …';
+    try { await importBackup(null, true, { data, famUpd: true }); ov.close(); }
+    catch (err) { go2.disabled = false; go2.textContent = 'Jetzt aktualisieren'; toast(err.message || 'Fehler beim Einspielen'); }
+  } }, stale ? 'Jetzt aktualisieren' : 'Einspielen');
+  const body = h('div', { class: 'stack famupd-p' },
+    h('div', { class: 'gsend-hero' }, h('span', { class: 'gsend-i', 'aria-hidden': 'true' }, '📦'), h('div', null, h('b', null, 'Neue Familien-Datei für ' + nm),
+      h('p', { class: 'mute' }, 'Stand ' + gDate(data.family.at) + (data.family.to ? ' · für ' + data.family.to : '') + (stale && stale.famAt ? ' · bisher: ' + gDate(stale.famAt) : '')))),
+    older ? h('div', { class: 'card famwarn' }, h('b', null, 'Achtung: Diese Datei ist älter'), h('p', { class: 'mute' }, 'Dein jetziger Stand ist neuer. Wenn du sie einspielst, gehen neuere Inhalte verloren.')) : null,
+    h('div', { class: 'card stack' }, h('b', null, 'Enthalten'), h('p', { class: 'mute' }, secs.length ? secs.join(', ') : 'Grunddaten'),
+      h('p', { class: 'mute' }, plural((data.photos || []).length, 'Foto', 'Fotos') + ((data.docs || []).length ? ' · ' + plural(data.docs.length, 'Dokument', 'Dokumente') : ''))),
+    h('div', { class: 'card stack' }, h('b', null, 'Bleibt erhalten'), h('p', { class: 'mute' }, 'Deine Grüße im Gästebuch, deine Startseite und der Familienmodus.')),
+    go2, h('button', { class: 'btn ghost wide', type: 'button', onclick: () => ov.close() }, 'Abbrechen'));
+  ov = openFull({ title: 'Familien-Datei', body });
+  return ov;
+}
+async function famUpdateFile(f) {
+  const d = await gReadJson(f);
+  if (!d || d.app !== 'luise-identitaet') throw new Error('Das ist keine Datei aus der App');
+  if (d.kind === 'gruss') return guestImportPreview(d);
+  if (!d.family || !Array.isArray(d.docs)) throw new Error('Das ist keine Familien-Datei. Bitte die Datei nehmen, die über „Für Familie teilen“ erstellt wurde.');
+  return famUpdatePreview(d);
+}
+function famStandCard() {
+  const c = gCur(), at = c.fam && c.famAt, days = at ? Math.floor((Date.now() - new Date(at).getTime()) / 864e5) : 0;
+  return h('div', { class: 'card famupd' + (days > 30 ? ' old' : '') },
+    h('div', { class: 'famupd-h' }, h('span', { class: 'famupd-i', 'aria-hidden': 'true' }, '🔄'),
+      h('div', null, h('b', null, at ? 'Stand: ' + gDate(at) : 'Familien-Datei'), h('small', { class: 'mute' }, at ? gAgo(at) + (days > 30 ? ' · frag ruhig nach einer neuen Datei' : '') : 'Neue Datei bekommen? Hier einspielen.'))),
+    h('button', { class: 'btn ghost wide', type: 'button', onclick: () => gPickFile(famUpdateFile) }, 'Neue Familien-Datei einspielen'));
+}
+const gKeep = (pr, keep) => {
+  if (!keep.length) return pr;
+  const out = (pr.gruesse || []).slice(), idx = new Map(out.map((g, i) => [g.id, i]));
+  keep.forEach(g => { if (idx.has(g.id)) { if (g.lokal) out[idx.get(g.id)] = g; } else out.push(g); });
+  pr.gruesse = out; return pr;
+};
+
+/* --- Versandliste beim Absender --- */
+const famSent = () => { try { const a = JSON.parse(ls.get('luise_fam_sent') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } };
+const famSentAdd = e => ls.set('luise_fam_sent', JSON.stringify([e].concat(famSent()).slice(0, 20)));
+function famSentCard() {
+  const l = famSent(); if (!l.length) return null;
+  const last = new Map(); l.forEach(e => { if (!last.has(e.an)) last.set(e.an, e); });
+  return h('div', { class: 'card stack famsent' }, h('b', null, 'Zuletzt geschickt'),
+    h('div', { class: 'famsent-l' }, [...last.values()].slice(0, 6).map(e => h('div', { class: 'famsent-r' },
+      h('span', { class: 'famsent-n' }, e.an), h('small', { class: 'mute' }, gDate(e.at) + ' · ' + gAgo(e.at) + ' · ' + plural(e.n || 0, 'Bereich', 'Bereiche'))))),
+    h('p', { class: 'fine' }, 'Schick eine neue Datei, wenn es viel Neues gibt. Sie aktualisiert das andere Handy, Grüße dort bleiben erhalten.'));
+}
+
+function gMini(g) {
+  if (!g.foto && !g.audio) return null;
+  return h('div', { class: 'gmini' }, g.foto ? h('img', { src: g.foto, alt: '' }) : null,
+    g.audio ? h('span', { class: 'gmini-a' }, '🎙️ ' + gDur(g.audio.dur)) : null);
+}
+
+
+/* ============ v39: Sicherung mit eigenen Videos (ZIP-Container ohne Base64, auch über 4 GB) ============
+   Aufbau: sicherung.json (wie bisher, mit videos:[{meta,file,mime}]) + videos/<id>.<ext> + LIESMICH.txt
+   Videos werden nur referenziert (Blob-Teile), nichts wird komplett in den Arbeitsspeicher geladen. */
+const ZIP_CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+async function zipCrc(blob, onBytes) {
+  let c = 0xFFFFFFFF; const CK = 4 * 1048576;
+  for (let o = 0; o < blob.size; o += CK) {
+    const u = new Uint8Array(await blob.slice(o, Math.min(blob.size, o + CK)).arrayBuffer());
+    for (let i = 0; i < u.length; i++) c = ZIP_CRC[(c ^ u[i]) & 255] ^ (c >>> 8);
+    if (onBytes) onBytes(u.length);
+    if (o % (32 * 1048576) === 0) await new Promise(r => setTimeout(r, 0));
+  }
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+async function zipBuild(entries, onProg) {
+  const enc = new TextEncoder(), parts = [], cen = [], total = entries.reduce((s, e) => s + e.blob.size, 0) || 1;
+  const now = new Date(), dt = ((now.getHours() << 11) | (now.getMinutes() << 5) | (now.getSeconds() >> 1)) & 0xFFFF, dd = (((now.getFullYear() - 1980) << 9) | ((now.getMonth() + 1) << 5) | now.getDate()) & 0xFFFF;
+  let off = 0, done = 0;
+  for (const e of entries) {
+    const nm = enc.encode(e.name), size = e.blob.size;
+    if (size >= 0xFFFFFFFF) throw new Error('Datei zu groß: ' + e.name);
+    const crc = await zipCrc(e.blob, n => { done += n; if (onProg) onProg(done / total); });
+    const lh = new DataView(new ArrayBuffer(30 + nm.length));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true); lh.setUint16(10, dt, true); lh.setUint16(12, dd, true);
+    lh.setUint32(14, crc, true); lh.setUint32(18, size, true); lh.setUint32(22, size, true); lh.setUint16(26, nm.length, true); lh.setUint16(28, 0, true);
+    new Uint8Array(lh.buffer).set(nm, 30);
+    parts.push(lh.buffer, e.blob); cen.push({ nm, crc, size, off });
+    off += 30 + nm.length + size;
+  }
+  const cdStart = off; let cdSize = 0;
+  for (const c of cen) {
+    const big = c.off >= 0xFFFFFFFF, ex = big ? 12 : 0, b = new DataView(new ArrayBuffer(46 + c.nm.length + ex)), v = big ? 45 : 20;
+    b.setUint32(0, 0x02014b50, true); b.setUint16(4, v, true); b.setUint16(6, v, true); b.setUint16(8, 0x0800, true); b.setUint16(10, 0, true); b.setUint16(12, dt, true); b.setUint16(14, dd, true);
+    b.setUint32(16, c.crc, true); b.setUint32(20, c.size, true); b.setUint32(24, c.size, true); b.setUint16(28, c.nm.length, true); b.setUint16(30, ex, true);
+    b.setUint16(32, 0, true); b.setUint16(34, 0, true); b.setUint16(36, 0, true); b.setUint32(38, 0, true); b.setUint32(42, big ? 0xFFFFFFFF : c.off, true);
+    new Uint8Array(b.buffer).set(c.nm, 46);
+    if (big) { const p = 46 + c.nm.length; b.setUint16(p, 1, true); b.setUint16(p + 2, 8, true); b.setBigUint64(p + 4, BigInt(c.off), true); }
+    parts.push(b.buffer); cdSize += b.byteLength;
+  }
+  const n = cen.length, z64 = cdStart >= 0xFFFFFFFF || cdStart + cdSize >= 0xFFFFFFFF || cen.some(c => c.off >= 0xFFFFFFFF) || n >= 0xFFFF;
+  if (z64) {
+    const r = new DataView(new ArrayBuffer(76));
+    r.setUint32(0, 0x06064b50, true); r.setBigUint64(4, 44n, true); r.setUint16(12, 45, true); r.setUint16(14, 45, true);
+    r.setBigUint64(24, BigInt(n), true); r.setBigUint64(32, BigInt(n), true); r.setBigUint64(40, BigInt(cdSize), true); r.setBigUint64(48, BigInt(cdStart), true);
+    r.setUint32(56, 0x07064b50, true); r.setUint32(60, 0, true); r.setBigUint64(64, BigInt(cdStart + cdSize), true); r.setUint32(72, 1, true);
+    parts.push(r.buffer);
+  }
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, z64 ? 0xFFFF : n, true); e.setUint16(10, z64 ? 0xFFFF : n, true);
+  e.setUint32(12, z64 ? 0xFFFFFFFF : cdSize, true); e.setUint32(16, z64 ? 0xFFFFFFFF : cdStart, true);
+  parts.push(e.buffer);
+  return new Blob(parts, { type: 'application/zip' });
+}
+async function zipIs(f) { try { const u = new Uint8Array(await f.slice(0, 4).arrayBuffer()); return u[0] === 0x50 && u[1] === 0x4b && u[2] === 3 && u[3] === 4; } catch (e) { return false; } }
+async function zipRead(file) {
+  const bad = () => { const er = new Error('ZIP-Datei ist beschädigt oder keine Sicherung'); er.zip = 1; return er; };
+  const tailN = Math.min(file.size, 65557 + 76), base = file.size - tailN, t = new DataView(await file.slice(base).arrayBuffer());
+  let p = -1; for (let i = t.byteLength - 22; i >= 0; i--) if (t.getUint32(i, true) === 0x06054b50) { p = i; break; }
+  if (p < 0) throw bad();
+  let n = t.getUint16(p + 10, true), cdSize = t.getUint32(p + 12, true), cdOff = t.getUint32(p + 16, true);
+  if (p >= 20 && t.getUint32(p - 20, true) === 0x07064b50) {
+    const zo = Number(t.getBigUint64(p - 12, true)), z = new DataView(await file.slice(zo, zo + 56).arrayBuffer());
+    if (z.byteLength < 56 || z.getUint32(0, true) !== 0x06064b50) throw bad();
+    n = Number(z.getBigUint64(32, true)); cdSize = Number(z.getBigUint64(40, true)); cdOff = Number(z.getBigUint64(48, true));
+  }
+  const cd = new DataView(await file.slice(cdOff, cdOff + cdSize).arrayBuffer()), dec = new TextDecoder(), ents = {};
+  let q = 0;
+  for (let k = 0; k < n && q + 46 <= cd.byteLength; k++) {
+    if (cd.getUint32(q, true) !== 0x02014b50) throw bad();
+    const meth = cd.getUint16(q + 10, true), csz = cd.getUint32(q + 20, true), usz = cd.getUint32(q + 24, true), nl = cd.getUint16(q + 28, true), xl = cd.getUint16(q + 30, true), cl = cd.getUint16(q + 32, true);
+    let off = cd.getUint32(q + 42, true), size = csz;
+    const name = dec.decode(new Uint8Array(cd.buffer, cd.byteOffset + q + 46, nl));
+    let x = q + 46 + nl; const xe = x + xl;
+    while (x + 4 <= xe) {
+      const id = cd.getUint16(x, true), ln = cd.getUint16(x + 2, true);
+      if (id === 1) { let y = x + 4; if (usz === 0xFFFFFFFF) y += 8; if (csz === 0xFFFFFFFF) { size = Number(cd.getBigUint64(y, true)); y += 8; } if (off === 0xFFFFFFFF) off = Number(cd.getBigUint64(y, true)); }
+      x += 4 + ln;
+    }
+    ents[name] = { off, size, meth };
+    q += 46 + nl + xl + cl;
+  }
+  const blob = async (name, type) => {
+    const en = ents[name]; if (!en) return null;
+    if (en.meth !== 0) { const er = new Error('Diese ZIP-Datei wurde verändert (neu gepackt). Bitte die Original-Sicherung aus der App verwenden.'); er.zip = 1; throw er; }
+    const lh = new DataView(await file.slice(en.off, en.off + 30).arrayBuffer());
+    if (lh.byteLength < 30 || lh.getUint32(0, true) !== 0x04034b50) throw bad();
+    const st = en.off + 30 + lh.getUint16(26, true) + lh.getUint16(28, true);
+    return file.slice(st, st + en.size, type || '');
+  };
+  return { names: Object.keys(ents), blob };
+}
+const vidExt = t => /quicktime/.test(t || '') ? 'mov' : /webm/.test(t || '') ? 'webm' : /3gpp/.test(t || '') ? '3gp' : 'mp4';
+async function buildBackup(only, opts) {
+  opts = opts || {};
+  if (!opts.withVideos) return buildBackup_v38(only, opts);
+  const metas = (await videosAll()).filter(m => !only || (m.cid || 'main') === only), ents = [], list = [];
+  for (const m of metas) {
+    const rec = await vfileGet(m.id); if (!rec || !rec.blob) continue;
+    const mime = rec.blob.type || m.mime || 'video/mp4', file = 'videos/' + m.id + '.' + vidExt(mime);
+    ents.push({ name: file, blob: rec.blob }); list.push({ meta: m, file, mime });
+  }
+  if (!ents.length) return buildBackup_v38(only, opts);
+  const jf = await buildBackup_v38(only, Object.assign({}, opts, { videos: list }));
+  const readme = new Blob(['MyLuiseApp – Sicherung vom ' + new Date().toLocaleDateString('de-DE') + '\r\n\r\nDiese ZIP-Datei enthält alle Daten der App und ' + list.length + ' eigene Videos.\r\nZum Wiederherstellen in der App unter Einstellungen › Datensicherung › „Sicherung einspielen“ genau diese ZIP-Datei auswählen.\r\nBitte nicht entpackt und neu gepackt einspielen. Die Videos im Ordner „videos“ kannst du dir aber jederzeit direkt ansehen.\r\n'], { type: 'text/plain' });
+  const zip = await zipBuild([{ name: 'sicherung.json', blob: jf }, { name: 'LIESMICH.txt', blob: readme }, ...ents], opts.onProg);
+  return new File([zip], jf.name.replace(/\.json$/, '.zip'), { type: 'application/zip' });
+}
+async function vidRestore(data, zip, map, onProg) {
+  if (!zip || !Array.isArray(data.videos)) return 0; let n = 0, i = 0;
+  for (const v of data.videos) {
+    i++; if (!v || !v.meta || !v.meta.id || !v.file) continue;
+    const cid = map ? map[v.meta.cid || 'main'] : (v.meta.cid || 'main'); if (!cid) continue;
+    const b = await zip.blob(v.file, v.mime); if (!b) continue;
+    const id = map ? uid() : v.meta.id, type = v.mime || v.meta.mime || 'video/mp4', meta = Object.assign({}, v.meta, { id, cid, mime: type });
+    if (onProg) onProg(i, data.videos.length);
+    await vfilePut({ id, blob: new Blob([b], { type }) }); await videoPut(meta); n++;
+  }
+  return n;
+}
+async function vidStats() { try { const l = await videosAll(); return { n: l.length, size: l.reduce((s, m) => s + (m.size || 0), 0) }; } catch (e) { return { n: 0, size: 0 }; } }
+function backupVidNote() {
+  const el = h('p', { class: 'mute bkvid', hidden: '' });
+  vidStats().then(s => {
+    if (!s.n) return; el.hidden = false;
+    el.textContent = 'Mit ' + plural(s.n, 'eigenem Video', 'eigenen Videos') + ' (' + fmtSize(s.size) + ') wird die Sicherung eine ZIP-Datei. Am besten über „In Dateien sichern“ in iCloud Drive oder per AirDrop ablegen, für E-Mail ist sie zu groß.';
+  });
+  return el;
+}
+
+/* ============ v39: Monatsbild – jeden Monatstag ein Foto in gleicher Pose, Raster und Zeitraffer-Video ============
+   Monatsbilder sind normale Fotos mit m.mb = Alter in Monaten (0 = Neugeboren, 1–24, danach 36, 48 …) im Album „Monatsbilder“.
+   Damit sind sie automatisch in Galerie, Sicherung und (mit „Fotos“) in der Familien-Datei. */
+const MB_ALBUM = 'Monatsbilder';
+const MB_FONT = 'ui-rounded, -apple-system, BlinkMacSystemFont, "SF Pro Rounded", system-ui, sans-serif';
+const mbSlots = () => { const o = []; for (let i = 0; i <= 24; i++) o.push(i); for (let y = 3; y <= 18; y++) o.push(y * 12); return o; };
+const mbLabel = n => n === 0 ? 'Neugeboren' : n === 1 ? '1 Monat' : n === 12 ? '1 Jahr' : n < 24 ? n + ' Monate' : n % 12 === 0 ? (n / 12) + ' Jahre' : n + ' Monate';
+const mbName = () => S.profile.vorname || 'Dein Kind';
+function mbBirth() { const g = S.profile.geburtsdatum; return g && /^\d{4}-\d{2}-\d{2}$/.test(g) ? g : null; }
+function mbDue(n) { const b = parseD(mbBirth()), y = b.getFullYear(), m = b.getMonth() + n, last = new Date(y, m + 1, 0).getDate(); return isoOf(new Date(y, m, Math.min(b.getDate(), last))); }
+function mbCur() { if (!mbBirth()) return null; const t = isoToday(); let c = null; for (const n of mbSlots()) { if (mbDue(n) <= t) c = n; else break; } return c; }
+function mbNext() { if (!mbBirth()) return null; const t = isoToday(); return mbSlots().find(n => mbDue(n) > t); }
+function mbOf() { const r = {}; S.photos.forEach(p => { if (typeof p.mb === 'number' && (!r[p.mb] || (p.created || 0) > (r[p.mb].created || 0))) r[p.mb] = p; }); return r; }
+function mbList() { const m = mbOf(); return Object.keys(m).map(Number).sort((a, b) => a - b).map(n => m[n]); }
+function mbDueNow() {
+  const n = mbCur(); if (n == null || mbOf()[n]) return null;
+  const days = -daysTo(mbDue(n)); return days <= 6 ? { n, due: mbDue(n), days } : null;
+}
+async function mbAssign(id, n) {
+  const p = S.photos.find(x => x.id === id); if (!p) return;
+  for (const o of S.photos.filter(x => x.mb === n && x.id !== id)) { delete o.mb; if (o.album === MB_ALBUM) o.album = ''; await photoPut(o); }
+  p.mb = n; if (!p.album) p.album = MB_ALBUM; await photoPut(p);
+}
+async function mbUnassign(p) { delete p.mb; if (p.album === MB_ALBUM) p.album = ''; await photoPut(p); }
+async function mbSaveFile(file, n, datum) {
+  const ids = await addPhotos([file], { silent: true, album: MB_ALBUM, datum });
+  if (!ids || !ids.length) throw new Error('Foto konnte nicht gespeichert werden');
+  await mbAssign(ids[0], n); coinEarn('photo', 1);
+  toast('Monatsbild „' + mbLabel(n) + '“ gespeichert'); Haptic.fire('success'); mbRefresh();
+}
+function mbReplaceOk(n) { return !mbOf()[n] || confirm('Für „' + mbLabel(n) + '“ gibt es schon ein Monatsbild. Ersetzen? Das alte Foto bleibt in der Galerie.'); }
+function mbPick(n, capture) {
+  if (!mbReplaceOk(n)) return;
+  const inp = h('input', { type: 'file', accept: 'image/*', style: 'display:none', onchange: async e => {
+    const f = e.target.files && e.target.files[0]; inp.remove(); if (!f) return;
+    const due = mbDue(n), fd = f.lastModified ? isoOf(new Date(f.lastModified)) : isoToday();
+    try { await mbSaveFile(f, n, fd < due || fd > isoToday() ? due : fd); } catch (err) { toast(err.message || 'Fehler beim Speichern'); }
+  } });
+  if (capture) inp.setAttribute('capture', 'environment');
+  document.body.append(inp); suppressLockUntil = Date.now() + 180000; inp.click();
+}
+function mbFromApp(n) {
+  if (!mbReplaceOk(n)) return;
+  const due = mbDue(n), list = S.photos.slice().sort((a, b) => Math.abs(parseD(a.datum || due) - parseD(due)) - Math.abs(parseD(b.datum || due) - parseD(due))).slice(0, 60);
+  let ov = null;
+  const body = h('div', { class: 'stack' }, h('p', { class: 'mute' }, 'Fotos rund um den ' + fmtD(due) + ' stehen oben.'),
+    list.length ? h('div', { class: 'mbpick' }, list.map(p => h('button', { class: 'mbpick-t', type: 'button', 'aria-label': 'Foto vom ' + fmtD(p.datum) + ' wählen', onclick: async () => { await mbAssign(p.id, n); ov.close(); toast('Monatsbild „' + mbLabel(n) + '“ gesetzt'); mbRefresh(); } },
+      h('img', { src: p.thumb, alt: '', loading: 'lazy' }), h('small', null, p.datum ? fmtD(p.datum) : '')))) : h('p', { class: 'empty' }, 'Noch keine Fotos in der Galerie.'));
+  ov = openFull({ title: mbLabel(n) + ': Foto wählen', body });
+}
+function mbAddSheet(n) {
+  actionSheet('Monatsbild ' + mbLabel(n), 'Fällig am ' + fmtD(mbDue(n)), [
+    { label: '📷 Mit Kamera-Hilfe fotografieren', onclick: () => mbCamera(n) },
+    { label: 'Aus der Mediathek wählen', ghost: true, onclick: () => mbPick(n) },
+    { label: 'Aus der Galerie der App', ghost: true, onclick: () => mbFromApp(n) }
+  ]);
+}
+function mbTileSheet(n) {
+  const p = mbOf()[n]; if (!p) { if (!famMode()) mbAddSheet(n); return; }
+  const list = mbList(), idx = list.indexOf(p), acts = [
+    { label: 'Ansehen', onclick: () => openPhotoViewer(list, idx) },
+    { label: 'Mit Rahmen teilen', ghost: true, onclick: () => mbShareFramed(p) }];
+  if (!famMode()) acts.push({ label: 'Neu fotografieren', ghost: true, onclick: () => mbCamera(n) }, { label: 'Anderes Foto wählen', ghost: true, onclick: () => mbAddSheet(n) },
+    { label: 'Aus Monatsbildern entfernen', ghost: true, onclick: async () => { await mbUnassign(p); toast('Entfernt. Das Foto bleibt in der Galerie.'); mbRefresh(); } });
+  actionSheet(mbLabel(n), (p.datum ? 'Aufgenommen am ' + fmtD(p.datum) : '') , acts);
+}
+
+/* --- Bilder laden und Rahmen zeichnen --- */
+async function mbImg(p) {
+  try { const rec = await pfileGet(p.id); if (rec) return await loadImg(new Blob([rec.data], { type: 'image/jpeg' })); } catch (e) {}
+  return await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => rej(new Error('Bild nicht lesbar')); i.src = p.thumb; });
+}
+function mbCover(x, im, X, Y, W, H, a) {
+  const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, s = Math.max(W / iw, H / ih), sw = W / s, sh = H / s;
+  x.save(); if (a != null) x.globalAlpha = a; x.drawImage(im, (iw - sw) / 2, (ih - sh) / 2, sw, sh, X, Y, W, H); x.restore();
+}
+async function mbFramed(p) {
+  const W = 1080, H = 1350, c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
+  x.fillStyle = '#fffdf8'; x.fillRect(0, 0, W, H);
+  const im = await mbImg(p), m = 54, ph = H - m - 250;
+  x.save(); x.beginPath(); if (x.roundRect) x.roundRect(m, m, W - 2 * m, ph, 18); else x.rect(m, m, W - 2 * m, ph); x.clip(); mbCover(x, im, m, m, W - 2 * m, ph); x.restore();
+  x.fillStyle = '#2f7d6d'; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
+  x.font = '700 92px ' + MB_FONT; x.fillStyle = '#1c1b19'; x.fillText(mbLabel(p.mb), W / 2, H - 132);
+  x.font = '500 38px ' + MB_FONT; x.fillStyle = '#7a766f'; x.fillText(mbName() + ' · ' + fmtD(p.datum || mbDue(p.mb)), W / 2, H - 72);
+  x.fillStyle = '#e8a0b4'; x.beginPath(); const hx = W - m - 40, hy = H - 150, s = 20; x.moveTo(hx, hy + s * .9); x.bezierCurveTo(hx - s * 1.5, hy - s * .1, hx - s * .8, hy - s * 1.1, hx, hy - s * .4); x.bezierCurveTo(hx + s * .8, hy - s * 1.1, hx + s * 1.5, hy - s * .1, hx, hy + s * .9); x.fill();
+  return await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9));
+}
+async function mbShareFramed(p) {
+  try { const b = await mbFramed(p); await shareOrDownload(new File([b], gFileSafe(mbName()) + '-' + gFileSafe(mbLabel(p.mb)) + '.jpg', { type: 'image/jpeg' }), 'Monatsbild ' + mbLabel(p.mb)); }
+  catch (e) { toast('Teilen nicht möglich'); }
+}
+
+/* --- Kamera mit Hilfsbild (Vormonat halb durchsichtig) --- */
+let mbCam = null;
+async function mbCamera(n) {
+  if (!mbReplaceOk(n)) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { mbPick(n, true); return; }
+  const map = mbOf(), prevN = Object.keys(map).map(Number).filter(k => k !== n).sort((a, b) => (a < n) === (b < n) ? b - a : a < n ? -1 : 1)[0], prev = prevN != null ? map[prevN] : null;
+  let facing = ls.get('luise_mb_face') === 'user' ? 'user' : 'environment', stream = null, ghostA = prev ? 0.35 : 0, shot = null;
+  const video = h('video', { class: 'mbc-v', playsinline: '', muted: '', autoplay: '' }); video.muted = true; video.playsInline = true;
+  const ghost = h('img', { class: 'mbc-g', alt: '', hidden: !prev });
+  let gUrl = null, alive = true;
+  if (prev) { ghost.src = prev.thumb; pfileGet(prev.id).then(rec => { if (rec && alive) { gUrl = mkUrl(new Blob([rec.data], { type: 'image/jpeg' })); ghost.src = gUrl; } }).catch(() => {}); }
+  const review = h('img', { class: 'mbc-r', alt: '', hidden: '' });
+  const stage = h('div', { class: 'mbc-stage' }, video, ghost, h('div', { class: 'mbc-grid', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i')), review);
+  const gBtn = h('button', { class: 'mbc-b', type: 'button', style: prev ? null : 'visibility:hidden', onclick: () => { ghostA = ghostA >= 0.55 ? 0 : ghostA === 0 ? 0.2 : ghostA < 0.3 ? 0.35 : 0.55; paintG(); } });
+  const paintG = () => { ghost.style.opacity = String(ghostA); gBtn.textContent = ghostA ? 'Hilfsbild ' + Math.round(ghostA * 100) + ' %' : 'Hilfsbild aus'; video.style.transform = ghost.style.transform = facing === 'user' ? 'scaleX(-1)' : ''; };
+  const hint = h('div', { class: 'mbc-hint' }, prev ? 'Lege ' + mbName() + ' so hin wie auf dem Hilfsbild von „' + mbLabel(prevN) + '“.' : 'Wähle eine Pose und einen Ort, die du jeden Monat wiederholen kannst.');
+  const stop = () => { if (stream) stream.getTracks().forEach(t => t.stop()); stream = null; };
+  const close = () => { alive = false; stop(); document.removeEventListener('visibilitychange', onVis); back.remove(); mbCam = null; if (gUrl) { const u = gUrl; gUrl = null; setTimeout(() => rmUrl(u), 500); } };
+  const onVis = () => { if (document.hidden) stop(); else if (!shot) start(); };
+  const start = async () => {
+    stop();
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: facing }, width: { ideal: 1920 }, height: { ideal: 1920 } } });
+      video.srcObject = stream; await video.play().catch(() => {}); paintG();
+    } catch (e) { close(); toast('Kamera nicht verfügbar. Wähle das Foto aus der Mediathek.'); mbPick(n); }
+  };
+  const take = async () => {
+    const vw = video.videoWidth, vh = video.videoHeight; if (!vw || !vh) { toast('Kamera startet noch …'); return; }
+    let cw = vw, ch = vh; if (vw / vh > 0.8) cw = vh * 0.8; else ch = vw / 0.8;
+    const k = Math.min(1, 2000 / Math.max(cw, ch)), c = document.createElement('canvas'); c.width = Math.round(cw * k); c.height = Math.round(ch * k);
+    const x = c.getContext('2d'); if (facing === 'user') { x.translate(c.width, 0); x.scale(-1, 1); }
+    x.drawImage(video, (vw - cw) / 2, (vh - ch) / 2, cw, ch, 0, 0, c.width, c.height);
+    shot = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.9)); if (!shot) { toast('Aufnahme fehlgeschlagen'); return; }
+    Haptic.fire('medium'); stage.classList.add('flash'); setTimeout(() => stage.classList.remove('flash'), 300);
+    review.src = c.toDataURL('image/jpeg', 0.8); review.hidden = false; stop(); bar.hidden = true; rbar.hidden = false;
+  };
+  const shutter = h('button', { class: 'mbc-shot', type: 'button', 'aria-label': 'Foto aufnehmen', onclick: take });
+  const flip = h('button', { class: 'mbc-b', type: 'button', 'aria-label': 'Kamera wechseln', onclick: () => { facing = facing === 'user' ? 'environment' : 'user'; ls.set('luise_mb_face', facing); start(); } }, '⟲ Wechseln');
+  const bar = h('div', { class: 'mbc-bar' }, gBtn, shutter, flip);
+  const rbar = h('div', { class: 'mbc-bar', hidden: '' },
+    h('button', { class: 'btn ghost', type: 'button', onclick: () => { shot = null; review.hidden = true; rbar.hidden = true; bar.hidden = false; start(); } }, 'Nochmal'),
+    h('button', { class: 'btn', type: 'button', 'data-act': 'mb-keep', onclick: async e => {
+      e.currentTarget.disabled = true; const f = new File([shot], 'Monatsbild-' + n + '.jpg', { type: 'image/jpeg', lastModified: Date.now() });
+      close(); try { await mbSaveFile(f, n, isoToday()); } catch (err) { toast(err.message || 'Fehler beim Speichern'); }
+    } }, 'Übernehmen'));
+  const back = h('div', { class: 'mbcam' },
+    h('div', { class: 'mbc-top' }, h('button', { class: 'mbc-x', type: 'button', 'aria-label': 'Schließen', onclick: close }, '✕'), h('b', null, 'Monatsbild · ' + mbLabel(n)), h('span', { class: 'nav-spacer' })),
+    stage, hint, bar, rbar);
+  document.body.append(back); mbCam = { close, take, el: back };
+  document.addEventListener('visibilitychange', onVis);
+  suppressLockUntil = Date.now() + 300000; paintG(); await start();
+  return mbCam;
+}
+
+/* --- Zeitraffer-Video --- */
+const MB_TEMPO = [['ruhig', 'Ruhig', 1.4], ['normal', 'Normal', 0.9], ['schnell', 'Schnell', 0.5]];
+const mbVidCfg = () => { let c = {}; try { c = JSON.parse(ls.get('luise_mb_vid') || '{}') || {}; } catch (e) {} return { tempo: MB_TEMPO.some(t => t[0] === c.tempo) ? c.tempo : 'normal', music: AMB_STYLES.some(m => m[0] === c.music) ? c.music : 'spieluhr' }; };
+const MB_INFO = { state: 'idle', mime: '', audio: false, frames: 0 };
+async function mbRecord(list, cfg, cv, ac, onProg) {
+  if (!window.MediaRecorder || !cv.captureStream) throw new Error('Videoaufnahme wird auf diesem Gerät nicht unterstützt');
+  const W = 1080, H = 1350; cv.width = W; cv.height = H; const x = cv.getContext('2d');
+  const ims = []; for (let i = 0; i < list.length; i++) { if (onProg) onProg(0, 'Bilder laden ' + (i + 1) + '/' + list.length); try { ims.push(await mbImg(list[i])); } catch (e) { ims.push(null); } }
+  const per = (MB_TEMPO.find(t => t[0] === cfg.tempo) || MB_TEMPO[1])[2], fade = Math.min(0.45, per * 0.45), intro = 1.8, outro = 2.2, N = list.length, total = intro + N * per + outro;
+  const nm = mbName(), first = list[0], last = list[N - 1];
+  const txt = (s, X, Y, font, col, al) => { x.font = font; x.fillStyle = col; x.textAlign = al || 'center'; x.fillText(s, X, Y); };
+  const cream = a => { x.save(); x.globalAlpha = a; x.fillStyle = '#f4f2ee'; x.fillRect(0, 0, W, H); x.restore(); };
+  const titleCard = (a, top, sub) => { cream(a); x.save(); x.globalAlpha = a; txt(top, W / 2, H / 2 - 10, '700 104px ' + MB_FONT, '#1c1b19'); txt(sub, W / 2, H / 2 + 62, '500 40px ' + MB_FONT, '#7a766f'); x.fillStyle = '#2f7d6d'; x.fillRect(W / 2 - 40, H / 2 + 110, 80, 6); x.restore(); };
+  const photo = (i, a) => { const im = ims[i]; if (im) mbCover(x, im, 0, 0, W, H, a); else { x.save(); x.globalAlpha = a; x.fillStyle = '#ddd'; x.fillRect(0, 0, W, H); x.restore(); } };
+  const label = (i, a) => {
+    x.save(); x.globalAlpha = a; const g = x.createLinearGradient(0, H - 420, 0, H); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.55)'); x.fillStyle = g; x.fillRect(0, H - 420, W, 420);
+    x.shadowColor = 'rgba(0,0,0,.35)'; x.shadowBlur = 18; txt(mbLabel(list[i].mb), 70, H - 150, '800 112px ' + MB_FONT, '#fff', 'left');
+    x.shadowBlur = 10; txt(nm + ' · ' + fmtD(list[i].datum || mbDue(list[i].mb)), 72, H - 92, '600 38px ' + MB_FONT, 'rgba(255,255,255,.92)', 'left'); x.shadowBlur = 0;
+    const bw = W - 140, k = N > 1 ? i / (N - 1) : 1; x.fillStyle = 'rgba(255,255,255,.35)'; x.fillRect(70, H - 54, bw, 6); x.fillStyle = '#fff'; x.fillRect(70, H - 54, Math.max(6, bw * k), 6); x.restore();
+  };
+  const range = fmtD(first.datum || mbDue(first.mb)) + ' – ' + fmtD(last.datum || mbDue(last.mb));
+  const drawAt = t => {
+    x.globalAlpha = 1; x.fillStyle = '#000'; x.fillRect(0, 0, W, H);
+    if (t < intro) { photo(0, 1); titleCard(t < intro - 0.5 ? 1 : (intro - t) / 0.5, nm, 'Monat für Monat'); return; }
+    const u = t - intro;
+    if (u < N * per) {
+      const i = Math.min(N - 1, Math.floor(u / per)), loc = u - i * per, f = i < N - 1 && loc > per - fade ? (loc - (per - fade)) / fade : 0;
+      photo(i, 1); if (f > 0) photo(i + 1, f);
+      label(f > 0.5 ? i + 1 : i, 1); return;
+    }
+    const v = u - N * per; photo(N - 1, 1); label(N - 1, Math.max(0, 1 - v / 0.6));
+    if (v > 0.5) titleCard(Math.min(1, (v - 0.5) / 0.6), 'Fortsetzung folgt', range);
+  };
+  drawAt(0);
+  const stream = cv.captureStream(30);
+  let au = null;
+  if (cfg.music !== 'aus' && ac) {
+    try {
+      const c = await ambRender(cfg.music), len = c.chans[0].length, buf = ac.createBuffer(2, len, c.sr), k = c.peak > 0 ? 0.8 / c.peak : 0;
+      for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch), s = c.chans[ch]; for (let i = 0; i < len; i++) d[i] = s[i] * k; }
+      const src = ac.createBufferSource(), g = ac.createGain(), dst = ac.createMediaStreamDestination(); src.buffer = buf; src.loop = true; g.gain.value = 0.0001;
+      src.connect(g); g.connect(dst); dst.stream.getAudioTracks().forEach(tr => stream.addTrack(tr)); au = { src, g };
+    } catch (e) { au = null; }
+  }
+  const types = ['video/mp4;codecs=avc1.42E01E,mp4a.40.2', 'video/mp4;codecs=avc1', 'video/mp4', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+  const mime = types.find(t => { try { return MediaRecorder.isTypeSupported(t); } catch (e) { return false; } }) || '';
+  const rec = new MediaRecorder(stream, Object.assign({ videoBitsPerSecond: 6000000 }, mime ? { mimeType: mime } : {}));
+  const chunks = []; rec.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+  const stopped = new Promise(r => { rec.onstop = r; });
+  MB_INFO.state = 'recording'; MB_INFO.mime = mime; MB_INFO.audio = !!au; MB_INFO.frames = 0;
+  rec.start(500);
+  if (au) { const t0 = ac.currentTime; au.g.gain.setValueAtTime(0.0001, t0); au.g.gain.exponentialRampToValueAtTime(1, t0 + 1.2); au.g.gain.setValueAtTime(1, t0 + total - 1.6); au.g.gain.linearRampToValueAtTime(0.0001, t0 + total); au.src.start(t0); }
+  const t0 = performance.now();
+  await new Promise(res => {
+    const step = () => { const t = (performance.now() - t0) / 1000; drawAt(Math.min(t, total)); MB_INFO.frames++; if (onProg) onProg(Math.min(1, t / total), 'Video wird aufgenommen'); if (t >= total) res(); else if (document.hidden) setTimeout(step, 33); else requestAnimationFrame(step); };
+    step();
+  });
+  await new Promise(r => setTimeout(r, 150));
+  rec.stop(); await stopped;
+  stream.getTracks().forEach(t => t.stop()); if (au) { try { au.src.stop(); } catch (e) {} }
+  MB_INFO.state = 'done';
+  const type = ((rec.mimeType || mime || 'video/webm').split(';')[0]) || 'video/webm';
+  return { blob: new Blob(chunks, { type }), dur: total };
+}
+function mbVideoSheet() {
+  const list = mbList(); if (list.length < 2) { toast('Für ein Video brauchst du mindestens zwei Monatsbilder'); return; }
+  const cfg = mbVidCfg(), save = () => ls.set('luise_mb_vid', JSON.stringify(cfg));
+  const segT = () => seg(MB_TEMPO.map(t => [t[0], t[1]]), cfg.tempo, id => { cfg.tempo = id; save(); tWrap.replaceChildren(segT()); dur.textContent = durTxt(); });
+  const tWrap = h('div', null, segT());
+  const durTxt = () => 'Länge etwa ' + Math.round(1.8 + 2.2 + list.length * (MB_TEMPO.find(t => t[0] === cfg.tempo) || MB_TEMPO[1])[2]) + ' Sekunden · ' + plural(list.length, 'Monatsbild', 'Monatsbilder');
+  const dur = h('small', { class: 'mute' }, durTxt());
+  const mus = h('select', { onchange: e => { cfg.music = e.target.value; save(); } }, AMB_STYLES.map(([v, l]) => h('option', { value: v, selected: v === cfg.music }, v === 'aus' ? 'Ohne Musik' : l)));
+  const cv = h('canvas', { class: 'mbv-cv', width: 1080, height: 1350 });
+  const bar = h('div', { class: 'mbv-bar' }, h('i')), st = h('small', { class: 'mute mbv-st' }, '');
+  const out = h('div', { class: 'stack' });
+  const go2 = h('button', { class: 'btn wide', type: 'button', 'data-act': 'mb-rec', onclick: async () => {
+    let ac = null; try { const AC = window.AudioContext || window.webkitAudioContext; if (AC && cfg.music !== 'aus') { ac = new AC(); ac.resume(); } } catch (e) { ac = null; }
+    go2.disabled = true; out.replaceChildren(); cvBox.hidden = false; suppressLockUntil = Date.now() + 300000;
+    try {
+      const r = await mbRecord(list, cfg, cv, ac, (p, s) => { bar.firstChild.style.width = Math.round(p * 100) + '%'; st.textContent = s + (p ? ' · ' + Math.round(p * 100) + ' %' : ''); });
+      const ext = /mp4/.test(r.blob.type) ? 'mp4' : 'webm', last = list[list.length - 1];
+      const file = new File([r.blob], gFileSafe(mbName()) + '-Monat-fuer-Monat-' + gFileSafe(mbLabel(last.mb)) + '.' + ext, { type: r.blob.type });
+      const url = mkUrl(file); st.textContent = 'Fertig · ' + fmtSize(file.size); cvBox.hidden = true;
+      const title = mbName() + ' Monat für Monat · bis ' + mbLabel(last.mb);
+      const saveBtn = famMode() ? null : h('button', { class: 'btn ghost wide', type: 'button', 'data-act': 'mb-vsave', onclick: async e => {
+        const b = e.currentTarget; b.disabled = true;
+        try { const pm = await videoPoster(file), id = uid(), meta = { id, cid: CID, titel: title, datum: isoToday(), mime: file.type, size: file.size, dur: pm.dur || r.dur, poster: pm.poster, mbVideo: 1 };
+          await vfilePut({ id, blob: new Blob([file], { type: file.type }) }); await videoPut(meta); S.videos.push(meta); b.textContent = 'In „Eigene Videos“ gespeichert ✓'; toast('Video gespeichert'); }
+        catch (err) { b.disabled = false; toast('Speichern fehlgeschlagen. Ist der Speicher voll?'); }
+      } }, 'In „Eigene Videos“ speichern');
+      out.replaceChildren(h('video', { class: 'mbv-out', src: url, controls: '', playsinline: '', loop: '' }),
+        h('button', { class: 'btn wide', type: 'button', onclick: () => shareOrDownload(file, title) }, 'Teilen (Telegram, WhatsApp …)'), saveBtn);
+    } catch (e) { console.error(e); cvBox.hidden = true; toast(e.message || 'Video konnte nicht erstellt werden'); }
+    if (ac) { try { ac.close(); } catch (e) {} }
+    go2.disabled = false; go2.textContent = 'Neu erstellen';
+  } }, '🎬 Video erstellen');
+  const cvBox = h('div', { class: 'stack mbv-box', hidden: '' }, cv, bar, st);
+  const body = h('div', { class: 'stack mbv' },
+    h('div', { class: 'card stack' }, h('b', null, 'Tempo'), tWrap, dur,
+      h('label', { class: 'field' }, h('span', { class: 'lbl' }, 'Musik'), mus),
+      h('p', { class: 'fine' }, 'Das Video wird in Echtzeit erstellt. Lass die App so lange geöffnet.')),
+    go2, cvBox, out);
+  openFull({ title: 'Zeitraffer-Video', body });
+}
+
+/* --- Kalender-Erinnerung jeden Monatstag --- */
+function mbIcs() {
+  if (!mbBirth()) { toast('Trag zuerst das Geburtsdatum ein'); return; }
+  const b = parseD(mbBirth()), day = b.getDate(), nx = mbNext(); if (nx == null) { toast('Alle Monatsbilder sind schon fällig gewesen'); return; }
+  const start = parseD(mbDue(nx)), end = parseD(mbDue(24)), n = new Date(), nm = mbName();
+  const stamp = `${n.getUTCFullYear()}${pad2(n.getUTCMonth() + 1)}${pad2(n.getUTCDate())}T${pad2(n.getUTCHours())}${pad2(n.getUTCMinutes())}${pad2(n.getUTCSeconds())}Z`;
+  const next = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 1);
+  const rule = nx <= 24 ? `RRULE:FREQ=MONTHLY;BYMONTHDAY=${day > 28 ? -1 : day};UNTIL=${ymd(end)}` : `RRULE:FREQ=YEARLY;UNTIL=${ymd(parseD(mbDue(216)))}`;
+  const ev = ['BEGIN:VEVENT', `UID:mb-${uid()}@luise-identitaet`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${ymd(start)}`, `DTEND;VALUE=DATE:${ymd(next)}`, rule,
+    `SUMMARY:${icsEsc('📸 Monatsbild ' + nm)}`, `DESCRIPTION:${icsEsc('Heute ist Monatstag. Mach das Monatsbild in der MyLuiseApp: Fotos › Monatsbilder › Mit Kamera-Hilfe.')}`,
+    'BEGIN:VALARM', 'TRIGGER;RELATED=START:PT9H', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc('Monatsbild ' + nm)}`, 'END:VALARM', 'END:VEVENT'];
+  if (nx <= 24) {
+    const ys = parseD(mbDue(36)), yn = new Date(ys.getFullYear(), ys.getMonth(), ys.getDate() + 1);
+    ev.push('BEGIN:VEVENT', `UID:mb-${uid()}@luise-identitaet`, `DTSTAMP:${stamp}`, `DTSTART;VALUE=DATE:${ymd(ys)}`, `DTEND;VALUE=DATE:${ymd(yn)}`, `RRULE:FREQ=YEARLY;UNTIL=${ymd(parseD(mbDue(216)))}`,
+      `SUMMARY:${icsEsc('📸 Jahresbild ' + nm)}`, `DESCRIPTION:${icsEsc('Ab 3 Jahren gibt es einmal im Jahr ein Bild in gewohnter Pose.')}`, 'BEGIN:VALARM', 'TRIGGER;RELATED=START:PT9H', 'ACTION:DISPLAY', `DESCRIPTION:${icsEsc('Jahresbild ' + nm)}`, 'END:VALARM', 'END:VEVENT');
+  }
+  const text = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MyLuiseApp//DE', 'CALSCALE:GREGORIAN', ...ev, 'END:VCALENDAR'].join('\r\n');
+  shareOrDownload(new File([text], 'Monatsbild-Erinnerung.ics', { type: 'text/calendar' }), 'Monatsbild-Erinnerung');
+  return text;
+}
+
+/* --- Ansichten --- */
+let mbOv = null;
+const mbRefresh = () => { if (mbOv && mbOv.paint) mbOv.paint(); render(); };
+function mbBody() {
+  const fam = famMode(), nm = mbName();
+  if (!mbBirth()) return [h('div', { class: 'card stack' }, h('b', null, 'Geburtsdatum fehlt'), h('p', { class: 'mute' }, 'Trag im Profil das Geburtsdatum ein. Dann weiß die App, an welchem Tag jeden Monat das Monatsbild von ' + nm + ' fällig ist.'))];
+  const map = mbOf(), cur = mbCur(), nx = mbNext(), have = Object.keys(map).length, due = mbDueNow();
+  const day = parseD(mbBirth()).getDate();
+  const out = [];
+  const nxD = nx != null ? daysTo(mbDue(nx)) : null;
+  out.push(h('div', { class: 'card stack mbhero' },
+    h('div', { class: 'mbh-h' }, h('span', { class: 'mbh-i', 'aria-hidden': 'true' }, '📸'), h('div', null,
+      h('b', null, cur == null ? nm + ' ist noch nicht geboren' : nm + (cur === 0 ? ' ist neugeboren' : ' ist ' + mbLabel(cur) + ' alt')),
+      h('small', { class: 'mute' }, plural(have, 'Monatsbild', 'Monatsbilder') + (nx != null ? ' · nächstes am ' + fmtD(mbDue(nx)) + (nxD === 1 ? ' (morgen)' : ' (in ' + nxD + ' Tagen)') : '')))),
+    !fam && cur != null ? (map[cur]
+      ? h('p', { class: 'mbh-ok' }, '✓ „' + mbLabel(cur) + '“ ist im Kasten.')
+      : h('div', { class: 'stack' }, h('p', { class: 'mbh-due' }, due && due.days === 0 ? 'Heute ist Monatstag!' : 'Für „' + mbLabel(cur) + '“ fehlt noch das Bild.'),
+          h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', 'data-act': 'mb-cam', onclick: () => mbCamera(cur) }, '📷 Mit Kamera-Hilfe'), h('button', { class: 'btn ghost', type: 'button', onclick: () => mbAddSheet(cur) }, 'Foto wählen')))) : null,
+    !fam ? h('p', { class: 'fine' }, 'Tipp: Immer am gleichen Ort, im gleichen Licht und mit demselben Kuscheltier. Die Kamera-Hilfe blendet das letzte Monatsbild halb durchsichtig ein.') : null));
+  const slots = mbSlots().filter(n => cur != null && n <= cur);
+  if (nx != null) slots.push(nx);
+  out.push(h('div', { class: 'mbgrid' }, slots.map(n => {
+    const p = map[n], fut = cur == null || n > cur;
+    if (p) return h('button', { class: 'mbt', type: 'button', 'data-mb': n, 'aria-label': mbLabel(n) + ' öffnen', onclick: () => mbTileSheet(n) }, hiImg(h('img', { src: p.thumb, alt: '' }), p.id), h('span', { class: 'mbt-l' }, mbLabel(n)));
+    return h('button', { class: 'mbt empty' + (fut ? ' fut' : ''), type: 'button', 'data-mb': n, disabled: fut || fam ? '' : null, onclick: () => mbAddSheet(n) },
+      h('span', { class: 'mbt-p', 'aria-hidden': 'true' }, fut ? '⏳' : '+'), h('b', null, mbLabel(n)), h('small', null, fut ? 'ab ' + fmtD(mbDue(n)) : fam ? 'kein Bild' : 'nachtragen'));
+  })));
+  out.push(h('div', { class: 'card stack' }, h('b', null, 'Zeitraffer-Video'), h('p', { class: 'mute' }, have >= 2 ? 'Alle Monatsbilder hintereinander, mit Überblendung, Alter und Musik. Zum Teilen mit der Familie.' : 'Ab zwei Monatsbildern kannst du daraus ein Video machen.'),
+    h('button', { class: 'btn wide', type: 'button', 'data-act': 'mb-video', disabled: have < 2 ? '' : null, onclick: mbVideoSheet }, '🎬 Zeitraffer-Video erstellen')));
+  if (!fam) out.push(h('div', { class: 'card stack' }, h('b', null, 'Erinnerung jeden ' + day + '.'),
+    h('p', { class: 'mute' }, 'Am Monatstag erscheint auf der Startseite ein Hinweis. Zuverlässig auch bei geschlossener App: als Serientermin in deinem Kalender, mit Erinnerung um 9 Uhr.'),
+    h('button', { class: 'btn ghost wide', type: 'button', 'data-act': 'mb-ics', onclick: mbIcs }, 'In den Kalender legen')));
+  return out;
+}
+function openMonthly() {
+  const body = h('div', { class: 'stack mbpage' });
+  mbOv = openFull({ title: 'Monatsbilder', body, onClose: () => { mbOv = null; } });
+  mbOv.paint = () => body.replaceChildren(...mbBody()); mbOv.paint();
+  return mbOv;
+}
+function mbNudge() {
+  if (famMode() || homeEdit) return null; const d = mbDueNow(); if (!d) return null;
+  const key = CID + ':' + d.n + '|' + isoToday(); if (ls.get('luise_mb_skip') === key) return null;
+  const nm = mbName(), t = d.n === 0 ? 'Das erste Monatsbild: Neugeboren' : d.days === 0 ? nm + ' ist heute ' + mbLabel(d.n) + ' alt!' : 'Monatsbild „' + mbLabel(d.n) + '“ fehlt noch';
+  const sub = d.days === 0 ? 'Zeit für das Monatsbild in gewohnter Pose.' : 'Monatstag war ' + (d.days === 1 ? 'gestern' : 'vor ' + d.days + ' Tagen') + '. Du kannst es noch nachholen.';
+  return h('div', { class: 'card stack mbnudge' },
+    h('div', { class: 'mbh-h' }, h('span', { class: 'mbh-i', 'aria-hidden': 'true' }, '📸'), h('div', null, h('b', null, t), h('small', { class: 'mute' }, sub))),
+    h('div', { class: 'btn-row' }, h('button', { class: 'btn', type: 'button', 'data-act': 'mbn-cam', onclick: () => mbCamera(d.n) }, 'Fotografieren'), h('button', { class: 'btn ghost', type: 'button', onclick: () => mbAddSheet(d.n) }, 'Foto wählen'),
+      h('button', { class: 'linkbtn', type: 'button', 'data-act': 'mbn-skip', onclick: () => { ls.set('luise_mb_skip', key); render(); } }, 'Heute nicht')));
+}
+function mbEntry() {
+  if (!mbBirth()) return null;
+  const l = mbList(), d = mbDueNow(), fam = famMode();
+  if (fam && !l.length) return null;
+  return h('button', { class: 'card mbentry', type: 'button', 'data-act': 'mb-open', onclick: openMonthly },
+    h('span', { class: 'mbe-th', 'aria-hidden': 'true' }, l.length ? l.slice(-4).map(p => h('img', { src: p.thumb, alt: '' })) : h('span', { class: 'mbe-ph' }, '📸')),
+    h('span', { class: 'mbe-tx' }, h('b', null, 'Monatsbilder'), h('small', null, l.length ? plural(l.length, 'Bild', 'Bilder') + (d && !fam ? ' · „' + mbLabel(d.n) + '“ ist fällig' : ' · Zeitraffer-Video') : 'Jeden Monat ein Foto in gleicher Pose')),
+    chev());
+}
+function wMonat(w, sz) {
+  const l = mbList(), last = l[l.length - 1], d = famMode() ? null : mbDueNow();
+  if (!mbBirth()) return famMode() ? null : miniCard('Monatsbild', 'Geburtsdatum fehlt', 'Im Profil eintragen', openMonthly);
+  if (!last) return famMode() ? null : miniCard('Monatsbild', d ? 'Heute fällig' : 'Jetzt starten', 'Jeden ' + parseD(mbBirth()).getDate() + '. ein Foto', openMonthly);
+  return h('button', { class: 'card mini wphoto wmb' + (sz === 'l' ? ' big' : sz === 'm' ? ' wide' : ''), type: 'button', onclick: openMonthly, 'aria-label': 'Monatsbilder öffnen' },
+    hiImg(h('img', { src: last.thumb, alt: '' }), last.id), h('span', { class: 'wmb-tag' + (d ? ' due' : '') }, d ? '📸 ' + mbLabel(d.n) + ' fällig' : mbLabel(last.mb)),
+    h('span', { class: 'wcap' }, h('small', null, 'Monatsbild' + (l.length > 1 ? 'er · ' + l.length : '')), last.datum ? fmtD(last.datum) : ''));
+}
+WIDGETS.monat = { name: 'Monatsbild', desc: 'Das neueste Monatsbild und was gerade fällig ist', half: true, render: wMonat };
+if (!FAM_WIDGETS.includes('monat')) FAM_WIDGETS.push('monat');
+function mbMigrate() {
+  try {
+    if (ls.get('luise_mb_w')) return; ls.set('luise_mb_w', '1');
+    const l = homeLayoutMain(); if (l.some(x => x.id === 'monat')) return;
+    const i = l.findIndex(x => x.id === 'photo'); l.splice(i >= 0 ? i + 1 : Math.min(2, l.length), 0, newWidgetItem('monat', 's')); saveLayoutMain(l);
+  } catch (e) {}
+}
+async function iconAndroid() {
+  const cv = iconDraw(iconKey(), 512, 0.8), blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+  shareOrDownload(new File([blob], 'icon-512.png', { type: 'image/png' }), 'icon-512.png');
+}
+
 async function boot() {
   try { IC.start(); } catch (e) { console.error(e); }
   makeIcon();
@@ -12751,10 +13653,11 @@ async function boot() {
   if (getLock()) await unlockFlow();
   else if (!ls.get('luise_nolock')) await setupFlow();
   await loadState();
+  mbMigrate();
   render();
 }
 boot();
-window.__luise = { visScoreVec, visPick, visTagsOf, visTagCounts, visFirstOf, visStorySlides, visBatchRun, visBatch, visRecord, visEnc, visDec, visSimilar, visShowOk, visCapTags, visPending, visConfirm, visDismiss, visIsDoc, VIS_CATS, VIS_NEUTRAL, mediaSwitch, famLayoutGet, FAM_TEMPLATES, viewVideosTab, ssvCfg, wMotive, openVideoFeed, vidItems, getPhTag: () => phTag, setPhTag: v => { phTag = v; }, getMediaSeg: () => mediaSeg, setMediaSeg: v => { mediaSeg = v; }, famGate, homeLayout, visPixels, visSceneLabels, visTextFacts, visCtx, visImpulses, visAttach, visSetMl: f => { visMlImpl = f; }, AMB_INFO, ambRender, ambWav, storyFit, ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
+window.__luise = { vfilePut, videoPut, videosAll, vfileGet, clearVideos, zipBuild, zipRead, zipIs, vidRestore, buildBackup_v38, mbOf, mbList, mbCur, mbNext, mbDue, mbLabel, mbAssign, mbCamera, mbRecord, mbVideoSheet, mbIcs, openMonthly, mbNudge, mbDueNow, MB_INFO, mbFramed, iconDraw, iconAndroid, get mbCam() { return mbCam; }, guestAll, guestWrite, guestImportPreview, guestFile, guestShare, guestSendSheet, famUpdateFile, famUpdatePreview, gClean, gKeep, famSent, famSentAdd, guestImportFile, visScoreVec, visPick, visTagsOf, visTagCounts, visFirstOf, visStorySlides, visBatchRun, visBatch, visRecord, visEnc, visDec, visSimilar, visShowOk, visCapTags, visPending, visConfirm, visDismiss, visIsDoc, VIS_CATS, VIS_NEUTRAL, mediaSwitch, famLayoutGet, FAM_TEMPLATES, viewVideosTab, ssvCfg, wMotive, openVideoFeed, vidItems, getPhTag: () => phTag, setPhTag: v => { phTag = v; }, getMediaSeg: () => mediaSeg, setMediaSeg: v => { mediaSeg = v; }, famGate, homeLayout, visPixels, visSceneLabels, visTextFacts, visCtx, visImpulses, visAttach, visSetMl: f => { visMlImpl = f; }, AMB_INFO, ambRender, ambWav, storyFit, ICON, IC, Haptic, Ov, buildBackup, importBackup, settingsSnapshot, vidParseIg, vidKey, vsoc, vidShorts, vfRebuild, addLink, vidLoadRepo, vidTopicScore, getVf: () => vf, addPhotos, openPhotoViewer, phMemories, newsRepo, newsGdelt, newsGuideBlock, HREC, HAMPEL, growChartI, coinEarn, coinBalance, coinBuy, coinStart, viewCoins, openVideoFeed, closeVideoFeed, vidParseYt, vidParseSearch, vidItems, videosAll, applyBgw, newsFetchFeed, newsLoad, newsSkeleton, widgetSizes, normItem, homeLayout, newsFromJson, newsFromXml, newsMerge, newsClean, newsStage, newsNextU, newsBingUrl, newsGoogleUrl, QUIZ, coinData, aiCfg, offersLoad, journeyFeed, memToday, monthBirthday, giftsToThank, computeAlerts, ibanCheck, isinOk, qrEncode, valOf, monthlyOf, eduStage, eduShow, geldAiText, exactAge, buildReview, reviewPeriod, aiContext, famEdges, persist, extractInfo, ocrFix, ocrPrep, ocrSauvola, ocrToGray, uPhotoDocs, hoerState, vfitAuto, trData, trTap, notifDue, notifIcs, notifCheck, notifCfg, iconKey, iconDraw, ltPlay, ltClover, LT_GAMES, LT_FACTS, LT_WORDS, buildDatasheet, buildReview, reviewPeriod, reviewData, CH: () => CH, famFilter, famSave, get state() { return S; }, go, render, buildBackup, localAnswer, AI_TOPICS, aiQ, storyBuild, storyOpen, plAll, plStats, plKm, plEdit, plOpenId, plMapApi: () => plMapApi, ssvStart, ssvCfg, bpMaker, famMode, viewChat };
 })();
 </script>
 </body>
